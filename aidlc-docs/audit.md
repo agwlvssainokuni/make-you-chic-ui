@@ -785,3 +785,13 @@
   **Context**: Build and Testステージ レビュー対応 — リンティングツール移行、ユーザーのコミット許可待ち
 
 ---
+
+## Build and Test Stage - 依存関係の再最新化
+
+**Timestamp**: 2026-08-11T15:34:19Z
+**User Input**: "改めてuninstall & installで最新化してみて。"
+**AI Response**: `npx npm-check-updates`で確認したところ、oxlint移行で`eslint-plugin-jsx-a11y`/`eslint-plugin-react`(ESLint 9上限の原因だった2パッケージ)を削除済みだったため、残る`@typescript-eslint/parser`・`eslint-plugin-react-hooks`の対応状況を再確認。両方ともESLint 10系(`^10.0.0`)に対応済みと判明したため、ESLintを`^9.39.5`→`^10.8.1`に更新。TypeScriptは`@typescript-eslint/parser`の制約(`>=4.8.4 <6.1.0`)が変わらず、かつ6.x系の最新パッチも`6.0.3`のまま変化なしのため据え置き。`rm -rf node_modules package-lock.json && npm install`でクリーン再インストールを実施。`npm audit`は脆弱性0件。
+**検証結果**: `npm run lint`(oxlint+eslint)・`tsc`・`npm test`(196/196)・`lint:css`・`format:check`・`build`すべてクリーン。ESLint 9→10のジャンプによる新規エラーは発生せず(react-hooksのみに縮小済みの構成のため影響範囲が小さかった)。
+**Context**: Build and Testステージ レビュー対応 — 依存関係の再確認、ユーザーのコミット許可待ち
+
+---

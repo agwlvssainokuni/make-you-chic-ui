@@ -130,6 +130,7 @@
 - [x] 依存関係の最新化 (2026-08-11T13:40:48Z) — `package.json`の`version`を`0.0.0`に変更、全依存を最新化(React 19/Vite 8/Vitest 4/TypeScript 6.0/ESLint 9等、一部パッケージの対応状況によりTypeScript/ESLintは各々6.0.3/9.39.5に固定)。`eslint-config-prettier`のサプライチェーン攻撃を検出し安全な`10.1.8`に完全固定。ESLint flat config移行(`eslint.config.js`)、`react-hooks/refs`新ルールへの対応、Prettier全体再フォーマットを実施。再検証済み(tsc/vitest/lint/lint:css/format:check/build全てクリーン)。詳細は`build-instructions.md`「Dependency Version Notes」参照。
 - [x] セミコロン無しスタイルへの統一 (2026-08-11T13:48:19Z) — `.prettierrc.json`の`semi`を`false`に変更しプロジェクト全体を再フォーマット。`CLAUDE.md`/`.aidlc-rule-details/`は`.prettierignore`で対象外。
 - [x] oxlintへの移行(ESLintとの併用) (2026-08-11T14:07:53Z) — 現行ルール一つ一つとの突き合わせ検証の結果、`react-hooks/refs`等14ルールがoxlint未実装と判明したため、oxlint(jsx-a11y/react/typescript相当を`.oxlintrc.json`で明示設定)+ ESLint(`eslint-plugin-react-hooks`のみに縮小)の併用構成へ移行。検証中に`Switch.tsx`の`aria-checked`欠落という実バグを発見・修正。`npm run lint`は`oxlint . && eslint .`に変更。詳細は`audit.md`該当エントリ参照。
+- [x] 依存関係の再最新化 (2026-08-11T15:34:19Z) — oxlint移行でESLint 9上限の原因だった2パッケージを削除済みだったため、ESLintを`^9.39.5`→`^10.8.1`に更新可能と判明。クリーン再インストール実施。TypeScriptは`@typescript-eslint/parser`の制約により`6.0.3`で据え置き。再検証済み(tsc/vitest 196件/lint/lint:css/format:check/build全てクリーン、npm audit脆弱性0件)。
 
 ### 🟡 OPERATIONS PHASE
 
