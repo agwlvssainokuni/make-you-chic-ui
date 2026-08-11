@@ -3,7 +3,7 @@
 ## Project Information
 - **Project Type**: Greenfield
 - **Start Date**: 2026-08-11T06:21:52Z
-- **Current Stage**: CONSTRUCTION - Unit 2(基本入力系): Functional Design
+- **Current Stage**: CONSTRUCTION - Unit 2(基本入力系): Code Generation
 
 ## Workspace State
 - **Existing Code**: No
@@ -58,11 +58,11 @@
 - [x] Code Generation (2026-08-11T09:56:20Z 承認済み) — アプリコードはワークスペースルート(`src/`, `html-demo/`)、サマリーは`aidlc-docs/construction/unit1-foundation/code/`。**Unit 1 完了**
 
 #### Unit 2: 基本入力系(Button, FormField, TextInput, Textarea, Select, Checkbox, Radio/RadioGroup, Switch)
-- [ ] Functional Design - EXECUTE(進行中)
-- [ ] NFR Requirements - 要否判定はFunctional Design後
-- [ ] NFR Design - 要否判定はNFR Requirements後
-- [ ] Infrastructure Design - SKIP
-- [ ] Code Generation - EXECUTE
+- [x] Functional Design (2026-08-11T10:08:39Z 承認済み) — `aidlc-docs/construction/unit2-basic-input/functional-design/`
+- [x] NFR Requirements - SKIP(テスト技術スタック等はUnit 1で確定済み、本ユニット固有の新規NFRなし)
+- [x] NFR Design - SKIP(同上)
+- [x] Infrastructure Design - SKIP
+- [ ] Code Generation - EXECUTE(進行中)
 
 #### Unit 3〜8
 - 未着手(Unit 2完了後に順次着手。詳細は`unit-of-work-dependency.md`の確定シーケンス参照)
