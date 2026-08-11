@@ -13,87 +13,176 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>基本入力系コンポーネント デモ — Unit 2</title>
-<link rel="stylesheet" href="../assets/tokens.css">
-<link rel="stylesheet" href="../assets/semantic.css">
-<link rel="stylesheet" href="../assets/fonts.css">
-<style>
-  .demo-wrap { max-width: 480px; margin: var(--space-6) auto; padding: 0 var(--space-4); display: flex; flex-direction: column; gap: var(--space-4); }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>基本入力系コンポーネント デモ — Unit 2</title>
+    <link rel="stylesheet" href="../assets/tokens.css" />
+    <link rel="stylesheet" href="../assets/semantic.css" />
+    <link rel="stylesheet" href="../assets/fonts.css" />
+    <style>
+      .demo-wrap {
+        max-width: 480px;
+        margin: var(--space-6) auto;
+        padding: 0 var(--space-4);
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-4);
+      }
 
-  /* Button */
-  .wds-button { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); font-family: var(--font-family-active); font-weight: var(--font-weight-medium); border-radius: var(--radius-md); border: 1px solid transparent; cursor: pointer; font-size: var(--font-size-md); padding: var(--space-2) var(--space-4); }
-  .wds-button:focus-visible { outline: none; box-shadow: var(--focus-ring); }
-  .wds-button:disabled { cursor: not-allowed; opacity: 0.6; }
-  .wds-button.variant-primary { background: var(--color-primary); color: #fff; }
-  .wds-button.variant-secondary { background: var(--color-surface); color: var(--color-text); border-color: var(--color-border); }
+      /* Button */
+      .wds-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-2);
+        font-family: var(--font-family-active);
+        font-weight: var(--font-weight-medium);
+        border-radius: var(--radius-md);
+        border: 1px solid transparent;
+        cursor: pointer;
+        font-size: var(--font-size-md);
+        padding: var(--space-2) var(--space-4);
+      }
+      .wds-button:focus-visible {
+        outline: none;
+        box-shadow: var(--focus-ring);
+      }
+      .wds-button:disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
+      }
+      .wds-button.variant-primary {
+        background: var(--color-primary);
+        color: #fff;
+      }
+      .wds-button.variant-secondary {
+        background: var(--color-surface);
+        color: var(--color-text);
+        border-color: var(--color-border);
+      }
 
-  /* FormField */
-  .wds-form-field { display: flex; flex-direction: column; gap: var(--space-1); }
-  .wds-form-field-label { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); }
-  .wds-form-field-error-text { font-size: var(--font-size-sm); color: var(--color-danger); }
+      /* FormField */
+      .wds-form-field {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-1);
+      }
+      .wds-form-field-label {
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-medium);
+      }
+      .wds-form-field-error-text {
+        font-size: var(--font-size-sm);
+        color: var(--color-danger);
+      }
 
-  /* TextInput / Textarea / Select */
-  .wds-text-input, .wds-textarea, .wds-select { font-family: var(--font-family-active); font-size: var(--font-size-md); color: var(--color-text); background: var(--color-input-bg); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-2) var(--space-3); }
-  .wds-textarea { resize: vertical; width: 100%; box-sizing: border-box; }
-  .wds-text-input:focus-visible, .wds-textarea:focus-visible, .wds-select:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+      /* TextInput / Textarea / Select */
+      .wds-text-input,
+      .wds-textarea,
+      .wds-select {
+        font-family: var(--font-family-active);
+        font-size: var(--font-size-md);
+        color: var(--color-text);
+        background: var(--color-input-bg);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+        padding: var(--space-2) var(--space-3);
+      }
+      .wds-textarea {
+        resize: vertical;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      .wds-text-input:focus-visible,
+      .wds-textarea:focus-visible,
+      .wds-select:focus-visible {
+        outline: none;
+        box-shadow: var(--focus-ring);
+      }
 
-  /* Checkbox / Switch / Radio (simplified static rendering for demo purposes) */
-  .wds-checkbox-label, .wds-switch-label, .wds-radio-label { display: inline-flex; align-items: center; gap: var(--space-2); font-size: var(--font-size-md); cursor: pointer; }
-  .wds-radio-group { display: flex; flex-direction: column; gap: var(--space-2); }
-</style>
-</head>
-<body>
-  <div class="demo-wrap">
-    <h1 style="font-size: var(--font-size-xl); font-weight: var(--font-weight-semibold);">基本入力系デモ</h1>
+      /* Checkbox / Switch / Radio (simplified static rendering for demo purposes) */
+      .wds-checkbox-label,
+      .wds-switch-label,
+      .wds-radio-label {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--space-2);
+        font-size: var(--font-size-md);
+        cursor: pointer;
+      }
+      .wds-radio-group {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-2);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="demo-wrap">
+      <h1 style="font-size: var(--font-size-xl); font-weight: var(--font-weight-semibold)">
+        基本入力系デモ
+      </h1>
 
-    <div class="wds-form-field">
-      <label class="wds-form-field-label" for="demo-name">名前 <span aria-hidden="true" style="color:var(--color-danger)">*</span></label>
-      <input class="wds-text-input" id="demo-name" type="text" placeholder="山田 太郎">
+      <div class="wds-form-field">
+        <label class="wds-form-field-label" for="demo-name"
+          >名前 <span aria-hidden="true" style="color: var(--color-danger)">*</span></label
+        >
+        <input class="wds-text-input" id="demo-name" type="text" placeholder="山田 太郎" />
+      </div>
+
+      <div class="wds-form-field">
+        <label class="wds-form-field-label" for="demo-email">メールアドレス</label>
+        <input
+          class="wds-text-input"
+          id="demo-email"
+          type="text"
+          aria-describedby="demo-email-error"
+          aria-invalid="true"
+        />
+        <span class="wds-form-field-error-text" id="demo-email-error" role="alert"
+          >形式が正しくありません</span
+        >
+      </div>
+
+      <div class="wds-form-field">
+        <label class="wds-form-field-label" for="demo-bio">自己紹介</label>
+        <textarea class="wds-textarea" id="demo-bio" rows="3"></textarea>
+      </div>
+
+      <div class="wds-form-field">
+        <label class="wds-form-field-label" for="demo-role">役割</label>
+        <select class="wds-select" id="demo-role">
+          <option value="admin">管理者</option>
+          <option value="member">一般ユーザー</option>
+        </select>
+      </div>
+
+      <label class="wds-checkbox-label">
+        <input type="checkbox" />
+        利用規約に同意する
+      </label>
+
+      <label class="wds-switch-label">
+        <input type="checkbox" role="switch" />
+        通知を有効にする
+      </label>
+
+      <div class="wds-radio-group" role="radiogroup" aria-label="アクセス権限">
+        <label class="wds-radio-label"
+          ><input type="radio" name="demo-perm" value="read" checked /> 読み取りのみ</label
+        >
+        <label class="wds-radio-label"
+          ><input type="radio" name="demo-perm" value="write" /> 読み取り/書き込み</label
+        >
+      </div>
+
+      <div>
+        <button class="wds-button variant-primary" type="button">保存</button>
+        <button class="wds-button variant-secondary" type="button">キャンセル</button>
+      </div>
     </div>
-
-    <div class="wds-form-field">
-      <label class="wds-form-field-label" for="demo-email">メールアドレス</label>
-      <input class="wds-text-input" id="demo-email" type="text" aria-describedby="demo-email-error" aria-invalid="true">
-      <span class="wds-form-field-error-text" id="demo-email-error" role="alert">形式が正しくありません</span>
-    </div>
-
-    <div class="wds-form-field">
-      <label class="wds-form-field-label" for="demo-bio">自己紹介</label>
-      <textarea class="wds-textarea" id="demo-bio" rows="3"></textarea>
-    </div>
-
-    <div class="wds-form-field">
-      <label class="wds-form-field-label" for="demo-role">役割</label>
-      <select class="wds-select" id="demo-role">
-        <option value="admin">管理者</option>
-        <option value="member">一般ユーザー</option>
-      </select>
-    </div>
-
-    <label class="wds-checkbox-label">
-      <input type="checkbox">
-      利用規約に同意する
-    </label>
-
-    <label class="wds-switch-label">
-      <input type="checkbox" role="switch">
-      通知を有効にする
-    </label>
-
-    <div class="wds-radio-group" role="radiogroup" aria-label="アクセス権限">
-      <label class="wds-radio-label"><input type="radio" name="demo-perm" value="read" checked> 読み取りのみ</label>
-      <label class="wds-radio-label"><input type="radio" name="demo-perm" value="write"> 読み取り/書き込み</label>
-    </div>
-
-    <div>
-      <button class="wds-button variant-primary" type="button">保存</button>
-      <button class="wds-button variant-secondary" type="button">キャンセル</button>
-    </div>
-  </div>
-</body>
+  </body>
 </html>

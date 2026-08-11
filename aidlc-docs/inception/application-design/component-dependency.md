@@ -2,21 +2,21 @@
 
 ## 依存関係マトリクス
 
-| コンポーネント | 依存先 | 依存理由 |
-|---|---|---|
-| Avatar | Icon(任意) | 画像なし時のフォールバック表示でアイコンを使う場合がある |
-| Badge | Icon(任意) | アイコン付きBadgeの場合 |
-| Tooltip | Icon(任意) | トリガーがアイコンボタンの場合が多い(依存ではなく利用パターン) |
-| Modal | Icon | ヘッダーの閉じるボタン |
-| Toast | Icon | variant別アイコン表示 |
-| Alert | Icon | variant別アイコン表示 |
-| Dropdown/Menu | Icon | シェブロン・メニュー項目アイコン |
-| Tabs | Icon(任意) | タブにアイコンを付ける場合 |
-| Table | Checkbox, Icon | 行選択チェックボックス、ソート矢印アイコン |
-| TextInput / Textarea / Select / Checkbox / Radio / Switch | FormField(Context経由、任意) | `FormField`配下で使われた場合、id/aria-describedbyを自動取得 |
-| RadioGroup | Radio | 内部実装として個々のRadioを描画 |
-| AppShell | Icon, Avatar, Dropdown/Menu | Sidebarナビアイコン、ユーザーメニュー(Avatar+Dropdown)。通知アイコン(Badge依存)はUnit 5 Functional Designで廃止 |
-| AppShell | ThemeProvider(独立、任意) | 併用は可能だが直接依存はしない |
+| コンポーネント                                            | 依存先                       | 依存理由                                                                                                        |
+| --------------------------------------------------------- | ---------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| Avatar                                                    | Icon(任意)                   | 画像なし時のフォールバック表示でアイコンを使う場合がある                                                        |
+| Badge                                                     | Icon(任意)                   | アイコン付きBadgeの場合                                                                                         |
+| Tooltip                                                   | Icon(任意)                   | トリガーがアイコンボタンの場合が多い(依存ではなく利用パターン)                                                  |
+| Modal                                                     | Icon                         | ヘッダーの閉じるボタン                                                                                          |
+| Toast                                                     | Icon                         | variant別アイコン表示                                                                                           |
+| Alert                                                     | Icon                         | variant別アイコン表示                                                                                           |
+| Dropdown/Menu                                             | Icon                         | シェブロン・メニュー項目アイコン                                                                                |
+| Tabs                                                      | Icon(任意)                   | タブにアイコンを付ける場合                                                                                      |
+| Table                                                     | Checkbox, Icon               | 行選択チェックボックス、ソート矢印アイコン                                                                      |
+| TextInput / Textarea / Select / Checkbox / Radio / Switch | FormField(Context経由、任意) | `FormField`配下で使われた場合、id/aria-describedbyを自動取得                                                    |
+| RadioGroup                                                | Radio                        | 内部実装として個々のRadioを描画                                                                                 |
+| AppShell                                                  | Icon, Avatar, Dropdown/Menu  | Sidebarナビアイコン、ユーザーメニュー(Avatar+Dropdown)。通知アイコン(Badge依存)はUnit 5 Functional Designで廃止 |
+| AppShell                                                  | ThemeProvider(独立、任意)    | 併用は可能だが直接依存はしない                                                                                  |
 
 依存のない独立コンポーネント: Button, Card, ThemeProvider, ToastProvider
 

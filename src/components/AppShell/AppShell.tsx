@@ -47,7 +47,12 @@ function readInitialCollapsed(): boolean {
  * Design). Sidebar/Topbar are internal-only, not exported (requirements.md
  * FR1). No notification icon (Question 5 = X: discontinued).
  */
-export function AppShell({ navItems, user, userMenuItems, children }: AppShellProps): React.JSX.Element {
+export function AppShell({
+  navItems,
+  user,
+  userMenuItems,
+  children,
+}: AppShellProps): React.JSX.Element {
   const [collapsed, setCollapsedState] = useState<boolean>(readInitialCollapsed);
 
   const setCollapsed = useCallback((value: boolean) => {
@@ -70,7 +75,10 @@ export function AppShell({ navItems, user, userMenuItems, children }: AppShellPr
 
   return (
     <AppShellContext.Provider value={contextValue}>
-      <div className={collapsed ? 'wds-app-shell collapsed' : 'wds-app-shell'} data-testid="app-shell">
+      <div
+        className={collapsed ? 'wds-app-shell collapsed' : 'wds-app-shell'}
+        data-testid="app-shell"
+      >
         <Sidebar navItems={navItems} />
         <Topbar user={user} userMenuItems={userMenuItems} />
         <main className="wds-app-shell-content" data-testid="app-shell-content">

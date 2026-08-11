@@ -54,9 +54,15 @@ describe('nextSortState', () => {
   it('property: clicking a different key from any current state always yields asc', () => {
     fc.assert(
       fc.property(
-        fc.option(fc.record({ key: fc.string(), direction: fc.constantFrom<SortDirectionForTest>('asc', 'desc', null) }), {
-          nil: null,
-        }),
+        fc.option(
+          fc.record({
+            key: fc.string(),
+            direction: fc.constantFrom<SortDirectionForTest>('asc', 'desc', null),
+          }),
+          {
+            nil: null,
+          },
+        ),
         fc.string(),
         (current, clickedKey) => {
           fc.pre(current === null || current.key !== clickedKey);

@@ -13,130 +13,223 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>List View 画面パターン デモ — Unit 7</title>
-<link rel="stylesheet" href="../assets/tokens.css">
-<link rel="stylesheet" href="../assets/semantic.css">
-<link rel="stylesheet" href="../assets/fonts.css">
-<style>
-  .demo-wrap { max-width: 800px; margin: var(--space-6) auto; padding: 0 var(--space-4); }
-  .filter-bar { display: flex; gap: var(--space-2); margin-bottom: var(--space-4); }
-  .bulk-bar { display: none; align-items: center; gap: var(--space-2); margin-bottom: var(--space-2); }
-  .bulk-bar.visible { display: flex; }
-  .wds-text-input, .wds-select { font-size: var(--font-size-md); color: var(--color-text); background: var(--color-input-bg); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-2) var(--space-3); }
-  .wds-button { font-size: var(--font-size-md); padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); border: 1px solid transparent; cursor: pointer; }
-  .wds-button.variant-primary { background: var(--color-primary); color: #fff; }
-  .wds-button.variant-secondary { background: var(--color-surface); color: var(--color-text); border-color: var(--color-border); }
-  .wds-button.variant-danger { background: var(--color-danger); color: #fff; }
-  .wds-button.size-sm { font-size: var(--font-size-sm); padding: var(--space-1) var(--space-3); }
-  .wds-table-wrapper { overflow-x: auto; border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
-  .wds-table { width: 100%; border-collapse: collapse; font-size: var(--font-size-sm); }
-  .wds-table th, .wds-table td { padding: var(--space-2) var(--space-3); text-align: left; border-bottom: 1px solid var(--color-border); }
-  .wds-table th { background: var(--color-surface-hover); font-weight: var(--font-weight-semibold); }
-  .wds-badge { display: inline-flex; align-items: center; padding: 0 var(--space-2); height: 18px; border-radius: 999px; font-size: var(--font-size-sm); }
-  .wds-badge.variant-primary { background: var(--color-primary); color: #fff; }
-  .wds-badge.variant-secondary { background: var(--color-surface-hover); color: var(--color-text); }
-</style>
-</head>
-<body>
-  <div class="demo-wrap">
-    <h1 style="font-size: var(--font-size-xl); font-weight: var(--font-weight-semibold);">List View(ユーザー一覧)</h1>
-
-    <div class="filter-bar">
-      <input class="wds-text-input" id="search-input" type="text" placeholder="名前・メールアドレスで検索" aria-label="ユーザー検索">
-      <select class="wds-select" id="role-filter" aria-label="役割で絞り込み">
-        <option value="">すべての役割</option>
-        <option value="admin">管理者</option>
-        <option value="member">一般ユーザー</option>
-      </select>
-      <button class="wds-button variant-primary" type="button">新規作成</button>
-    </div>
-
-    <div class="bulk-bar" id="bulk-bar">
-      <span id="bulk-count"></span>
-      <button class="wds-button variant-danger size-sm" type="button">削除</button>
-    </div>
-
-    <div class="wds-table-wrapper">
-      <table class="wds-table" aria-label="ユーザー一覧">
-        <thead>
-          <tr>
-            <th><input type="checkbox" id="select-all" aria-label="全ての行を選択"></th>
-            <th>名前</th>
-            <th>メールアドレス</th>
-            <th>役割</th>
-          </tr>
-        </thead>
-        <tbody id="table-body"></tbody>
-      </table>
-    </div>
-  </div>
-
-  <script>
-    var users = [
-      { id: '1', name: '山田 太郎', email: 'yamada@example.com', role: 'admin' },
-      { id: '2', name: '鈴木 花子', email: 'suzuki@example.com', role: 'member' },
-      { id: '3', name: '佐藤 次郎', email: 'sato@example.com', role: 'member' },
-    ];
-    var selected = new Set();
-
-    function render() {
-      var searchText = document.getElementById('search-input').value;
-      var roleFilter = document.getElementById('role-filter').value;
-      var filtered = users.filter(function (u) {
-        var matchesText = !searchText || u.name.indexOf(searchText) !== -1 || u.email.indexOf(searchText) !== -1;
-        var matchesRole = !roleFilter || u.role === roleFilter;
-        return matchesText && matchesRole;
-      });
-
-      var tbody = document.getElementById('table-body');
-      tbody.innerHTML = '';
-      filtered.forEach(function (u) {
-        var tr = document.createElement('tr');
-        var roleLabel = u.role === 'admin' ? '管理者' : '一般ユーザー';
-        var roleVariant = u.role === 'admin' ? 'primary' : 'secondary';
-        tr.innerHTML =
-          '<td><input type="checkbox" data-id="' + u.id + '" aria-label="この行を選択" ' + (selected.has(u.id) ? 'checked' : '') + '></td>' +
-          '<td>' + u.name + '</td>' +
-          '<td>' + u.email + '</td>' +
-          '<td><span class="wds-badge variant-' + roleVariant + '">' + roleLabel + '</span></td>';
-        tbody.appendChild(tr);
-      });
-
-      tbody.querySelectorAll('input[type="checkbox"]').forEach(function (cb) {
-        cb.addEventListener('change', function () {
-          if (cb.checked) selected.add(cb.getAttribute('data-id'));
-          else selected.delete(cb.getAttribute('data-id'));
-          updateBulkBar();
-        });
-      });
-    }
-
-    function updateBulkBar() {
-      var bar = document.getElementById('bulk-bar');
-      if (selected.size > 0) {
-        bar.classList.add('visible');
-        document.getElementById('bulk-count').textContent = selected.size + '件選択中';
-      } else {
-        bar.classList.remove('visible');
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>List View 画面パターン デモ — Unit 7</title>
+    <link rel="stylesheet" href="../assets/tokens.css" />
+    <link rel="stylesheet" href="../assets/semantic.css" />
+    <link rel="stylesheet" href="../assets/fonts.css" />
+    <style>
+      .demo-wrap {
+        max-width: 800px;
+        margin: var(--space-6) auto;
+        padding: 0 var(--space-4);
       }
-    }
+      .filter-bar {
+        display: flex;
+        gap: var(--space-2);
+        margin-bottom: var(--space-4);
+      }
+      .bulk-bar {
+        display: none;
+        align-items: center;
+        gap: var(--space-2);
+        margin-bottom: var(--space-2);
+      }
+      .bulk-bar.visible {
+        display: flex;
+      }
+      .wds-text-input,
+      .wds-select {
+        font-size: var(--font-size-md);
+        color: var(--color-text);
+        background: var(--color-input-bg);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+        padding: var(--space-2) var(--space-3);
+      }
+      .wds-button {
+        font-size: var(--font-size-md);
+        padding: var(--space-2) var(--space-4);
+        border-radius: var(--radius-md);
+        border: 1px solid transparent;
+        cursor: pointer;
+      }
+      .wds-button.variant-primary {
+        background: var(--color-primary);
+        color: #fff;
+      }
+      .wds-button.variant-secondary {
+        background: var(--color-surface);
+        color: var(--color-text);
+        border-color: var(--color-border);
+      }
+      .wds-button.variant-danger {
+        background: var(--color-danger);
+        color: #fff;
+      }
+      .wds-button.size-sm {
+        font-size: var(--font-size-sm);
+        padding: var(--space-1) var(--space-3);
+      }
+      .wds-table-wrapper {
+        overflow-x: auto;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+      }
+      .wds-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: var(--font-size-sm);
+      }
+      .wds-table th,
+      .wds-table td {
+        padding: var(--space-2) var(--space-3);
+        text-align: left;
+        border-bottom: 1px solid var(--color-border);
+      }
+      .wds-table th {
+        background: var(--color-surface-hover);
+        font-weight: var(--font-weight-semibold);
+      }
+      .wds-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 0 var(--space-2);
+        height: 18px;
+        border-radius: 999px;
+        font-size: var(--font-size-sm);
+      }
+      .wds-badge.variant-primary {
+        background: var(--color-primary);
+        color: #fff;
+      }
+      .wds-badge.variant-secondary {
+        background: var(--color-surface-hover);
+        color: var(--color-text);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="demo-wrap">
+      <h1 style="font-size: var(--font-size-xl); font-weight: var(--font-weight-semibold)">
+        List View(ユーザー一覧)
+      </h1>
 
-    document.getElementById('search-input').addEventListener('input', render);
-    document.getElementById('role-filter').addEventListener('change', render);
-    document.getElementById('select-all').addEventListener('change', function (e) {
-      users.forEach(function (u) {
-        if (e.target.checked) selected.add(u.id); else selected.delete(u.id);
+      <div class="filter-bar">
+        <input
+          class="wds-text-input"
+          id="search-input"
+          type="text"
+          placeholder="名前・メールアドレスで検索"
+          aria-label="ユーザー検索"
+        />
+        <select class="wds-select" id="role-filter" aria-label="役割で絞り込み">
+          <option value="">すべての役割</option>
+          <option value="admin">管理者</option>
+          <option value="member">一般ユーザー</option>
+        </select>
+        <button class="wds-button variant-primary" type="button">新規作成</button>
+      </div>
+
+      <div class="bulk-bar" id="bulk-bar">
+        <span id="bulk-count"></span>
+        <button class="wds-button variant-danger size-sm" type="button">削除</button>
+      </div>
+
+      <div class="wds-table-wrapper">
+        <table class="wds-table" aria-label="ユーザー一覧">
+          <thead>
+            <tr>
+              <th><input type="checkbox" id="select-all" aria-label="全ての行を選択" /></th>
+              <th>名前</th>
+              <th>メールアドレス</th>
+              <th>役割</th>
+            </tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <script>
+      var users = [
+        { id: '1', name: '山田 太郎', email: 'yamada@example.com', role: 'admin' },
+        { id: '2', name: '鈴木 花子', email: 'suzuki@example.com', role: 'member' },
+        { id: '3', name: '佐藤 次郎', email: 'sato@example.com', role: 'member' },
+      ];
+      var selected = new Set();
+
+      function render() {
+        var searchText = document.getElementById('search-input').value;
+        var roleFilter = document.getElementById('role-filter').value;
+        var filtered = users.filter(function (u) {
+          var matchesText =
+            !searchText || u.name.indexOf(searchText) !== -1 || u.email.indexOf(searchText) !== -1;
+          var matchesRole = !roleFilter || u.role === roleFilter;
+          return matchesText && matchesRole;
+        });
+
+        var tbody = document.getElementById('table-body');
+        tbody.innerHTML = '';
+        filtered.forEach(function (u) {
+          var tr = document.createElement('tr');
+          var roleLabel = u.role === 'admin' ? '管理者' : '一般ユーザー';
+          var roleVariant = u.role === 'admin' ? 'primary' : 'secondary';
+          tr.innerHTML =
+            '<td><input type="checkbox" data-id="' +
+            u.id +
+            '" aria-label="この行を選択" ' +
+            (selected.has(u.id) ? 'checked' : '') +
+            '></td>' +
+            '<td>' +
+            u.name +
+            '</td>' +
+            '<td>' +
+            u.email +
+            '</td>' +
+            '<td><span class="wds-badge variant-' +
+            roleVariant +
+            '">' +
+            roleLabel +
+            '</span></td>';
+          tbody.appendChild(tr);
+        });
+
+        tbody.querySelectorAll('input[type="checkbox"]').forEach(function (cb) {
+          cb.addEventListener('change', function () {
+            if (cb.checked) selected.add(cb.getAttribute('data-id'));
+            else selected.delete(cb.getAttribute('data-id'));
+            updateBulkBar();
+          });
+        });
+      }
+
+      function updateBulkBar() {
+        var bar = document.getElementById('bulk-bar');
+        if (selected.size > 0) {
+          bar.classList.add('visible');
+          document.getElementById('bulk-count').textContent = selected.size + '件選択中';
+        } else {
+          bar.classList.remove('visible');
+        }
+      }
+
+      document.getElementById('search-input').addEventListener('input', render);
+      document.getElementById('role-filter').addEventListener('change', render);
+      document.getElementById('select-all').addEventListener('change', function (e) {
+        users.forEach(function (u) {
+          if (e.target.checked) selected.add(u.id);
+          else selected.delete(u.id);
+        });
+        render();
+        updateBulkBar();
       });
-      render();
-      updateBulkBar();
-    });
 
-    render();
-  </script>
-</body>
+      render();
+    </script>
+  </body>
 </html>

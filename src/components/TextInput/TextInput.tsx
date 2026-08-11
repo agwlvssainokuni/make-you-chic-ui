@@ -18,8 +18,10 @@ import { forwardRef } from 'react';
 import { useFieldProps } from '../FormField/useFieldProps';
 import { useControllableState } from '../../utils/useControllableState';
 
-export interface TextInputProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'defaultValue' | 'onChange'> {
+export interface TextInputProps extends Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  'value' | 'defaultValue' | 'onChange'
+> {
   value?: string;
   defaultValue?: string;
   onChange?: (value: string) => void;

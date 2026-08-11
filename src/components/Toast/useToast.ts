@@ -19,7 +19,6 @@ import { ToastContext, type ToastContextValue } from './ToastProvider';
 const noop: ToastContextValue = {
   show: () => {
     if (import.meta.env?.DEV) {
-      // eslint-disable-next-line no-console
       console.warn('[web-design-system-sample] useToast() was called outside of <ToastProvider>.');
     }
     return '';

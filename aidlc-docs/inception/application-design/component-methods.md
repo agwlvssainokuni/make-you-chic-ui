@@ -19,7 +19,11 @@ function useTheme(): {
 
 // ToastProvider / useToast
 function useToast(): {
-  show(options: { message: string; variant?: 'info' | 'success' | 'warning' | 'danger'; duration?: number }): string; // returns toast id
+  show(options: {
+    message: string;
+    variant?: 'info' | 'success' | 'warning' | 'danger';
+    duration?: number;
+  }): string; // returns toast id
   dismiss(id: string): void;
 };
 
@@ -52,12 +56,19 @@ const FormField: React.FC<FormFieldProps>;
 // 内部でFormFieldContextを提供し、Question 6=Aの方針により子のInput系コンポーネントが自動でid/aria-describedbyを参照する
 
 interface TextInputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
-const TextInput: React.ForwardRefExoticComponent<TextInputProps & React.RefAttributes<HTMLInputElement>>;
+const TextInput: React.ForwardRefExoticComponent<
+  TextInputProps & React.RefAttributes<HTMLInputElement>
+>;
 
 interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {}
-const Textarea: React.ForwardRefExoticComponent<TextareaProps & React.RefAttributes<HTMLTextAreaElement>>;
+const Textarea: React.ForwardRefExoticComponent<
+  TextareaProps & React.RefAttributes<HTMLTextAreaElement>
+>;
 
-interface SelectOption { label: string; value: string; }
+interface SelectOption {
+  label: string;
+  value: string;
+}
 interface SelectProps {
   options: SelectOption[];
   value?: string;
@@ -68,12 +79,17 @@ interface SelectProps {
 const Select: React.ForwardRefExoticComponent<SelectProps & React.RefAttributes<HTMLSelectElement>>;
 
 interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'> {}
-const Checkbox: React.ForwardRefExoticComponent<CheckboxProps & React.RefAttributes<HTMLInputElement>>;
+const Checkbox: React.ForwardRefExoticComponent<
+  CheckboxProps & React.RefAttributes<HTMLInputElement>
+>;
 
 interface SwitchProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'> {}
 const Switch: React.ForwardRefExoticComponent<SwitchProps & React.RefAttributes<HTMLInputElement>>;
 
-interface RadioOption { label: string; value: string; }
+interface RadioOption {
+  label: string;
+  value: string;
+}
 interface RadioGroupProps {
   name: string;
   options: RadioOption[];
@@ -180,7 +196,10 @@ const Tooltip: React.FC<TooltipProps>;
 ## ナビゲーション・レイアウト系
 
 ```ts
-interface TabItem { label: string; content: React.ReactNode; }
+interface TabItem {
+  label: string;
+  content: React.ReactNode;
+}
 interface TabsProps {
   items: TabItem[];
   activeIndex?: number;
@@ -189,7 +208,10 @@ interface TabsProps {
 }
 const Tabs: React.FC<TabsProps>;
 
-interface MenuItem { label: string; onClick(): void; }
+interface MenuItem {
+  label: string;
+  onClick(): void;
+}
 interface DropdownProps {
   trigger: React.ReactElement;
   items: MenuItem[];
@@ -197,8 +219,15 @@ interface DropdownProps {
 }
 const Dropdown: React.FC<DropdownProps>;
 
-interface AppShellNavItem { label: string; icon?: string; href: string; }
-interface AppShellUserMenuItem { label: string; onClick(): void; } // Unit 5 Functional Designで追加
+interface AppShellNavItem {
+  label: string;
+  icon?: string;
+  href: string;
+}
+interface AppShellUserMenuItem {
+  label: string;
+  onClick(): void;
+} // Unit 5 Functional Designで追加
 interface AppShellProps {
   navItems: AppShellNavItem[];
   user?: { name: string; avatarSrc?: string };

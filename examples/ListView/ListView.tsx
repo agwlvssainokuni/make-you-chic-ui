@@ -39,14 +39,15 @@ export function ListView(): React.JSX.Element {
   const [roleFilter, setRoleFilter] = useState('');
   const [page, setPage] = useState(1);
   const [selectedRowIds, setSelectedRowIds] = useState<Set<string>>(new Set());
-  const [editingUser, setEditingUser] = useState<{ mode: 'create' | 'edit'; user?: SampleUser } | null>(null);
+  const [editingUser, setEditingUser] = useState<{
+    mode: 'create' | 'edit';
+    user?: SampleUser;
+  } | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<{ ids: string[] } | null>(null);
 
   const filteredUsers = users.filter((u) => {
     const matchesText =
-      searchText.trim() === '' ||
-      u.name.includes(searchText) ||
-      u.email.includes(searchText);
+      searchText.trim() === '' || u.name.includes(searchText) || u.email.includes(searchText);
     const matchesRole = roleFilter === '' || u.role === roleFilter;
     return matchesText && matchesRole;
   });

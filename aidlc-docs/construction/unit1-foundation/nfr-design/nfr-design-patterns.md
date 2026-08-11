@@ -59,7 +59,7 @@ function safeLocalStorageSet(key: string, value: string): void {
 ```tsx
 const value = useMemo(
   () => ({ theme, brand, fontFamily, fontSize, setTheme, setBrand, setFontFamily, setFontSize }),
-  [theme, brand, fontFamily, fontSize, setTheme, setBrand, setFontFamily, setFontSize]
+  [theme, brand, fontFamily, fontSize, setTheme, setBrand, setFontFamily, setFontSize],
 );
 ```
 

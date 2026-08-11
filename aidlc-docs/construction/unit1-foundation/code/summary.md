@@ -3,17 +3,20 @@
 ## 生成したアプリケーションコード(ワークスペースルート)
 
 ### プロジェクト構成
+
 - `package.json`, `tsconfig.json`, `vite.config.ts`, `vitest.config.ts`, `vitest.setup.ts`
 - `.eslintrc.cjs`, `.prettierrc.json`, `.stylelintrc.json`
 - `.gitignore`(更新: node_modules/, dist/, coverage/, .DS_Store)
 
 ### デザイントークン
+
 - `src/theme/tokens.css`(プリミティブトークン)
 - `src/theme/semantic.css`(セマンティックトークン、テーマ4軸対応)
 - `src/theme/fonts.css`(Webフォント`@font-face`、`font-display: swap`)
 - `src/fonts/README.md`(woff2ファイルの配置手順。バイナリ自体は同梱せず)
 
 ### テーマ状態管理ロジック
+
 - `src/theme/types.ts`
 - `src/theme/storage.ts`(`safeLocalStorageGet`/`safeLocalStorageSet`)
 - `src/theme/validation.ts`(`isValidThemeValue`, `resolveInitialThemeValue`)
@@ -21,6 +24,7 @@
 - `src/theme/useTheme.ts`
 
 ### Iconコンポーネント
+
 - `src/components/Icon/icons/{menu,chevron-down,close,check,bell,user}.tsx`
 - `src/components/Icon/registry.ts`
 - `src/components/Icon/Icon.tsx`
@@ -28,6 +32,7 @@
 - `src/components/Icon/index.ts`
 
 ### バレルエクスポート
+
 - `src/index.ts`
 
 ## 生成したテスト

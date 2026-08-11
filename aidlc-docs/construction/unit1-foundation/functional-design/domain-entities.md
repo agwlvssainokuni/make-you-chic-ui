@@ -21,14 +21,8 @@ interface ThemeState {
 ## IconRegistryEntry
 
 ```ts
-type IconName =
-  | 'menu'
-  | 'chevron-down'
-  | 'close'
-  | 'check'
-  | 'bell'
-  | 'user';
-  // 今後のユニットで必要になったアイコンを追加する
+type IconName = 'menu' | 'chevron-down' | 'close' | 'check' | 'bell' | 'user';
+// 今後のユニットで必要になったアイコンを追加する
 
 type IconRegistry = Record<IconName, React.FC<React.SVGProps<SVGSVGElement>>>;
 ```

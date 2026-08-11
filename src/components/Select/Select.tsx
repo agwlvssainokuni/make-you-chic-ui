@@ -24,11 +24,10 @@ export interface SelectOption {
   value: string;
 }
 
-export interface SelectProps
-  extends Omit<
-    React.SelectHTMLAttributes<HTMLSelectElement>,
-    'value' | 'defaultValue' | 'onChange'
-  > {
+export interface SelectProps extends Omit<
+  React.SelectHTMLAttributes<HTMLSelectElement>,
+  'value' | 'defaultValue' | 'onChange'
+> {
   options: SelectOption[];
   value?: string;
   defaultValue?: string;

@@ -34,7 +34,10 @@ export function Sidebar({ navItems }: SidebarProps): React.JSX.Element {
   const { collapsed } = useAppShell();
 
   return (
-    <nav className={collapsed ? 'wds-sidebar collapsed' : 'wds-sidebar'} aria-label="メインナビゲーション">
+    <nav
+      className={collapsed ? 'wds-sidebar collapsed' : 'wds-sidebar'}
+      aria-label="メインナビゲーション"
+    >
       <ul className="wds-sidebar-nav-list">
         {navItems.map((item) => (
           <li key={item.href}>

@@ -3,11 +3,13 @@
 ## 生成したアプリケーションコード(ワークスペースルート)
 
 ### 共有ユーティリティ(新規)
+
 - `src/components/FormField/FormFieldContext.ts`
 - `src/components/FormField/useFieldProps.ts`(FormField連携の共通ヘルパー)
 - `src/utils/useControllableState.ts`(Controlled/Uncontrolled共通ロジック)
 
 ### コンポーネント
+
 - `src/components/FormField/`(FormField, CSS, index, テスト)
 - `src/components/Button/`(Button, CSS, index, テスト)
 - `src/components/TextInput/`(TextInput, CSS, index, テスト)
@@ -18,9 +20,11 @@
 - `src/components/RadioGroup/`(RadioGroup, Radio, CSS, index, テスト)
 
 ### 依存関係の追加
+
 - `@testing-library/user-event`(devDependencies、Buttonのクリックテスト等で使用)
 
 ### バレルエクスポート
+
 - `src/index.ts` に8コンポーネント/型を追加エクスポート
 
 ## 生成したHTML版デモ(FR6)

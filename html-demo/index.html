@@ -13,49 +13,91 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Web UI デザインシステム — デモ一覧</title>
-<link rel="stylesheet" href="assets/tokens.css">
-<link rel="stylesheet" href="assets/semantic.css">
-<link rel="stylesheet" href="assets/fonts.css">
-<style>
-  .index-wrap { max-width: 640px; margin: var(--space-6) auto; padding: 0 var(--space-4); }
-  ul { list-style: none; padding: 0; }
-  li { margin-bottom: var(--space-2); }
-  a { color: var(--color-primary); text-decoration: none; font-size: var(--font-size-md); }
-  a:hover { text-decoration: underline; }
-  h2 { font-size: var(--font-size-md); color: var(--color-text-muted); margin-top: var(--space-6); }
-</style>
-</head>
-<body>
-  <div class="index-wrap">
-    <h1 style="font-size: var(--font-size-xl); font-weight: var(--font-weight-semibold);">Web UI デザインシステム — デモ一覧</h1>
-    <p>Node.js不要でブラウザから直接開けるデザインイメージ確認用デモです(FR6)。Storybookの代替として、コンポーネント単位・画面パターン単位のデモを掲載していきます。</p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web UI デザインシステム — デモ一覧</title>
+    <link rel="stylesheet" href="assets/tokens.css" />
+    <link rel="stylesheet" href="assets/semantic.css" />
+    <link rel="stylesheet" href="assets/fonts.css" />
+    <style>
+      .index-wrap {
+        max-width: 640px;
+        margin: var(--space-6) auto;
+        padding: 0 var(--space-4);
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+      li {
+        margin-bottom: var(--space-2);
+      }
+      a {
+        color: var(--color-primary);
+        text-decoration: none;
+        font-size: var(--font-size-md);
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      h2 {
+        font-size: var(--font-size-md);
+        color: var(--color-text-muted);
+        margin-top: var(--space-6);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="index-wrap">
+      <h1 style="font-size: var(--font-size-xl); font-weight: var(--font-weight-semibold)">
+        Web UI デザインシステム — デモ一覧
+      </h1>
+      <p>
+        Node.js不要でブラウザから直接開けるデザインイメージ確認用デモです(FR6)。Storybookの代替として、コンポーネント単位・画面パターン単位のデモを掲載していきます。
+      </p>
 
-    <h2>基盤(Unit 1)</h2>
-    <ul>
-      <li><a href="components/theme-demo.html">テーマ機能デモ(data-theme / data-brand / data-font-family / data-font-size)</a></li>
-      <li><a href="components/icon-demo.html">Icon 一覧</a></li>
-    </ul>
+      <h2>基盤(Unit 1)</h2>
+      <ul>
+        <li>
+          <a href="components/theme-demo.html"
+            >テーマ機能デモ(data-theme / data-brand / data-font-family / data-font-size)</a
+          >
+        </li>
+        <li><a href="components/icon-demo.html">Icon 一覧</a></li>
+      </ul>
 
-    <h2>コンポーネント(Unit 2以降、順次追加)</h2>
-    <ul>
-      <li><a href="components/basic-input-demo.html">基本入力系(Button / FormField / TextInput / Textarea / Select / Checkbox / Switch / RadioGroup)</a></li>
-      <li><a href="components/static-display-demo.html">静的表示系(Avatar / Badge / Card)</a></li>
-      <li><a href="components/feedback-demo.html">フィードバック系(Modal / Toast / Alert / Tooltip)</a></li>
-      <li><a href="components/nav-layout-demo.html">ナビゲーション・レイアウト系(Tabs / Dropdown / AppShell)</a></li>
-      <li><a href="components/table-demo.html">Table(ソート・ページネーション・インライン編集)</a></li>
-    </ul>
+      <h2>コンポーネント(Unit 2以降、順次追加)</h2>
+      <ul>
+        <li>
+          <a href="components/basic-input-demo.html"
+            >基本入力系(Button / FormField / TextInput / Textarea / Select / Checkbox / Switch /
+            RadioGroup)</a
+          >
+        </li>
+        <li><a href="components/static-display-demo.html">静的表示系(Avatar / Badge / Card)</a></li>
+        <li>
+          <a href="components/feedback-demo.html"
+            >フィードバック系(Modal / Toast / Alert / Tooltip)</a
+          >
+        </li>
+        <li>
+          <a href="components/nav-layout-demo.html"
+            >ナビゲーション・レイアウト系(Tabs / Dropdown / AppShell)</a
+          >
+        </li>
+        <li>
+          <a href="components/table-demo.html">Table(ソート・ページネーション・インライン編集)</a>
+        </li>
+      </ul>
 
-    <h2>画面パターン(Unit 7)</h2>
-    <ul>
-      <li><a href="patterns/list-view.html">List View(ユーザー一覧・フィルタ・一括削除)</a></li>
-      <li><a href="patterns/detail-view.html">Detail View(タブ切替・危険操作)</a></li>
-    </ul>
-  </div>
-</body>
+      <h2>画面パターン(Unit 7)</h2>
+      <ul>
+        <li><a href="patterns/list-view.html">List View(ユーザー一覧・フィルタ・一括削除)</a></li>
+        <li><a href="patterns/detail-view.html">Detail View(タブ切替・危険操作)</a></li>
+      </ul>
+    </div>
+  </body>
 </html>

@@ -54,7 +54,13 @@ export function ModalStackProvider({ children }: { children: React.ReactNode }):
   );
 
   const zIndexOf = useCallback(
-    (id: string) => MODAL_BASE_Z_INDEX + Math.max(entries.findIndex((e) => e.id === id), 0) * 10,
+    (id: string) =>
+      MODAL_BASE_Z_INDEX +
+      Math.max(
+        entries.findIndex((e) => e.id === id),
+        0,
+      ) *
+        10,
     [entries],
   );
 

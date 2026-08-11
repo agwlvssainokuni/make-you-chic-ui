@@ -35,12 +35,17 @@ export interface IconProps {
  * Renders a bundled SVG icon by name. Unknown names render nothing and log
  * a dev-only warning (fail-soft, see Functional Design Question 3 = A).
  */
-export function Icon({ name, size = 20, label, className, style }: IconProps): React.JSX.Element | null {
+export function Icon({
+  name,
+  size = 20,
+  label,
+  className,
+  style,
+}: IconProps): React.JSX.Element | null {
   const SvgComponent = iconRegistry[name];
 
   if (!SvgComponent) {
     if (import.meta.env?.DEV) {
-      // eslint-disable-next-line no-console
       console.warn(`[web-design-system-sample] Unknown icon name: "${name}"`);
     }
     return null;

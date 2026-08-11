@@ -8,6 +8,7 @@
 当てはまる選択肢がない場合は最後の「Other」を選び、[Answer]: タグの後ろに内容を記述してください。
 
 ## Question 1
+
 このプロジェクト(`web-design-system-sample`)は、最終的にどのような成果物として扱われますか?
 
 A) `MasterMeister` などの利用側プロジェクトから読み込む独立npmパッケージ(公開/社内レジストリへの発行を想定)
@@ -21,6 +22,7 @@ X) Other (please describe after [Answer]: tag below)
 [Answer]: C
 
 ## Question 2
+
 実装言語・フレームワークについて、`reference/CLAUDE.md` 末尾に「Reactコンポーネント化する際は」との記載がありました。React前提で進めてよいですか?
 
 A) はい。React + TypeScript で実装する
@@ -34,6 +36,7 @@ X) Other (please describe after [Answer]: tag below)
 [Answer]: X — A(React + TypeScript)をベースとしつつ、Node.js環境がなくてもデザインイメージを確認できるよう、HTML+CSS(+必要に応じてJS)の静的デモ版も別途作成する。
 
 ## Question 3
+
 ビルドツール・パッケージマネージャーの希望はありますか?
 
 A) Vite + npm
@@ -47,6 +50,7 @@ X) Other (please describe after [Answer]: tag below)
 [Answer]: A
 
 ## Question 4
+
 今回のワークフローで実装するスコープはどこまでとしますか? (`reference/CLAUDE.md` には実装済みコンポーネント5種・画面パターン5種・テーマ機能4軸が記載されています)
 
 A) 全て一括実装(Button, FormField+TextInput/Select/Checkbox, Table, Modal, Toast の全コンポーネント + 全画面パターン + テーマ機能4軸)
@@ -60,6 +64,7 @@ X) Other (please describe after [Answer]: tag below)
 [Answer]: A
 
 ## Question 5
+
 スタイリング方式は `reference` のデモと同様「CSS変数によるプリミティブ/セマンティック2層構造」を採用する前提でよいですか? (CSS Modules / Vanilla CSS / CSS-in-JS のいずれを使うか)
 
 A) Vanilla CSS(コンポーネントごとに `.css` ファイルを分割し、グローバルにセマンティックトークンを定義)
@@ -73,6 +78,7 @@ X) Other (please describe after [Answer]: tag below)
 [Answer]: A
 
 ## Question 6
+
 コンポーネントカタログ/ドキュメントとして Storybook のような開発環境を用意しますか?
 
 A) はい、Storybookを導入する
@@ -86,6 +92,7 @@ X) Other (please describe after [Answer]: tag below)
 [Answer]: B
 
 ## Question 7
+
 テストについて、どこまで求めますか?
 
 A) 単体テスト(コンポーネントロジック)+ アクセシビリティ自動テスト(axe等)
@@ -99,6 +106,7 @@ X) Other (please describe after [Answer]: tag below)
 [Answer]: A
 
 ## Question 8
+
 サポート対象ブラウザの範囲はどこまでですか? (`color-mix()` 等のモダンCSS機能を使用しているため確認)
 
 A) モダンブラウザ最新版のみ(Chrome/Edge/Firefox/Safari の直近2バージョン)
@@ -112,6 +120,7 @@ X) Other (please describe after [Answer]: tag below)
 [Answer]: A
 
 ## Question 9
+
 アクセシビリティの目標基準はありますか? (`reference/CLAUDE.md` にフォーカスリング・フォーカストラップ等の実装方針の記載あり)
 
 A) WCAG 2.1 Level AA準拠を目標とする
@@ -125,6 +134,7 @@ X) Other (please describe after [Answer]: tag below)
 [Answer]: A
 
 ## Question 10
+
 Webフォント(Noto Sans JP / Noto Serif JP)の読み込み方式について、今回のスコープではどちらとしますか? (`reference/CLAUDE.md` には「本番はセルフホスティングに切り替える」との記載あり)
 
 A) 今回はGoogle Fonts CDN経由のままでよい(セルフホスティングは将来対応)
@@ -136,6 +146,7 @@ X) Other (please describe after [Answer]: tag below)
 [Answer]: B
 
 ## Question 11
+
 多言語対応(i18n)は必要ですか?
 
 A) 不要。日本語UIのみを前提とする
@@ -147,6 +158,7 @@ X) Other (please describe after [Answer]: tag below)
 [Answer]: B
 
 ## Question: Security Extensions
+
 Should security extension rules be enforced for this project?
 
 A) Yes — enforce all SECURITY rules as blocking constraints (recommended for production-grade applications)
@@ -158,6 +170,7 @@ X) Other (please describe after [Answer]: tag below)
 [Answer]: B
 
 ## Question: Resiliency Extensions
+
 Should the resiliency baseline be applied to this project?
 
 **What this extension is.** Enabling it applies a set of **directional, design-time best practices** for building resilient systems, derived from the **AWS Well-Architected Framework (Reliability Pillar)** and resilience-review guidance. It steers requirements, design, and code toward fault tolerance, high availability, observability, and recoverability — covering 15 practice areas across business goals, change management, observability, high availability, disaster recovery, and continuous improvement.
@@ -175,6 +188,7 @@ X) Other (please describe after [Answer]: tag below)
 [Answer]: B
 
 ## Question: Property-Based Testing Extension
+
 Should property-based testing (PBT) rules be enforced for this project?
 
 A) Yes — enforce all PBT rules as blocking constraints (recommended for projects with business logic, data transformations, serialization, or stateful components)

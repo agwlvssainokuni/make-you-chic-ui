@@ -7,42 +7,50 @@
 ## ユニット一覧
 
 ### Unit 1: 基盤(デザイントークン・テーマエンジン・Icon)
+
 - **責務**: プリミティブ/セマンティックトークン(CSS変数)、`ThemeProvider`/`useTheme()`、`Icon`コンポーネントと同梱SVGアイコンセットの実装
 - **対応FR/NFR**: FR3(テーマ機能4軸), FR4(デザイントークン), FR8(Webフォントセルフホスティング), NFR2(スタイリング方式)
 - **対応Application Design**: ThemeProvider/useTheme(services.md), Icon(components.md)
 
 ### Unit 2: 基本入力系
+
 - **責務**: Button, FormField, TextInput, Textarea, Select, Checkbox, Radio/RadioGroup, Switchの実装
 - **対応FR/NFR**: FR1(該当コンポーネント), NFR6(a11y: `useId()`によるラベル紐付け、`aria-describedby`)
 - **対応Application Design**: components.md「基本入力系」全体
 
 ### Unit 3: 静的表示系
+
 - **責務**: Avatar, Badge, Cardの実装
 - **対応FR/NFR**: FR1(該当コンポーネント)
 - **対応Application Design**: components.md「データ表示系」の一部(Table・Iconを除く)
 
 ### Unit 4: フィードバック系
+
 - **責務**: Modal, Toast+ToastProvider, Alert/Banner, Tooltipの実装
 - **対応FR/NFR**: FR1(該当コンポーネント), NFR6(a11y: フォーカストラップ、`inert`、`aria-live`)
 - **対応Application Design**: components.md「フィードバック系」、services.md「ToastProvider」
 
 ### Unit 5: ナビゲーション・レイアウト系
+
 - **責務**: Tabs, Dropdown/Menu, AppShell(+`useAppShell()`)の実装
 - **対応FR/NFR**: FR1(該当コンポーネント), NFR9(レスポンシブ: デスクトップ幅追従)
 - **対応Application Design**: components.md「ナビゲーション・レイアウト系」、services.md「AppShell内部Context」
 
 ### Unit 6: Table
+
 - **責務**: ソート・ページネーション・行選択・列幅調整・インライン編集を含むTableの実装
 - **対応FR/NFR**: FR1(Table), Property-Based Testing拡張(PBT-02/03/07/08/09、ソート・ページネーション計算)
 - **対応Application Design**: components.md「Table」
 
 ### Unit 7: 画面パターン
+
 - **責務**: List View、Detail View(Description Listパターン含む)、編集Modal、削除確認の実装。Unit 1〜6の全コンポーネントを組み合わせて構成
 - **対応FR/NFR**: FR2(画面パターン)
 - **対応Application Design**: 該当なし(画面パターンはコンポーネント合成であり新規コンポーネントではないため)
 - **位置づけ**: React実装は`examples/`配下に置き、パッケージのバレルエクスポート(`src/index.ts`)には含めない。組み合わせ方の参考実装・開発時の見た目確認用であり、他プロジェクトが画面単位でそのままimportして使う想定はしない(個々のコンポーネント単位での再利用を前提とするため)。HTML版は従来通り`html-demo/patterns/`に反映する
 
 ### Unit 8: 組み込みガイド
+
 - **責務**: 他プロジェクトへの組み込み手順書の作成(インストール方法、import方法、`ThemeProvider`/`ToastProvider`の設定方法、`className`によるカスタマイズ指針を含む)
 - **対応FR/NFR**: FR7(組み込みガイド)
 - **対応Application Design**: 該当なし(ドキュメント成果物)

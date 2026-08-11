@@ -2,16 +2,16 @@
 
 ## 適用カテゴリと判定
 
-| カテゴリ | 判定 | 内容 |
-|---|---|---|
-| Scalability | 非該当 | バックエンド・トラフィックを持たないUIライブラリ |
-| Performance | 限定的に適用 | ThemeProviderのContext値を`useMemo`でメモ化し、不要な再レンダリングを避ける |
-| Availability | 非該当 | プロトタイプ段階、デプロイ・稼働概念なし |
-| Security | 非該当 | Security Baseline拡張はRequirements Analysisでスキップ済み |
-| Tech Stack Selection | 適用 | `tech-stack-decisions.md`参照 |
-| Reliability | 限定的に適用 | Icon未定義名時のfail-soft動作(Functional Design済み) |
-| Maintainability | 適用 | 公開API(コンポーネントProps・フック戻り値)にJSDoc必須。ESLint+Prettier+stylelintによる静的検証 |
-| Usability | 適用 | `useTheme()`/`Icon`のAPIは最小限の呼び出しで意図した結果が得られること(NFR6/NFR9はUnit 1では直接該当するUIが少ないため、他ユニットで本格適用) |
+| カテゴリ             | 判定         | 内容                                                                                                                                          |
+| -------------------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| Scalability          | 非該当       | バックエンド・トラフィックを持たないUIライブラリ                                                                                              |
+| Performance          | 限定的に適用 | ThemeProviderのContext値を`useMemo`でメモ化し、不要な再レンダリングを避ける                                                                   |
+| Availability         | 非該当       | プロトタイプ段階、デプロイ・稼働概念なし                                                                                                      |
+| Security             | 非該当       | Security Baseline拡張はRequirements Analysisでスキップ済み                                                                                    |
+| Tech Stack Selection | 適用         | `tech-stack-decisions.md`参照                                                                                                                 |
+| Reliability          | 限定的に適用 | Icon未定義名時のfail-soft動作(Functional Design済み)                                                                                          |
+| Maintainability      | 適用         | 公開API(コンポーネントProps・フック戻り値)にJSDoc必須。ESLint+Prettier+stylelintによる静的検証                                                |
+| Usability            | 適用         | `useTheme()`/`Icon`のAPIは最小限の呼び出しで意図した結果が得られること(NFR6/NFR9はUnit 1では直接該当するUIが少ないため、他ユニットで本格適用) |
 
 ## 決定事項サマリー
 

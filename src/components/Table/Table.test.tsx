@@ -66,7 +66,11 @@ describe('Table', () => {
   it('advances from asc to desc when the same header is clicked again', async () => {
     const onSortChange = vi.fn();
     render(
-      <Table {...baseProps()} sortState={{ key: 'name', direction: 'asc' }} onSortChange={onSortChange} />,
+      <Table
+        {...baseProps()}
+        sortState={{ key: 'name', direction: 'asc' }}
+        onSortChange={onSortChange}
+      />,
     );
     await userEvent.click(screen.getByTestId('table-sort-name'));
     expect(onSortChange).toHaveBeenCalledWith({ key: 'name', direction: 'desc' });
@@ -81,23 +85,25 @@ describe('Table', () => {
     const { rerender } = render(<Table {...baseProps()} />);
     expect(screen.queryByTestId('table-select-all')).not.toBeInTheDocument();
 
-    rerender(
-      <Table {...baseProps()} selectedRowIds={new Set()} onSelectionChange={vi.fn()} />,
-    );
+    rerender(<Table {...baseProps()} selectedRowIds={new Set()} onSelectionChange={vi.fn()} />);
     expect(screen.getByTestId('table-select-all')).toBeInTheDocument();
     expect(screen.getByTestId('table-select-1')).toBeInTheDocument();
   });
 
   it('toggles a single row selection on checkbox click', async () => {
     const onSelectionChange = vi.fn();
-    render(<Table {...baseProps()} selectedRowIds={new Set()} onSelectionChange={onSelectionChange} />);
+    render(
+      <Table {...baseProps()} selectedRowIds={new Set()} onSelectionChange={onSelectionChange} />,
+    );
     await userEvent.click(screen.getByTestId('table-select-1'));
     expect(onSelectionChange).toHaveBeenCalledWith(new Set(['1']));
   });
 
   it('selects all page rows when the select-all checkbox is clicked with none selected', async () => {
     const onSelectionChange = vi.fn();
-    render(<Table {...baseProps()} selectedRowIds={new Set()} onSelectionChange={onSelectionChange} />);
+    render(
+      <Table {...baseProps()} selectedRowIds={new Set()} onSelectionChange={onSelectionChange} />,
+    );
     await userEvent.click(screen.getByTestId('table-select-all'));
     expect(onSelectionChange).toHaveBeenCalledWith(new Set(['1', '2']));
   });
@@ -111,7 +117,9 @@ describe('Table', () => {
 
   it('calls onPageChange with page + 1 / page - 1', async () => {
     const onPageChange = vi.fn();
-    render(<Table {...baseProps()} page={2} totalCount={50} pageSize={10} onPageChange={onPageChange} />);
+    render(
+      <Table {...baseProps()} page={2} totalCount={50} pageSize={10} onPageChange={onPageChange} />,
+    );
     await userEvent.click(screen.getByTestId('table-next-page'));
     expect(onPageChange).toHaveBeenCalledWith(3);
     await userEvent.click(screen.getByTestId('table-prev-page'));
@@ -145,7 +153,13 @@ describe('Table', () => {
 
   it('uses a custom editComponent when provided', async () => {
     const onCellEdit = vi.fn();
-    function CustomEditor({ onCommit }: { value: unknown; onCommit: (v: unknown) => void; onCancel: () => void }) {
+    function CustomEditor({
+      onCommit,
+    }: {
+      value: unknown;
+      onCommit: (v: unknown) => void;
+      onCancel: () => void;
+    }) {
       return (
         <button data-testid="custom-editor" onClick={() => onCommit('カスタム値')}>
           commit

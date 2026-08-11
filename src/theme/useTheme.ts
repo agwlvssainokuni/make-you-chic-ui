@@ -19,7 +19,6 @@ import { THEME_DEFAULTS } from './validation';
 
 const noop = (): void => {
   if (import.meta.env?.DEV) {
-    // eslint-disable-next-line no-console
     console.warn(
       '[web-design-system-sample] useTheme() setter called outside of <ThemeProvider>. This call was ignored.',
     );
@@ -44,7 +43,6 @@ export function useTheme(): ThemeContextValue {
   const ctx = useContext(ThemeContext);
   if (ctx === null) {
     if (import.meta.env?.DEV) {
-      // eslint-disable-next-line no-console
       console.warn(
         '[web-design-system-sample] useTheme() was called outside of <ThemeProvider>. Returning default (non-reactive) values.',
       );

@@ -25,7 +25,10 @@ import {
   type ReactNode,
 } from 'react';
 import { createPortal } from 'react-dom';
-import { computeFloatingPosition, type FloatingPlacement } from '../../utils/computeFloatingPosition';
+import {
+  computeFloatingPosition,
+  type FloatingPlacement,
+} from '../../utils/computeFloatingPosition';
 
 export type TooltipPlacement = Extract<FloatingPlacement, 'top' | 'bottom' | 'left' | 'right'>;
 
@@ -71,6 +74,10 @@ export function Tooltip({ content, children, placement = 'top' }: TooltipProps):
 
   if (!isValidElement(children)) return children as React.JSX.Element;
 
+  // The ref callback below runs during commit (when React attaches/detaches
+  // the DOM node), not during render, so writing to the ref here is safe;
+  // react-hooks/refs cannot statically verify that through cloneElement.
+  // eslint-disable-next-line react-hooks/refs
   const trigger = cloneElement(children as ReactElement<Record<string, unknown>>, {
     ref: (node: HTMLElement | null) => {
       triggerRef.current = node;

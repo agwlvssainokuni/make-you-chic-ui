@@ -2,12 +2,12 @@
 
 ## テーマ4軸の有効値
 
-| 軸 | 有効値 | デフォルト(localStorage未設定時) |
-|---|---|---|
-| theme | `'light'` \| `'dark'` | `prefers-color-scheme`に従う(true→'dark', false→'light') |
-| brand | `'blue'` \| `'green'` \| `'purple'` \| `'orange'` | `'blue'`(reference/CLAUDE.mdの既定値を踏襲) |
-| fontFamily | `'sans'` \| `'serif'` | `'sans'`(reference/CLAUDE.mdの既定値を踏襲) |
-| fontSize | `'sm'` \| `'md'` \| `'lg'` | `'md'`(reference/CLAUDE.mdの`--font-scale: 1`に相当) |
+| 軸         | 有効値                                            | デフォルト(localStorage未設定時)                         |
+| ---------- | ------------------------------------------------- | -------------------------------------------------------- |
+| theme      | `'light'` \| `'dark'`                             | `prefers-color-scheme`に従う(true→'dark', false→'light') |
+| brand      | `'blue'` \| `'green'` \| `'purple'` \| `'orange'` | `'blue'`(reference/CLAUDE.mdの既定値を踏襲)              |
+| fontFamily | `'sans'` \| `'serif'`                             | `'sans'`(reference/CLAUDE.mdの既定値を踏襲)              |
+| fontSize   | `'sm'` \| `'md'` \| `'lg'`                        | `'md'`(reference/CLAUDE.mdの`--font-scale: 1`に相当)     |
 
 ## バリデーション規則
 

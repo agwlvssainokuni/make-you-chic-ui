@@ -9,6 +9,7 @@ function nextSortState(current: SortState | null, clickedKey: string): SortState
   return null; // desc → 未ソート
 }
 ```
+
 このロジックはヘッダークリック時に呼ばれ、結果を`onSortChange`で通知する。Tableは実データのソートを行わない(business-rules.md参照)。
 
 ## ページネーションの表示計算(PBT対象: 純粋関数)
@@ -24,7 +25,8 @@ function computeTotalPages(totalCount: number, pageSize: number): number {
 ```ts
 function toggleRowSelection(selected: Set<string>, rowId: string): Set<string> {
   const next = new Set(selected);
-  if (next.has(rowId)) next.delete(rowId); else next.add(rowId);
+  if (next.has(rowId)) next.delete(rowId);
+  else next.add(rowId);
   return next;
 }
 

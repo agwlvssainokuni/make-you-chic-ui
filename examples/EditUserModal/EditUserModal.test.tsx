@@ -52,6 +52,10 @@ describe('EditUserModal', () => {
     const onSave = vi.fn();
     render(<EditUserModal mode="edit" user={user} open onClose={() => {}} onSave={onSave} />);
     await userEvent.click(screen.getByTestId('edit-user-save'));
-    expect(onSave).toHaveBeenCalledWith({ name: '山田 太郎', email: 'yamada@example.com', role: 'admin' });
+    expect(onSave).toHaveBeenCalledWith({
+      name: '山田 太郎',
+      email: 'yamada@example.com',
+      role: 'admin',
+    });
   });
 });

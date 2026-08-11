@@ -64,11 +64,11 @@
 
 ## 要件トレーサビリティ
 
-| 要件 | 対応ステップ |
-|---|---|
-| FR1(Button/FormField/TextInput/Textarea/Select/Checkbox/Switch/RadioGroup) | Step 1〜8 |
-| FR6(HTML版デモ) | Step 10 |
-| NFR2(セマンティックトークン参照) | Step 1〜8(各CSS) |
-| NFR6(a11y) | Step 1〜8(各テストのvitest-axe、FormField連携) |
+| 要件                                                                       | 対応ステップ                                   |
+| -------------------------------------------------------------------------- | ---------------------------------------------- |
+| FR1(Button/FormField/TextInput/Textarea/Select/Checkbox/Switch/RadioGroup) | Step 1〜8                                      |
+| FR6(HTML版デモ)                                                            | Step 10                                        |
+| NFR2(セマンティックトークン参照)                                           | Step 1〜8(各CSS)                               |
+| NFR6(a11y)                                                                 | Step 1〜8(各テストのvitest-axe、FormField連携) |
 
 本計画が本ユニットのCode Generationにおける唯一の実行手順であり、計画外の作業は行わない。

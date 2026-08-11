@@ -37,6 +37,7 @@
   - **AppShell(レイアウトシェル)**: Sidebar(折り畳み可能、状態は`localStorage`等に永続化)+ Topbar(ユーザーメニュー、パンくずなし)+ Contentスロットを束ねる、全画面が描画される最上位のレイアウトコンポーネント。折り畳み状態の管理を内包する(通知アイコンはUnit 5 Functional Designで廃止)
 
   補足: 汎用的な複数カラムGridレイアウト、およびDetail Viewのラベル+値表示(Description List)については、JSの状態管理やa11y上の複雑なロジックを要さず、具体的な利用箇所も限定的であるため、独立したFR1コンポーネントとしては切り出さない(Description Listの扱いはFR2を参照)。
+
 - **FR2 画面パターンの実装**: List View、Detail View、編集Modal(新規/編集共用)、削除確認(簡易/確認テキスト入力式)を実装する。共通レイアウトはFR1の`AppShell`コンポーネントを土台とし、各画面パターンはその Contentスロット内に描画する。Detail Viewのラベル+値表示は、独立コンポーネント化はせず、セマンティックトークンを使った`<dl>`向けCSS命名パターン(`.description-list` / `.description-list-term` / `.description-list-description`)として定義し、画面パターン内で使用する
 - **FR3 テーマ機能4軸の実装**: `data-theme`(ライト/ダーク、`localStorage`永続化、初回`prefers-color-scheme`尊重)、`data-brand`(blue/green/purple/orange)、`data-font-family`(ゴシック/明朝)、`data-font-size`(sm/md/lg)を、セマンティックトークン層のみで完結させる(コンポーネント側CSSは変更不要)
 - **FR4 デザイントークン設計**: プリミティブ/セマンティックの2層構造をCSS変数で実装する。コンポーネントのCSSはセマンティックトークンのみ参照する
@@ -59,10 +60,10 @@
 
 ## 拡張機能(Extensions)の適用
 
-| Extension | 判定 | 適用範囲 |
-|---|---|---|
-| Security Baseline | No(スキップ) | バックエンド/認証を持たないプロトタイプ段階のUIライブラリのため非適用 |
-| Resiliency Baseline | No(スキップ) | インフラを持たないフロントエンドライブラリのため非適用(AWS Well-Architected信頼性の観点は対象外) |
+| Extension              | 判定              | 適用範囲                                                                                                                                                                                     |
+| ---------------------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Security Baseline      | No(スキップ)      | バックエンド/認証を持たないプロトタイプ段階のUIライブラリのため非適用                                                                                                                        |
+| Resiliency Baseline    | No(スキップ)      | インフラを持たないフロントエンドライブラリのため非適用(AWS Well-Architected信頼性の観点は対象外)                                                                                             |
 | Property-Based Testing | Partial(部分適用) | PBT-02(往復性)、PBT-03(不変性)、PBT-07(ジェネレータ品質)、PBT-08(シュリンク・再現性)、PBT-09(フレームワーク選定)のみ強制適用。対象はTableのソート/ページネーション計算等の純粋関数部分を想定 |
 
 ## スコープに関するリスク・留意事項

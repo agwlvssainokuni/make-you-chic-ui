@@ -3,22 +3,26 @@
 ## 生成したアプリケーションコード
 
 ### 共通ユーティリティ(新規)
+
 - `src/utils/getFocusableElements.ts`
 - `src/utils/useFocusTrap.ts`
 
 ### コンポーネント
+
 - `src/components/Modal/`(Modal, `ModalStackContext`(スタック管理・inert制御), CSS, index, テスト)
 - `src/components/Toast/`(ToastProvider, useToast, CSS, index, テスト)
 - `src/components/Alert/`(Alert, CSS, index, テスト)
 - `src/components/Tooltip/`(Tooltip, CSS, index, テスト)
 
 ### デザイントークンの追加
+
 - `--color-warning`(Toast/Alertのwarning variant用)
 - `--color-tooltip-bg` / `--color-tooltip-text`(Tooltipの反転配色用)
 - React版(`src/theme/semantic.css`)・HTML版(`html-demo/assets/semantic.css`)の両方に追加し同期
 - `.stylelintrc.json`の禁止パターンにorange/purpleプリミティブを追加(既存の抜け漏れを修正)
 
 ### バレルエクスポート
+
 - `src/index.ts` に9つのエクスポート(Modal, ModalStackProvider, ToastProvider, useToast, 型4種, Alert, Tooltip)を追加
 
 ## 生成したHTML版デモ(FR6)

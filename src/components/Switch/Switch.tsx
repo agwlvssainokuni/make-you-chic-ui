@@ -18,11 +18,10 @@ import { forwardRef } from 'react';
 import { useFieldProps } from '../FormField/useFieldProps';
 import { useControllableState } from '../../utils/useControllableState';
 
-export interface SwitchProps
-  extends Omit<
-    React.InputHTMLAttributes<HTMLInputElement>,
-    'type' | 'role' | 'checked' | 'defaultChecked' | 'onChange'
-  > {
+export interface SwitchProps extends Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  'type' | 'role' | 'checked' | 'defaultChecked' | 'onChange'
+> {
   checked?: boolean;
   defaultChecked?: boolean;
   onChange?: (checked: boolean) => void;
@@ -45,7 +44,10 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
   const trackClass = isChecked ? 'wds-switch-track checked' : 'wds-switch-track';
 
   const input = (
-    <span className={className ? `${trackClass} ${className}` : trackClass} data-testid="switch-track">
+    <span
+      className={className ? `${trackClass} ${className}` : trackClass}
+      data-testid="switch-track"
+    >
       <input
         ref={ref}
         type="checkbox"

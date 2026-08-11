@@ -51,7 +51,11 @@ export function Topbar({ user, userMenuItems }: TopbarProps): React.JSX.Element 
         (userMenuItems && userMenuItems.length > 0 ? (
           <Dropdown
             trigger={
-              <button type="button" className="wds-topbar-user-trigger" aria-label={`${user.name}のメニュー`}>
+              <button
+                type="button"
+                className="wds-topbar-user-trigger"
+                aria-label={`${user.name}のメニュー`}
+              >
                 <Avatar name={user.name} src={user.avatarSrc} size="sm" />
               </button>
             }

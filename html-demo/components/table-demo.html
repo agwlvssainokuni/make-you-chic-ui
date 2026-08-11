@@ -13,133 +13,204 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Table デモ — Unit 6</title>
-<link rel="stylesheet" href="../assets/tokens.css">
-<link rel="stylesheet" href="../assets/semantic.css">
-<link rel="stylesheet" href="../assets/fonts.css">
-<style>
-  .demo-wrap { max-width: 720px; margin: var(--space-6) auto; padding: 0 var(--space-4); }
-  .wds-table-wrapper { overflow-x: auto; border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
-  .wds-table { width: 100%; border-collapse: collapse; font-size: var(--font-size-sm); }
-  .wds-table th, .wds-table td { padding: var(--space-2) var(--space-3); text-align: left; border-bottom: 1px solid var(--color-border); }
-  .wds-table th { background: var(--color-surface-hover); font-weight: var(--font-weight-semibold); user-select: none; }
-  .wds-table-th-sortable { cursor: pointer; background: none; border: none; font: inherit; font-weight: inherit; color: inherit; padding: 0; }
-  .wds-table-resize-handle { position: relative; display: inline-block; width: 6px; cursor: col-resize; margin-left: var(--space-2); }
-  .wds-table-cell-editable { cursor: text; }
-  .wds-table-pagination { display: flex; align-items: center; justify-content: flex-end; gap: var(--space-2); padding: var(--space-3); border-top: 1px solid var(--color-border); }
-  .wds-button { font-size: var(--font-size-sm); padding: var(--space-1) var(--space-3); border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-surface); cursor: pointer; }
-  .wds-button:disabled { opacity: 0.5; cursor: not-allowed; }
-</style>
-</head>
-<body>
-  <div class="demo-wrap">
-    <h1 style="font-size: var(--font-size-xl); font-weight: var(--font-weight-semibold);">Table デモ</h1>
-    <p>ヘッダークリックでソート、セルクリックでインライン編集(名前列)ができます。</p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Table デモ — Unit 6</title>
+    <link rel="stylesheet" href="../assets/tokens.css" />
+    <link rel="stylesheet" href="../assets/semantic.css" />
+    <link rel="stylesheet" href="../assets/fonts.css" />
+    <style>
+      .demo-wrap {
+        max-width: 720px;
+        margin: var(--space-6) auto;
+        padding: 0 var(--space-4);
+      }
+      .wds-table-wrapper {
+        overflow-x: auto;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+      }
+      .wds-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: var(--font-size-sm);
+      }
+      .wds-table th,
+      .wds-table td {
+        padding: var(--space-2) var(--space-3);
+        text-align: left;
+        border-bottom: 1px solid var(--color-border);
+      }
+      .wds-table th {
+        background: var(--color-surface-hover);
+        font-weight: var(--font-weight-semibold);
+        user-select: none;
+      }
+      .wds-table-th-sortable {
+        cursor: pointer;
+        background: none;
+        border: none;
+        font: inherit;
+        font-weight: inherit;
+        color: inherit;
+        padding: 0;
+      }
+      .wds-table-resize-handle {
+        position: relative;
+        display: inline-block;
+        width: 6px;
+        cursor: col-resize;
+        margin-left: var(--space-2);
+      }
+      .wds-table-cell-editable {
+        cursor: text;
+      }
+      .wds-table-pagination {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: var(--space-2);
+        padding: var(--space-3);
+        border-top: 1px solid var(--color-border);
+      }
+      .wds-button {
+        font-size: var(--font-size-sm);
+        padding: var(--space-1) var(--space-3);
+        border-radius: var(--radius-md);
+        border: 1px solid var(--color-border);
+        background: var(--color-surface);
+        cursor: pointer;
+      }
+      .wds-button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="demo-wrap">
+      <h1 style="font-size: var(--font-size-xl); font-weight: var(--font-weight-semibold)">
+        Table デモ
+      </h1>
+      <p>ヘッダークリックでソート、セルクリックでインライン編集(名前列)ができます。</p>
 
-    <div class="wds-table-wrapper">
-      <table class="wds-table" id="demo-table" aria-label="ユーザー一覧">
-        <thead>
-          <tr>
-            <th><button class="wds-table-th-sortable" data-sort-key="name">名前 <span id="sort-indicator"></span></button></th>
-            <th>役割</th>
-          </tr>
-        </thead>
-        <tbody id="demo-tbody"></tbody>
-      </table>
+      <div class="wds-table-wrapper">
+        <table class="wds-table" id="demo-table" aria-label="ユーザー一覧">
+          <thead>
+            <tr>
+              <th>
+                <button class="wds-table-th-sortable" data-sort-key="name">
+                  名前 <span id="sort-indicator"></span>
+                </button>
+              </th>
+              <th>役割</th>
+            </tr>
+          </thead>
+          <tbody id="demo-tbody"></tbody>
+        </table>
+      </div>
+      <div class="wds-table-pagination">
+        <span id="page-status"></span>
+        <button class="wds-button" id="prev-page" type="button">前へ</button>
+        <button class="wds-button" id="next-page" type="button">次へ</button>
+      </div>
     </div>
-    <div class="wds-table-pagination">
-      <span id="page-status"></span>
-      <button class="wds-button" id="prev-page" type="button">前へ</button>
-      <button class="wds-button" id="next-page" type="button">次へ</button>
-    </div>
-  </div>
 
-  <script>
-    // Vanilla JS port of the pure logic in src/components/Table/tableLogic.ts
-    var allRows = [
-      { id: '1', name: '山田 太郎', role: '管理者' },
-      { id: '2', name: '鈴木 花子', role: '一般ユーザー' },
-      { id: '3', name: '佐藤 次郎', role: '一般ユーザー' },
-    ];
-    var pageSize = 2;
-    var page = 1;
-    var sortState = null; // { key, direction }
+    <script>
+      // Vanilla JS port of the pure logic in src/components/Table/tableLogic.ts
+      var allRows = [
+        { id: '1', name: '山田 太郎', role: '管理者' },
+        { id: '2', name: '鈴木 花子', role: '一般ユーザー' },
+        { id: '3', name: '佐藤 次郎', role: '一般ユーザー' },
+      ];
+      var pageSize = 2;
+      var page = 1;
+      var sortState = null; // { key, direction }
 
-    function nextSortState(current, clickedKey) {
-      if (!current || current.key !== clickedKey) return { key: clickedKey, direction: 'asc' };
-      if (current.direction === 'asc') return { key: clickedKey, direction: 'desc' };
-      return null;
-    }
-    function computeTotalPages(totalCount, pageSize) {
-      return Math.max(1, Math.ceil(totalCount / pageSize));
-    }
+      function nextSortState(current, clickedKey) {
+        if (!current || current.key !== clickedKey) return { key: clickedKey, direction: 'asc' };
+        if (current.direction === 'asc') return { key: clickedKey, direction: 'desc' };
+        return null;
+      }
+      function computeTotalPages(totalCount, pageSize) {
+        return Math.max(1, Math.ceil(totalCount / pageSize));
+      }
 
-    function getSortedRows() {
-      if (!sortState) return allRows;
-      var sorted = allRows.slice().sort(function (a, b) {
-        return a[sortState.key].localeCompare(b[sortState.key]);
-      });
-      if (sortState.direction === 'desc') sorted.reverse();
-      return sorted;
-    }
-
-    function render() {
-      var sorted = getSortedRows();
-      var totalPages = computeTotalPages(sorted.length, pageSize);
-      var start = (page - 1) * pageSize;
-      var pageRows = sorted.slice(start, start + pageSize);
-
-      var tbody = document.getElementById('demo-tbody');
-      tbody.innerHTML = '';
-      pageRows.forEach(function (row) {
-        var tr = document.createElement('tr');
-        var nameTd = document.createElement('td');
-        nameTd.className = 'wds-table-cell-editable';
-        nameTd.textContent = row.name;
-        nameTd.tabIndex = 0;
-        nameTd.addEventListener('click', function () {
-          var input = document.createElement('input');
-          input.value = row.name;
-          input.style.width = '100%';
-          nameTd.textContent = '';
-          nameTd.appendChild(input);
-          input.focus();
-          function commit() {
-            row.name = input.value;
-            render();
-          }
-          input.addEventListener('keydown', function (e) {
-            if (e.key === 'Enter') commit();
-            if (e.key === 'Escape') render();
-          });
-          input.addEventListener('blur', commit);
+      function getSortedRows() {
+        if (!sortState) return allRows;
+        var sorted = allRows.slice().sort(function (a, b) {
+          return a[sortState.key].localeCompare(b[sortState.key]);
         });
-        var roleTd = document.createElement('td');
-        roleTd.textContent = row.role;
-        tr.appendChild(nameTd);
-        tr.appendChild(roleTd);
-        tbody.appendChild(tr);
+        if (sortState.direction === 'desc') sorted.reverse();
+        return sorted;
+      }
+
+      function render() {
+        var sorted = getSortedRows();
+        var totalPages = computeTotalPages(sorted.length, pageSize);
+        var start = (page - 1) * pageSize;
+        var pageRows = sorted.slice(start, start + pageSize);
+
+        var tbody = document.getElementById('demo-tbody');
+        tbody.innerHTML = '';
+        pageRows.forEach(function (row) {
+          var tr = document.createElement('tr');
+          var nameTd = document.createElement('td');
+          nameTd.className = 'wds-table-cell-editable';
+          nameTd.textContent = row.name;
+          nameTd.tabIndex = 0;
+          nameTd.addEventListener('click', function () {
+            var input = document.createElement('input');
+            input.value = row.name;
+            input.style.width = '100%';
+            nameTd.textContent = '';
+            nameTd.appendChild(input);
+            input.focus();
+            function commit() {
+              row.name = input.value;
+              render();
+            }
+            input.addEventListener('keydown', function (e) {
+              if (e.key === 'Enter') commit();
+              if (e.key === 'Escape') render();
+            });
+            input.addEventListener('blur', commit);
+          });
+          var roleTd = document.createElement('td');
+          roleTd.textContent = row.role;
+          tr.appendChild(nameTd);
+          tr.appendChild(roleTd);
+          tbody.appendChild(tr);
+        });
+
+        document.getElementById('page-status').textContent =
+          page + ' / ' + totalPages + 'ページ(全' + sorted.length + '件)';
+        document.getElementById('prev-page').disabled = page <= 1;
+        document.getElementById('next-page').disabled = page >= totalPages;
+        document.getElementById('sort-indicator').textContent = sortState
+          ? sortState.direction === 'asc'
+            ? '▲'
+            : '▼'
+          : '';
+      }
+
+      document.querySelector('[data-sort-key="name"]').addEventListener('click', function (e) {
+        sortState = nextSortState(sortState, e.currentTarget.getAttribute('data-sort-key'));
+        render();
+      });
+      document.getElementById('prev-page').addEventListener('click', function () {
+        page -= 1;
+        render();
+      });
+      document.getElementById('next-page').addEventListener('click', function () {
+        page += 1;
+        render();
       });
 
-      document.getElementById('page-status').textContent = page + ' / ' + totalPages + 'ページ(全' + sorted.length + '件)';
-      document.getElementById('prev-page').disabled = page <= 1;
-      document.getElementById('next-page').disabled = page >= totalPages;
-      document.getElementById('sort-indicator').textContent = sortState ? (sortState.direction === 'asc' ? '▲' : '▼') : '';
-    }
-
-    document.querySelector('[data-sort-key="name"]').addEventListener('click', function (e) {
-      sortState = nextSortState(sortState, e.currentTarget.getAttribute('data-sort-key'));
       render();
-    });
-    document.getElementById('prev-page').addEventListener('click', function () { page -= 1; render(); });
-    document.getElementById('next-page').addEventListener('click', function () { page += 1; render(); });
-
-    render();
-  </script>
-</body>
+    </script>
+  </body>
 </html>

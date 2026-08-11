@@ -77,7 +77,10 @@ function computeForPlacement(
 
 function overflowsViewport(top: number, left: number, rect: DOMRect): boolean {
   return (
-    top < 0 || left < 0 || top + rect.height > window.innerHeight || left + rect.width > window.innerWidth
+    top < 0 ||
+    left < 0 ||
+    top + rect.height > window.innerHeight ||
+    left + rect.width > window.innerWidth
   );
 }
 

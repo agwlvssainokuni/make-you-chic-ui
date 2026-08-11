@@ -19,11 +19,10 @@ import { useFieldProps } from '../FormField/useFieldProps';
 import { useControllableState } from '../../utils/useControllableState';
 import { Icon } from '../Icon';
 
-export interface CheckboxProps
-  extends Omit<
-    React.InputHTMLAttributes<HTMLInputElement>,
-    'type' | 'checked' | 'defaultChecked' | 'onChange'
-  > {
+export interface CheckboxProps extends Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  'type' | 'checked' | 'defaultChecked' | 'onChange'
+> {
   checked?: boolean;
   defaultChecked?: boolean;
   onChange?: (checked: boolean) => void;

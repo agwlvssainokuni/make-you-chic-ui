@@ -18,11 +18,10 @@ import { forwardRef } from 'react';
 import { useFieldProps } from '../FormField/useFieldProps';
 import { useControllableState } from '../../utils/useControllableState';
 
-export interface TextareaProps
-  extends Omit<
-    React.TextareaHTMLAttributes<HTMLTextAreaElement>,
-    'value' | 'defaultValue' | 'onChange'
-  > {
+export interface TextareaProps extends Omit<
+  React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+  'value' | 'defaultValue' | 'onChange'
+> {
   value?: string;
   defaultValue?: string;
   onChange?: (value: string) => void;

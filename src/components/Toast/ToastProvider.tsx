@@ -56,7 +56,9 @@ let idCounter = 0;
 /** Manages the Toast queue and renders it via a portal (business-logic-model.md). */
 export function ToastProvider({ children }: { children: ReactNode }): React.JSX.Element {
   const [items, setItems] = useState<ToastItem[]>([]);
-  const timers = useRef(new Map<string, { remaining: number; startedAt: number; timeoutId: number }>());
+  const timers = useRef(
+    new Map<string, { remaining: number; startedAt: number; timeoutId: number }>(),
+  );
 
   const dismiss = useCallback((id: string) => {
     const timer = timers.current.get(id);
@@ -109,7 +111,12 @@ export function ToastProvider({ children }: { children: ReactNode }): React.JSX.
     <ToastContext.Provider value={value}>
       {children}
       {createPortal(
-        <div className="wds-toast-container" role="status" aria-live="polite" data-testid="toast-container">
+        <div
+          className="wds-toast-container"
+          role="status"
+          aria-live="polite"
+          data-testid="toast-container"
+        >
           {items.map((item) => (
             <div
               key={item.id}

@@ -15,8 +15,10 @@
  */
 import { forwardRef } from 'react';
 
-export interface RadioProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'onChange'> {
+export interface RadioProps extends Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  'type' | 'onChange'
+> {
   label: string;
   onChange?: (checked: boolean) => void;
 }

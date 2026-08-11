@@ -44,7 +44,13 @@ function resolveInitialValues(mode: 'create' | 'edit', user?: SampleUser): EditU
 }
 
 /** New-user / edit-user form, sharing one Modal (Functional Design: business-rules.md). */
-export function EditUserModal({ mode, user, open, onClose, onSave }: EditUserModalProps): React.JSX.Element {
+export function EditUserModal({
+  mode,
+  user,
+  open,
+  onClose,
+  onSave,
+}: EditUserModalProps): React.JSX.Element {
   const [values, setValues] = useState<EditUserFormValues>(() => resolveInitialValues(mode, user));
 
   const isValid = values.name.trim() !== '' && values.email.trim() !== '';
@@ -55,7 +61,11 @@ export function EditUserModal({ mode, user, open, onClose, onSave }: EditUserMod
   }
 
   return (
-    <Modal open={open} onClose={onClose} title={mode === 'create' ? 'ユーザーを新規作成' : 'ユーザーを編集'}>
+    <Modal
+      open={open}
+      onClose={onClose}
+      title={mode === 'create' ? 'ユーザーを新規作成' : 'ユーザーを編集'}
+    >
       <FormField label="名前" required>
         <TextInput
           value={values.name}
@@ -82,7 +92,12 @@ export function EditUserModal({ mode, user, open, onClose, onSave }: EditUserMod
         <Button variant="secondary" onClick={onClose}>
           キャンセル
         </Button>
-        <Button variant="primary" onClick={handleSave} disabled={!isValid} data-testid="edit-user-save">
+        <Button
+          variant="primary"
+          onClick={handleSave}
+          disabled={!isValid}
+          data-testid="edit-user-save"
+        >
           保存
         </Button>
       </div>

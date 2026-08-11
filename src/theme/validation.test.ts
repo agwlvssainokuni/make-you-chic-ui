@@ -41,7 +41,9 @@ describe('isValidThemeValue', () => {
   it('property: every documented valid value is accepted for its axis', () => {
     fc.assert(
       fc.property(
-        axisArb.chain((axis) => fc.constantFrom(...THEME_VALID_VALUES[axis]).map((value) => ({ axis, value }))),
+        axisArb.chain((axis) =>
+          fc.constantFrom(...THEME_VALID_VALUES[axis]).map((value) => ({ axis, value })),
+        ),
         ({ axis, value }) => {
           expect(isValidThemeValue(axis, value)).toBe(true);
         },
@@ -53,22 +55,22 @@ describe('isValidThemeValue', () => {
   // rejected, for all axes and a wide range of generated strings.
   it('property: any string outside the valid-value list is rejected', () => {
     fc.assert(
-      fc.property(
-        axisArb,
-        fc.string(),
-        (axis, candidate) => {
-          fc.pre(!(THEME_VALID_VALUES[axis] as readonly string[]).includes(candidate));
-          expect(isValidThemeValue(axis, candidate)).toBe(false);
-        },
-      ),
+      fc.property(axisArb, fc.string(), (axis, candidate) => {
+        fc.pre(!(THEME_VALID_VALUES[axis] as readonly string[]).includes(candidate));
+        expect(isValidThemeValue(axis, candidate)).toBe(false);
+      }),
     );
   });
 
   it('property: non-string values are always rejected', () => {
     fc.assert(
-      fc.property(axisArb, fc.oneof(fc.integer(), fc.boolean(), fc.constant(null), fc.constant(undefined)), (axis, value) => {
-        expect(isValidThemeValue(axis, value)).toBe(false);
-      }),
+      fc.property(
+        axisArb,
+        fc.oneof(fc.integer(), fc.boolean(), fc.constant(null), fc.constant(undefined)),
+        (axis, value) => {
+          expect(isValidThemeValue(axis, value)).toBe(false);
+        },
+      ),
     );
   });
 });
@@ -93,10 +95,15 @@ describe('resolveInitialThemeValue', () => {
   // result must always be a documented valid value for the axis.
   it('property: the resolved value is always a documented valid value for the axis, regardless of corrupt input', () => {
     fc.assert(
-      fc.property(axisArb, fc.option(fc.string(), { nil: null }), fc.boolean(), (axis, persisted, prefersDark) => {
-        const result = resolveInitialThemeValue(axis, persisted, prefersDark);
-        expect((THEME_VALID_VALUES[axis] as readonly string[]).includes(result)).toBe(true);
-      }),
+      fc.property(
+        axisArb,
+        fc.option(fc.string(), { nil: null }),
+        fc.boolean(),
+        (axis, persisted, prefersDark) => {
+          const result = resolveInitialThemeValue(axis, persisted, prefersDark);
+          expect((THEME_VALID_VALUES[axis] as readonly string[]).includes(result)).toBe(true);
+        },
+      ),
     );
   });
 });

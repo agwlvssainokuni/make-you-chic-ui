@@ -52,9 +52,7 @@ describe('RadioGroup', () => {
   });
 
   it('has no detectable accessibility violations', async () => {
-    const { container } = render(
-      <RadioGroup name="perm" options={options} defaultValue="read" />,
-    );
+    const { container } = render(<RadioGroup name="perm" options={options} defaultValue="read" />);
     expect(await axe(container)).toHaveNoViolations();
   });
 });

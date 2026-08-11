@@ -13,87 +13,195 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ナビゲーション・レイアウト系 デモ — Unit 5</title>
-<link rel="stylesheet" href="../assets/tokens.css">
-<link rel="stylesheet" href="../assets/semantic.css">
-<link rel="stylesheet" href="../assets/fonts.css">
-<style>
-  /* AppShell */
-  .wds-app-shell { display: grid; grid-template-columns: var(--sidebar-width) 1fr; grid-template-rows: var(--topbar-height) 1fr; grid-template-areas: 'sidebar topbar' 'sidebar content'; min-height: 100vh; }
-  .wds-app-shell.collapsed { grid-template-columns: var(--sidebar-width-collapsed) 1fr; }
-  .wds-sidebar { grid-area: sidebar; background: var(--color-sidebar-bg); padding: var(--space-4) var(--space-2); }
-  .wds-sidebar-nav-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-1); }
-  .wds-sidebar-nav-link { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-2) var(--space-3); border-radius: var(--radius-md); color: var(--color-sidebar-text); text-decoration: none; font-size: var(--font-size-sm); }
-  .wds-topbar { grid-area: topbar; display: flex; align-items: center; padding: 0 var(--space-4); background: var(--color-surface); border-bottom: 1px solid var(--color-border); }
-  .wds-topbar-collapse-button { background: none; border: none; cursor: pointer; padding: var(--space-1); }
-  .wds-app-shell-content { grid-area: content; padding: var(--space-4); }
-
-  /* Tabs */
-  .wds-tabs-list { display: flex; gap: var(--space-1); border-bottom: 1px solid var(--color-border); }
-  .wds-tab { padding: var(--space-2) var(--space-4); background: none; border: none; border-bottom: 2px solid transparent; font-size: var(--font-size-md); color: var(--color-text-muted); cursor: pointer; }
-  .wds-tab.active { color: var(--color-primary); border-bottom-color: var(--color-primary); }
-  .wds-tab-panel { padding: var(--space-4) 0; }
-
-  /* Dropdown */
-  .wds-dropdown-menu { position: absolute; min-width: 160px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); box-shadow: 0 4px 16px rgb(0 0 0 / 15%); padding: var(--space-1); display: none; }
-  .wds-dropdown-wrap { position: relative; display: inline-block; }
-  .wds-dropdown-wrap.open .wds-dropdown-menu { display: block; }
-  .wds-dropdown-item { display: block; width: 100%; text-align: left; background: none; border: none; padding: var(--space-2) var(--space-3); font-size: var(--font-size-sm); cursor: pointer; }
-</style>
-</head>
-<body>
-  <div class="wds-app-shell" id="app-shell">
-    <nav class="wds-sidebar">
-      <ul class="wds-sidebar-nav-list">
-        <li><a class="wds-sidebar-nav-link" href="#" aria-label="ダッシュボード">📊 ダッシュボード</a></li>
-        <li><a class="wds-sidebar-nav-link" href="#" aria-label="ユーザー">👤 ユーザー</a></li>
-      </ul>
-    </nav>
-    <header class="wds-topbar">
-      <button class="wds-topbar-collapse-button" id="sidebar-toggle" type="button" aria-label="サイドバーを折り畳む">☰</button>
-      <div style="flex:1"></div>
-      <div class="wds-dropdown-wrap" id="user-menu-wrap">
-        <button type="button" id="user-menu-trigger" aria-haspopup="true" aria-expanded="false" style="background:none;border:none;cursor:pointer;">👤 山田 太郎</button>
-        <div class="wds-dropdown-menu" role="menu">
-          <button class="wds-dropdown-item" role="menuitem" type="button">プロフィール</button>
-          <button class="wds-dropdown-item" role="menuitem" type="button">ログアウト</button>
-        </div>
-      </div>
-    </header>
-    <main class="wds-app-shell-content">
-      <h1 style="font-size: var(--font-size-xl); font-weight: var(--font-weight-semibold);">Tabs デモ</h1>
-      <div class="wds-tabs-list" role="tablist" aria-label="詳細セクション">
-        <button class="wds-tab active" role="tab" aria-selected="true" type="button">基本情報</button>
-        <button class="wds-tab" role="tab" aria-selected="false" type="button">アクセス権限</button>
-      </div>
-      <div class="wds-tab-panel" role="tabpanel">
-        <p>基本情報の内容がここに表示されます。</p>
-      </div>
-    </main>
-  </div>
-
-  <script>
-    document.getElementById('sidebar-toggle').addEventListener('click', function () {
-      document.getElementById('app-shell').classList.toggle('collapsed');
-    });
-
-    var userMenuWrap = document.getElementById('user-menu-wrap');
-    var userMenuTrigger = document.getElementById('user-menu-trigger');
-    userMenuTrigger.addEventListener('click', function () {
-      var isOpen = userMenuWrap.classList.toggle('open');
-      userMenuTrigger.setAttribute('aria-expanded', String(isOpen));
-    });
-    document.addEventListener('click', function (e) {
-      if (!userMenuWrap.contains(e.target)) {
-        userMenuWrap.classList.remove('open');
-        userMenuTrigger.setAttribute('aria-expanded', 'false');
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ナビゲーション・レイアウト系 デモ — Unit 5</title>
+    <link rel="stylesheet" href="../assets/tokens.css" />
+    <link rel="stylesheet" href="../assets/semantic.css" />
+    <link rel="stylesheet" href="../assets/fonts.css" />
+    <style>
+      /* AppShell */
+      .wds-app-shell {
+        display: grid;
+        grid-template-columns: var(--sidebar-width) 1fr;
+        grid-template-rows: var(--topbar-height) 1fr;
+        grid-template-areas: 'sidebar topbar' 'sidebar content';
+        min-height: 100vh;
       }
-    });
-  </script>
-</body>
+      .wds-app-shell.collapsed {
+        grid-template-columns: var(--sidebar-width-collapsed) 1fr;
+      }
+      .wds-sidebar {
+        grid-area: sidebar;
+        background: var(--color-sidebar-bg);
+        padding: var(--space-4) var(--space-2);
+      }
+      .wds-sidebar-nav-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-1);
+      }
+      .wds-sidebar-nav-link {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+        padding: var(--space-2) var(--space-3);
+        border-radius: var(--radius-md);
+        color: var(--color-sidebar-text);
+        text-decoration: none;
+        font-size: var(--font-size-sm);
+      }
+      .wds-topbar {
+        grid-area: topbar;
+        display: flex;
+        align-items: center;
+        padding: 0 var(--space-4);
+        background: var(--color-surface);
+        border-bottom: 1px solid var(--color-border);
+      }
+      .wds-topbar-collapse-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: var(--space-1);
+      }
+      .wds-app-shell-content {
+        grid-area: content;
+        padding: var(--space-4);
+      }
+
+      /* Tabs */
+      .wds-tabs-list {
+        display: flex;
+        gap: var(--space-1);
+        border-bottom: 1px solid var(--color-border);
+      }
+      .wds-tab {
+        padding: var(--space-2) var(--space-4);
+        background: none;
+        border: none;
+        border-bottom: 2px solid transparent;
+        font-size: var(--font-size-md);
+        color: var(--color-text-muted);
+        cursor: pointer;
+      }
+      .wds-tab.active {
+        color: var(--color-primary);
+        border-bottom-color: var(--color-primary);
+      }
+      .wds-tab-panel {
+        padding: var(--space-4) 0;
+      }
+
+      /* Dropdown */
+      .wds-dropdown-menu {
+        position: absolute;
+        min-width: 160px;
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+        box-shadow: 0 4px 16px rgb(0 0 0 / 15%);
+        padding: var(--space-1);
+        display: none;
+      }
+      .wds-dropdown-wrap {
+        position: relative;
+        display: inline-block;
+      }
+      .wds-dropdown-wrap.open .wds-dropdown-menu {
+        display: block;
+      }
+      .wds-dropdown-item {
+        display: block;
+        width: 100%;
+        text-align: left;
+        background: none;
+        border: none;
+        padding: var(--space-2) var(--space-3);
+        font-size: var(--font-size-sm);
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wds-app-shell" id="app-shell">
+      <nav class="wds-sidebar">
+        <ul class="wds-sidebar-nav-list">
+          <li>
+            <a class="wds-sidebar-nav-link" href="#" aria-label="ダッシュボード"
+              >📊 ダッシュボード</a
+            >
+          </li>
+          <li><a class="wds-sidebar-nav-link" href="#" aria-label="ユーザー">👤 ユーザー</a></li>
+        </ul>
+      </nav>
+      <header class="wds-topbar">
+        <button
+          class="wds-topbar-collapse-button"
+          id="sidebar-toggle"
+          type="button"
+          aria-label="サイドバーを折り畳む"
+        >
+          ☰
+        </button>
+        <div style="flex: 1"></div>
+        <div class="wds-dropdown-wrap" id="user-menu-wrap">
+          <button
+            type="button"
+            id="user-menu-trigger"
+            aria-haspopup="true"
+            aria-expanded="false"
+            style="background: none; border: none; cursor: pointer"
+          >
+            👤 山田 太郎
+          </button>
+          <div class="wds-dropdown-menu" role="menu">
+            <button class="wds-dropdown-item" role="menuitem" type="button">プロフィール</button>
+            <button class="wds-dropdown-item" role="menuitem" type="button">ログアウト</button>
+          </div>
+        </div>
+      </header>
+      <main class="wds-app-shell-content">
+        <h1 style="font-size: var(--font-size-xl); font-weight: var(--font-weight-semibold)">
+          Tabs デモ
+        </h1>
+        <div class="wds-tabs-list" role="tablist" aria-label="詳細セクション">
+          <button class="wds-tab active" role="tab" aria-selected="true" type="button">
+            基本情報
+          </button>
+          <button class="wds-tab" role="tab" aria-selected="false" type="button">
+            アクセス権限
+          </button>
+        </div>
+        <div class="wds-tab-panel" role="tabpanel">
+          <p>基本情報の内容がここに表示されます。</p>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      document.getElementById('sidebar-toggle').addEventListener('click', function () {
+        document.getElementById('app-shell').classList.toggle('collapsed');
+      });
+
+      var userMenuWrap = document.getElementById('user-menu-wrap');
+      var userMenuTrigger = document.getElementById('user-menu-trigger');
+      userMenuTrigger.addEventListener('click', function () {
+        var isOpen = userMenuWrap.classList.toggle('open');
+        userMenuTrigger.setAttribute('aria-expanded', String(isOpen));
+      });
+      document.addEventListener('click', function (e) {
+        if (!userMenuWrap.contains(e.target)) {
+          userMenuWrap.classList.remove('open');
+          userMenuTrigger.setAttribute('aria-expanded', 'false');
+        }
+      });
+    </script>
+  </body>
 </html>

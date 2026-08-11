@@ -18,15 +18,13 @@ npm install <パッケージ名>
 
 ```tsx
 import { ThemeProvider, ToastProvider, ModalStackProvider } from '<パッケージ名>';
-import '<パッケージ名>/dist/style.css'; // ビルド成果物のCSS(トークン・セマンティックトークン・フォント)
+import '<パッケージ名>/dist/web-design-system-sample.css'; // ビルド成果物のCSS(トークン・セマンティックトークン・フォント)
 
 function App() {
   return (
     <ThemeProvider>
       <ToastProvider>
-        <ModalStackProvider>
-          {/* アプリケーション本体 */}
-        </ModalStackProvider>
+        <ModalStackProvider>{/* アプリケーション本体 */}</ModalStackProvider>
       </ToastProvider>
     </ThemeProvider>
   );
@@ -117,12 +115,12 @@ function ThemeToggle() {
 }
 ```
 
-| 軸 | 有効値 | 説明 |
-|---|---|---|
-| `theme` | `'light'` \| `'dark'` | ライト/ダーク |
-| `brand` | `'blue'` \| `'green'` \| `'purple'` \| `'orange'` | ブランドカラー |
-| `fontFamily` | `'sans'` \| `'serif'` | ゴシック/明朝 |
-| `fontSize` | `'sm'` \| `'md'` \| `'lg'` | 文字サイズスケール |
+| 軸           | 有効値                                            | 説明               |
+| ------------ | ------------------------------------------------- | ------------------ |
+| `theme`      | `'light'` \| `'dark'`                             | ライト/ダーク      |
+| `brand`      | `'blue'` \| `'green'` \| `'purple'` \| `'orange'` | ブランドカラー     |
+| `fontFamily` | `'sans'` \| `'serif'`                             | ゴシック/明朝      |
+| `fontSize`   | `'sm'` \| `'md'` \| `'lg'`                        | 文字サイズスケール |
 
 状態は`localStorage`に自動永続化され、別タブでの変更も同期されます(`ThemeProvider`のマルチタブ同期機能)。
 

@@ -34,9 +34,18 @@
   outline: none;
   box-shadow: 0 10px 40px rgb(0 0 0 / 20%);
 }
-.wds-modal-dialog.size-sm { max-width: 360px; }
-.wds-modal-dialog.size-md { max-width: 480px; }
-.wds-modal-dialog.size-lg { max-width: 720px; }
+
+.wds-modal-dialog.size-sm {
+  max-width: 360px;
+}
+
+.wds-modal-dialog.size-md {
+  max-width: 480px;
+}
+
+.wds-modal-dialog.size-lg {
+  max-width: 720px;
+}
 
 .wds-modal-header {
   display: flex;

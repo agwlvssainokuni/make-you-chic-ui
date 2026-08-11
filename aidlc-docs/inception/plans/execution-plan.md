@@ -3,6 +3,7 @@
 ## Detailed Analysis Summary
 
 ### Change Impact Assessment
+
 - **User-facing changes**: Yes(間接的) — 本プロジェクト自体はエンドユーザー向けアプリではないが、他プロジェクト(MasterMeister等)がこのコンポーネント群を使ってエンドユーザー向けUIを構築するため、コンポーネントのa11y・挙動品質がエンドユーザー体験に直結する
 - **Structural changes**: N/A(Greenfieldのため既存構造なし)
 - **Data model changes**: No(バックエンド・永続データを持たないUIコンポーネントライブラリ)
@@ -10,6 +11,7 @@
 - **NFR impact**: Yes — a11y(WCAG 2.1 AA)、レスポンシブ(デスクトップのみ)、ブラウザ対応、テスト(単体+a11y自動+PBT Partial)が定義済み
 
 ### Risk Assessment
+
 - **Risk Level**: Medium — 技術的難易度よりも**スコープの広さ**(十数コンポーネント+4画面パターン+テーマ4軸+React版/HTML版の二重実装+組み込みガイド)と、二重成果物間の実装ロジック整合が主なリスク要因。プロトタイプ位置づけのため本番運用リスクは低い
 - **Rollback Complexity**: Easy(Greenfieldプロトタイプ、本番デプロイなし)
 - **Testing Complexity**: Moderate〜Complex(a11y自動テスト、PBT Partial、Table等の複雑な状態管理を含む)
@@ -100,6 +102,7 @@ OPERATIONS PHASE
 ## Phases to Execute
 
 ### 🔵 INCEPTION PHASE
+
 - [x] Workspace Detection (COMPLETED)
 - [x] Requirements Analysis (COMPLETED)
 - [x] User Stories (SKIPPED)
@@ -111,6 +114,7 @@ OPERATIONS PHASE
   - **Rationale**: requirements.mdのリスク欄でも指摘した通りスコープが広範(十数コンポーネント+4画面パターン+テーマ4軸+React版/HTML版二重実装+組み込みガイド)であり、実装単位への分割が不可欠なため
 
 ### 🟢 CONSTRUCTION PHASE(ユニットごとの繰り返し)
+
 - [ ] Functional Design - **EXECUTE(ユニット単位で要否判定)**
   - **Rationale**: Table(ソート/ページネーション/行選択/列幅調整/インライン編集)、Toast/Modal/AppShell/Dropdown/Tabs等の状態管理を伴うユニットで詳細設計が必要。Icon/Badge等の静的なユニットではスキップ判定になる見込み
 - [ ] NFR Requirements - **EXECUTE(ユニット単位で要否判定)**
@@ -125,14 +129,17 @@ OPERATIONS PHASE
   - **Rationale**: 全ユニット完了後のビルド・単体テスト・a11yテスト実行
 
 ### 🟡 OPERATIONS PHASE
+
 - [ ] Operations - PLACEHOLDER
   - **Rationale**: 将来のデプロイ・監視ワークフロー用のプレースホルダー(本プロジェクトはプロトタイプのため現時点では非該当)
 
 ## Estimated Timeline
+
 - **Total Stages**: 8(Application Design, Units Generation, 各ユニットのFunctional Design/NFR Requirements/NFR Design/Code Generation、Build and Test)
 - **Estimated Duration**: ユニット数・粒度はUnits Generationステージで確定
 
 ## Success Criteria
+
 - **Primary Goal**: requirements.mdのFR1〜FR8・NFR1〜NFR9を満たすWeb UIデザインシステム(React+TypeScript版、Node.js不要のHTML版、組み込みガイド)を完成させる
 - **Key Deliverables**:
   - Reactコンポーネント一式(十数種類)+ 4画面パターン + テーマ機能4軸

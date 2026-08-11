@@ -3,15 +3,18 @@
 ## 生成したアプリケーションコード
 
 ### 純粋関数ロジック(PBT対象)
+
 - `src/components/Table/tableLogic.ts`(`nextSortState`, `computeTotalPages`, `toggleRowSelection`, `toggleAllSelection`)
 - `src/components/Table/tableLogic.test.ts`(`fast-check`によるPBT。PBT-03不変性: ソート3段階循環、ページ数の下限・カバレッジ、選択トグルの対合性、全選択トグルの一貫性)
 
 ### コンポーネント
+
 - `src/components/Table/CellEditor.tsx`(`DefaultCellEditor`、既定のテキストインライン編集)
 - `src/components/Table/Table.tsx`, `Table.css`, `index.ts`
 - `src/components/Table/Table.test.tsx`(ソート/ページネーション/行選択/インライン編集(既定・カスタム双方)、vitest-axe含む)
 
 ### バレルエクスポート
+
 - `src/index.ts` にTable, DefaultCellEditor, 関連型・純粋関数を追加
 
 ## 実装時の設計判断

@@ -131,6 +131,8 @@ describe('Tooltip', () => {
     // The tooltip portals to document.body outside of any page landmark;
     // the "region" rule checks whole-page landmark coverage, which isn't
     // meaningful when testing an isolated component fragment.
-    expect(await axe(document.body, { rules: { region: { enabled: false } } })).toHaveNoViolations();
+    expect(
+      await axe(document.body, { rules: { region: { enabled: false } } }),
+    ).toHaveNoViolations();
   });
 });

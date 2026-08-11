@@ -44,7 +44,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       data-testid="button"
       {...rest}
     >
-      {loading && <span className="wds-button-spinner" aria-hidden="true" data-testid="button-spinner" />}
+      {loading && (
+        <span className="wds-button-spinner" aria-hidden="true" data-testid="button-spinner" />
+      )}
       {children}
     </button>
   );

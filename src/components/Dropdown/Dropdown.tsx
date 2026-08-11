@@ -45,7 +45,11 @@ export interface DropdownProps {
  * opening and full WAI-ARIA menu keyboard support (Functional Design
  * Question 2 = A, Question 3 = A).
  */
-export function Dropdown({ trigger, items, placement = 'bottom-start' }: DropdownProps): React.JSX.Element {
+export function Dropdown({
+  trigger,
+  items,
+  placement = 'bottom-start',
+}: DropdownProps): React.JSX.Element {
   const id = useId();
   const [open, setOpen] = useState(false);
   const [position, setPosition] = useState({ top: 0, left: 0 });
@@ -82,7 +86,6 @@ export function Dropdown({ trigger, items, placement = 'bottom-start' }: Dropdow
     }
     document.addEventListener('mousedown', handleDocumentMouseDown);
     return () => document.removeEventListener('mousedown', handleDocumentMouseDown);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
   function handleMenuKeyDown(event: React.KeyboardEvent): void {
@@ -112,6 +115,10 @@ export function Dropdown({ trigger, items, placement = 'bottom-start' }: Dropdow
 
   if (!isValidElement(trigger)) return trigger as React.JSX.Element;
 
+  // The ref callback below runs during commit (when React attaches/detaches
+  // the DOM node), not during render, so writing to the ref here is safe;
+  // react-hooks/refs cannot statically verify that through cloneElement.
+  // eslint-disable-next-line react-hooks/refs
   const clonedTrigger = cloneElement(trigger as ReactElement<Record<string, unknown>>, {
     ref: (node: HTMLElement | null) => {
       triggerRef.current = node;

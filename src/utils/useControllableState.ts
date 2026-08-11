@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export interface UseControllableStateOptions<T> {
   value?: T;
@@ -42,13 +42,14 @@ export function useControllableState<T>({
   const [internalValue, setInternalValue] = useState<T>(defaultValue);
   const wasControlled = useRef(isControlled);
 
-  if (import.meta.env?.DEV && wasControlled.current !== isControlled) {
-    // eslint-disable-next-line no-console
-    console.warn(
-      '[web-design-system-sample] A component switched between controlled and uncontrolled. Decide between using a controlled or uncontrolled value for the lifetime of the component.',
-    );
-  }
-  wasControlled.current = isControlled;
+  useEffect(() => {
+    if (import.meta.env?.DEV && wasControlled.current !== isControlled) {
+      console.warn(
+        '[web-design-system-sample] A component switched between controlled and uncontrolled. Decide between using a controlled or uncontrolled value for the lifetime of the component.',
+      );
+    }
+    wasControlled.current = isControlled;
+  }, [isControlled]);
 
   const currentValue = isControlled ? (value as T) : internalValue;
 

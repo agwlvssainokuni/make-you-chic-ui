@@ -9,17 +9,17 @@
 
 ## 設計方針の決定事項(`aidlc-docs/inception/plans/application-design-plan.md`より)
 
-| # | 決定事項 | 選択 |
-|---|---|---|
-| 1 | 複合コンポーネントAPIパターン | フラットなprops駆動(`items`配列等)を基本とする |
-| 2 | Controlled/Uncontrolled | 両対応(value指定時Controlled、未指定時defaultValueでUncontrolled) |
-| 3 | Iconのアイコン供給方法 | ライブラリ内にSVGアイコンセットを同梱、`name`で参照(外部ライブラリ非依存) |
-| 4 | テーマのサービス層 | `ThemeProvider`/`useTheme()`をデザインシステム側で提供 |
-| 5 | AppShellの状態アクセス | 内部Context + `useAppShell()`で子コンポーネントから参照・操作可能 |
-| 6 | FormFieldとInput系の連携 | Context方式(id/aria-describedbyを自動紐付け) |
-| 7 | スタイル上書きポリシー | `className`/`style`両方を全コンポーネントで許容 |
-| 8 | ref転送の対象範囲 | DOM要素をルートに持つ全コンポーネントに`forwardRef`を適用 |
-| 9 | パッケージエクスポート構成 | 単一のバレルエクスポート |
+| #   | 決定事項                      | 選択                                                                      |
+| --- | ----------------------------- | ------------------------------------------------------------------------- |
+| 1   | 複合コンポーネントAPIパターン | フラットなprops駆動(`items`配列等)を基本とする                            |
+| 2   | Controlled/Uncontrolled       | 両対応(value指定時Controlled、未指定時defaultValueでUncontrolled)         |
+| 3   | Iconのアイコン供給方法        | ライブラリ内にSVGアイコンセットを同梱、`name`で参照(外部ライブラリ非依存) |
+| 4   | テーマのサービス層            | `ThemeProvider`/`useTheme()`をデザインシステム側で提供                    |
+| 5   | AppShellの状態アクセス        | 内部Context + `useAppShell()`で子コンポーネントから参照・操作可能         |
+| 6   | FormFieldとInput系の連携      | Context方式(id/aria-describedbyを自動紐付け)                              |
+| 7   | スタイル上書きポリシー        | `className`/`style`両方を全コンポーネントで許容                           |
+| 8   | ref転送の対象範囲             | DOM要素をルートに持つ全コンポーネントに`forwardRef`を適用                 |
+| 9   | パッケージエクスポート構成    | 単一のバレルエクスポート                                                  |
 
 ## コンポーネント構成サマリー
 

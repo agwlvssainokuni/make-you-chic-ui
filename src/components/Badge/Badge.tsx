@@ -38,7 +38,8 @@ export function Badge({
   className,
   style,
 }: BadgeProps): React.JSX.Element {
-  const content = count !== undefined ? (count > maxCount ? `${maxCount}+` : String(count)) : children;
+  const content =
+    count !== undefined ? (count > maxCount ? `${maxCount}+` : String(count)) : children;
   const isEmpty = content === undefined || content === null || content === '';
 
   const classes = ['wds-badge', `variant-${variant}`, isEmpty && 'wds-badge-empty', className]

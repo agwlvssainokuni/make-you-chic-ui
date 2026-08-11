@@ -1,0 +1,9 @@
+# AI-DLC workflow definition files — not generated deliverables, must not be
+# reformatted as a side effect of `npm run format`.
+CLAUDE.md
+.aidlc-rule-details/
+
+# build output / dependencies
+dist/
+node_modules/
+coverage/

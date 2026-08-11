@@ -19,7 +19,12 @@ import { Checkbox } from '../Checkbox';
 import { Icon } from '../Icon';
 import { Button } from '../Button';
 import { DefaultCellEditor, type CellEditComponentProps } from './CellEditor';
-import { nextSortState, computeTotalPages, toggleRowSelection, toggleAllSelection } from './tableLogic';
+import {
+  nextSortState,
+  computeTotalPages,
+  toggleRowSelection,
+  toggleAllSelection,
+} from './tableLogic';
 import type { SortState } from './tableLogic';
 
 export type { SortState, SortDirection } from './tableLogic';
@@ -84,8 +89,12 @@ export function Table<T>({
 
   const totalPages = computeTotalPages(totalCount, pageSize);
   const rowIds = data.map(getRowId);
-  const allOnPageSelected = selectedRowIds !== undefined && rowIds.length > 0 && rowIds.every((id) => selectedRowIds.has(id));
-  const someOnPageSelected = selectedRowIds !== undefined && rowIds.some((id) => selectedRowIds.has(id));
+  const allOnPageSelected =
+    selectedRowIds !== undefined &&
+    rowIds.length > 0 &&
+    rowIds.every((id) => selectedRowIds.has(id));
+  const someOnPageSelected =
+    selectedRowIds !== undefined && rowIds.some((id) => selectedRowIds.has(id));
 
   function handleSortClick(columnKey: string): void {
     onSortChange?.(nextSortState(sortState, columnKey));
@@ -104,7 +113,11 @@ export function Table<T>({
   function handleResizeStart(key: string, event: React.MouseEvent): void {
     const th = thRefs.current[key];
     if (!th) return;
-    dragState.current = { key, startX: event.clientX, startWidth: th.getBoundingClientRect().width };
+    dragState.current = {
+      key,
+      startX: event.clientX,
+      startWidth: th.getBoundingClientRect().width,
+    };
   }
 
   useEffect(() => {
@@ -113,7 +126,10 @@ export function Table<T>({
       if (!drag) return;
       const th = thRefs.current[drag.key];
       if (!th) return;
-      const nextWidth = Math.max(MIN_COLUMN_WIDTH_PX, drag.startWidth + (event.clientX - drag.startX));
+      const nextWidth = Math.max(
+        MIN_COLUMN_WIDTH_PX,
+        drag.startWidth + (event.clientX - drag.startX),
+      );
       th.style.width = `${nextWidth}px`;
     }
 
@@ -122,7 +138,10 @@ export function Table<T>({
       if (!drag) return;
       const th = thRefs.current[drag.key];
       if (th) {
-        const finalWidth = Math.max(MIN_COLUMN_WIDTH_PX, parseFloat(th.style.width) || drag.startWidth);
+        const finalWidth = Math.max(
+          MIN_COLUMN_WIDTH_PX,
+          parseFloat(th.style.width) || drag.startWidth,
+        );
         setColumnWidths((prev) => ({ ...prev, [drag.key]: finalWidth }));
       }
       dragState.current = null;
@@ -235,7 +254,8 @@ export function Table<T>({
                   </td>
                 )}
                 {columns.map((column) => {
-                  const isEditing = editingCell?.rowId === rowId && editingCell.columnKey === column.key;
+                  const isEditing =
+                    editingCell?.rowId === rowId && editingCell.columnKey === column.key;
                   const rawValue = column.getValue
                     ? column.getValue(row)
                     : (row as Record<string, unknown>)[column.key];
@@ -245,7 +265,11 @@ export function Table<T>({
                     <td
                       key={column.key}
                       className={column.editable ? 'wds-table-cell-editable' : undefined}
-                      onClick={column.editable && !isEditing ? () => startEdit(rowId, column.key) : undefined}
+                      onClick={
+                        column.editable && !isEditing
+                          ? () => startEdit(rowId, column.key)
+                          : undefined
+                      }
                       data-testid={`table-cell-${rowId}-${column.key}`}
                     >
                       {isEditing ? (

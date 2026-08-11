@@ -13,14 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import {
-  createContext,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-  type ReactNode,
-} from 'react';
+import { createContext, useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
 import type { ThemeState, ThemeMode, ThemeBrand, ThemeFontFamily, ThemeFontSize } from './types';
 import { THEME_STORAGE_KEYS, safeLocalStorageGet, safeLocalStorageSet } from './storage';
 import { resolveInitialThemeValue } from './validation';
@@ -44,8 +37,16 @@ function prefersDarkColorScheme(): boolean {
 function readInitialState(): ThemeState {
   const prefersDark = prefersDarkColorScheme();
   return {
-    theme: resolveInitialThemeValue('theme', safeLocalStorageGet(THEME_STORAGE_KEYS.theme), prefersDark),
-    brand: resolveInitialThemeValue('brand', safeLocalStorageGet(THEME_STORAGE_KEYS.brand), prefersDark),
+    theme: resolveInitialThemeValue(
+      'theme',
+      safeLocalStorageGet(THEME_STORAGE_KEYS.theme),
+      prefersDark,
+    ),
+    brand: resolveInitialThemeValue(
+      'brand',
+      safeLocalStorageGet(THEME_STORAGE_KEYS.brand),
+      prefersDark,
+    ),
     fontFamily: resolveInitialThemeValue(
       'fontFamily',
       safeLocalStorageGet(THEME_STORAGE_KEYS.fontFamily),

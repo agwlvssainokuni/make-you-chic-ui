@@ -36,10 +36,21 @@
   box-shadow: 0 4px 16px rgb(0 0 0 / 15%);
 }
 
-.wds-toast.variant-info { border-left: 4px solid var(--color-primary); }
-.wds-toast.variant-success { border-left: 4px solid var(--color-success); }
-.wds-toast.variant-warning { border-left: 4px solid var(--color-warning); }
-.wds-toast.variant-danger { border-left: 4px solid var(--color-danger); }
+.wds-toast.variant-info {
+  border-left: 4px solid var(--color-primary);
+}
+
+.wds-toast.variant-success {
+  border-left: 4px solid var(--color-success);
+}
+
+.wds-toast.variant-warning {
+  border-left: 4px solid var(--color-warning);
+}
+
+.wds-toast.variant-danger {
+  border-left: 4px solid var(--color-danger);
+}
 
 .wds-toast-message {
   flex: 1;

@@ -51,7 +51,13 @@ export function DetailView({ user, onDelete }: DetailViewProps): React.JSX.Eleme
       <div className="detail-view-header">
         <Avatar name={user.name} src={user.avatarSrc} size="lg" />
         <div>
-          <h1 style={{ margin: 0, fontSize: 'var(--font-size-xl)', fontWeight: 'var(--font-weight-semibold)' }}>
+          <h1
+            style={{
+              margin: 0,
+              fontSize: 'var(--font-size-xl)',
+              fontWeight: 'var(--font-weight-semibold)',
+            }}
+          >
             {user.name}
           </h1>
           <Badge variant={user.role === 'admin' ? 'primary' : 'secondary'}>
@@ -103,7 +109,11 @@ export function DetailView({ user, onDelete }: DetailViewProps): React.JSX.Eleme
                 <p style={{ color: 'var(--color-text-muted)', margin: '0 0 12px' }}>
                   削除すると復元できません。関連するアクセス権限もすべて失われます。
                 </p>
-                <Button variant="danger" onClick={() => setConfirmingDelete(true)} data-testid="detail-view-delete">
+                <Button
+                  variant="danger"
+                  onClick={() => setConfirmingDelete(true)}
+                  data-testid="detail-view-delete"
+                >
                   削除する
                 </Button>
               </Card>
