@@ -485,3 +485,18 @@
 **Context**: CONSTRUCTION - Unit 5 Code Generation Part 1 (計画提示、承認待ち)
 
 ---
+
+## CONSTRUCTION - Unit 5(ナビゲーション・レイアウト系) - Code Generation Plan Approval
+**Timestamp**: 2026-08-11T11:30:17Z
+**User Response**: "Yes, proceed to generation"
+**Status**: Approved
+**Context**: `unit5-nav-layout-code-generation-plan.md`を承認。Part 2(Generation)へ進む。
+
+---
+
+## CONSTRUCTION - Unit 5(ナビゲーション・レイアウト系) - Code Generation (Part 2: Generation完了)
+**Timestamp**: 2026-08-11T11:37:25Z
+**AI Response**: 計画の全7ステップを実行。`computeFloatingPosition.ts`共通化(Tooltipをリファクタリング)、Tabs(automatic activation、roving tabindex)、Dropdown(クリック開閉、フルWAI-ARIA Menuキーボード操作)、AppShell(AppShellContext、内部Sidebar/Topbar、userMenuItems対応、notificationCount廃止)とその単体テスト(vitest-axe含む)、HTML版デモ(nav-layout-demo.html)、サマリーを生成。Sidebar折り畳み時のアイコンのみリンクでアクセシブルネームが失われる問題、プリミティブトークン直接参照(`--gray-100`)をその場で発見し修正(`--color-sidebar-text`追加)。
+**Context**: CONSTRUCTION - Unit 5 Code Generation (成果物作成完了、承認待ち)
+
+---

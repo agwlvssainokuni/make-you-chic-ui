@@ -25,8 +25,9 @@ import {
   type ReactNode,
 } from 'react';
 import { createPortal } from 'react-dom';
+import { computeFloatingPosition, type FloatingPlacement } from '../../utils/computeFloatingPosition';
 
-export type TooltipPlacement = 'top' | 'bottom' | 'left' | 'right';
+export type TooltipPlacement = Extract<FloatingPlacement, 'top' | 'bottom' | 'left' | 'right'>;
 
 export interface TooltipProps {
   content: ReactNode;
@@ -37,48 +38,6 @@ export interface TooltipProps {
 }
 
 const SHOW_DELAY_MS = 300;
-const OFFSET_PX = 8;
-
-const OPPOSITE: Record<TooltipPlacement, TooltipPlacement> = {
-  top: 'bottom',
-  bottom: 'top',
-  left: 'right',
-  right: 'left',
-};
-
-function computePosition(
-  triggerRect: DOMRect,
-  tooltipRect: DOMRect,
-  placement: TooltipPlacement,
-): { top: number; left: number } {
-  switch (placement) {
-    case 'top':
-      return {
-        top: triggerRect.top - tooltipRect.height - OFFSET_PX,
-        left: triggerRect.left + triggerRect.width / 2 - tooltipRect.width / 2,
-      };
-    case 'bottom':
-      return {
-        top: triggerRect.bottom + OFFSET_PX,
-        left: triggerRect.left + triggerRect.width / 2 - tooltipRect.width / 2,
-      };
-    case 'left':
-      return {
-        top: triggerRect.top + triggerRect.height / 2 - tooltipRect.height / 2,
-        left: triggerRect.left - tooltipRect.width - OFFSET_PX,
-      };
-    case 'right':
-      return {
-        top: triggerRect.top + triggerRect.height / 2 - tooltipRect.height / 2,
-        left: triggerRect.right + OFFSET_PX,
-      };
-  }
-}
-
-/** Returns true if the computed box would overflow the viewport. */
-function overflowsViewport(top: number, left: number, rect: DOMRect): boolean {
-  return top < 0 || left < 0 || top + rect.height > window.innerHeight || left + rect.width > window.innerWidth;
-}
 
 /**
  * Wraps a single trigger element with hover/focus-activated tooltip
@@ -97,12 +56,7 @@ export function Tooltip({ content, children, placement = 'top' }: TooltipProps):
     if (!visible || !triggerRef.current || !tooltipRef.current) return;
     const triggerRect = triggerRef.current.getBoundingClientRect();
     const tooltipRect = tooltipRef.current.getBoundingClientRect();
-
-    let next = computePosition(triggerRect, tooltipRect, placement);
-    if (overflowsViewport(next.top, next.left, tooltipRect)) {
-      next = computePosition(triggerRect, tooltipRect, OPPOSITE[placement]);
-    }
-    setPosition(next);
+    setPosition(computeFloatingPosition(triggerRect, tooltipRect, placement));
   }, [visible, placement]);
 
   function scheduleShow(): void {

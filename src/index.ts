@@ -74,6 +74,14 @@ export type { AlertProps, AlertVariant, AlertAction } from './components/Alert';
 export { Tooltip } from './components/Tooltip';
 export type { TooltipProps, TooltipPlacement } from './components/Tooltip';
 
+// Navigation / layout components (Unit 5)
+export { Tabs } from './components/Tabs';
+export type { TabsProps, TabItem } from './components/Tabs';
+export { Dropdown } from './components/Dropdown';
+export type { DropdownProps, MenuItem } from './components/Dropdown';
+export { AppShell, useAppShell } from './components/AppShell';
+export type { AppShellProps, AppShellNavItem, AppShellUser } from './components/AppShell';
+
 // Global stylesheets — consuming apps must import these once at the root
 // (see docs/integration-guide.md, produced by Unit 8).
 import './theme/tokens.css';
