@@ -27,7 +27,7 @@ C) **細かい(コンポーネント単位に近い、15+ユニット)**: 個々
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: B
 
 ### Question 2: React版とHTML版の実装順序
 
@@ -41,7 +41,7 @@ C) React版をすべてのユニットで先に作り切ってから、最後に
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ### Question 3: 基盤ユニットの優先順位
 
@@ -53,7 +53,7 @@ B) いいえ、別の優先順位にしたい(Answerに具体的な希望を記�
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ### Question 4: コード構成(ディレクトリ構造)
 
@@ -65,7 +65,7 @@ B) モノレポ構成: `packages/react/`、`packages/html-demo/`、`packages/doc
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ### Question 5: ユニットの並行性
 
@@ -77,7 +77,7 @@ B) 必要。依存関係が無ければ、ユーザーの指示でユニット�
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ## 質問カテゴリの適用範囲についての注記
 
