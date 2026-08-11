@@ -1,0 +1,22 @@
+{
+  "extends": ["stylelint-config-standard"],
+  "rules": {
+    "custom-property-pattern": null,
+    "selector-class-pattern": null
+  },
+  "overrides": [
+    {
+      "files": ["src/components/**/*.css"],
+      "comment": "NFR2: component CSS must reference semantic tokens only, never primitive tokens directly.",
+      "rules": {
+        "declaration-property-value-disallowed-list": {
+          "/.+/": [
+            "/var\\(--(gray|blue|red|green|brand)-[0-9]+/",
+            "/var\\(--space-[0-9]+/",
+            "/var\\(--radius-(sm|md|lg)/"
+          ]
+        }
+      }
+    }
+  ]
+}

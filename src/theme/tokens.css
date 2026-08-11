@@ -1,0 +1,85 @@
+/**
+ * Copyright 2026 agwlvssainokuni
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * Primitive tokens — raw values only. Components must never reference these
+ * directly; only semantic.css may reference them (NFR2).
+ */
+:root {
+  /* Grayscale */
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-300: #d1d5db;
+  --gray-500: #6b7280;
+  --gray-700: #374151;
+  --gray-750: #283141;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+  --gray-950: #0b0f19;
+
+  /* Status colors */
+  --red-400: #f87171;
+  --red-500: #dc2626;
+  --red-600: #b91c1c;
+  --green-500: #22c55e;
+  --green-600: #16a34a;
+
+  /* Brand primitives — the active set is chosen by data-brand (semantic.css) */
+  --blue-400: #60a5fa;
+  --blue-500: #2563eb;
+  --blue-600: #1d4ed8;
+  --blue-700: #1e40af;
+
+  --green-brand-400: #4ade80;
+  --green-brand-500: #16a34a;
+  --green-brand-600: #15803d;
+  --green-brand-700: #166534;
+
+  --purple-400: #c084fc;
+  --purple-500: #9333ea;
+  --purple-600: #7e22ce;
+  --purple-700: #6b21a8;
+
+  --orange-400: #fb923c;
+  --orange-500: #ea580c;
+  --orange-600: #c2410c;
+  --orange-700: #9a3412;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+
+  /* Radius */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+
+  /* Font families */
+  --font-family-sans-raw:
+    'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', Meiryo,
+    sans-serif;
+  --font-family-serif-raw: 'Noto Serif JP', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+
+  /* Font sizes (base scale, multiplied by --font-scale in semantic.css) */
+  --font-size-sm-base: 13px;
+  --font-size-md-base: 14px;
+  --font-size-lg-base: 16px;
+  --font-size-xl-base: 20px;
+
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+}
