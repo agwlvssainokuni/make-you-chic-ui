@@ -2,10 +2,10 @@
 
 ## 実施タスク
 
-- [ ] `aidlc-docs/construction/unit1-foundation/functional-design/business-logic-model.md` を作成(テーマ状態管理のロジック)
-- [ ] `aidlc-docs/construction/unit1-foundation/functional-design/business-rules.md` を作成(テーマ軸の有効値・フォールバック規則等)
-- [ ] `aidlc-docs/construction/unit1-foundation/functional-design/domain-entities.md` を作成(該当があれば。本ユニットは業務ドメインエンティティを持たないため、テーマ状態の型定義で代用する可能性が高い)
-- [ ] `aidlc-docs/construction/unit1-foundation/functional-design/frontend-components.md` を作成(ThemeProvider/useTheme/Iconのコンポーネント構造・props・状態)
+- [x] `aidlc-docs/construction/unit1-foundation/functional-design/business-logic-model.md` を作成(テーマ状態管理のロジック)
+- [x] `aidlc-docs/construction/unit1-foundation/functional-design/business-rules.md` を作成(テーマ軸の有効値・フォールバック規則等)
+- [x] `aidlc-docs/construction/unit1-foundation/functional-design/domain-entities.md` を作成(該当があれば。本ユニットは業務ドメインエンティティを持たないため、テーマ状態の型定義で代用する可能性が高い)
+- [x] `aidlc-docs/construction/unit1-foundation/functional-design/frontend-components.md` を作成(ThemeProvider/useTheme/Iconのコンポーネント構造・props・状態)
 
 ## カテゴリ別の適用判定
 
@@ -30,7 +30,7 @@ B) 同期しない。各タブは自身の初期読み込み時の値を保持�
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ### Question 2: Iconのレンダリング方式
 
@@ -42,7 +42,7 @@ B) 個別コンポーネント方式: アイコンごとに`IconUser.tsx`のよ�
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: B
 
 ### Question 3: 未定義のIcon名を指定した場合の挙動
 
@@ -56,7 +56,7 @@ C) プレースホルダー(不明アイコンを示す代替SVG)を描画する
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ### Question 4: テーマのリセット操作
 
@@ -68,4 +68,4 @@ B) 不要。個別の`set*`メソッドのみで十分(利用側で個別に元�
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: B

@@ -210,3 +210,11 @@
 **Context**: CONSTRUCTION - Unit 1 Functional Design (質問ファイル提示、回答待ちゲート)
 
 ---
+
+## CONSTRUCTION - Unit 1(基盤) - Functional Design (成果物作成)
+**Timestamp**: 2026-08-11T09:20:54Z
+**User Input**: "推奨は？" → 推奨提示 → "推奨の通りとします。"
+**AI Response**: 4問すべてに推奨通りの回答(Q1=A マルチタブ同期あり、Q2=B 個別コンポーネント/マップ方式、Q3=A 開発時警告+無描画、Q4=B リセット関数不要)を反映。`business-logic-model.md`, `business-rules.md`, `domain-entities.md`, `frontend-components.md` を作成。
+**Context**: CONSTRUCTION - Unit 1 Functional Design (成果物作成完了、承認待ち)
+
+---
