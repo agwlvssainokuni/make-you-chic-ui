@@ -500,3 +500,18 @@
 **Context**: CONSTRUCTION - Unit 5 Code Generation (成果物作成完了、承認待ち)
 
 ---
+
+## CONSTRUCTION - Unit 5(ナビゲーション・レイアウト系) - Code Generation (承認)
+**Timestamp**: 2026-08-11T11:38:53Z
+**User Input**: "Continue to Next Stage"
+**AI Response**: Code Generationを承認済みとして確定。Unit 5完了。Unit 6(Table)のFunctional Designへ進む。PBT拡張(Partial)の主対象ユニットであることに留意する。
+**Context**: CONSTRUCTION - Unit 5(ナビゲーション・レイアウト系) 完了 → Unit 6(Table) 開始
+
+---
+
+## CONSTRUCTION - Unit 6(Table) - Functional Design (計画・質問提示)
+**Timestamp**: 2026-08-11T11:40:14Z
+**AI Response**: `aidlc-docs/construction/plans/unit6-table-functional-design-plan.md` を作成。ソート対象範囲、ページネーションのデータ所有、行ID抽出方法、列幅調整の実装方式、インライン編集の対象列・入力方式、編集開始トリガーと競合時の挙動の6問を提示。ユーザーの回答待ち。
+**Context**: CONSTRUCTION - Unit 6 Functional Design (質問ファイル提示、回答待ちゲート)
+
+---
