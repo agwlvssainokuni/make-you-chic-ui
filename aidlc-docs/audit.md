@@ -339,3 +339,11 @@
 **Context**: CONSTRUCTION - Unit 2 Functional Design (完了) → NFR Requirements/NFR Design (SKIP) → Code Generation (開始)
 
 ---
+
+## CONSTRUCTION - Unit 2(基本入力系) - Code Generation (Part 1: Planning)
+**Timestamp**: 2026-08-11T10:12:13Z
+**User Input**: (NFR Requirements/NFR Design SKIP後、自動的にCode Generationへ遷移)
+**AI Response**: `aidlc-docs/construction/plans/unit2-basic-input-code-generation-plan.md` を作成。全11ステップ(FormField+Context、Button、TextInput、Textarea、Select、Checkbox、Switch、RadioGroup/Radio、バレルエクスポート、HTML版反映、サマリー)。承認待ち。
+**Context**: CONSTRUCTION - Unit 2 Code Generation Part 1 (計画提示、承認待ち)
+
+---
