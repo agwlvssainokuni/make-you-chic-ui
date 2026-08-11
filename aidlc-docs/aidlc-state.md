@@ -3,7 +3,7 @@
 ## Project Information
 - **Project Type**: Greenfield
 - **Start Date**: 2026-08-11T06:21:52Z
-- **Current Stage**: CONSTRUCTION - Unit 1(基盤): NFR Requirements
+- **Current Stage**: CONSTRUCTION - Unit 1(基盤): NFR Design
 
 ## Workspace State
 - **Existing Code**: No
@@ -52,8 +52,8 @@
 
 #### Unit 1: 基盤(デザイントークン・テーマエンジン・Icon)
 - [x] Functional Design (2026-08-11T09:21:53Z 承認済み) — `aidlc-docs/construction/unit1-foundation/functional-design/`
-- [ ] NFR Requirements - EXECUTE(進行中。テストフレームワーク等の選定、プロジェクト全体の基盤として本ユニットで確定)
-- [ ] NFR Design - 要否はNFR Requirements後に判定
+- [x] NFR Requirements (2026-08-11T09:28:01Z 承認済み) — テストフレームワーク等をプロジェクト全体の基盤として確定。`aidlc-docs/construction/unit1-foundation/nfr-requirements/`
+- [ ] NFR Design - EXECUTE(進行中)
 - [ ] Infrastructure Design - SKIP
 - [ ] Code Generation - EXECUTE
 

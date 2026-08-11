@@ -242,3 +242,19 @@
 **Context**: CONSTRUCTION - Unit 1 NFR Requirements (成果物作成完了、承認待ち)
 
 ---
+
+## CONSTRUCTION - Unit 1(基盤) - NFR Requirements (承認)
+**Timestamp**: 2026-08-11T09:28:01Z
+**User Input**: "Continue to Next Stage"
+**AI Response**: NFR Requirementsを承認済みとして確定。NFR Designへ進む。
+**Context**: CONSTRUCTION - Unit 1 NFR Requirements (完了) → NFR Design (開始)
+
+---
+
+## CONSTRUCTION - Unit 1(基盤) - NFR Design (計画・質問提示)
+**Timestamp**: 2026-08-11T09:29:23Z
+**User Input**: (NFR Requirements承認後、自動的にNFR Designへ遷移)
+**AI Response**: `aidlc-docs/construction/plans/unit1-foundation-nfr-design-plan.md` を作成。localStorageアクセス失敗時の挙動、localStorage読み込み時の値検証、Webフォント読み込み戦略(font-display)の3問を提示。Scalability/Logical Componentsは非該当と判断(理由明記)。ユーザーの回答待ち。
+**Context**: CONSTRUCTION - Unit 1 NFR Design (質問ファイル提示、回答待ちゲート)
+
+---
