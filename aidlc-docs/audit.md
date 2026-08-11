@@ -323,3 +323,11 @@
 **Context**: CONSTRUCTION - Unit 2 Functional Design (質問ファイル提示、回答待ちゲート)
 
 ---
+
+## CONSTRUCTION - Unit 2(基本入力系) - Functional Design (成果物作成)
+**Timestamp**: 2026-08-11T10:02:13Z
+**User Input**: "推奨は？" → 推奨提示 → "推奨の通りとします。"
+**AI Response**: 5問すべてに推奨通りの回答(全てA: FormField外でも動作、ネイティブselect、スピナー+disabled、バリデーションは表示のみ、Textarea縦リサイズ許可)を反映。`business-logic-model.md`, `business-rules.md`, `domain-entities.md`, `frontend-components.md`(Button/FormField/TextInput/Textarea/Select/Checkbox/Switch/RadioGroup+Radioの8コンポーネント)を作成。
+**Context**: CONSTRUCTION - Unit 2 Functional Design (成果物作成完了、承認待ち)
+
+---

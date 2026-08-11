@@ -4,10 +4,10 @@
 
 ## 実施タスク
 
-- [ ] `aidlc-docs/construction/unit2-basic-input/functional-design/business-logic-model.md` を作成
-- [ ] `aidlc-docs/construction/unit2-basic-input/functional-design/business-rules.md` を作成
-- [ ] `aidlc-docs/construction/unit2-basic-input/functional-design/domain-entities.md` を作成
-- [ ] `aidlc-docs/construction/unit2-basic-input/functional-design/frontend-components.md` を作成
+- [x] `aidlc-docs/construction/unit2-basic-input/functional-design/business-logic-model.md` を作成
+- [x] `aidlc-docs/construction/unit2-basic-input/functional-design/business-rules.md` を作成
+- [x] `aidlc-docs/construction/unit2-basic-input/functional-design/domain-entities.md` を作成
+- [x] `aidlc-docs/construction/unit2-basic-input/functional-design/frontend-components.md` を作成
 
 ## カテゴリ別の適用判定
 
@@ -32,7 +32,7 @@ B) 単体使用は非推奨とし、開発時にconsole.warnを出す(が、動�
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ### Question 2: Selectの実装方式
 
@@ -44,7 +44,7 @@ B) カスタムドロップダウン(Unit 5で作るDropdown/Menuの仕組みを
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ### Question 3: Buttonのloading状態の見た目
 
@@ -56,7 +56,7 @@ B) 見た目は変えず`aria-busy="true"`のみ設定し、スタイリング(�
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ### Question 4: バリデーションロジックの責務分界
 
@@ -68,7 +68,7 @@ B) 簡易バリデーション(必須項目の空チェック程度)は内蔵す
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ### Question 5: Textareaのリサイズ
 
@@ -80,4 +80,4 @@ B) 許可しない(`resize: none`、固定サイズ)
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
