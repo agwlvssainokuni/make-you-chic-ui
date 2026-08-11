@@ -137,6 +137,9 @@
 - [x] Functional Design(方針確認) (2026-08-11T16:28:27Z 承認済み) — AskUserQuestionで配置/ナビゲーション/デモ範囲を確認。`requirements.md`にFR9追加、`unit-of-work.md`にUnit 9登録、`AppShellNavItem.onClick`追加を`component-methods.md`に反映
 - [x] NFR Requirements / NFR Design / Infrastructure Design - SKIP(技術スタック確定済み、新規NFRなし)
 - [x] Code Generation (2026-08-11T17:06:42Z 承認済み) — `AppShellNavItem.onClick`・`ListView.onViewUser`追加(既存挙動に影響なし)、`sample-app/`配下にApp/main/CatalogPage/UserListPage/UserDetailPage/ThemeSettingsPageを実装、`index.html`・`vite.sample-app.config.ts`・`sample-app:build`スクリプト追加。サマリーは`aidlc-docs/construction/unit9-sample-app/code/summary.md`。**Unit 9完了**
+- [x] レビュー対応: Tableその場編集追加 (2026-08-11T17:49:14Z)
+- [x] レビュー対応: Webフォント(FR8)のライセンス表記追加+実は壊れていた(日本語グリフ0件)ファイルを`@fontsource`経由の正しいものに差し替え、library buildのbase64インライン化肥大化(30MB)を回避するため`fonts.css`をバレルエクスポートから分離 (2026-08-11T23:47:11Z) — 詳細は`audit.md`該当エントリ参照
+- [x] レビュー対応: Webフォントのデザインシステム側同梱を廃止、`@fontsource/*`を`dependencies`化し利用側でimportする構成に単純化 (2026-08-11T23:57:11Z) — `src/fonts/`・`src/theme/fonts.css`を削除。html-demo(Node.js不要)は物理同梱のまま変更なし。詳細は`audit.md`該当エントリ参照
 
 ### 🟡 OPERATIONS PHASE
 

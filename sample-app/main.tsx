@@ -17,6 +17,18 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router'
 import { ModalStackProvider, ThemeProvider, ToastProvider } from '../src'
+// Web fonts are not bundled by the design system itself (see
+// docs/integration-guide.md's font setup section); the consuming app
+// imports the @fontsource packages directly. Only the `japanese` subset is
+// needed (NFR7: UI is Japanese-only).
+import '@fontsource/noto-sans-jp/japanese-400.css'
+import '@fontsource/noto-sans-jp/japanese-500.css'
+import '@fontsource/noto-sans-jp/japanese-600.css'
+import '@fontsource/noto-sans-jp/japanese-700.css'
+import '@fontsource/noto-serif-jp/japanese-400.css'
+import '@fontsource/noto-serif-jp/japanese-500.css'
+import '@fontsource/noto-serif-jp/japanese-600.css'
+import '@fontsource/noto-serif-jp/japanese-700.css'
 import { App } from './App'
 
 const rootElement = document.getElementById('root')

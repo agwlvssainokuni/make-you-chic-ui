@@ -93,7 +93,9 @@ export type {
 } from './components/Table'
 
 // Global stylesheets — consuming apps must import these once at the root
-// (see docs/integration-guide.md, produced by Unit 8).
+// (see docs/integration-guide.md, produced by Unit 8). Web fonts are not
+// bundled here: see docs/integration-guide.md's font setup section — the
+// consuming app imports @fontsource/noto-sans-jp / @fontsource/noto-serif-jp
+// (this package's dependencies) directly.
 import './theme/tokens.css'
 import './theme/semantic.css'
-import './theme/fonts.css'

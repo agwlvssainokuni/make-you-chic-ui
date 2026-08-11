@@ -48,3 +48,20 @@ Build and Testステージ完了後のレビューで発覚した要件漏れ(FR
 ## 位置づけ
 
 `sample-app/`はパッケージのバレルエクスポート・npm発行対象(`npm run build`)には含まれない。HTML版デモ(`html-demo/`, FR6)とは独立したスコープであり、HTML版側の更新は不要。
+
+## 追補: Webフォントのライセンス・実装修正(FR8)
+
+サンプルアプリのレビュー中、`src/fonts/`の既存woff2ファイル(FR8, Unit 1由来)についてユーザーから2件の指摘があり対応した。
+
+1. **ライセンス全文の欠落**: OFL 1.1は同梱・再配布を許可するが著作権表示とライセンス全文の同梱が条件。`src/fonts/OFL-NotoSansJP.txt`(著作権者Adobe)・`OFL-NotoSerifJP.txt`(著作権者Google、いずれもgoogle/fontsリポジトリの配布物と同一)を追加、`html-demo/assets/fonts/`にも同様に追加。
+2. **フォントファイル自体が壊れていた**(調査で判明): 既存の4ファイルはいずれも日本語グリフ(漢字・ひらがな・カタカナ)を1つも含まないラテン文字のみのファイルだった(fontToolsで実測: 218グリフ中日本語0)。`@fontsource/noto-sans-jp`・`@fontsource/noto-serif-jp`(devDependencies)の`japanese`サブセットから正しいファイルを取得し直した(実測: 6886グリフ、漢字6356・ひらがな93を含む正しい常用漢字相当のサブセット)。
+
+この修正過程で、Viteのlibrary buildモードがCSSの参照アセットをサイズ上限なくbase64インライン化する挙動を発見(正しいサイズ(1ウェイト約1MB)のフォントで`dist/*.css`が約30MBに膨張)。
+
+ユーザーからの追加指摘("デザインシステム側でフォントを組み込もうとするとどうしてもCSSが肥大化するなら、フォント同梱自体をやめて`@fontsource/*`を`dependencies`に入れ、利用側でimportさせれば良いのでは")を受け、さらにシンプルな構成に変更した:
+
+- `src/fonts/`(woff2実体・OFLライセンステキスト)・`src/theme/fonts.css`を全削除。デザインシステム自体はフォント本体を一切持たない
+- `@fontsource/noto-sans-jp`・`@fontsource/noto-serif-jp`を`devDependencies`から`dependencies`に変更(利用側の`npm install`で自動的に取得されるようにする)
+- `sample-app/main.tsx`は`@fontsource/noto-sans-jp/japanese-{400,500,600,700}.css`・`@fontsource/noto-serif-jp/japanese-{400,500,600,700}.css`を直接import(利用側での組み込み例を実演)
+- `docs/integration-guide.md`「Webフォントの追加セットアップ」を全面更新、`requirements.md`のFR8を実態に合わせて更新
+- `html-demo/`(Node.js不要・ビルドチェーンなし、FR6)はnpmパッケージを使えないため、引き続きwoff2実体とOFLライセンステキストを`html-demo/assets/fonts/`に物理的に同梱(この部分は変更なし)

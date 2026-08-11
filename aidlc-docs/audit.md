@@ -842,3 +842,51 @@
 **Context**: Unit 9 Code Generation レビュー対応、ユーザーのコミット許可待ち
 
 ---
+
+## Webフォントのライセンス表記漏れ
+
+**Timestamp**: 2026-08-11T23:21:13Z
+**User Input**: "WEBフォントについて。ダウンロードはしたけれど、ライセンス上、同梱はできないのでは？"
+**AI Response**: 調査の結果、Noto Sans JP / Noto Serif JPはSIL Open Font License 1.1(OFL)であり、OFLはフォント単体売り以外の同梱・再配布を明示的に許可している(条件2: 著作権表示とライセンス全文の同梱が必須)ことを確認(WebSearch/WebFetchでgoogle/fontsリポジトリの一次情報を参照)。同梱自体は問題ないが、必須のライセンス全文が欠落していたことが実際の問題と判明。対応:
+
+- `src/fonts/OFL-NotoSansJP.txt`(著作権者Adobe、Reserved Font Name 'Source')・`OFL-NotoSerifJP.txt`(著作権者Google)をgoogle/fontsリポジトリの配布物と同一内容で追加
+- `src/fonts/README.md`を実態(同梱済み)に合わせて全面更新、ライセンス条件を明記
+- `html-demo/assets/fonts/`にも同一の対応(400/700ウェイトのみ)を実施。当該READMEも更新
+- `src/theme/fonts.css`・`html-demo/assets/fonts.css`のヘッダーコメント(「同梱していません」の記述)を修正
+- 副次的な確認: ライブラリの`npm run build`(libモード)はフォントをbase64としてCSSに直接インライン化(`dist/*.css`が19.91kB→189.79kBに増加)。`npm run sample-app:build`(通常のVite appモード)は別ファイルとして出力。両モードとも正常動作を確認
+  **検証結果**: `tsc --noEmit`・`npm run lint`・`npm run lint:css`・`npm run format:check`・`npm test`(199/199)・`npm run build`・`npm run sample-app:build`すべてクリーン
+  **Context**: ライセンスコンプライアンスの指摘への対応、ユーザーのコミット許可待ち
+
+---
+
+## Webフォント: @fontsourceへの切り替え、実は壊れたファイルだったことが判明
+
+**Timestamp**: 2026-08-11T23:47:11Z
+**User Input**: "手動でダウンロードするのでなく @fontsource/noto-sans-jp を使う、という選択肢は？"
+**AI Response**: 調査のため`fontTools`(Python)を導入し既存フォントの実グリフを検証したところ、`src/fonts/`の4ファイルはいずれも日本語グリフ(漢字・ひらがな・カタカナ)を1つも含まないラテン文字のみのファイル(218グリフ)であることが判明。ライセンスの問題以前に機能していなかった。`@fontsource/noto-sans-jp`/`@fontsource/noto-serif-jp`を試験導入し、正しい`japanese`サブセット(6886グリフ、漢字6356含む)を確認。AskUserQuestionで切り替え方針を確認し「はい、@fontsourceに切り替え(推奨)」を選択。対応:
+
+- `@fontsource/noto-sans-jp`・`@fontsource/noto-serif-jp`をdevDependenciesに追加
+- `src/fonts/`・`html-demo/assets/fonts/`の壊れたwoff2を`@fontsource`の`japanese`サブセットの正しいファイルに差し替え(ファイル名は変更なし)
+- 当初`fonts.css`で`@import '@fontsource/...'`を試したが、Vite library buildモードがCSS参照アセットをサイズ上限なくbase64インライン化する挙動を発見(正しいサイズ(1ウェイト約1MB)で`dist/*.css`が約30MBに膨張)。相対URL参照+物理ファイル同梱の従来方式に戻し、`fonts.css`を`src/index.ts`のバレルエクスポートから除外(利用側が別途importする方式に変更)
+- OFLライセンス全文は`@fontsource`パッケージ内のLICENSE(著作権者表記が簡略化)ではなく、より正確なgoogle/fontsリポジトリ由来のものを継続使用
+- `sample-app/main.tsx`で`fonts.css`を直接import(実演用)、`docs/integration-guide.md`にWebフォントの追加セットアップ手順を追記、`src/fonts/README.md`を全面更新
+  **検証結果**: `tsc --noEmit`・`npm run lint`・`npm run lint:css`・`npm run format:check`・`npm test`(199/199)・`npm run build`(18.75kB、フォント肥大化なし)・`npm run sample-app:build`(フォントは別ファイルとして正常出力)すべてクリーン。`npm run dev`でも動作確認
+  **Context**: フォント実装の重大な不具合修正、ユーザーのコミット許可待ち
+
+---
+
+## Webフォント: デザインシステム側での同梱をやめ@fontsourceのdependencies化に単純化
+
+**Timestamp**: 2026-08-11T23:57:11Z
+**User Input**: "デザインシステム側でWEBフォントを組み込もうとするとどうしてもCSSファイルが肥大化してしまうから、アプリ側でインポートするようにした、という理解でOKですか？それならば、デザインシステム側でWEBフォントを提供するのをやめて、@fontsource/noto-sans-jp, @fontsource/noto-serif-jp を dependencies に入れて、アプリ側でインポートするよう案内する、というので良いのではないでしょうか？"
+**AI Response**: 理解の通りと確認し、提案通りに実装:
+
+- `src/fonts/`(woff2実体・OFLライセンステキスト)・`src/theme/fonts.css`を全削除。デザインシステム自体はフォント本体を持たない構成に変更
+- `@fontsource/noto-sans-jp`・`@fontsource/noto-serif-jp`を`devDependencies`から`dependencies`に変更
+- `sample-app/main.tsx`で`@fontsource/*/japanese-{weight}.css`を直接import(利用側の組み込み例として実演)
+- `docs/integration-guide.md`「Webフォントの追加セットアップ」・`requirements.md`のFR8を全面更新
+- `html-demo/`(Node.js不要・ビルドチェーンなし)はnpmパッケージを使えないため、引き続きwoff2実体+OFLライセンステキストを直接同梱(変更なし)。`html-demo/assets/fonts/README.md`のリンク切れ(`src/fonts/README.md`削除に伴う)を修正
+  **検証結果**: `tsc --noEmit`・`npm run lint`・`npm run lint:css`・`npm run format:check`・`npm test`(199/199)・`npm run build`(18.75kB)・`npm run sample-app:build`・`npm run dev`実機確認すべてクリーン
+  **Context**: フォントアーキテクチャの最終簡素化、ユーザーのコミット許可待ち
+
+---
