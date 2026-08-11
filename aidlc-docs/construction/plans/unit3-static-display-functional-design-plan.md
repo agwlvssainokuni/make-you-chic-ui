@@ -4,10 +4,10 @@
 
 ## 実施タスク
 
-- [ ] `aidlc-docs/construction/unit3-static-display/functional-design/business-logic-model.md` を作成
-- [ ] `aidlc-docs/construction/unit3-static-display/functional-design/business-rules.md` を作成
-- [ ] `aidlc-docs/construction/unit3-static-display/functional-design/domain-entities.md` を作成(該当薄ければ簡潔に)
-- [ ] `aidlc-docs/construction/unit3-static-display/functional-design/frontend-components.md` を作成
+- [x] `aidlc-docs/construction/unit3-static-display/functional-design/business-logic-model.md` を作成
+- [x] `aidlc-docs/construction/unit3-static-display/functional-design/business-rules.md` を作成
+- [x] `aidlc-docs/construction/unit3-static-display/functional-design/domain-entities.md` を作成(該当薄ければ簡潔に)
+- [x] `aidlc-docs/construction/unit3-static-display/functional-design/frontend-components.md` を作成
 
 ## カテゴリ別の適用判定
 
@@ -32,7 +32,7 @@ B) 名前の最初の1文字のみを表示する(例: "山田 太郎" → "山"
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ### Question 2: Avatar画像読み込み失敗時の挙動
 
@@ -44,7 +44,7 @@ B) フォールバックせず、ブラウザ標準の壊れた画像アイコ�
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ### Question 3: Badgeの件数丸め規則
 
@@ -56,7 +56,7 @@ B) 上限を`maxCount`propで指定可能にする(デフォルト99)
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: B
 
 ### Question 4: Cardの構造
 
@@ -68,4 +68,4 @@ B) `Card.Header`/`Card.Body`/`Card.Footer`のようなサブコンポーネン�
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A

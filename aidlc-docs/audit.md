@@ -380,3 +380,11 @@
 **Context**: CONSTRUCTION - Unit 3 Functional Design (質問ファイル提示、回答待ちゲート)
 
 ---
+
+## CONSTRUCTION - Unit 3(静的表示系) - Functional Design (承認)/ NFR要否判定 / 成果物作成
+**Timestamp**: 2026-08-11T10:34:10Z
+**User Input**: "推奨は？" → 推奨提示 → "推奨の通りとします。"
+**AI Response**: 4問すべてに推奨通りの回答(Q1=A 2単語頭文字、Q2=A イニシャルへ自動フォールバック、Q3=B maxCount指定可能、Q4=A シンプルなコンテナ)を反映。`business-logic-model.md`, `business-rules.md`, `domain-entities.md`, `frontend-components.md`を作成。NFR Requirements/NFR DesignはUnit 2と同様の理由(技術スタック確定済み、新規NFRなし)でSKIPと判定。
+**Context**: CONSTRUCTION - Unit 3 Functional Design (完了) → NFR Requirements/NFR Design (SKIP) → Code Generation (開始)
+
+---
