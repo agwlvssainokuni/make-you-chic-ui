@@ -218,3 +218,19 @@
 **Context**: CONSTRUCTION - Unit 1 Functional Design (成果物作成完了、承認待ち)
 
 ---
+
+## CONSTRUCTION - Unit 1(基盤) - Functional Design (承認)
+**Timestamp**: 2026-08-11T09:21:53Z
+**User Input**: "Continue to Next Stage"
+**AI Response**: Functional Designを承認済みとして確定。NFR Requirementsへ進む。
+**Context**: CONSTRUCTION - Unit 1 Functional Design (完了) → NFR Requirements (開始)
+
+---
+
+## CONSTRUCTION - Unit 1(基盤) - NFR Requirements (計画・質問提示)
+**Timestamp**: 2026-08-11T09:23:22Z
+**User Input**: (Functional Design承認後、自動的にNFR Requirementsへ遷移)
+**AI Response**: `aidlc-docs/construction/plans/unit1-foundation-nfr-requirements-plan.md` を作成。単体テストフレームワーク、a11y自動テストツール、PBTフレームワーク(fast-check確認)、Lint/Format構成、JSDoc要否の5問を提示。プロジェクト全体のテスト技術スタックをUnit 1で確定する旨を明記。ユーザーの回答待ち。
+**Context**: CONSTRUCTION - Unit 1 NFR Requirements (質問ファイル提示、回答待ちゲート)
+
+---
