@@ -388,3 +388,10 @@
 **Context**: CONSTRUCTION - Unit 3 Functional Design (完了) → NFR Requirements/NFR Design (SKIP) → Code Generation (開始)
 
 ---
+
+## CONSTRUCTION - Unit 3(静的表示系) - Code Generation (Part 1: Planning)
+**Timestamp**: 2026-08-11T10:38:47Z
+**AI Response**: `aidlc-docs/construction/plans/unit3-static-display-code-generation-plan.md` を作成。全6ステップ(Avatar, Badge, Card, バレルエクスポート, HTML版反映, サマリー)。承認待ち。
+**Context**: CONSTRUCTION - Unit 3 Code Generation Part 1 (計画提示、承認待ち)
+
+---
