@@ -266,3 +266,19 @@
 **Context**: CONSTRUCTION - Unit 1 NFR Design (成果物作成完了、承認待ち)
 
 ---
+
+## CONSTRUCTION - Unit 1(基盤) - NFR Design (承認)
+**Timestamp**: 2026-08-11T09:35:19Z
+**User Input**: "Continue to Next Stage"
+**AI Response**: NFR Designを承認済みとして確定。Code Generationへ進む。
+**Context**: CONSTRUCTION - Unit 1 NFR Design (完了) → Code Generation (開始)
+
+---
+
+## CONSTRUCTION - Unit 1(基盤) - Code Generation (Part 1: Planning)
+**Timestamp**: 2026-08-11T09:36:52Z
+**User Input**: (NFR Design承認後、自動的にCode Generationへ遷移)
+**AI Response**: `aidlc-docs/construction/plans/unit1-foundation-code-generation-plan.md` を作成。全12ステップ(プロジェクト構造セットアップ、トークン、テーマロジック+テスト、ThemeProvider/useTheme+テスト、Icon+テスト、Webフォント、バレルエクスポート、HTML版反映、サマリー)。ライセンス表記・data-testid規約を全ユニット共通ルールとして明記。要件トレーサビリティ表を含む。承認待ち。
+**Context**: CONSTRUCTION - Unit 1 Code Generation Part 1 (計画提示、承認待ち)
+
+---
