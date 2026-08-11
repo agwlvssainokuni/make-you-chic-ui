@@ -523,3 +523,10 @@
 **Context**: CONSTRUCTION - Unit 6 Functional Design (完了) → NFR Requirements/NFR Design (SKIP) → Code Generation (開始)
 
 ---
+
+## CONSTRUCTION - Unit 6(Table) - Code Generation (Part 1: Planning)
+**Timestamp**: 2026-08-11T11:49:44Z
+**AI Response**: `aidlc-docs/construction/plans/unit6-table-code-generation-plan.md` を作成。全6ステップ(純粋関数ロジック+PBT、Table本体、Tableの単体テスト、バレルエクスポート、HTML版反映、サマリー)。承認待ち。
+**Context**: CONSTRUCTION - Unit 6 Code Generation Part 1 (計画提示、承認待ち)
+
+---
