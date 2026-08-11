@@ -35,8 +35,8 @@
   - Card(Detail View等のコンテンツグルーピング用コンテナ)
   - Alert/Banner(フォーム全体のエラーサマリー等、常時表示・非モーダルの通知。variant: info/success/warning/danger、閉じるボタン・アクションリンクは任意)
 
-  補足: Sidebar/Topbarはコンポーネントではなく、FR2の共通レイアウトの一部として扱う(独立コンポーネント化はしない)。
-- **FR2 画面パターンの実装**: List View、Detail View、編集Modal(新規/編集共用)、削除確認(簡易/確認テキスト入力式)、共通レイアウト(Sidebar折り畳み可能+Topbar+Content)を実装する
+  補足: Sidebar/Topbarはコンポーネントではなく、FR2の共通レイアウトの一部として扱う(独立コンポーネント化はしない)。汎用的な複数カラムGridレイアウト、およびDetail Viewのラベル+値表示(Description List)についても、JSの状態管理やa11y上の複雑なロジックを要さず、具体的な利用箇所も限定的であるため、独立したFR1コンポーネントとしては切り出さない(Description Listの扱いはFR2を参照)。
+- **FR2 画面パターンの実装**: List View、Detail View、編集Modal(新規/編集共用)、削除確認(簡易/確認テキスト入力式)、共通レイアウト(Sidebar折り畳み可能+Topbar+Content)を実装する。Detail Viewのラベル+値表示は、独立コンポーネント化はせず、セマンティックトークンを使った`<dl>`向けCSS命名パターン(`.description-list` / `.description-list-term` / `.description-list-description`)として定義し、画面パターン内で使用する
 - **FR3 テーマ機能4軸の実装**: `data-theme`(ライト/ダーク、`localStorage`永続化、初回`prefers-color-scheme`尊重)、`data-brand`(blue/green/purple/orange)、`data-font-family`(ゴシック/明朝)、`data-font-size`(sm/md/lg)を、セマンティックトークン層のみで完結させる(コンポーネント側CSSは変更不要)
 - **FR4 デザイントークン設計**: プリミティブ/セマンティックの2層構造をCSS変数で実装する。コンポーネントのCSSはセマンティックトークンのみ参照する
 - **FR5 React + TypeScript版の実装**: 部品として他プロジェクトから利用する本体は React + TypeScript で実装する
