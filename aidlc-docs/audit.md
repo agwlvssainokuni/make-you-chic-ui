@@ -186,3 +186,11 @@
 **Context**: INCEPTION - Units Generation (成果物作成完了、承認待ち)
 
 ---
+
+## INCEPTION - Units Generation (画面パターンの配置先確認)
+**Timestamp**: 2026-08-11T08:55:10Z
+**User Input**: "コンポーネントを使った画面(Reactのページ)はどこに置きますか？" → AskUserQuestionで配置方針を確認 → "examples/に置き、パッケージには含めない"
+**AI Response**: `unit-of-work.md`のディレクトリ構造にUnit 7(画面パターン)のReact実装置き場が未定義だったことを確認。`examples/`ディレクトリ(ListView/DetailView/EditModal/DeleteConfirm)を追加し、パッケージのバレルエクスポートには含めない旨、およびUnit 7の「位置づけ」を明記。html-demo/patterns/との対応関係も記載。
+**Context**: INCEPTION - Units Generation (成果物修正、承認待ち)
+
+---

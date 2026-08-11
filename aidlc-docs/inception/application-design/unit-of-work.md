@@ -40,6 +40,7 @@
 - **責務**: List View、Detail View(Description Listパターン含む)、編集Modal、削除確認の実装。Unit 1〜6の全コンポーネントを組み合わせて構成
 - **対応FR/NFR**: FR2(画面パターン)
 - **対応Application Design**: 該当なし(画面パターンはコンポーネント合成であり新規コンポーネントではないため)
+- **位置づけ**: React実装は`examples/`配下に置き、パッケージのバレルエクスポート(`src/index.ts`)には含めない。組み合わせ方の参考実装・開発時の見た目確認用であり、他プロジェクトが画面単位でそのままimportして使う想定はしない(個々のコンポーネント単位での再利用を前提とするため)。HTML版は従来通り`html-demo/patterns/`に反映する
 
 ### Unit 8: 組み込みガイド
 - **責務**: 他プロジェクトへの組み込み手順書の作成(インストール方法、import方法、`ThemeProvider`/`ToastProvider`の設定方法、`className`によるカスタマイズ指針を含む)
@@ -71,10 +72,15 @@ web-design-system-sample/
 │   │   └── (同梱SVGアイコンセット。Iconコンポーネント自体はsrc/components/Icon/)
 │   ├── fonts/                (Noto Sans/Serif JP woff2、セルフホスティング用)
 │   └── index.ts              (単一バレルエクスポート、Application Design Question 9=A)
+├── examples/
+│   ├── ListView/             (Unit 7: 画面パターンのReact参考実装。パッケージのexportには含めない)
+│   ├── DetailView/
+│   ├── EditModal/
+│   └── DeleteConfirm/
 ├── html-demo/
 │   ├── index.html            (デモ一覧トップ)
 │   ├── components/           (コンポーネント単位のデモページ、Storybook代替)
-│   ├── patterns/             (List View / Detail View 等の画面パターンデモ)
+│   ├── patterns/             (List View / Detail View 等の画面パターンデモ。examples/のHTML版対応物)
 │   └── assets/               (フォント・共通CSS)
 ├── docs/
 │   └── integration-guide.md  (Unit 8の成果物)
