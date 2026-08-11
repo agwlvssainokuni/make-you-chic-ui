@@ -40,8 +40,8 @@
 
 ### Table
 - **目的**: 一覧データの表示・操作
-- **責務**: 3段階トグルソート、ページネーション、行選択(`Set`管理)、列幅調整(ドラッグ終了時のみstate更新)、セルインライン編集
-- **インターフェース概要**: `columns`, `data`, `sortState`/`onSortChange`, `selectedRows`(Set)/`onSelectionChange`, `pagination`関連props
+- **責務**: 3段階トグルソート(単一列、実ソート処理は呼び出し側)、ページネーション(外部スライス方式、大量データ対応)、行選択(`Set`管理)、列幅調整(ドラッグ終了時のみstate更新)、セルインライン編集(列ごとにカスタムエディタ指定可)
+- **インターフェース概要**: `columns`(`editable`/`editComponent`含む), `data`(現在ページのみ), `totalCount`, `getRowId`, `sortState`/`onSortChange`, `selectedRowIds`(Set)/`onSelectionChange`, `page`/`pageSize`/`onPageChange`(Unit 6 Functional Designで詳細確定)
 
 ### Avatar
 - **目的**: ユーザーの視覚的識別(画像 or イニシャル)

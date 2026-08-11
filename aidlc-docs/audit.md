@@ -515,3 +515,11 @@
 **Context**: CONSTRUCTION - Unit 6 Functional Design (質問ファイル提示、回答待ちゲート)
 
 ---
+
+## CONSTRUCTION - Unit 6(Table) - Functional Design (承認) / 成果物作成
+**Timestamp**: 2026-08-11T11:48:09Z
+**User Input**: "推奨は？" → 推奨提示 → "Q1=A, Q2=B(大量データにも対応させたいので), Q3=A, Q4=A, Q5=B, Q6=A"
+**AI Response**: Q1/Q3/Q4/Q6は推奨通り。Q2は外部スライス方式(サーバーサイドページネーション対応、`totalCount`prop追加)に変更、Q5は列ごとのカスタム編集コンポーネント(`editComponent`)対応に変更。これに伴いTableのdata所有モデルが変わったため、Application Design成果物(`component-methods.md`, `components.md`)のTableProps定義を遡って更新。`business-logic-model.md`(PBT対象の純粋関数: nextSortState/computeTotalPages/toggleRowSelection/toggleAllSelection)、`business-rules.md`, `domain-entities.md`, `frontend-components.md`を作成。NFR Requirements/NFR DesignはPBTフレームワーク適用が既存方針の機械的適用でありCode Generationレベルの作業と判断しSKIP。
+**Context**: CONSTRUCTION - Unit 6 Functional Design (完了) → NFR Requirements/NFR Design (SKIP) → Code Generation (開始)
+
+---

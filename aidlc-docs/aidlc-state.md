@@ -3,7 +3,7 @@
 ## Project Information
 - **Project Type**: Greenfield
 - **Start Date**: 2026-08-11T06:21:52Z
-- **Current Stage**: CONSTRUCTION - Unit 6(Table): Functional Design
+- **Current Stage**: CONSTRUCTION - Unit 6(Table): Code Generation
 
 ## Workspace State
 - **Existing Code**: No
@@ -86,11 +86,11 @@
 - [x] Code Generation (2026-08-11T11:38:53Z 承認済み) — アプリコードはワークスペースルート(`src/components/{Tabs,Dropdown,AppShell}`, `src/utils/computeFloatingPosition.ts`, `html-demo/`)、サマリーは`aidlc-docs/construction/unit5-nav-layout/code/`。**Unit 5 完了**
 
 #### Unit 6: Table
-- [ ] Functional Design - EXECUTE(進行中)
-- [ ] NFR Requirements - 要否判定はFunctional Design後(PBT拡張の主対象ユニット)
-- [ ] NFR Design - 要否判定はNFR Requirements後
-- [ ] Infrastructure Design - SKIP
-- [ ] Code Generation - EXECUTE
+- [x] Functional Design (2026-08-11T11:48:09Z 承認済み) — `aidlc-docs/construction/unit6-table/functional-design/`。ページネーションを外部スライス方式に変更、`totalCount`追加、列ごとのカスタム編集コンポーネント対応。Inception成果物のTableProps定義に遡って反映
+- [x] NFR Requirements - SKIP(PBT適用は既存フレームワークの機械的適用でありCode Generationレベル)
+- [x] NFR Design - SKIP(同上)
+- [x] Infrastructure Design - SKIP
+- [ ] Code Generation - EXECUTE(進行中)
 
 #### Unit 7〜8
 - 未着手(Unit 4完了後に順次着手。詳細は`unit-of-work-dependency.md`の確定シーケンス参照)

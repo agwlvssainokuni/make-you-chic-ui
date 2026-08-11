@@ -2,10 +2,10 @@
 
 ## 実施タスク
 
-- [ ] `aidlc-docs/construction/unit6-table/functional-design/business-logic-model.md` を作成
-- [ ] `aidlc-docs/construction/unit6-table/functional-design/business-rules.md` を作成
-- [ ] `aidlc-docs/construction/unit6-table/functional-design/domain-entities.md` を作成
-- [ ] `aidlc-docs/construction/unit6-table/functional-design/frontend-components.md` を作成
+- [x] `aidlc-docs/construction/unit6-table/functional-design/business-logic-model.md` を作成
+- [x] `aidlc-docs/construction/unit6-table/functional-design/business-rules.md` を作成
+- [x] `aidlc-docs/construction/unit6-table/functional-design/domain-entities.md` を作成
+- [x] `aidlc-docs/construction/unit6-table/functional-design/frontend-components.md` を作成
 
 ## カテゴリ別の適用判定
 
@@ -30,7 +30,7 @@ B) 複数列対応(Shift+クリックで第2ソートキーを追加できる等
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ### Question 2: ページネーションのデータ所有
 
@@ -42,7 +42,7 @@ B) `data`propには現在ページ分のデータのみを渡し(利用側がサ
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: B — 大量データにも対応させたいため、サーバーサイドページネーション等の外部スライス方式を採用する。
 
 ### Question 3: 行の一意なID抽出方法
 
@@ -54,7 +54,7 @@ B) 各行オブジェクトが`id`プロパティを持つことを前提とす�
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ### Question 4: 列幅調整の実装方式
 
@@ -66,7 +66,7 @@ B) いいえ、ドラッグ中も都度Reactのstateを更新する(実装がシ
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ### Question 5: インライン編集の対象列・入力方式
 
@@ -78,7 +78,7 @@ B) 列ごとに編集用コンポーネントを指定できるようにする(`
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: B
 
 ### Question 6: インライン編集の開始トリガーと競合時の挙動
 
@@ -90,4 +90,4 @@ B) 編集可能セルのシングルクリックで編集モードへ。編集�
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A

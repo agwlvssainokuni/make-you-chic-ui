@@ -90,23 +90,35 @@ const Radio: React.ForwardRefExoticComponent<RadioProps & React.RefAttributes<HT
 ## データ表示系
 
 ```ts
+// Table interface finalized in Unit 6 Functional Design (data ownership moved
+// external for large-dataset/server-side pagination support, Question 2 = B).
+interface CellEditComponentProps<V> {
+  value: V;
+  onCommit(value: V): void;
+  onCancel(): void;
+}
 interface TableColumn<T> {
   key: string;
   header: string;
   sortable?: boolean;
   width?: number;
   render?(row: T): React.ReactNode;
+  editable?: boolean; // Unit 6 Functional Design Question 5
+  editComponent?: React.ComponentType<CellEditComponentProps<unknown>>; // Unit 6 Functional Design Question 5
+  getValue?(row: T): unknown;
 }
 interface TableProps<T> {
   columns: TableColumn<T>[];
-  data: T[];
+  data: T[]; // current page's rows only (Unit 6 Functional Design Question 2 = B)
+  totalCount: number; // Unit 6 Functional Design Question 2 = B
+  getRowId(row: T): string; // Unit 6 Functional Design Question 3 = A
   sortState?: { key: string; direction: 'asc' | 'desc' | null };
-  onSortChange?(state: { key: string; direction: 'asc' | 'desc' | null }): void;
+  onSortChange?(state: { key: string; direction: 'asc' | 'desc' | null } | null): void;
   selectedRowIds?: Set<string>;
   onSelectionChange?(ids: Set<string>): void;
-  page?: number;
-  pageSize?: number;
-  onPageChange?(page: number): void;
+  page: number;
+  pageSize: number;
+  onPageChange(page: number): void;
   onCellEdit?(rowId: string, key: string, value: unknown): void;
 }
 const Table: <T>(props: TableProps<T>) => React.ReactElement;
