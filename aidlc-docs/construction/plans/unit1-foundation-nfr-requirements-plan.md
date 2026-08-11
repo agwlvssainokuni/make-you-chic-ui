@@ -2,8 +2,8 @@
 
 ## 実施タスク
 
-- [ ] `aidlc-docs/construction/unit1-foundation/nfr-requirements/nfr-requirements.md` を作成
-- [ ] `aidlc-docs/construction/unit1-foundation/nfr-requirements/tech-stack-decisions.md` を作成(プロジェクト全体のテスト関連技術スタックを含む。Unit 1が最初のユニットのため、以降の全ユニットで踏襲する)
+- [x] `aidlc-docs/construction/unit1-foundation/nfr-requirements/nfr-requirements.md` を作成
+- [x] `aidlc-docs/construction/unit1-foundation/nfr-requirements/tech-stack-decisions.md` を作成(プロジェクト全体のテスト関連技術スタックを含む。Unit 1が最初のユニットのため、以降の全ユニットで踏襲する)
 
 ## 前提
 
@@ -32,7 +32,7 @@ B) Jest + React Testing Library(実績豊富だが、Viteと別に設定が必�
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ### Question 2: アクセシビリティ自動テストツール
 
@@ -46,7 +46,7 @@ C) `eslint-plugin-jsx-a11y`による静的解析のみ(実行時のDOM検証は�
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ### Question 3: Property-Based Testingフレームワーク
 
@@ -58,7 +58,7 @@ B) いいえ、他のフレームワークを希望する(Answerに記載)
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ### Question 4: Lint/Format構成
 
@@ -72,7 +72,7 @@ C) 導入しない(今回のプロトタイプ段階では不要)
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: B
 
 ### Question 5: JSDocコメントの要否
 
@@ -84,4 +84,4 @@ B) 任意とする。複雑なpropsのみコメントを付与し、自明なも
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A

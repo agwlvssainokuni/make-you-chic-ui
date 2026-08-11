@@ -234,3 +234,11 @@
 **Context**: CONSTRUCTION - Unit 1 NFR Requirements (質問ファイル提示、回答待ちゲート)
 
 ---
+
+## CONSTRUCTION - Unit 1(基盤) - NFR Requirements (成果物作成)
+**Timestamp**: 2026-08-11T09:26:46Z
+**User Input**: "推奨は？" → 推奨提示 → "推奨の通りとします。"
+**AI Response**: 5問すべてに推奨通りの回答(Q1=A Vitest+RTL, Q2=A vitest-axe, Q3=A fast-check, Q4=B ESLint+Prettier+stylelint, Q5=A JSDoc必須)を反映。`nfr-requirements.md`, `tech-stack-decisions.md`を作成。プロジェクト全体のテスト技術スタックとして確定(Unit 2〜8にも適用)。
+**Context**: CONSTRUCTION - Unit 1 NFR Requirements (成果物作成完了、承認待ち)
+
+---
