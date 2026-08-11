@@ -82,6 +82,16 @@ export type { DropdownProps, MenuItem } from './components/Dropdown';
 export { AppShell, useAppShell } from './components/AppShell';
 export type { AppShellProps, AppShellNavItem, AppShellUser } from './components/AppShell';
 
+// Table (Unit 6)
+export { Table, DefaultCellEditor } from './components/Table';
+export type {
+  TableProps,
+  TableColumn,
+  SortState,
+  SortDirection,
+  CellEditComponentProps,
+} from './components/Table';
+
 // Global stylesheets — consuming apps must import these once at the root
 // (see docs/integration-guide.md, produced by Unit 8).
 import './theme/tokens.css';

@@ -3,7 +3,7 @@
 ## Project Information
 - **Project Type**: Greenfield
 - **Start Date**: 2026-08-11T06:21:52Z
-- **Current Stage**: CONSTRUCTION - Unit 6(Table): Code Generation
+- **Current Stage**: CONSTRUCTION - Unit 6(Table): Code Generation(承認待ち)
 
 ## Workspace State
 - **Existing Code**: No
@@ -90,7 +90,7 @@
 - [x] NFR Requirements - SKIP(PBT適用は既存フレームワークの機械的適用でありCode Generationレベル)
 - [x] NFR Design - SKIP(同上)
 - [x] Infrastructure Design - SKIP
-- [ ] Code Generation - EXECUTE(進行中)
+- [x] Code Generation (2026-08-11T11:56:11Z 成果物作成完了、承認待ち) — アプリコードはワークスペースルート(`src/components/Table/`, `html-demo/`)、サマリーは`aidlc-docs/construction/unit6-table/code/`
 
 #### Unit 7〜8
 - 未着手(Unit 4完了後に順次着手。詳細は`unit-of-work-dependency.md`の確定シーケンス参照)

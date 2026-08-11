@@ -530,3 +530,18 @@
 **Context**: CONSTRUCTION - Unit 6 Code Generation Part 1 (計画提示、承認待ち)
 
 ---
+
+## CONSTRUCTION - Unit 6(Table) - Code Generation Plan Approval
+**Timestamp**: 2026-08-11T11:50:48Z
+**User Response**: "Yes, proceed to generation"
+**Status**: Approved
+**Context**: `unit6-table-code-generation-plan.md`を承認。Part 2(Generation)へ進む。
+
+---
+
+## CONSTRUCTION - Unit 6(Table) - Code Generation (Part 2: Generation完了)
+**Timestamp**: 2026-08-11T11:56:11Z
+**AI Response**: 計画の全6ステップを実行。純粋関数ロジック(tableLogic.ts)とfast-checkによるPBT(PBT-03不変性検証: ソート循環、ページ数下限・カバレッジ、選択トグルの対合性、全選択トグルの一貫性)、Table本体(既定/カスタムインライン編集エディタ対応)とその単体テスト(vitest-axe含む)、HTML版デモ(table-demo.html)、サマリーを生成。Excel風編集確定の実装がDefaultCellEditorのonBlurタイミングに依拠する制約がある旨をコード内コメントで明記。
+**Context**: CONSTRUCTION - Unit 6 Code Generation (成果物作成完了、承認待ち)
+
+---

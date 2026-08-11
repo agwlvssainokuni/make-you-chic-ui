@@ -8,16 +8,16 @@
 
 ## 実施ステップ
 
-- [ ] **Step 1: 純粋関数ロジックの生成 + PBTを含む単体テスト**
+- [x] **Step 1: 純粋関数ロジックの生成 + PBTを含む単体テスト**
   - `src/components/Table/tableLogic.ts`(`nextSortState`, `computeTotalPages`, `toggleRowSelection`, `toggleAllSelection`)
   - `src/components/Table/tableLogic.test.ts`(`fast-check`によるPBT: PBT-03不変性検証を含む)
-- [ ] **Step 2: Table本体の生成**
+- [x] **Step 2: Table本体の生成**(`CellEditor.tsx`の既定エディタを含む)
   - `src/components/Table/Table.tsx`, `Table.css`, `index.ts`
-- [ ] **Step 3: Tableの単体テスト**
+- [x] **Step 3: Tableの単体テスト**
   - `src/components/Table/Table.test.tsx`(ソート/ページネーション/行選択/列幅調整/インライン編集/カスタムeditComponent、vitest-axe含む)
-- [ ] **Step 4: バレルエクスポート更新**(`src/index.ts`)
-- [ ] **Step 5: HTML版デモへの反映**(`html-demo/components/table-demo.html`、`html-demo/index.html`更新)
-- [ ] **Step 6: サマリードキュメント作成**
+- [x] **Step 4: バレルエクスポート更新**(`src/index.ts`)
+- [x] **Step 5: HTML版デモへの反映**(`html-demo/components/table-demo.html`、`html-demo/index.html`更新)
+- [x] **Step 6: サマリードキュメント作成**
 
 ## 共通ルール(継続)
 
