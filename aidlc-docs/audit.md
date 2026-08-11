@@ -315,3 +315,11 @@
 **Context**: CONSTRUCTION - Unit 1(基盤) 完了 → Unit 2(基本入力系) 開始
 
 ---
+
+## CONSTRUCTION - Unit 2(基本入力系) - Functional Design (計画・質問提示)
+**Timestamp**: 2026-08-11T09:58:20Z
+**User Input**: (Unit 1完了後、自動的にUnit 2 Functional Designへ遷移)
+**AI Response**: `aidlc-docs/construction/plans/unit2-basic-input-functional-design-plan.md` を作成。FormField外での単体利用、Selectの実装方式(ネイティブ/カスタム)、Buttonのloading表示、バリデーション責務分界、Textareaのリサイズの5問を提示。ユーザーの回答待ち。
+**Context**: CONSTRUCTION - Unit 2 Functional Design (質問ファイル提示、回答待ちゲート)
+
+---
