@@ -44,7 +44,7 @@ interface CatalogRow {
   note: string
 }
 
-const tableRows: CatalogRow[] = [
+const initialTableRows: CatalogRow[] = [
   { id: '1', component: 'Button', note: '4 variants x 3 sizes' },
   { id: '2', component: 'Table', note: 'このテーブル自身のサンプル' },
   { id: '3', component: 'Modal', note: 'フォーカストラップ・inert対応' },
@@ -52,7 +52,7 @@ const tableRows: CatalogRow[] = [
 
 const tableColumns: TableColumn<CatalogRow>[] = [
   { key: 'component', header: 'コンポーネント', sortable: true },
-  { key: 'note', header: '備考' },
+  { key: 'note', header: '備考(クリックしてその場編集)', editable: true },
 ]
 
 /**
@@ -70,6 +70,13 @@ export function CatalogPage(): React.JSX.Element {
   const [textareaValue, setTextareaValue] = useState('')
   const [modalOpen, setModalOpen] = useState(false)
   const [tabIndex, setTabIndex] = useState(0)
+  const [tableRows, setTableRows] = useState(initialTableRows)
+
+  function handleCellEdit(rowId: string, columnKey: string, value: unknown): void {
+    setTableRows((prev) =>
+      prev.map((row) => (row.id === rowId ? { ...row, [columnKey]: String(value) } : row)),
+    )
+  }
 
   return (
     <div>
@@ -219,6 +226,7 @@ export function CatalogPage(): React.JSX.Element {
           page={1}
           pageSize={tableRows.length}
           onPageChange={() => {}}
+          onCellEdit={handleCellEdit}
           aria-label="カタログ表"
         />
       </section>

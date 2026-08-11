@@ -832,3 +832,13 @@
 **Context**: Unit 9 Code Generation(成果物作成完了、承認待ち)
 
 ---
+
+## Unit 9(サンプルアプリケーション) - レビュー指摘: Tableのその場編集
+
+**Timestamp**: 2026-08-11T17:49:14Z
+**User Input**: "テーブルのその場編集を追加。"
+**AI Response**: `CatalogPage.tsx`のTableサンプルを対応。`tableRows`を`useState`化し、`備考`列に`editable: true`を設定、`onCellEdit`でイミュータブルに更新するハンドラを追加。`unit9-sample-app/code/summary.md`に追記。
+**検証結果**: `tsc --noEmit`・`npm run lint`・`npm run lint:css`・`npm run format:check`・`npm test`(199/199)・`npm run sample-app:build`すべてクリーン
+**Context**: Unit 9 Code Generation レビュー対応、ユーザーのコミット許可待ち
+
+---

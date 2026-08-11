@@ -16,7 +16,7 @@ Build and Testステージ完了後のレビューで発覚した要件漏れ(FR
 
 - `App.tsx`: `AppShell` + react-router `Routes`。Sidebarの各`navItems`に`onClick`でSPA遷移を実装
 - `main.tsx`: `ThemeProvider`/`ToastProvider`/`ModalStackProvider`(組み込みガイド記載の必須セットアップ)+ `BrowserRouter`でマウント
-- `pages/CatalogPage.tsx` + `.css`: Button/フォーム入力系/静的表示/フィードバック/ナビゲーション/Tableの主要バリエーションを一覧表示するコンポーネントカタログ
+- `pages/CatalogPage.tsx` + `.css`: Button/フォーム入力系/静的表示/フィードバック/ナビゲーション/Tableの主要バリエーションを一覧表示するコンポーネントカタログ。Tableは`備考`列を`editable: true`にしたその場編集デモを含む(`tableRows`をstate化し`onCellEdit`でイミュータブルに更新)
 - `pages/UserListPage.tsx`: `ListView`をラップし、`onViewUser`で`/users/:id`へ遷移
 - `pages/UserDetailPage.tsx`: `:id`を`initialSampleUsers`から検索し`DetailView`に渡す。見つからない場合は`/users`へリダイレクト。**既知の制約**: List側の編集はUserListPage内のローカルstateに閉じており、UserDetailPageは独立して静的サンプルデータを参照するため、List側での編集はDetail側に反映されない(リファレンス実装として許容)
 - `pages/ThemeSettingsPage.tsx`: `useTheme()`でテーマ4軸を切り替えられるパネル
@@ -37,7 +37,7 @@ Build and Testステージ完了後のレビューで発覚した要件漏れ(FR
 ## 検証結果
 
 - `npx tsc --noEmit`: 0エラー
-- `npm test`: 199/199件成功(既存196件 + 新規3件)
+- `npm test`: 199/199件成功(既存196件 + 新規3件、その場編集はレビュー指摘対応として`CatalogPage.tsx`に追記・目視/ビルド確認のみ)
 - `npm run lint`(oxlint+eslint): 0エラー
 - `npm run lint:css`: 0エラー
 - `npm run format:check`: クリーン
