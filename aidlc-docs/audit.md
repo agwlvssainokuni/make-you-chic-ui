@@ -145,3 +145,19 @@
 **Context**: INCEPTION - Application Design (成果物作成完了、承認待ち)
 
 ---
+
+## INCEPTION - Application Design (承認)
+**Timestamp**: 2026-08-11T07:58:34Z
+**User Input**: "Approve & Continue"
+**AI Response**: `aidlc-docs/inception/application-design/` を承認済みとして確定。Units Generationへ進む。
+**Context**: INCEPTION - Application Design (完了) → Units Generation (開始)
+
+---
+
+## INCEPTION - Units Generation (Part 1: Planning、質問提示)
+**Timestamp**: 2026-08-11T08:00:25Z
+**User Input**: (Application Design承認後、自動的にUnits Generationへ遷移)
+**AI Response**: `aidlc-docs/inception/plans/unit-of-work-plan.md` を作成。ユニット分割の粒度、React版/HTML版の実装順序、基盤ユニットの優先順位、ディレクトリ構造、ユニット並行性の柔軟性について5問を提示。Team Alignment/Business Domainカテゴリは非該当と判断し省略(理由を明記)。ユーザーの回答待ち。
+**Context**: INCEPTION - Units Generation Part 1 (質問ファイル提示、回答待ちゲート)
+
+---

@@ -3,7 +3,7 @@
 ## Project Information
 - **Project Type**: Greenfield
 - **Start Date**: 2026-08-11T06:21:52Z
-- **Current Stage**: INCEPTION - Application Design
+- **Current Stage**: INCEPTION - Units Generation
 
 ## Workspace State
 - **Existing Code**: No
@@ -45,8 +45,8 @@
 - [x] Workspace Detection (2026-08-11T06:21:52Z) — Greenfieldと判定、Requirements Analysisへ
 - [x] Requirements Analysis (2026-08-11T07:25:06Z 承認済み) — `aidlc-docs/inception/requirements/requirements.md`。User Storiesはスキップ(ユーザー向け業務要件を持たない開発者向けコンポーネントライブラリのため)
 - [x] Workflow Planning (2026-08-11T07:28:32Z 承認済み) — `aidlc-docs/inception/plans/execution-plan.md`
-- [ ] Application Design - EXECUTE (進行中)
-- [ ] Units Generation - EXECUTE
+- [x] Application Design (2026-08-11T07:58:34Z 承認済み) — `aidlc-docs/inception/application-design/`
+- [ ] Units Generation - EXECUTE (進行中)
 
 ### 🟢 CONSTRUCTION PHASE
 - [ ] Functional Design - EXECUTE(ユニット単位で要否判定)
@@ -61,6 +61,6 @@
 
 ## Current Status
 - **Lifecycle Phase**: INCEPTION
-- **Current Stage**: Application Design(進行中)
-- **Next Stage**: Units Generation
+- **Current Stage**: Units Generation(進行中)
+- **Next Stage**: CONSTRUCTION PHASE(ユニットごとのループ)
 - **Status**: 進行中
