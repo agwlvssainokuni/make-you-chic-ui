@@ -455,3 +455,18 @@
 **Context**: CONSTRUCTION - Unit 4 Code Generation (成果物作成完了、承認待ち)
 
 ---
+
+## CONSTRUCTION - Unit 4(フィードバック系) - Code Generation (承認)
+**Timestamp**: 2026-08-11T11:12:13Z
+**User Input**: "Continue to Next Stage"
+**AI Response**: Code Generationを承認済みとして確定。Unit 4(フィードバック系)完了。Unit 5(ナビゲーション・レイアウト系: Tabs, Dropdown/Menu, AppShell)のFunctional Designへ進む。
+**Context**: CONSTRUCTION - Unit 4(フィードバック系) 完了 → Unit 5(ナビゲーション・レイアウト系) 開始
+
+---
+
+## CONSTRUCTION - Unit 5(ナビゲーション・レイアウト系) - Functional Design (計画・質問提示)
+**Timestamp**: 2026-08-11T11:13:36Z
+**AI Response**: `aidlc-docs/construction/plans/unit5-nav-layout-functional-design-plan.md` を作成。Tabsのアクティベーションモード、Dropdownの開閉トリガー、Dropdownのキーボード操作範囲、AppShellのユーザーメニュー項目(Application Design時点で未定義だったギャップ)、AppShellの通知アイコンクリック挙動、AppShellのウィンドウ幅変化時の挙動の6問を提示。ユーザーの回答待ち。
+**Context**: CONSTRUCTION - Unit 5 Functional Design (質問ファイル提示、回答待ちゲート)
+
+---
