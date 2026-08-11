@@ -3,7 +3,7 @@
 ## Project Information
 - **Project Type**: Greenfield
 - **Start Date**: 2026-08-11T06:21:52Z
-- **Current Stage**: CONSTRUCTION - Unit 7(画面パターン): Functional Design
+- **Current Stage**: CONSTRUCTION - Unit 7(画面パターン): Code Generation
 
 ## Workspace State
 - **Existing Code**: No
@@ -93,11 +93,11 @@
 - [x] Code Generation (2026-08-11T12:03:20Z 承認済み) — アプリコードはワークスペースルート(`src/components/Table/`, `html-demo/`)、サマリーは`aidlc-docs/construction/unit6-table/code/`。**Unit 6 完了(全コンポーネント完成)**
 
 #### Unit 7: 画面パターン(List View, Detail View, 編集Modal, 削除確認)
-- [ ] Functional Design - EXECUTE(進行中)
-- [ ] NFR Requirements - 要否判定はFunctional Design後
-- [ ] NFR Design - 要否判定はNFR Requirements後
-- [ ] Infrastructure Design - SKIP
-- [ ] Code Generation - EXECUTE
+- [x] Functional Design (2026-08-11T12:10:30Z 承認済み) — `aidlc-docs/construction/unit7-screen-patterns/functional-design/`。サンプルドメイン: ユーザー管理
+- [x] NFR Requirements - SKIP(新規NFR論点なし)
+- [x] NFR Design - SKIP(同上)
+- [x] Infrastructure Design - SKIP
+- [ ] Code Generation - EXECUTE(進行中)
 
 #### Unit 8
 - 未着手(Unit 4完了後に順次着手。詳細は`unit-of-work-dependency.md`の確定シーケンス参照)

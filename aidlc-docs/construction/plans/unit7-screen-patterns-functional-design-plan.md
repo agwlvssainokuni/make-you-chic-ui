@@ -4,10 +4,10 @@
 
 ## 実施タスク
 
-- [ ] `aidlc-docs/construction/unit7-screen-patterns/functional-design/business-logic-model.md` を作成
-- [ ] `aidlc-docs/construction/unit7-screen-patterns/functional-design/business-rules.md` を作成
-- [ ] `aidlc-docs/construction/unit7-screen-patterns/functional-design/domain-entities.md` を作成
-- [ ] `aidlc-docs/construction/unit7-screen-patterns/functional-design/frontend-components.md` を作成
+- [x] `aidlc-docs/construction/unit7-screen-patterns/functional-design/business-logic-model.md` を作成
+- [x] `aidlc-docs/construction/unit7-screen-patterns/functional-design/business-rules.md` を作成
+- [x] `aidlc-docs/construction/unit7-screen-patterns/functional-design/domain-entities.md` を作成
+- [x] `aidlc-docs/construction/unit7-screen-patterns/functional-design/frontend-components.md` を作成
 
 ## カテゴリ別の適用判定
 
@@ -32,7 +32,7 @@ B) 別のドメインにしたい(Answerに記載)
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ### Question 2: サンプルデータの所有方法
 
@@ -44,7 +44,7 @@ B) 簡易的なモックAPI層(遅延を模したPromiseベースの関数等)�
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ### Question 3: List Viewのフィルタバー・一括操作バーの対象
 
@@ -56,7 +56,7 @@ B) より広い範囲(Answerに記載)
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ### Question 4: 削除確認の使い分け
 
@@ -68,4 +68,4 @@ B) 別の割り当てにしたい(Answerに記載)
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
