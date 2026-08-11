@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import './TextInput.css';
-import { forwardRef } from 'react';
-import { useFieldProps } from '../FormField/useFieldProps';
-import { useControllableState } from '../../utils/useControllableState';
+import './TextInput.css'
+import { forwardRef } from 'react'
+import { useFieldProps } from '../FormField/useFieldProps'
+import { useControllableState } from '../../utils/useControllableState'
 
 export interface TextInputProps extends Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
   'value' | 'defaultValue' | 'onChange'
 > {
-  value?: string;
-  defaultValue?: string;
-  onChange?: (value: string) => void;
+  value?: string
+  defaultValue?: string
+  onChange?: (value: string) => void
 }
 
 /** Single-line text input. Wire it inside <FormField> for automatic label/error linkage. */
@@ -32,8 +32,8 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(function T
   { value, defaultValue = '', onChange, className, ...rest },
   ref,
 ) {
-  const fieldProps = useFieldProps();
-  const [currentValue, setValue] = useControllableState({ value, defaultValue, onChange });
+  const fieldProps = useFieldProps()
+  const [currentValue, setValue] = useControllableState({ value, defaultValue, onChange })
 
   return (
     <input
@@ -46,5 +46,5 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(function T
       {...fieldProps}
       {...rest}
     />
-  );
-});
+  )
+})

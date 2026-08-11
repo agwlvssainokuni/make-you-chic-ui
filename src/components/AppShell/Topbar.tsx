@@ -13,19 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Icon } from '../Icon';
-import { Avatar } from '../Avatar';
-import { Dropdown, type MenuItem } from '../Dropdown';
-import { useAppShell } from './AppShellContext';
+import { Icon } from '../Icon'
+import { Avatar } from '../Avatar'
+import { Dropdown, type MenuItem } from '../Dropdown'
+import { useAppShell } from './AppShellContext'
 
 export interface AppShellUser {
-  name: string;
-  avatarSrc?: string;
+  name: string
+  avatarSrc?: string
 }
 
 export interface TopbarProps {
-  user?: AppShellUser;
-  userMenuItems?: MenuItem[];
+  user?: AppShellUser
+  userMenuItems?: MenuItem[]
 }
 
 /**
@@ -33,7 +33,7 @@ export interface TopbarProps {
  * Sidebar/Topbar are not standalone components). No breadcrumbs, per FR1.
  */
 export function Topbar({ user, userMenuItems }: TopbarProps): React.JSX.Element {
-  const { toggleCollapsed, collapsed } = useAppShell();
+  const { toggleCollapsed, collapsed } = useAppShell()
 
   return (
     <header className="wds-topbar">
@@ -66,5 +66,5 @@ export function Topbar({ user, userMenuItems }: TopbarProps): React.JSX.Element 
           <Avatar name={user.name} src={user.avatarSrc} size="sm" />
         ))}
     </header>
-  );
+  )
 }

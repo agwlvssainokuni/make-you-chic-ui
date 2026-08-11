@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { createContext } from 'react';
+import { createContext } from 'react'
 
 export interface FormFieldContextValue {
   /** id to apply to the wrapped input element. */
-  fieldId: string;
+  fieldId: string
   /** id of the error message element, referenced via aria-describedby. */
-  errorId: string | undefined;
+  errorId: string | undefined
   /** id of the helper text element, referenced via aria-describedby. */
-  helperTextId: string | undefined;
+  helperTextId: string | undefined
   /** Whether the field currently has an error (drives aria-invalid). */
-  hasError: boolean;
+  hasError: boolean
 }
 
 /**
@@ -33,4 +33,4 @@ export interface FormFieldContextValue {
  * fall back to generating their own id (fail-soft, see Functional Design
  * Question 1 = A).
  */
-export const FormFieldContext = createContext<FormFieldContextValue | null>(null);
+export const FormFieldContext = createContext<FormFieldContextValue | null>(null)

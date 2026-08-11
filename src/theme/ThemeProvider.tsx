@@ -13,29 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { createContext, useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
-import type { ThemeState, ThemeMode, ThemeBrand, ThemeFontFamily, ThemeFontSize } from './types';
-import { THEME_STORAGE_KEYS, safeLocalStorageGet, safeLocalStorageSet } from './storage';
-import { resolveInitialThemeValue } from './validation';
+import { createContext, useCallback, useEffect, useMemo, useState, type ReactNode } from 'react'
+import type { ThemeState, ThemeMode, ThemeBrand, ThemeFontFamily, ThemeFontSize } from './types'
+import { THEME_STORAGE_KEYS, safeLocalStorageGet, safeLocalStorageSet } from './storage'
+import { resolveInitialThemeValue } from './validation'
 
 export interface ThemeContextValue extends ThemeState {
-  setTheme: (value: ThemeMode) => void;
-  setBrand: (value: ThemeBrand) => void;
-  setFontFamily: (value: ThemeFontFamily) => void;
-  setFontSize: (value: ThemeFontSize) => void;
+  setTheme: (value: ThemeMode) => void
+  setBrand: (value: ThemeBrand) => void
+  setFontFamily: (value: ThemeFontFamily) => void
+  setFontSize: (value: ThemeFontSize) => void
 }
 
-export const ThemeContext = createContext<ThemeContextValue | null>(null);
+export const ThemeContext = createContext<ThemeContextValue | null>(null)
 
 function prefersDarkColorScheme(): boolean {
   if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
-    return false;
+    return false
   }
-  return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  return window.matchMedia('(prefers-color-scheme: dark)').matches
 }
 
 function readInitialState(): ThemeState {
-  const prefersDark = prefersDarkColorScheme();
+  const prefersDark = prefersDarkColorScheme()
   return {
     theme: resolveInitialThemeValue(
       'theme',
@@ -57,15 +57,15 @@ function readInitialState(): ThemeState {
       safeLocalStorageGet(THEME_STORAGE_KEYS.fontSize),
       prefersDark,
     ),
-  };
+  }
 }
 
 function applyAttribute(name: string, value: string, omitWhen?: string): void {
-  const html = document.documentElement;
+  const html = document.documentElement
   if (omitWhen !== undefined && value === omitWhen) {
-    html.removeAttribute(name);
+    html.removeAttribute(name)
   } else {
-    html.setAttribute(name, value);
+    html.setAttribute(name, value)
   }
 }
 
@@ -73,14 +73,14 @@ function applyAttribute(name: string, value: string, omitWhen?: string): void {
 function applyThemeToDocument(state: ThemeState): void {
   // data-theme is omitted entirely for 'light' so CSS can treat light as the
   // attribute-less default (see semantic.css).
-  applyAttribute('data-theme', state.theme, 'light');
-  applyAttribute('data-brand', state.brand);
-  applyAttribute('data-font-family', state.fontFamily);
-  applyAttribute('data-font-size', state.fontSize);
+  applyAttribute('data-theme', state.theme, 'light')
+  applyAttribute('data-brand', state.brand)
+  applyAttribute('data-font-family', state.fontFamily)
+  applyAttribute('data-font-size', state.fontSize)
 }
 
 export interface ThemeProviderProps {
-  children: ReactNode;
+  children: ReactNode
 }
 
 /**
@@ -90,59 +90,59 @@ export interface ThemeProviderProps {
  * aidlc-docs/construction/unit1-foundation/functional-design/business-logic-model.md
  */
 export function ThemeProvider({ children }: ThemeProviderProps): React.JSX.Element {
-  const [state, setState] = useState<ThemeState>(readInitialState);
+  const [state, setState] = useState<ThemeState>(readInitialState)
 
   // Reflect the current state onto <html> whenever it changes (including
   // the very first render).
   useEffect(() => {
-    applyThemeToDocument(state);
-  }, [state]);
+    applyThemeToDocument(state)
+  }, [state])
 
   // Multi-tab sync: another tab changing localStorage updates this tab's
   // state without writing back to localStorage (avoids feedback loops).
   useEffect(() => {
     function handleStorage(event: StorageEvent): void {
-      if (event.storageArea !== window.localStorage) return;
+      if (event.storageArea !== window.localStorage) return
 
       for (const [axis, key] of Object.entries(THEME_STORAGE_KEYS) as [
         keyof ThemeState,
         string,
       ][]) {
-        if (event.key !== key) continue;
-        const prefersDark = prefersDarkColorScheme();
-        const nextValue = resolveInitialThemeValue(axis, event.newValue, prefersDark);
-        setState((prev) => ({ ...prev, [axis]: nextValue }));
+        if (event.key !== key) continue
+        const prefersDark = prefersDarkColorScheme()
+        const nextValue = resolveInitialThemeValue(axis, event.newValue, prefersDark)
+        setState((prev) => ({ ...prev, [axis]: nextValue }))
       }
     }
 
-    window.addEventListener('storage', handleStorage);
-    return () => window.removeEventListener('storage', handleStorage);
-  }, []);
+    window.addEventListener('storage', handleStorage)
+    return () => window.removeEventListener('storage', handleStorage)
+  }, [])
 
   const setTheme = useCallback((value: ThemeMode) => {
-    setState((prev) => ({ ...prev, theme: value }));
-    safeLocalStorageSet(THEME_STORAGE_KEYS.theme, value);
-  }, []);
+    setState((prev) => ({ ...prev, theme: value }))
+    safeLocalStorageSet(THEME_STORAGE_KEYS.theme, value)
+  }, [])
 
   const setBrand = useCallback((value: ThemeBrand) => {
-    setState((prev) => ({ ...prev, brand: value }));
-    safeLocalStorageSet(THEME_STORAGE_KEYS.brand, value);
-  }, []);
+    setState((prev) => ({ ...prev, brand: value }))
+    safeLocalStorageSet(THEME_STORAGE_KEYS.brand, value)
+  }, [])
 
   const setFontFamily = useCallback((value: ThemeFontFamily) => {
-    setState((prev) => ({ ...prev, fontFamily: value }));
-    safeLocalStorageSet(THEME_STORAGE_KEYS.fontFamily, value);
-  }, []);
+    setState((prev) => ({ ...prev, fontFamily: value }))
+    safeLocalStorageSet(THEME_STORAGE_KEYS.fontFamily, value)
+  }, [])
 
   const setFontSize = useCallback((value: ThemeFontSize) => {
-    setState((prev) => ({ ...prev, fontSize: value }));
-    safeLocalStorageSet(THEME_STORAGE_KEYS.fontSize, value);
-  }, []);
+    setState((prev) => ({ ...prev, fontSize: value }))
+    safeLocalStorageSet(THEME_STORAGE_KEYS.fontSize, value)
+  }, [])
 
   const value = useMemo<ThemeContextValue>(
     () => ({ ...state, setTheme, setBrand, setFontFamily, setFontSize }),
     [state, setTheme, setBrand, setFontFamily, setFontSize],
-  );
+  )
 
-  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
+  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
 }

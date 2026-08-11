@@ -221,39 +221,39 @@
     ></div>
 
     <script>
-      var modal = document.getElementById('demo-modal');
-      var openBtn = document.getElementById('open-modal-btn');
-      var closeBtn = document.getElementById('close-modal-btn');
-      var confirmBtn = document.getElementById('confirm-modal-btn');
+      var modal = document.getElementById('demo-modal')
+      var openBtn = document.getElementById('open-modal-btn')
+      var closeBtn = document.getElementById('close-modal-btn')
+      var confirmBtn = document.getElementById('confirm-modal-btn')
 
       function openModal() {
-        modal.classList.add('open');
-        closeBtn.focus();
+        modal.classList.add('open')
+        closeBtn.focus()
       }
       function closeModal() {
-        modal.classList.remove('open');
-        openBtn.focus();
+        modal.classList.remove('open')
+        openBtn.focus()
       }
-      openBtn.addEventListener('click', openModal);
-      closeBtn.addEventListener('click', closeModal);
-      confirmBtn.addEventListener('click', closeModal);
+      openBtn.addEventListener('click', openModal)
+      closeBtn.addEventListener('click', closeModal)
+      confirmBtn.addEventListener('click', closeModal)
       modal.addEventListener('mousedown', function (e) {
-        if (e.target === modal) closeModal();
-      });
+        if (e.target === modal) closeModal()
+      })
       document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
-      });
+        if (e.key === 'Escape' && modal.classList.contains('open')) closeModal()
+      })
 
-      var toastContainer = document.getElementById('demo-toast-container');
+      var toastContainer = document.getElementById('demo-toast-container')
       document.getElementById('show-toast-btn').addEventListener('click', function () {
-        var toast = document.createElement('div');
-        toast.className = 'wds-toast';
-        toast.textContent = '保存しました';
-        toastContainer.prepend(toast);
+        var toast = document.createElement('div')
+        toast.className = 'wds-toast'
+        toast.textContent = '保存しました'
+        toastContainer.prepend(toast)
         setTimeout(function () {
-          toast.remove();
-        }, 4000);
-      });
+          toast.remove()
+        }, 4000)
+      })
     </script>
   </body>
 </html>

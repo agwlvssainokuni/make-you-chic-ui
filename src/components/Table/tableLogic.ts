@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-export type SortDirection = 'asc' | 'desc' | null;
+export type SortDirection = 'asc' | 'desc' | null
 
 export interface SortState {
-  key: string;
-  direction: SortDirection;
+  key: string
+  direction: SortDirection
 }
 
 /**
@@ -28,29 +28,29 @@ export interface SortState {
  */
 export function nextSortState(current: SortState | null, clickedKey: string): SortState | null {
   if (current === null || current.key !== clickedKey) {
-    return { key: clickedKey, direction: 'asc' };
+    return { key: clickedKey, direction: 'asc' }
   }
   if (current.direction === 'asc') {
-    return { key: clickedKey, direction: 'desc' };
+    return { key: clickedKey, direction: 'desc' }
   }
-  return null;
+  return null
 }
 
 /** Total pages for external (server-side) pagination (Question 2 = B). */
 export function computeTotalPages(totalCount: number, pageSize: number): number {
-  if (pageSize <= 0) return 1;
-  return Math.max(1, Math.ceil(totalCount / pageSize));
+  if (pageSize <= 0) return 1
+  return Math.max(1, Math.ceil(totalCount / pageSize))
 }
 
 /** Toggles a single row's membership in the selection set, returning a new Set. */
 export function toggleRowSelection(selected: ReadonlySet<string>, rowId: string): Set<string> {
-  const next = new Set(selected);
+  const next = new Set(selected)
   if (next.has(rowId)) {
-    next.delete(rowId);
+    next.delete(rowId)
   } else {
-    next.add(rowId);
+    next.add(rowId)
   }
-  return next;
+  return next
 }
 
 /**
@@ -62,14 +62,14 @@ export function toggleAllSelection(
   selected: ReadonlySet<string>,
   pageRowIds: readonly string[],
 ): Set<string> {
-  const allSelected = pageRowIds.length > 0 && pageRowIds.every((id) => selected.has(id));
-  const next = new Set(selected);
+  const allSelected = pageRowIds.length > 0 && pageRowIds.every((id) => selected.has(id))
+  const next = new Set(selected)
   for (const id of pageRowIds) {
     if (allSelected) {
-      next.delete(id);
+      next.delete(id)
     } else {
-      next.add(id);
+      next.add(id)
     }
   }
-  return next;
+  return next
 }

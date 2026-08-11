@@ -15,17 +15,17 @@
  */
 
 export interface TablePermission {
-  tableName: string;
-  permission: '読み取り' | '読み取り/書き込み';
+  tableName: string
+  permission: '読み取り' | '読み取り/書き込み'
 }
 
 export interface SampleUser {
-  id: string;
-  name: string;
-  email: string;
-  role: 'admin' | 'member';
-  avatarSrc?: string;
-  tablePermissions: TablePermission[];
+  id: string
+  name: string
+  email: string
+  role: 'admin' | 'member'
+  avatarSrc?: string
+  tablePermissions: TablePermission[]
 }
 
 /** Mock data for examples/ only — not part of the published package (Question 2 = A). */
@@ -68,4 +68,4 @@ export const initialSampleUsers: SampleUser[] = [
     role: 'admin',
     tablePermissions: [{ tableName: 'orders', permission: '読み取り/書き込み' }],
   },
-];
+]

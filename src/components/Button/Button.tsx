@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import './Button.css';
-import { forwardRef } from 'react';
+import './Button.css'
+import { forwardRef } from 'react'
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /** @default 'primary' */
-  variant?: 'primary' | 'secondary' | 'danger' | 'ghost';
+  variant?: 'primary' | 'secondary' | 'danger' | 'ghost'
   /** @default 'md' */
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg'
   /** Shows a spinner and disables the button. @default false */
-  loading?: boolean;
+  loading?: boolean
 }
 
 /** Standard clickable button with variant/size/loading states. */
@@ -32,7 +32,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
 ) {
   const classes = ['wds-button', `variant-${variant}`, `size-${size}`, className]
     .filter(Boolean)
-    .join(' ');
+    .join(' ')
 
   return (
     <button
@@ -49,5 +49,5 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       )}
       {children}
     </button>
-  );
-});
+  )
+})

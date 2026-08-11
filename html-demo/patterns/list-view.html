@@ -160,25 +160,25 @@
         { id: '1', name: '山田 太郎', email: 'yamada@example.com', role: 'admin' },
         { id: '2', name: '鈴木 花子', email: 'suzuki@example.com', role: 'member' },
         { id: '3', name: '佐藤 次郎', email: 'sato@example.com', role: 'member' },
-      ];
-      var selected = new Set();
+      ]
+      var selected = new Set()
 
       function render() {
-        var searchText = document.getElementById('search-input').value;
-        var roleFilter = document.getElementById('role-filter').value;
+        var searchText = document.getElementById('search-input').value
+        var roleFilter = document.getElementById('role-filter').value
         var filtered = users.filter(function (u) {
           var matchesText =
-            !searchText || u.name.indexOf(searchText) !== -1 || u.email.indexOf(searchText) !== -1;
-          var matchesRole = !roleFilter || u.role === roleFilter;
-          return matchesText && matchesRole;
-        });
+            !searchText || u.name.indexOf(searchText) !== -1 || u.email.indexOf(searchText) !== -1
+          var matchesRole = !roleFilter || u.role === roleFilter
+          return matchesText && matchesRole
+        })
 
-        var tbody = document.getElementById('table-body');
-        tbody.innerHTML = '';
+        var tbody = document.getElementById('table-body')
+        tbody.innerHTML = ''
         filtered.forEach(function (u) {
-          var tr = document.createElement('tr');
-          var roleLabel = u.role === 'admin' ? '管理者' : '一般ユーザー';
-          var roleVariant = u.role === 'admin' ? 'primary' : 'secondary';
+          var tr = document.createElement('tr')
+          var roleLabel = u.role === 'admin' ? '管理者' : '一般ユーザー'
+          var roleVariant = u.role === 'admin' ? 'primary' : 'secondary'
           tr.innerHTML =
             '<td><input type="checkbox" data-id="' +
             u.id +
@@ -195,41 +195,41 @@
             roleVariant +
             '">' +
             roleLabel +
-            '</span></td>';
-          tbody.appendChild(tr);
-        });
+            '</span></td>'
+          tbody.appendChild(tr)
+        })
 
         tbody.querySelectorAll('input[type="checkbox"]').forEach(function (cb) {
           cb.addEventListener('change', function () {
-            if (cb.checked) selected.add(cb.getAttribute('data-id'));
-            else selected.delete(cb.getAttribute('data-id'));
-            updateBulkBar();
-          });
-        });
+            if (cb.checked) selected.add(cb.getAttribute('data-id'))
+            else selected.delete(cb.getAttribute('data-id'))
+            updateBulkBar()
+          })
+        })
       }
 
       function updateBulkBar() {
-        var bar = document.getElementById('bulk-bar');
+        var bar = document.getElementById('bulk-bar')
         if (selected.size > 0) {
-          bar.classList.add('visible');
-          document.getElementById('bulk-count').textContent = selected.size + '件選択中';
+          bar.classList.add('visible')
+          document.getElementById('bulk-count').textContent = selected.size + '件選択中'
         } else {
-          bar.classList.remove('visible');
+          bar.classList.remove('visible')
         }
       }
 
-      document.getElementById('search-input').addEventListener('input', render);
-      document.getElementById('role-filter').addEventListener('change', render);
+      document.getElementById('search-input').addEventListener('input', render)
+      document.getElementById('role-filter').addEventListener('change', render)
       document.getElementById('select-all').addEventListener('change', function (e) {
         users.forEach(function (u) {
-          if (e.target.checked) selected.add(u.id);
-          else selected.delete(u.id);
-        });
-        render();
-        updateBulkBar();
-      });
+          if (e.target.checked) selected.add(u.id)
+          else selected.delete(u.id)
+        })
+        render()
+        updateBulkBar()
+      })
 
-      render();
+      render()
     </script>
   </body>
 </html>

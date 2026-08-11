@@ -13,5 +13,5 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-export { Tabs } from './Tabs';
-export type { TabsProps, TabItem } from './Tabs';
+export { Tabs } from './Tabs'
+export type { TabsProps, TabItem } from './Tabs'

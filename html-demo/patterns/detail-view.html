@@ -225,40 +225,40 @@
       document.querySelectorAll('.wds-tab').forEach(function (tab) {
         tab.addEventListener('click', function () {
           document.querySelectorAll('.wds-tab').forEach(function (t) {
-            t.classList.remove('active');
-            t.setAttribute('aria-selected', 'false');
-          });
+            t.classList.remove('active')
+            t.setAttribute('aria-selected', 'false')
+          })
           document.querySelectorAll('.wds-tab-panel').forEach(function (p) {
-            p.classList.remove('active');
-          });
-          tab.classList.add('active');
-          tab.setAttribute('aria-selected', 'true');
+            p.classList.remove('active')
+          })
+          tab.classList.add('active')
+          tab.setAttribute('aria-selected', 'true')
           document
             .querySelector('[data-panel="' + tab.getAttribute('data-tab') + '"]')
-            .classList.add('active');
-        });
-      });
+            .classList.add('active')
+        })
+      })
 
-      var modal = document.getElementById('delete-modal');
-      var confirmInput = document.getElementById('confirm-input');
-      var confirmButton = document.getElementById('confirm-delete');
+      var modal = document.getElementById('delete-modal')
+      var confirmInput = document.getElementById('confirm-input')
+      var confirmButton = document.getElementById('confirm-delete')
 
       document.getElementById('open-delete').addEventListener('click', function () {
-        modal.classList.add('open');
-        confirmInput.focus();
-      });
+        modal.classList.add('open')
+        confirmInput.focus()
+      })
       document.getElementById('cancel-delete').addEventListener('click', function () {
-        modal.classList.remove('open');
-        confirmInput.value = '';
-        confirmButton.disabled = true;
-      });
+        modal.classList.remove('open')
+        confirmInput.value = ''
+        confirmButton.disabled = true
+      })
       confirmInput.addEventListener('input', function () {
-        confirmButton.disabled = confirmInput.value !== '山田 太郎';
-      });
+        confirmButton.disabled = confirmInput.value !== '山田 太郎'
+      })
       confirmButton.addEventListener('click', function () {
-        alert('削除しました(デモ)');
-        modal.classList.remove('open');
-      });
+        alert('削除しました(デモ)')
+        modal.classList.remove('open')
+      })
     </script>
   </body>
 </html>

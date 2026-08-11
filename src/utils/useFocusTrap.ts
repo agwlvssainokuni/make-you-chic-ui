@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useEffect, type RefObject } from 'react';
-import { getFocusableElements } from './getFocusableElements';
+import { useEffect, type RefObject } from 'react'
+import { getFocusableElements } from './getFocusableElements'
 
 export interface UseFocusTrapOptions {
   /** Container to trap focus within. */
-  containerRef: RefObject<HTMLElement | null>;
+  containerRef: RefObject<HTMLElement | null>
   /** Whether the trap is currently active (e.g. this Modal is the topmost one). */
-  active: boolean;
+  active: boolean
   /** Preferred element to focus when the trap activates. Falls back to the first focusable element. */
-  initialFocusRef?: RefObject<HTMLElement | null>;
+  initialFocusRef?: RefObject<HTMLElement | null>
 }
 
 /**
@@ -33,39 +33,39 @@ export interface UseFocusTrapOptions {
  */
 export function useFocusTrap({ containerRef, active, initialFocusRef }: UseFocusTrapOptions): void {
   useEffect(() => {
-    if (!active) return;
-    const container = containerRef.current;
-    if (!container) return;
+    if (!active) return
+    const container = containerRef.current
+    if (!container) return
 
-    const previouslyFocused = document.activeElement as HTMLElement | null;
+    const previouslyFocused = document.activeElement as HTMLElement | null
 
-    const target = initialFocusRef?.current ?? getFocusableElements(container)[0];
-    target?.focus();
+    const target = initialFocusRef?.current ?? getFocusableElements(container)[0]
+    target?.focus()
 
     function handleKeyDown(event: KeyboardEvent): void {
-      if (event.key !== 'Tab' || !container) return;
-      const focusable = getFocusableElements(container);
+      if (event.key !== 'Tab' || !container) return
+      const focusable = getFocusableElements(container)
       if (focusable.length === 0) {
-        event.preventDefault();
-        return;
+        event.preventDefault()
+        return
       }
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
 
       if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
+        event.preventDefault()
+        last.focus()
       } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
+        event.preventDefault()
+        first.focus()
       }
     }
 
-    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('keydown', handleKeyDown)
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-      previouslyFocused?.focus();
-    };
+      document.removeEventListener('keydown', handleKeyDown)
+      previouslyFocused?.focus()
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [active]);
+  }, [active])
 }

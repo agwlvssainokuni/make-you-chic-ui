@@ -13,28 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from 'vitest';
-import fc from 'fast-check';
+import { describe, it, expect } from 'vitest'
+import fc from 'fast-check'
 import {
   isValidThemeValue,
   resolveInitialThemeValue,
   THEME_VALID_VALUES,
   THEME_DEFAULTS,
-} from './validation';
-import type { ThemeAxis } from './types';
+} from './validation'
+import type { ThemeAxis } from './types'
 
-const axes = Object.keys(THEME_VALID_VALUES) as ThemeAxis[];
-const axisArb = fc.constantFrom(...axes);
+const axes = Object.keys(THEME_VALID_VALUES) as ThemeAxis[]
+const axisArb = fc.constantFrom(...axes)
 
 describe('isValidThemeValue', () => {
   it('example: accepts documented valid values', () => {
-    expect(isValidThemeValue('theme', 'dark')).toBe(true);
-    expect(isValidThemeValue('brand', 'purple')).toBe(true);
-  });
+    expect(isValidThemeValue('theme', 'dark')).toBe(true)
+    expect(isValidThemeValue('brand', 'purple')).toBe(true)
+  })
 
   it('example: rejects an unknown value', () => {
-    expect(isValidThemeValue('theme', 'blue')).toBe(false);
-  });
+    expect(isValidThemeValue('theme', 'blue')).toBe(false)
+  })
 
   // PBT-03 (Invariant Properties): every value drawn from the documented
   // valid-value list for an axis must be accepted, for all axes.
@@ -45,22 +45,22 @@ describe('isValidThemeValue', () => {
           fc.constantFrom(...THEME_VALID_VALUES[axis]).map((value) => ({ axis, value })),
         ),
         ({ axis, value }) => {
-          expect(isValidThemeValue(axis, value)).toBe(true);
+          expect(isValidThemeValue(axis, value)).toBe(true)
         },
       ),
-    );
-  });
+    )
+  })
 
   // PBT-03: any string that is not in the axis's valid-value list must be
   // rejected, for all axes and a wide range of generated strings.
   it('property: any string outside the valid-value list is rejected', () => {
     fc.assert(
       fc.property(axisArb, fc.string(), (axis, candidate) => {
-        fc.pre(!(THEME_VALID_VALUES[axis] as readonly string[]).includes(candidate));
-        expect(isValidThemeValue(axis, candidate)).toBe(false);
+        fc.pre(!(THEME_VALID_VALUES[axis] as readonly string[]).includes(candidate))
+        expect(isValidThemeValue(axis, candidate)).toBe(false)
       }),
-    );
-  });
+    )
+  })
 
   it('property: non-string values are always rejected', () => {
     fc.assert(
@@ -68,28 +68,28 @@ describe('isValidThemeValue', () => {
         axisArb,
         fc.oneof(fc.integer(), fc.boolean(), fc.constant(null), fc.constant(undefined)),
         (axis, value) => {
-          expect(isValidThemeValue(axis, value)).toBe(false);
+          expect(isValidThemeValue(axis, value)).toBe(false)
         },
       ),
-    );
-  });
-});
+    )
+  })
+})
 
 describe('resolveInitialThemeValue', () => {
   it('returns the persisted value when it is valid', () => {
-    expect(resolveInitialThemeValue('brand', 'green', false)).toBe('green');
-  });
+    expect(resolveInitialThemeValue('brand', 'green', false)).toBe('green')
+  })
 
   it('falls back to prefers-color-scheme for the theme axis when nothing is persisted', () => {
-    expect(resolveInitialThemeValue('theme', null, true)).toBe('dark');
-    expect(resolveInitialThemeValue('theme', null, false)).toBe('light');
-  });
+    expect(resolveInitialThemeValue('theme', null, true)).toBe('dark')
+    expect(resolveInitialThemeValue('theme', null, false)).toBe('light')
+  })
 
   it('falls back to the axis default for non-theme axes when nothing is persisted', () => {
-    expect(resolveInitialThemeValue('brand', null, false)).toBe(THEME_DEFAULTS.brand);
-    expect(resolveInitialThemeValue('fontFamily', null, false)).toBe(THEME_DEFAULTS.fontFamily);
-    expect(resolveInitialThemeValue('fontSize', null, false)).toBe(THEME_DEFAULTS.fontSize);
-  });
+    expect(resolveInitialThemeValue('brand', null, false)).toBe(THEME_DEFAULTS.brand)
+    expect(resolveInitialThemeValue('fontFamily', null, false)).toBe(THEME_DEFAULTS.fontFamily)
+    expect(resolveInitialThemeValue('fontSize', null, false)).toBe(THEME_DEFAULTS.fontSize)
+  })
 
   // PBT-03: an invalid persisted value must never be returned as-is; the
   // result must always be a documented valid value for the axis.
@@ -100,10 +100,10 @@ describe('resolveInitialThemeValue', () => {
         fc.option(fc.string(), { nil: null }),
         fc.boolean(),
         (axis, persisted, prefersDark) => {
-          const result = resolveInitialThemeValue(axis, persisted, prefersDark);
-          expect((THEME_VALID_VALUES[axis] as readonly string[]).includes(result)).toBe(true);
+          const result = resolveInitialThemeValue(axis, persisted, prefersDark)
+          expect((THEME_VALID_VALUES[axis] as readonly string[]).includes(result)).toBe(true)
         },
       ),
-    );
-  });
-});
+    )
+  })
+})

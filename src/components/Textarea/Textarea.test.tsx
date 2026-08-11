@@ -13,39 +13,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from 'vitest';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { axe } from 'vitest-axe';
-import { Textarea } from './Textarea';
+import { describe, it, expect } from 'vitest'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import { axe } from 'vitest-axe'
+import { Textarea } from './Textarea'
 
 describe('Textarea', () => {
   it('defaults to 3 rows', () => {
-    render(<Textarea />);
-    expect(screen.getByTestId('textarea')).toHaveAttribute('rows', '3');
-  });
+    render(<Textarea />)
+    expect(screen.getByTestId('textarea')).toHaveAttribute('rows', '3')
+  })
 
   it('accepts a custom rows value', () => {
-    render(<Textarea rows={6} />);
-    expect(screen.getByTestId('textarea')).toHaveAttribute('rows', '6');
-  });
+    render(<Textarea rows={6} />)
+    expect(screen.getByTestId('textarea')).toHaveAttribute('rows', '6')
+  })
 
   it('behaves as uncontrolled by default', async () => {
-    render(<Textarea defaultValue="こんにちは" />);
-    const textarea = screen.getByTestId('textarea') as HTMLTextAreaElement;
-    expect(textarea.value).toBe('こんにちは');
-    await userEvent.type(textarea, '!');
-    expect(textarea.value).toBe('こんにちは!');
-  });
+    render(<Textarea defaultValue="こんにちは" />)
+    const textarea = screen.getByTestId('textarea') as HTMLTextAreaElement
+    expect(textarea.value).toBe('こんにちは')
+    await userEvent.type(textarea, '!')
+    expect(textarea.value).toBe('こんにちは!')
+  })
 
   it('forwards the ref to the underlying <textarea> element', () => {
-    const ref = { current: null as HTMLTextAreaElement | null };
-    render(<Textarea ref={ref} />);
-    expect(ref.current).toBeInstanceOf(HTMLTextAreaElement);
-  });
+    const ref = { current: null as HTMLTextAreaElement | null }
+    render(<Textarea ref={ref} />)
+    expect(ref.current).toBeInstanceOf(HTMLTextAreaElement)
+  })
 
   it('has no detectable accessibility violations', async () => {
-    const { container } = render(<Textarea aria-label="コメント" />);
-    expect(await axe(container)).toHaveNoViolations();
-  });
-});
+    const { container } = render(<Textarea aria-label="コメント" />)
+    expect(await axe(container)).toHaveNoViolations()
+  })
+})

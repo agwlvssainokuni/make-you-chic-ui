@@ -13,53 +13,53 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import './Table.css';
-import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { Checkbox } from '../Checkbox';
-import { Icon } from '../Icon';
-import { Button } from '../Button';
-import { DefaultCellEditor, type CellEditComponentProps } from './CellEditor';
+import './Table.css'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { Checkbox } from '../Checkbox'
+import { Icon } from '../Icon'
+import { Button } from '../Button'
+import { DefaultCellEditor, type CellEditComponentProps } from './CellEditor'
 import {
   nextSortState,
   computeTotalPages,
   toggleRowSelection,
   toggleAllSelection,
-} from './tableLogic';
-import type { SortState } from './tableLogic';
+} from './tableLogic'
+import type { SortState } from './tableLogic'
 
-export type { SortState, SortDirection } from './tableLogic';
+export type { SortState, SortDirection } from './tableLogic'
 
-const MIN_COLUMN_WIDTH_PX = 60;
+const MIN_COLUMN_WIDTH_PX = 60
 
 export interface TableColumn<T> {
-  key: string;
-  header: string;
-  sortable?: boolean;
-  width?: number;
-  render?: (row: T) => ReactNode;
+  key: string
+  header: string
+  sortable?: boolean
+  width?: number
+  render?: (row: T) => ReactNode
   /** Enables inline edit for this column (Functional Design Question 5). */
-  editable?: boolean;
+  editable?: boolean
   /** Custom edit UI; defaults to a text-only editor when omitted. */
-  editComponent?: React.ComponentType<CellEditComponentProps<unknown>>;
+  editComponent?: React.ComponentType<CellEditComponentProps<unknown>>
   /** Extracts the editable value from a row; defaults to `row[key]`. */
-  getValue?: (row: T) => unknown;
+  getValue?: (row: T) => unknown
 }
 
 export interface TableProps<T> {
-  columns: TableColumn<T>[];
+  columns: TableColumn<T>[]
   /** Current page's rows only (Functional Design Question 2 = B). */
-  data: T[];
-  totalCount: number;
-  getRowId: (row: T) => string;
-  sortState?: SortState | null;
-  onSortChange?: (state: SortState | null) => void;
-  selectedRowIds?: Set<string>;
-  onSelectionChange?: (ids: Set<string>) => void;
-  page: number;
-  pageSize: number;
-  onPageChange: (page: number) => void;
-  onCellEdit?: (rowId: string, columnKey: string, value: unknown) => void;
-  'aria-label'?: string;
+  data: T[]
+  totalCount: number
+  getRowId: (row: T) => string
+  sortState?: SortState | null
+  onSortChange?: (state: SortState | null) => void
+  selectedRowIds?: Set<string>
+  onSelectionChange?: (ids: Set<string>) => void
+  page: number
+  pageSize: number
+  onPageChange: (page: number) => void
+  onCellEdit?: (rowId: string, columnKey: string, value: unknown) => void
+  'aria-label'?: string
 }
 
 /**
@@ -82,78 +82,78 @@ export function Table<T>({
   onCellEdit,
   'aria-label': ariaLabel,
 }: TableProps<T>): React.JSX.Element {
-  const [columnWidths, setColumnWidths] = useState<Record<string, number>>({});
-  const [editingCell, setEditingCell] = useState<{ rowId: string; columnKey: string } | null>(null);
-  const thRefs = useRef<Record<string, HTMLTableCellElement | null>>({});
-  const dragState = useRef<{ key: string; startX: number; startWidth: number } | null>(null);
+  const [columnWidths, setColumnWidths] = useState<Record<string, number>>({})
+  const [editingCell, setEditingCell] = useState<{ rowId: string; columnKey: string } | null>(null)
+  const thRefs = useRef<Record<string, HTMLTableCellElement | null>>({})
+  const dragState = useRef<{ key: string; startX: number; startWidth: number } | null>(null)
 
-  const totalPages = computeTotalPages(totalCount, pageSize);
-  const rowIds = data.map(getRowId);
+  const totalPages = computeTotalPages(totalCount, pageSize)
+  const rowIds = data.map(getRowId)
   const allOnPageSelected =
     selectedRowIds !== undefined &&
     rowIds.length > 0 &&
-    rowIds.every((id) => selectedRowIds.has(id));
+    rowIds.every((id) => selectedRowIds.has(id))
   const someOnPageSelected =
-    selectedRowIds !== undefined && rowIds.some((id) => selectedRowIds.has(id));
+    selectedRowIds !== undefined && rowIds.some((id) => selectedRowIds.has(id))
 
   function handleSortClick(columnKey: string): void {
-    onSortChange?.(nextSortState(sortState, columnKey));
+    onSortChange?.(nextSortState(sortState, columnKey))
   }
 
   function handleToggleAll(): void {
-    if (!selectedRowIds || !onSelectionChange) return;
-    onSelectionChange(toggleAllSelection(selectedRowIds, rowIds));
+    if (!selectedRowIds || !onSelectionChange) return
+    onSelectionChange(toggleAllSelection(selectedRowIds, rowIds))
   }
 
   function handleToggleRow(rowId: string): void {
-    if (!selectedRowIds || !onSelectionChange) return;
-    onSelectionChange(toggleRowSelection(selectedRowIds, rowId));
+    if (!selectedRowIds || !onSelectionChange) return
+    onSelectionChange(toggleRowSelection(selectedRowIds, rowId))
   }
 
   function handleResizeStart(key: string, event: React.MouseEvent): void {
-    const th = thRefs.current[key];
-    if (!th) return;
+    const th = thRefs.current[key]
+    if (!th) return
     dragState.current = {
       key,
       startX: event.clientX,
       startWidth: th.getBoundingClientRect().width,
-    };
+    }
   }
 
   useEffect(() => {
     function handleMouseMove(event: MouseEvent): void {
-      const drag = dragState.current;
-      if (!drag) return;
-      const th = thRefs.current[drag.key];
-      if (!th) return;
+      const drag = dragState.current
+      if (!drag) return
+      const th = thRefs.current[drag.key]
+      if (!th) return
       const nextWidth = Math.max(
         MIN_COLUMN_WIDTH_PX,
         drag.startWidth + (event.clientX - drag.startX),
-      );
-      th.style.width = `${nextWidth}px`;
+      )
+      th.style.width = `${nextWidth}px`
     }
 
     function handleMouseUp(): void {
-      const drag = dragState.current;
-      if (!drag) return;
-      const th = thRefs.current[drag.key];
+      const drag = dragState.current
+      if (!drag) return
+      const th = thRefs.current[drag.key]
       if (th) {
         const finalWidth = Math.max(
           MIN_COLUMN_WIDTH_PX,
           parseFloat(th.style.width) || drag.startWidth,
-        );
-        setColumnWidths((prev) => ({ ...prev, [drag.key]: finalWidth }));
+        )
+        setColumnWidths((prev) => ({ ...prev, [drag.key]: finalWidth }))
       }
-      dragState.current = null;
+      dragState.current = null
     }
 
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
+    document.addEventListener('mousemove', handleMouseMove)
+    document.addEventListener('mouseup', handleMouseUp)
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
-    };
-  }, []);
+      document.removeEventListener('mousemove', handleMouseMove)
+      document.removeEventListener('mouseup', handleMouseUp)
+    }
+  }, [])
 
   // Excel-like editing (business-rules.md): switching to a new editable
   // cell relies on the outgoing editor committing itself via blur before
@@ -162,16 +162,16 @@ export function Table<T>({
   // without its pending value being saved — documented as a known
   // simplification rather than adding an imperative "commit now" ref API.
   function startEdit(rowId: string, columnKey: string): void {
-    setEditingCell({ rowId, columnKey });
+    setEditingCell({ rowId, columnKey })
   }
 
   function commitEdit(rowId: string, columnKey: string, value: unknown): void {
-    onCellEdit?.(rowId, columnKey, value);
-    setEditingCell(null);
+    onCellEdit?.(rowId, columnKey, value)
+    setEditingCell(null)
   }
 
   function cancelEdit(): void {
-    setEditingCell(null);
+    setEditingCell(null)
   }
 
   return (
@@ -187,13 +187,13 @@ export function Table<T>({
                   aria-label="全ての行を選択"
                   data-testid="table-select-all"
                   ref={(el) => {
-                    if (el) el.indeterminate = !allOnPageSelected && someOnPageSelected;
+                    if (el) el.indeterminate = !allOnPageSelected && someOnPageSelected
                   }}
                 />
               </th>
             )}
             {columns.map((column) => {
-              const width = columnWidths[column.key] ?? column.width;
+              const width = columnWidths[column.key] ?? column.width
               const ariaSort =
                 sortState?.key === column.key
                   ? sortState.direction === 'asc'
@@ -201,12 +201,12 @@ export function Table<T>({
                     : sortState.direction === 'desc'
                       ? 'descending'
                       : 'none'
-                  : undefined;
+                  : undefined
               return (
                 <th
                   key={column.key}
                   ref={(el) => {
-                    thRefs.current[column.key] = el;
+                    thRefs.current[column.key] = el
                   }}
                   style={width ? { width } : undefined}
                   aria-sort={column.sortable ? (ariaSort ?? 'none') : undefined}
@@ -234,13 +234,13 @@ export function Table<T>({
                     data-testid={`table-resize-${column.key}`}
                   />
                 </th>
-              );
+              )
             })}
           </tr>
         </thead>
         <tbody>
           {data.map((row) => {
-            const rowId = getRowId(row);
+            const rowId = getRowId(row)
             return (
               <tr key={rowId} className="wds-table-row" data-testid={`table-row-${rowId}`}>
                 {selectedRowIds && onSelectionChange && (
@@ -255,11 +255,11 @@ export function Table<T>({
                 )}
                 {columns.map((column) => {
                   const isEditing =
-                    editingCell?.rowId === rowId && editingCell.columnKey === column.key;
+                    editingCell?.rowId === rowId && editingCell.columnKey === column.key
                   const rawValue = column.getValue
                     ? column.getValue(row)
-                    : (row as Record<string, unknown>)[column.key];
-                  const EditComponent = column.editComponent ?? DefaultCellEditor;
+                    : (row as Record<string, unknown>)[column.key]
+                  const EditComponent = column.editComponent ?? DefaultCellEditor
 
                   return (
                     <td
@@ -284,10 +284,10 @@ export function Table<T>({
                         String(rawValue ?? '')
                       )}
                     </td>
-                  );
+                  )
                 })}
               </tr>
-            );
+            )
           })}
         </tbody>
       </table>
@@ -315,5 +315,5 @@ export function Table<T>({
         </Button>
       </div>
     </div>
-  );
+  )
 }

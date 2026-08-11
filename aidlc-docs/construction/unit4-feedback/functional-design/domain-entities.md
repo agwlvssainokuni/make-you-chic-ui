@@ -4,11 +4,11 @@
 
 ```ts
 interface ToastItem {
-  id: string;
-  message: string;
-  variant: 'info' | 'success' | 'warning' | 'danger';
-  duration: number; // ms, Question 3 = B(デフォルト4000)
-  createdAt: number;
+  id: string
+  message: string
+  variant: 'info' | 'success' | 'warning' | 'danger'
+  duration: number // ms, Question 3 = B(デフォルト4000)
+  createdAt: number
 }
 ```
 
@@ -16,13 +16,13 @@ interface ToastItem {
 
 ```ts
 interface ModalStackEntry {
-  id: string;
-  zIndex: number;
+  id: string
+  zIndex: number
 }
 ```
 
 ## TooltipPlacement
 
 ```ts
-type TooltipPlacement = 'top' | 'bottom' | 'left' | 'right';
+type TooltipPlacement = 'top' | 'bottom' | 'left' | 'right'
 ```

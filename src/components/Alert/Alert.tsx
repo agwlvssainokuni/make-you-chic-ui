@@ -13,32 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import './Alert.css';
-import { forwardRef, type ReactNode } from 'react';
-import { Icon, type IconName } from '../Icon';
+import './Alert.css'
+import { forwardRef, type ReactNode } from 'react'
+import { Icon, type IconName } from '../Icon'
 
-export type AlertVariant = 'info' | 'success' | 'warning' | 'danger';
+export type AlertVariant = 'info' | 'success' | 'warning' | 'danger'
 
 const VARIANT_ICON: Record<AlertVariant, IconName> = {
   info: 'bell',
   success: 'check',
   warning: 'bell',
   danger: 'close',
-};
+}
 
 export interface AlertAction {
-  label: string;
-  onClick: () => void;
+  label: string
+  onClick: () => void
 }
 
 export interface AlertProps {
-  variant: AlertVariant;
-  title?: string;
-  children: ReactNode;
-  onDismiss?: () => void;
-  action?: AlertAction;
-  className?: string;
-  style?: React.CSSProperties;
+  variant: AlertVariant
+  title?: string
+  children: ReactNode
+  onDismiss?: () => void
+  action?: AlertAction
+  className?: string
+  style?: React.CSSProperties
 }
 
 /** Persistent, non-modal notification (unlike Toast, does not auto-dismiss). */
@@ -46,8 +46,8 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
   { variant, title, children, onDismiss, action, className, style },
   ref,
 ) {
-  const classes = ['wds-alert', `variant-${variant}`, className].filter(Boolean).join(' ');
-  const role = variant === 'danger' || variant === 'warning' ? 'alert' : 'status';
+  const classes = ['wds-alert', `variant-${variant}`, className].filter(Boolean).join(' ')
+  const role = variant === 'danger' || variant === 'warning' ? 'alert' : 'status'
 
   return (
     <div ref={ref} className={classes} style={style} role={role} data-testid="alert">
@@ -73,5 +73,5 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
         </button>
       )}
     </div>
-  );
-});
+  )
+})

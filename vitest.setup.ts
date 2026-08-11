@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import '@testing-library/jest-dom/vitest';
-import 'vitest-axe/extend-expect';
-import { afterEach, expect } from 'vitest';
-import * as matchers from 'vitest-axe/matchers';
-import { cleanup } from '@testing-library/react';
+import '@testing-library/jest-dom/vitest'
+import 'vitest-axe/extend-expect'
+import { afterEach, expect } from 'vitest'
+import * as matchers from 'vitest-axe/matchers'
+import { cleanup } from '@testing-library/react'
 
-expect.extend(matchers);
+expect.extend(matchers)
 
 afterEach(() => {
-  cleanup();
-});
+  cleanup()
+})

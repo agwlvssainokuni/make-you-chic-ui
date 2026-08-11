@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-export { Table } from './Table';
-export type { TableProps, TableColumn, SortState, SortDirection } from './Table';
-export { DefaultCellEditor } from './CellEditor';
-export type { CellEditComponentProps } from './CellEditor';
+export { Table } from './Table'
+export type { TableProps, TableColumn, SortState, SortDirection } from './Table'
+export { DefaultCellEditor } from './CellEditor'
+export type { CellEditComponentProps } from './CellEditor'
 export {
   nextSortState,
   computeTotalPages,
   toggleRowSelection,
   toggleAllSelection,
-} from './tableLogic';
+} from './tableLogic'

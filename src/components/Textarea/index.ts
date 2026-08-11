@@ -13,5 +13,5 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-export { Textarea } from './Textarea';
-export type { TextareaProps } from './Textarea';
+export { Textarea } from './Textarea'
+export type { TextareaProps } from './Textarea'

@@ -13,21 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import './Tabs.css';
-import { useId, useRef, type ReactNode } from 'react';
-import { useControllableState } from '../../utils/useControllableState';
+import './Tabs.css'
+import { useId, useRef, type ReactNode } from 'react'
+import { useControllableState } from '../../utils/useControllableState'
 
 export interface TabItem {
-  label: string;
-  content: ReactNode;
+  label: string
+  content: ReactNode
 }
 
 export interface TabsProps {
-  items: TabItem[];
-  activeIndex?: number;
-  defaultActiveIndex?: number;
-  onChange?: (index: number) => void;
-  'aria-label'?: string;
+  items: TabItem[]
+  activeIndex?: number
+  defaultActiveIndex?: number
+  onChange?: (index: number) => void
+  'aria-label'?: string
 }
 
 /**
@@ -42,32 +42,32 @@ export function Tabs({
   onChange,
   'aria-label': ariaLabel,
 }: TabsProps): React.JSX.Element {
-  const baseId = useId();
+  const baseId = useId()
   const [current, setCurrent] = useControllableState({
     value: activeIndex,
     defaultValue: defaultActiveIndex,
     onChange,
-  });
-  const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  })
+  const tabRefs = useRef<Array<HTMLButtonElement | null>>([])
 
   function focusAndSelect(index: number): void {
-    setCurrent(index);
-    tabRefs.current[index]?.focus();
+    setCurrent(index)
+    tabRefs.current[index]?.focus()
   }
 
   function handleKeyDown(event: React.KeyboardEvent, index: number): void {
     if (event.key === 'ArrowRight') {
-      event.preventDefault();
-      focusAndSelect((index + 1) % items.length);
+      event.preventDefault()
+      focusAndSelect((index + 1) % items.length)
     } else if (event.key === 'ArrowLeft') {
-      event.preventDefault();
-      focusAndSelect((index - 1 + items.length) % items.length);
+      event.preventDefault()
+      focusAndSelect((index - 1 + items.length) % items.length)
     } else if (event.key === 'Home') {
-      event.preventDefault();
-      focusAndSelect(0);
+      event.preventDefault()
+      focusAndSelect(0)
     } else if (event.key === 'End') {
-      event.preventDefault();
-      focusAndSelect(items.length - 1);
+      event.preventDefault()
+      focusAndSelect(items.length - 1)
     }
   }
 
@@ -75,14 +75,14 @@ export function Tabs({
     <div data-testid="tabs">
       <div className="wds-tabs-list" role="tablist" aria-label={ariaLabel}>
         {items.map((item, index) => {
-          const selected = index === current;
-          const tabId = `${baseId}-tab-${index}`;
-          const panelId = `${baseId}-panel-${index}`;
+          const selected = index === current
+          const tabId = `${baseId}-tab-${index}`
+          const panelId = `${baseId}-panel-${index}`
           return (
             <button
               key={tabId}
               ref={(el) => {
-                tabRefs.current[index] = el;
+                tabRefs.current[index] = el
               }}
               type="button"
               role="tab"
@@ -97,7 +97,7 @@ export function Tabs({
             >
               {item.label}
             </button>
-          );
+          )
         })}
       </div>
       <div
@@ -111,5 +111,5 @@ export function Tabs({
         {items[current]?.content}
       </div>
     </div>
-  );
+  )
 }

@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import './DetailView.css';
-import { useState } from 'react';
-import { Avatar, Tabs, Card, Table, Badge, Button, type TableColumn } from '../../src';
-import { DeleteConfirmModal } from '../DeleteConfirmModal/DeleteConfirmModal';
-import type { SampleUser, TablePermission } from '../data/sampleUsers';
+import './DetailView.css'
+import { useState } from 'react'
+import { Avatar, Tabs, Card, Table, Badge, Button, type TableColumn } from '../../src'
+import { DeleteConfirmModal } from '../DeleteConfirmModal/DeleteConfirmModal'
+import type { SampleUser, TablePermission } from '../data/sampleUsers'
 
 export interface DetailViewProps {
-  user: SampleUser;
-  onDelete: (userId: string) => void;
+  user: SampleUser
+  onDelete: (userId: string) => void
 }
 
 const permissionColumns: TableColumn<TablePermission>[] = [
@@ -35,7 +35,7 @@ const permissionColumns: TableColumn<TablePermission>[] = [
       </Badge>
     ),
   },
-];
+]
 
 /**
  * Detail View screen pattern: header (Avatar + name + role) + Tabs, with
@@ -44,7 +44,7 @@ const permissionColumns: TableColumn<TablePermission>[] = [
  * exported from the package).
  */
 export function DetailView({ user, onDelete }: DetailViewProps): React.JSX.Element {
-  const [confirmingDelete, setConfirmingDelete] = useState(false);
+  const [confirmingDelete, setConfirmingDelete] = useState(false)
 
   return (
     <div>
@@ -129,10 +129,10 @@ export function DetailView({ user, onDelete }: DetailViewProps): React.JSX.Eleme
         open={confirmingDelete}
         onClose={() => setConfirmingDelete(false)}
         onConfirm={() => {
-          onDelete(user.id);
-          setConfirmingDelete(false);
+          onDelete(user.id)
+          setConfirmingDelete(false)
         }}
       />
     </div>
-  );
+  )
 }

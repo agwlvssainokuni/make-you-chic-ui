@@ -13,6 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-export { Modal } from './Modal';
-export type { ModalProps } from './Modal';
-export { ModalStackProvider } from './ModalStackContext';
+export { Modal } from './Modal'
+export type { ModalProps } from './Modal'
+export { ModalStackProvider } from './ModalStackContext'

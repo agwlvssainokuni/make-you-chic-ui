@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { ThemeAxis } from './types';
+import type { ThemeAxis } from './types'
 
 /**
  * localStorage key per theme axis. Kept as separate keys (rather than one
@@ -26,7 +26,7 @@ export const THEME_STORAGE_KEYS: Record<ThemeAxis, string> = {
   brand: 'design-system-brand',
   fontFamily: 'design-system-font-family',
   fontSize: 'design-system-font-size',
-};
+}
 
 /**
  * Reads a value from localStorage, swallowing any exception thrown by
@@ -36,9 +36,9 @@ export const THEME_STORAGE_KEYS: Record<ThemeAxis, string> = {
  */
 export function safeLocalStorageGet(key: string): string | null {
   try {
-    return window.localStorage.getItem(key);
+    return window.localStorage.getItem(key)
   } catch {
-    return null;
+    return null
   }
 }
 
@@ -48,7 +48,7 @@ export function safeLocalStorageGet(key: string): string | null {
  */
 export function safeLocalStorageSet(key: string, value: string): void {
   try {
-    window.localStorage.setItem(key, value);
+    window.localStorage.setItem(key, value)
   } catch {
     // Persistence failed; the in-memory state update already happened in
     // the caller, so the app keeps working for this session.

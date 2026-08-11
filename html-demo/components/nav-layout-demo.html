@@ -187,21 +187,21 @@
 
     <script>
       document.getElementById('sidebar-toggle').addEventListener('click', function () {
-        document.getElementById('app-shell').classList.toggle('collapsed');
-      });
+        document.getElementById('app-shell').classList.toggle('collapsed')
+      })
 
-      var userMenuWrap = document.getElementById('user-menu-wrap');
-      var userMenuTrigger = document.getElementById('user-menu-trigger');
+      var userMenuWrap = document.getElementById('user-menu-wrap')
+      var userMenuTrigger = document.getElementById('user-menu-trigger')
       userMenuTrigger.addEventListener('click', function () {
-        var isOpen = userMenuWrap.classList.toggle('open');
-        userMenuTrigger.setAttribute('aria-expanded', String(isOpen));
-      });
+        var isOpen = userMenuWrap.classList.toggle('open')
+        userMenuTrigger.setAttribute('aria-expanded', String(isOpen))
+      })
       document.addEventListener('click', function (e) {
         if (!userMenuWrap.contains(e.target)) {
-          userMenuWrap.classList.remove('open');
-          userMenuTrigger.setAttribute('aria-expanded', 'false');
+          userMenuWrap.classList.remove('open')
+          userMenuTrigger.setAttribute('aria-expanded', 'false')
         }
-      });
+      })
     </script>
   </body>
 </html>

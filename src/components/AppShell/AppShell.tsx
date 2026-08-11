@@ -13,31 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import './AppShell.css';
-import { useCallback, useMemo, useState, type ReactNode } from 'react';
-import { safeLocalStorageGet, safeLocalStorageSet } from '../../theme/storage';
+import './AppShell.css'
+import { useCallback, useMemo, useState, type ReactNode } from 'react'
+import { safeLocalStorageGet, safeLocalStorageSet } from '../../theme/storage'
 import {
   AppShellContext,
   APPSHELL_COLLAPSED_STORAGE_KEY,
   type AppShellContextValue,
-} from './AppShellContext';
-import { Sidebar, type AppShellNavItem } from './Sidebar';
-import { Topbar, type AppShellUser } from './Topbar';
-import type { MenuItem } from '../Dropdown';
+} from './AppShellContext'
+import { Sidebar, type AppShellNavItem } from './Sidebar'
+import { Topbar, type AppShellUser } from './Topbar'
+import type { MenuItem } from '../Dropdown'
 
-export type { AppShellNavItem, AppShellUser };
+export type { AppShellNavItem, AppShellUser }
 
 export interface AppShellProps {
-  navItems: AppShellNavItem[];
-  user?: AppShellUser;
+  navItems: AppShellNavItem[]
+  user?: AppShellUser
   /** Menu shown when the user avatar is clicked. Omit for a display-only avatar. */
-  userMenuItems?: MenuItem[];
+  userMenuItems?: MenuItem[]
   /** Main content, rendered in the content area. */
-  children: ReactNode;
+  children: ReactNode
 }
 
 function readInitialCollapsed(): boolean {
-  return safeLocalStorageGet(APPSHELL_COLLAPSED_STORAGE_KEY) === 'true';
+  return safeLocalStorageGet(APPSHELL_COLLAPSED_STORAGE_KEY) === 'true'
 }
 
 /**
@@ -53,25 +53,25 @@ export function AppShell({
   userMenuItems,
   children,
 }: AppShellProps): React.JSX.Element {
-  const [collapsed, setCollapsedState] = useState<boolean>(readInitialCollapsed);
+  const [collapsed, setCollapsedState] = useState<boolean>(readInitialCollapsed)
 
   const setCollapsed = useCallback((value: boolean) => {
-    setCollapsedState(value);
-    safeLocalStorageSet(APPSHELL_COLLAPSED_STORAGE_KEY, String(value));
-  }, []);
+    setCollapsedState(value)
+    safeLocalStorageSet(APPSHELL_COLLAPSED_STORAGE_KEY, String(value))
+  }, [])
 
   const toggleCollapsed = useCallback(() => {
     setCollapsedState((prev) => {
-      const next = !prev;
-      safeLocalStorageSet(APPSHELL_COLLAPSED_STORAGE_KEY, String(next));
-      return next;
-    });
-  }, []);
+      const next = !prev
+      safeLocalStorageSet(APPSHELL_COLLAPSED_STORAGE_KEY, String(next))
+      return next
+    })
+  }, [])
 
   const contextValue = useMemo<AppShellContextValue>(
     () => ({ collapsed, toggleCollapsed, setCollapsed }),
     [collapsed, toggleCollapsed, setCollapsed],
-  );
+  )
 
   return (
     <AppShellContext.Provider value={contextValue}>
@@ -86,5 +86,5 @@ export function AppShell({
         </main>
       </div>
     </AppShellContext.Provider>
-  );
+  )
 }

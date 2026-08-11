@@ -13,22 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import './Modal.css';
-import { useEffect, useId, useRef, type ReactNode, type RefObject } from 'react';
-import { createPortal } from 'react-dom';
-import { useFocusTrap } from '../../utils/useFocusTrap';
-import { useModalStack } from './ModalStackContext';
-import { Icon } from '../Icon';
+import './Modal.css'
+import { useEffect, useId, useRef, type ReactNode, type RefObject } from 'react'
+import { createPortal } from 'react-dom'
+import { useFocusTrap } from '../../utils/useFocusTrap'
+import { useModalStack } from './ModalStackContext'
+import { Icon } from '../Icon'
 
 export interface ModalProps {
-  open: boolean;
-  onClose: () => void;
-  title: string;
-  children: ReactNode;
+  open: boolean
+  onClose: () => void
+  title: string
+  children: ReactNode
   /** @default 'md' */
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg'
   /** Element to focus when the Modal opens; defaults to the first focusable element. */
-  initialFocusRef?: RefObject<HTMLElement | null>;
+  initialFocusRef?: RefObject<HTMLElement | null>
 }
 
 /**
@@ -44,32 +44,32 @@ export function Modal({
   size = 'md',
   initialFocusRef,
 }: ModalProps): React.JSX.Element | null {
-  const id = useId();
-  const titleId = `${id}-title`;
-  const overlayRef = useRef<HTMLDivElement>(null);
-  const { register, unregister, isTopmost } = useModalStack();
+  const id = useId()
+  const titleId = `${id}-title`
+  const overlayRef = useRef<HTMLDivElement>(null)
+  const { register, unregister, isTopmost } = useModalStack()
 
   useEffect(() => {
-    if (!open || !overlayRef.current) return;
-    const el = overlayRef.current;
-    register(id, el);
-    return () => unregister(id);
-  }, [open, id, register, unregister]);
+    if (!open || !overlayRef.current) return
+    const el = overlayRef.current
+    register(id, el)
+    return () => unregister(id)
+  }, [open, id, register, unregister])
 
-  const topmost = isTopmost(id);
+  const topmost = isTopmost(id)
 
-  useFocusTrap({ containerRef: overlayRef, active: open && topmost, initialFocusRef });
+  useFocusTrap({ containerRef: overlayRef, active: open && topmost, initialFocusRef })
 
   useEffect(() => {
-    if (!open || !topmost) return;
+    if (!open || !topmost) return
     function handleKeyDown(event: KeyboardEvent): void {
-      if (event.key === 'Escape') onClose();
+      if (event.key === 'Escape') onClose()
     }
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [open, topmost, onClose]);
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [open, topmost, onClose])
 
-  if (!open) return null;
+  if (!open) return null
 
   return createPortal(
     <div
@@ -77,7 +77,7 @@ export function Modal({
       className="wds-modal-overlay"
       role="presentation"
       onMouseDown={(e) => {
-        if (e.target === e.currentTarget) onClose();
+        if (e.target === e.currentTarget) onClose()
       }}
       data-testid="modal-overlay"
     >
@@ -104,5 +104,5 @@ export function Modal({
       </div>
     </div>,
     document.body,
-  );
+  )
 }

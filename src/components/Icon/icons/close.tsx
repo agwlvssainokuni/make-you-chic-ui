@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { SVGProps } from 'react';
+import type { SVGProps } from 'react'
 
 export function CloseIconSvg(props: SVGProps<SVGSVGElement>): React.JSX.Element {
   return (
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
     </svg>
-  );
+  )
 }

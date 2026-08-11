@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { DeleteConfirmModal } from './DeleteConfirmModal';
+import { describe, it, expect, vi } from 'vitest'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import { DeleteConfirmModal } from './DeleteConfirmModal'
 
 describe('DeleteConfirmModal', () => {
   it('simple variant: delete is enabled immediately and no text input is shown', () => {
@@ -28,10 +28,10 @@ describe('DeleteConfirmModal', () => {
         onClose={() => {}}
         onConfirm={() => {}}
       />,
-    );
-    expect(screen.queryByTestId('delete-confirm-input')).not.toBeInTheDocument();
-    expect(screen.getByTestId('delete-confirm-button')).not.toBeDisabled();
-  });
+    )
+    expect(screen.queryByTestId('delete-confirm-input')).not.toBeInTheDocument()
+    expect(screen.getByTestId('delete-confirm-button')).not.toBeDisabled()
+  })
 
   it('typed-confirmation variant: delete stays disabled until the exact name is typed', async () => {
     render(
@@ -43,21 +43,21 @@ describe('DeleteConfirmModal', () => {
         onClose={() => {}}
         onConfirm={() => {}}
       />,
-    );
-    const input = screen.getByTestId('delete-confirm-input');
-    const button = screen.getByTestId('delete-confirm-button');
-    expect(button).toBeDisabled();
+    )
+    const input = screen.getByTestId('delete-confirm-input')
+    const button = screen.getByTestId('delete-confirm-button')
+    expect(button).toBeDisabled()
 
-    await userEvent.type(input, '違う名前');
-    expect(button).toBeDisabled();
+    await userEvent.type(input, '違う名前')
+    expect(button).toBeDisabled()
 
-    await userEvent.clear(input);
-    await userEvent.type(input, '山田 太郎');
-    expect(button).not.toBeDisabled();
-  });
+    await userEvent.clear(input)
+    await userEvent.type(input, '山田 太郎')
+    expect(button).not.toBeDisabled()
+  })
 
   it('calls onConfirm when delete is clicked while enabled', async () => {
-    const onConfirm = vi.fn();
+    const onConfirm = vi.fn()
     render(
       <DeleteConfirmModal
         variant="simple"
@@ -66,8 +66,8 @@ describe('DeleteConfirmModal', () => {
         onClose={() => {}}
         onConfirm={onConfirm}
       />,
-    );
-    await userEvent.click(screen.getByTestId('delete-confirm-button'));
-    expect(onConfirm).toHaveBeenCalledTimes(1);
-  });
-});
+    )
+    await userEvent.click(screen.getByTestId('delete-confirm-button'))
+    expect(onConfirm).toHaveBeenCalledTimes(1)
+  })
+})

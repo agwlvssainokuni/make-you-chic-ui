@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Icon, type IconName } from '../Icon';
-import { useAppShell } from './AppShellContext';
+import { Icon, type IconName } from '../Icon'
+import { useAppShell } from './AppShellContext'
 
 export interface AppShellNavItem {
-  label: string;
-  icon?: IconName;
-  href: string;
+  label: string
+  icon?: IconName
+  href: string
 }
 
 export interface SidebarProps {
-  navItems: AppShellNavItem[];
+  navItems: AppShellNavItem[]
 }
 
 /**
@@ -31,7 +31,7 @@ export interface SidebarProps {
  * Sidebar/Topbar are not standalone components).
  */
 export function Sidebar({ navItems }: SidebarProps): React.JSX.Element {
-  const { collapsed } = useAppShell();
+  const { collapsed } = useAppShell()
 
   return (
     <nav
@@ -54,5 +54,5 @@ export function Sidebar({ navItems }: SidebarProps): React.JSX.Element {
         ))}
       </ul>
     </nav>
-  );
+  )
 }

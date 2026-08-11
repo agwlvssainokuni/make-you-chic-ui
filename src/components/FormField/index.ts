@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-export { FormField } from './FormField';
-export type { FormFieldProps } from './FormField';
-export { FormFieldContext } from './FormFieldContext';
-export type { FormFieldContextValue } from './FormFieldContext';
-export { useFieldProps } from './useFieldProps';
-export type { FieldA11yProps } from './useFieldProps';
+export { FormField } from './FormField'
+export type { FormFieldProps } from './FormField'
+export { FormFieldContext } from './FormFieldContext'
+export type { FormFieldContextValue } from './FormFieldContext'
+export { useFieldProps } from './useFieldProps'
+export type { FieldA11yProps } from './useFieldProps'

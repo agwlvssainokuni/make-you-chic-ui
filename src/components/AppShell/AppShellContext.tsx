@@ -13,23 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { createContext, useContext } from 'react';
+import { createContext, useContext } from 'react'
 
-export const APPSHELL_COLLAPSED_STORAGE_KEY = 'design-system-appshell-collapsed';
+export const APPSHELL_COLLAPSED_STORAGE_KEY = 'design-system-appshell-collapsed'
 
 export interface AppShellContextValue {
-  collapsed: boolean;
-  toggleCollapsed: () => void;
-  setCollapsed: (value: boolean) => void;
+  collapsed: boolean
+  toggleCollapsed: () => void
+  setCollapsed: (value: boolean) => void
 }
 
-export const AppShellContext = createContext<AppShellContextValue | null>(null);
+export const AppShellContext = createContext<AppShellContextValue | null>(null)
 
 const fallback: AppShellContextValue = {
   collapsed: false,
   toggleCollapsed: () => {},
   setCollapsed: () => {},
-};
+}
 
 /**
  * Consumed by Sidebar/Topbar (internal) and by consuming apps that need to
@@ -38,6 +38,6 @@ const fallback: AppShellContextValue = {
  * consistent with useTheme/useToast).
  */
 export function useAppShell(): AppShellContextValue {
-  const ctx = useContext(AppShellContext);
-  return ctx ?? fallback;
+  const ctx = useContext(AppShellContext)
+  return ctx ?? fallback
 }

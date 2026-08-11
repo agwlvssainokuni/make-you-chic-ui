@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { SVGProps } from 'react';
+import type { SVGProps } from 'react'
 
 export function MenuIconSvg(props: SVGProps<SVGSVGElement>): React.JSX.Element {
   return (
@@ -25,5 +25,5 @@ export function MenuIconSvg(props: SVGProps<SVGSVGElement>): React.JSX.Element {
         strokeLinecap="round"
       />
     </svg>
-  );
+  )
 }

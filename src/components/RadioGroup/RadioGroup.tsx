@@ -13,25 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import './RadioGroup.css';
-import { useFieldProps } from '../FormField/useFieldProps';
-import { useControllableState } from '../../utils/useControllableState';
-import { Radio } from './Radio';
+import './RadioGroup.css'
+import { useFieldProps } from '../FormField/useFieldProps'
+import { useControllableState } from '../../utils/useControllableState'
+import { Radio } from './Radio'
 
 export interface RadioGroupOption {
-  label: string;
-  value: string;
+  label: string
+  value: string
 }
 
 export interface RadioGroupProps {
-  name: string;
-  options: RadioGroupOption[];
-  value?: string;
-  defaultValue?: string;
-  onChange?: (value: string) => void;
-  disabled?: boolean;
-  className?: string;
-  style?: React.CSSProperties;
+  name: string
+  options: RadioGroupOption[]
+  value?: string
+  defaultValue?: string
+  onChange?: (value: string) => void
+  disabled?: boolean
+  className?: string
+  style?: React.CSSProperties
 }
 
 /**
@@ -50,8 +50,8 @@ export function RadioGroup({
   className,
   style,
 }: RadioGroupProps): React.JSX.Element {
-  const fieldProps = useFieldProps();
-  const [currentValue, setValue] = useControllableState({ value, defaultValue, onChange });
+  const fieldProps = useFieldProps()
+  const [currentValue, setValue] = useControllableState({ value, defaultValue, onChange })
 
   return (
     <div
@@ -71,11 +71,11 @@ export function RadioGroup({
           label={option.label}
           checked={currentValue === option.value}
           onChange={(checked) => {
-            if (checked) setValue(option.value);
+            if (checked) setValue(option.value)
           }}
           disabled={disabled}
         />
       ))}
     </div>
-  );
+  )
 }

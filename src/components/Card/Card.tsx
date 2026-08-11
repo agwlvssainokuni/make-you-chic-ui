@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import './Card.css';
-import { forwardRef } from 'react';
+import './Card.css'
+import { forwardRef } from 'react'
 
-export type CardProps = React.HTMLAttributes<HTMLDivElement>;
+export type CardProps = React.HTMLAttributes<HTMLDivElement>
 
 /** Simple bordered/padded container for grouping related content (Functional Design Question 4 = A). */
 export const Card = forwardRef<HTMLDivElement, CardProps>(function Card(
@@ -32,5 +32,5 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(function Card(
     >
       {children}
     </div>
-  );
-});
+  )
+})

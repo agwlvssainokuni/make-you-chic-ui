@@ -4,12 +4,12 @@
 
 ```ts
 interface SampleUser {
-  id: string;
-  name: string;
-  email: string;
-  role: 'admin' | 'member';
-  avatarSrc?: string;
-  tablePermissions: { tableName: string; permission: '読み取り' | '読み取り/書き込み' }[];
+  id: string
+  name: string
+  email: string
+  role: 'admin' | 'member'
+  avatarSrc?: string
+  tablePermissions: { tableName: string; permission: '読み取り' | '読み取り/書き込み' }[]
 }
 ```
 

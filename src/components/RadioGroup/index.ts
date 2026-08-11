@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-export { RadioGroup } from './RadioGroup';
-export type { RadioGroupProps, RadioGroupOption } from './RadioGroup';
-export { Radio } from './Radio';
-export type { RadioProps } from './Radio';
+export { RadioGroup } from './RadioGroup'
+export type { RadioGroupProps, RadioGroupOption } from './RadioGroup'
+export { Radio } from './Radio'
+export type { RadioProps } from './Radio'

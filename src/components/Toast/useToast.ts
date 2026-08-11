@@ -13,21 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useContext } from 'react';
-import { ToastContext, type ToastContextValue } from './ToastProvider';
+import { useContext } from 'react'
+import { ToastContext, type ToastContextValue } from './ToastProvider'
 
 const noop: ToastContextValue = {
   show: () => {
     if (import.meta.env?.DEV) {
-      console.warn('[web-design-system-sample] useToast() was called outside of <ToastProvider>.');
+      console.warn('[web-design-system-sample] useToast() was called outside of <ToastProvider>.')
     }
-    return '';
+    return ''
   },
   dismiss: () => {},
-};
+}
 
 /** Returns `{ show, dismiss }`. Outside of <ToastProvider>, falls back to a dev-warning no-op. */
 export function useToast(): ToastContextValue {
-  const ctx = useContext(ToastContext);
-  return ctx ?? noop;
+  const ctx = useContext(ToastContext)
+  return ctx ?? noop
 }

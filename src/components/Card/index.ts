@@ -13,5 +13,5 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-export { Card } from './Card';
-export type { CardProps } from './Card';
+export { Card } from './Card'
+export type { CardProps } from './Card'

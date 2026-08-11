@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { SVGProps } from 'react';
-import { MenuIconSvg } from './icons/menu';
-import { ChevronDownIconSvg } from './icons/chevron-down';
-import { CloseIconSvg } from './icons/close';
-import { CheckIconSvg } from './icons/check';
-import { BellIconSvg } from './icons/bell';
-import { UserIconSvg } from './icons/user';
+import type { SVGProps } from 'react'
+import { MenuIconSvg } from './icons/menu'
+import { ChevronDownIconSvg } from './icons/chevron-down'
+import { CloseIconSvg } from './icons/close'
+import { CheckIconSvg } from './icons/check'
+import { BellIconSvg } from './icons/bell'
+import { UserIconSvg } from './icons/user'
 
 /**
  * Name → SVG component registry (Application Design Question 2 = B).
@@ -33,6 +33,6 @@ export const iconRegistry = {
   check: CheckIconSvg,
   bell: BellIconSvg,
   user: UserIconSvg,
-} satisfies Record<string, (props: SVGProps<SVGSVGElement>) => React.JSX.Element>;
+} satisfies Record<string, (props: SVGProps<SVGSVGElement>) => React.JSX.Element>
 
-export type IconName = keyof typeof iconRegistry;
+export type IconName = keyof typeof iconRegistry

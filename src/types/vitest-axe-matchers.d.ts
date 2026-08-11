@@ -28,8 +28,8 @@
  * everywhere in the project. Keeping it under src/types/ with a distinct
  * filename avoids the collision.
  */
-import 'vitest';
-import type { AxeMatchers } from 'vitest-axe';
+import 'vitest'
+import type { AxeMatchers } from 'vitest-axe'
 
 // These interfaces are intentionally empty: declaration merging (not a type
 // alias) is required to augment vitest's own `Assertion`/

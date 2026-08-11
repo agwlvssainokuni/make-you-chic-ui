@@ -17,8 +17,8 @@ npm install <パッケージ名>
 アプリケーションのルート(エントリポイント)で、以下の3つのProviderを組み合わせて配置してください。いずれも省略可能です(省略した場合の挙動は各コンポーネントのfail-soft設計により、開発時の警告のみでクラッシュはしません)。
 
 ```tsx
-import { ThemeProvider, ToastProvider, ModalStackProvider } from '<パッケージ名>';
-import '<パッケージ名>/dist/web-design-system-sample.css'; // ビルド成果物のCSS(トークン・セマンティックトークン・フォント)
+import { ThemeProvider, ToastProvider, ModalStackProvider } from '<パッケージ名>'
+import '<パッケージ名>/dist/web-design-system-sample.css' // ビルド成果物のCSS(トークン・セマンティックトークン・フォント)
 
 function App() {
   return (
@@ -27,7 +27,7 @@ function App() {
         <ModalStackProvider>{/* アプリケーション本体 */}</ModalStackProvider>
       </ToastProvider>
     </ThemeProvider>
-  );
+  )
 }
 ```
 
@@ -40,7 +40,7 @@ function App() {
 すべてのコンポーネントは単一のバレルエクスポートから利用できます(Application Design Question 9 = A)。
 
 ```tsx
-import { Button, FormField, TextInput, Table, AppShell } from '<パッケージ名>';
+import { Button, FormField, TextInput, Table, AppShell } from '<パッケージ名>'
 ```
 
 ### Buttonの例
@@ -103,15 +103,15 @@ List View・Detail View・編集Modal・削除確認の組み合わせ方は、�
 `useTheme()`フックで現在のテーマ状態の参照・変更ができます。
 
 ```tsx
-import { useTheme } from '<パッケージ名>';
+import { useTheme } from '<パッケージ名>'
 
 function ThemeToggle() {
-  const { theme, setTheme, brand, setBrand } = useTheme();
+  const { theme, setTheme, brand, setBrand } = useTheme()
   return (
     <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
       {theme === 'light' ? 'ダークモードへ' : 'ライトモードへ'}
     </button>
-  );
+  )
 }
 ```
 

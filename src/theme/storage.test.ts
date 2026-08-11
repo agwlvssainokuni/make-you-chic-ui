@@ -13,36 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect, afterEach, vi } from 'vitest';
-import { safeLocalStorageGet, safeLocalStorageSet, THEME_STORAGE_KEYS } from './storage';
+import { describe, it, expect, afterEach, vi } from 'vitest'
+import { safeLocalStorageGet, safeLocalStorageSet, THEME_STORAGE_KEYS } from './storage'
 
 describe('safeLocalStorageGet / safeLocalStorageSet', () => {
   afterEach(() => {
-    window.localStorage.clear();
-    vi.restoreAllMocks();
-  });
+    window.localStorage.clear()
+    vi.restoreAllMocks()
+  })
 
   it('writes and reads back a value under normal conditions', () => {
-    safeLocalStorageSet(THEME_STORAGE_KEYS.theme, 'dark');
-    expect(safeLocalStorageGet(THEME_STORAGE_KEYS.theme)).toBe('dark');
-  });
+    safeLocalStorageSet(THEME_STORAGE_KEYS.theme, 'dark')
+    expect(safeLocalStorageGet(THEME_STORAGE_KEYS.theme)).toBe('dark')
+  })
 
   it('returns null when the key has never been set', () => {
-    expect(safeLocalStorageGet('nonexistent-key')).toBeNull();
-  });
+    expect(safeLocalStorageGet('nonexistent-key')).toBeNull()
+  })
 
   it('returns null instead of throwing when localStorage.getItem throws', () => {
     vi.spyOn(window.localStorage, 'getItem').mockImplementation(() => {
-      throw new DOMException('blocked');
-    });
-    expect(() => safeLocalStorageGet(THEME_STORAGE_KEYS.theme)).not.toThrow();
-    expect(safeLocalStorageGet(THEME_STORAGE_KEYS.theme)).toBeNull();
-  });
+      throw new DOMException('blocked')
+    })
+    expect(() => safeLocalStorageGet(THEME_STORAGE_KEYS.theme)).not.toThrow()
+    expect(safeLocalStorageGet(THEME_STORAGE_KEYS.theme)).toBeNull()
+  })
 
   it('does not throw when localStorage.setItem throws (e.g. quota exceeded)', () => {
     vi.spyOn(window.localStorage, 'setItem').mockImplementation(() => {
-      throw new DOMException('QuotaExceededError');
-    });
-    expect(() => safeLocalStorageSet(THEME_STORAGE_KEYS.theme, 'dark')).not.toThrow();
-  });
-});
+      throw new DOMException('QuotaExceededError')
+    })
+    expect(() => safeLocalStorageSet(THEME_STORAGE_KEYS.theme, 'dark')).not.toThrow()
+  })
+})

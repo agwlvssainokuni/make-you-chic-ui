@@ -13,20 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import './Switch.css';
-import { forwardRef } from 'react';
-import { useFieldProps } from '../FormField/useFieldProps';
-import { useControllableState } from '../../utils/useControllableState';
+import './Switch.css'
+import { forwardRef } from 'react'
+import { useFieldProps } from '../FormField/useFieldProps'
+import { useControllableState } from '../../utils/useControllableState'
 
 export interface SwitchProps extends Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
   'type' | 'role' | 'checked' | 'defaultChecked' | 'onChange'
 > {
-  checked?: boolean;
-  defaultChecked?: boolean;
-  onChange?: (checked: boolean) => void;
+  checked?: boolean
+  defaultChecked?: boolean
+  onChange?: (checked: boolean) => void
   /** Optional inline label, for lightweight use outside of <FormField>. */
-  label?: string;
+  label?: string
 }
 
 /** Boolean input styled as a track/thumb toggle switch (role="switch"). */
@@ -34,14 +34,14 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
   { checked, defaultChecked = false, onChange, label, className, disabled, ...rest },
   ref,
 ) {
-  const fieldProps = useFieldProps();
+  const fieldProps = useFieldProps()
   const [isChecked, setChecked] = useControllableState({
     value: checked,
     defaultValue: defaultChecked,
     onChange,
-  });
+  })
 
-  const trackClass = isChecked ? 'wds-switch-track checked' : 'wds-switch-track';
+  const trackClass = isChecked ? 'wds-switch-track checked' : 'wds-switch-track'
 
   const input = (
     <span
@@ -62,10 +62,10 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
       />
       <span className="wds-switch-thumb" />
     </span>
-  );
+  )
 
   if (!label) {
-    return input;
+    return input
   }
 
   return (
@@ -73,5 +73,5 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
       {input}
       {label}
     </label>
-  );
-});
+  )
+})

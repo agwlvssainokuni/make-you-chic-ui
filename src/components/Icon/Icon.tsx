@@ -13,22 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import './Icon.css';
-import { iconRegistry, type IconName } from './registry';
+import './Icon.css'
+import { iconRegistry, type IconName } from './registry'
 
 export interface IconProps {
   /** Name of a bundled icon (see `iconRegistry`). */
-  name: IconName;
+  name: IconName
   /** Pixel size applied to both width and height. @default 20 */
-  size?: number;
+  size?: number
   /**
    * Accessible label. When provided, the icon is exposed to assistive
    * technology as an image with this name. When omitted, the icon is
    * treated as decorative (`aria-hidden`).
    */
-  label?: string;
-  className?: string;
-  style?: React.CSSProperties;
+  label?: string
+  className?: string
+  style?: React.CSSProperties
 }
 
 /**
@@ -42,16 +42,16 @@ export function Icon({
   className,
   style,
 }: IconProps): React.JSX.Element | null {
-  const SvgComponent = iconRegistry[name];
+  const SvgComponent = iconRegistry[name]
 
   if (!SvgComponent) {
     if (import.meta.env?.DEV) {
-      console.warn(`[web-design-system-sample] Unknown icon name: "${name}"`);
+      console.warn(`[web-design-system-sample] Unknown icon name: "${name}"`)
     }
-    return null;
+    return null
   }
 
-  const a11yProps = label ? { role: 'img', 'aria-label': label } : { 'aria-hidden': true };
+  const a11yProps = label ? { role: 'img', 'aria-label': label } : { 'aria-hidden': true }
 
   return (
     <SvgComponent
@@ -62,5 +62,5 @@ export function Icon({
       data-testid={`icon-${name}`}
       {...a11yProps}
     />
-  );
+  )
 }

@@ -13,19 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useState } from 'react';
-import { Modal, TextInput, Button } from '../../src';
+import { useState } from 'react'
+import { Modal, TextInput, Button } from '../../src'
 
 export interface DeleteConfirmModalProps {
   /** 'simple' for List View row/bulk delete, 'typed-confirmation' for Detail View danger-zone delete. */
-  variant: 'simple' | 'typed-confirmation';
+  variant: 'simple' | 'typed-confirmation'
   /** Required when variant='typed-confirmation'; the user must type this exact value to enable delete. */
-  targetName?: string;
+  targetName?: string
   /** Message shown above the confirmation controls. */
-  message: string;
-  open: boolean;
-  onClose: () => void;
-  onConfirm: () => void;
+  message: string
+  open: boolean
+  onClose: () => void
+  onConfirm: () => void
 }
 
 /**
@@ -41,14 +41,14 @@ export function DeleteConfirmModal({
   onClose,
   onConfirm,
 }: DeleteConfirmModalProps): React.JSX.Element {
-  const [typedName, setTypedName] = useState('');
+  const [typedName, setTypedName] = useState('')
 
-  const canConfirm = variant === 'simple' || typedName === targetName;
+  const canConfirm = variant === 'simple' || typedName === targetName
 
   function handleConfirm(): void {
-    if (!canConfirm) return;
-    onConfirm();
-    setTypedName('');
+    if (!canConfirm) return
+    onConfirm()
+    setTypedName('')
   }
 
   return (
@@ -77,5 +77,5 @@ export function DeleteConfirmModal({
         </Button>
       </div>
     </Modal>
-  );
+  )
 }

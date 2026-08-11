@@ -131,88 +131,88 @@
         brand: 'design-system-brand',
         fontFamily: 'design-system-font-family',
         fontSize: 'design-system-font-size',
-      };
+      }
       var VALID_VALUES = {
         theme: ['light', 'dark'],
         brand: ['blue', 'green', 'purple', 'orange'],
         fontFamily: ['sans', 'serif'],
         fontSize: ['sm', 'md', 'lg'],
-      };
-      var DEFAULTS = { theme: 'light', brand: 'blue', fontFamily: 'sans', fontSize: 'md' };
+      }
+      var DEFAULTS = { theme: 'light', brand: 'blue', fontFamily: 'sans', fontSize: 'md' }
 
       function safeGet(key) {
         try {
-          return window.localStorage.getItem(key);
+          return window.localStorage.getItem(key)
         } catch (e) {
-          return null;
+          return null
         }
       }
       function safeSet(key, value) {
         try {
-          window.localStorage.setItem(key, value);
+          window.localStorage.setItem(key, value)
         } catch (e) {
           /* ignore */
         }
       }
       function isValid(axis, value) {
-        return typeof value === 'string' && VALID_VALUES[axis].indexOf(value) !== -1;
+        return typeof value === 'string' && VALID_VALUES[axis].indexOf(value) !== -1
       }
       function resolveInitial(axis, persisted, prefersDark) {
-        if (isValid(axis, persisted)) return persisted;
-        if (axis === 'theme') return prefersDark ? 'dark' : 'light';
-        return DEFAULTS[axis];
+        if (isValid(axis, persisted)) return persisted
+        if (axis === 'theme') return prefersDark ? 'dark' : 'light'
+        return DEFAULTS[axis]
       }
 
       function applyAttribute(name, value, omitWhen) {
         if (omitWhen !== undefined && value === omitWhen) {
-          document.documentElement.removeAttribute(name);
+          document.documentElement.removeAttribute(name)
         } else {
-          document.documentElement.setAttribute(name, value);
+          document.documentElement.setAttribute(name, value)
         }
       }
 
       function applyAll(state) {
-        applyAttribute('data-theme', state.theme, 'light');
-        applyAttribute('data-brand', state.brand);
-        applyAttribute('data-font-family', state.fontFamily);
-        applyAttribute('data-font-size', state.fontSize);
+        applyAttribute('data-theme', state.theme, 'light')
+        applyAttribute('data-brand', state.brand)
+        applyAttribute('data-font-family', state.fontFamily)
+        applyAttribute('data-font-size', state.fontSize)
         document.querySelectorAll('.demo-buttons').forEach(function (group) {
-          var axis = group.getAttribute('data-axis');
+          var axis = group.getAttribute('data-axis')
           group.querySelectorAll('.demo-btn').forEach(function (btn) {
-            btn.classList.toggle('active', btn.getAttribute('data-value') === state[axis]);
-          });
-        });
+            btn.classList.toggle('active', btn.getAttribute('data-value') === state[axis])
+          })
+        })
       }
 
       var prefersDark =
-        window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
       var state = {
         theme: resolveInitial('theme', safeGet(STORAGE_KEYS.theme), prefersDark),
         brand: resolveInitial('brand', safeGet(STORAGE_KEYS.brand), prefersDark),
         fontFamily: resolveInitial('fontFamily', safeGet(STORAGE_KEYS.fontFamily), prefersDark),
         fontSize: resolveInitial('fontSize', safeGet(STORAGE_KEYS.fontSize), prefersDark),
-      };
-      applyAll(state);
+      }
+      applyAll(state)
 
       document.querySelectorAll('.demo-buttons').forEach(function (group) {
-        var axis = group.getAttribute('data-axis');
+        var axis = group.getAttribute('data-axis')
         group.querySelectorAll('.demo-btn').forEach(function (btn) {
           btn.addEventListener('click', function () {
-            var value = btn.getAttribute('data-value');
-            state[axis] = value;
-            safeSet(STORAGE_KEYS[axis], value);
-            applyAll(state);
-          });
-        });
-      });
+            var value = btn.getAttribute('data-value')
+            state[axis] = value
+            safeSet(STORAGE_KEYS[axis], value)
+            applyAll(state)
+          })
+        })
+      })
 
       window.addEventListener('storage', function (event) {
         Object.keys(STORAGE_KEYS).forEach(function (axis) {
-          if (event.key !== STORAGE_KEYS[axis]) return;
-          state[axis] = resolveInitial(axis, event.newValue, prefersDark);
-          applyAll(state);
-        });
-      });
+          if (event.key !== STORAGE_KEYS[axis]) return
+          state[axis] = resolveInitial(axis, event.newValue, prefersDark)
+          applyAll(state)
+        })
+      })
     </script>
   </body>
 </html>

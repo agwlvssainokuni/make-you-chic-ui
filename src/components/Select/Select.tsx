@@ -13,25 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import './Select.css';
-import { forwardRef } from 'react';
-import { useFieldProps } from '../FormField/useFieldProps';
-import { useControllableState } from '../../utils/useControllableState';
-import { Icon } from '../Icon';
+import './Select.css'
+import { forwardRef } from 'react'
+import { useFieldProps } from '../FormField/useFieldProps'
+import { useControllableState } from '../../utils/useControllableState'
+import { Icon } from '../Icon'
 
 export interface SelectOption {
-  label: string;
-  value: string;
+  label: string
+  value: string
 }
 
 export interface SelectProps extends Omit<
   React.SelectHTMLAttributes<HTMLSelectElement>,
   'value' | 'defaultValue' | 'onChange'
 > {
-  options: SelectOption[];
-  value?: string;
-  defaultValue?: string;
-  onChange?: (value: string) => void;
+  options: SelectOption[]
+  value?: string
+  defaultValue?: string
+  onChange?: (value: string) => void
 }
 
 /**
@@ -43,8 +43,8 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select
   { options, value, defaultValue = '', onChange, className, ...rest },
   ref,
 ) {
-  const fieldProps = useFieldProps();
-  const [currentValue, setValue] = useControllableState({ value, defaultValue, onChange });
+  const fieldProps = useFieldProps()
+  const [currentValue, setValue] = useControllableState({ value, defaultValue, onChange })
 
   return (
     <span className="wds-select-wrapper">
@@ -67,5 +67,5 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select
         <Icon name="chevron-down" size={16} />
       </span>
     </span>
-  );
-});
+  )
+})

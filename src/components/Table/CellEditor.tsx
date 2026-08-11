@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useState } from 'react';
-import { TextInput } from '../TextInput';
+import { useState } from 'react'
+import { TextInput } from '../TextInput'
 
 export interface CellEditComponentProps<V> {
-  value: V;
-  onCommit: (value: V) => void;
-  onCancel: () => void;
+  value: V
+  onCommit: (value: V) => void
+  onCancel: () => void
 }
 
 /**
@@ -32,7 +32,7 @@ export function DefaultCellEditor({
   onCommit,
   onCancel,
 }: CellEditComponentProps<unknown>): React.JSX.Element {
-  const [draft, setDraft] = useState(value == null ? '' : String(value));
+  const [draft, setDraft] = useState(value == null ? '' : String(value))
 
   return (
     <TextInput
@@ -45,15 +45,15 @@ export function DefaultCellEditor({
       onChange={setDraft}
       onKeyDown={(e) => {
         if (e.key === 'Enter') {
-          e.preventDefault();
-          onCommit(draft);
+          e.preventDefault()
+          onCommit(draft)
         } else if (e.key === 'Escape') {
-          e.preventDefault();
-          onCancel();
+          e.preventDefault()
+          onCancel()
         }
       }}
       onBlur={() => onCommit(draft)}
       data-testid="table-cell-editor"
     />
-  );
+  )
 }

@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect, afterEach, vi } from 'vitest';
-import { render, screen, act } from '@testing-library/react';
-import { axe } from 'vitest-axe';
-import { ThemeProvider } from './ThemeProvider';
-import { useTheme } from './useTheme';
-import { THEME_STORAGE_KEYS } from './storage';
+import { describe, it, expect, afterEach, vi } from 'vitest'
+import { render, screen, act } from '@testing-library/react'
+import { axe } from 'vitest-axe'
+import { ThemeProvider } from './ThemeProvider'
+import { useTheme } from './useTheme'
+import { THEME_STORAGE_KEYS } from './storage'
 
 function Probe() {
-  const { theme, brand, setTheme, setBrand } = useTheme();
+  const { theme, brand, setTheme, setBrand } = useTheme()
   return (
     <div>
       <span data-testid="theme-probe-theme">{theme}</span>
@@ -33,124 +33,124 @@ function Probe() {
         green
       </button>
     </div>
-  );
+  )
 }
 
 describe('ThemeProvider / useTheme', () => {
   afterEach(() => {
-    window.localStorage.clear();
-    document.documentElement.removeAttribute('data-theme');
-    document.documentElement.removeAttribute('data-brand');
-    document.documentElement.removeAttribute('data-font-family');
-    document.documentElement.removeAttribute('data-font-size');
-    vi.restoreAllMocks();
-  });
+    window.localStorage.clear()
+    document.documentElement.removeAttribute('data-theme')
+    document.documentElement.removeAttribute('data-brand')
+    document.documentElement.removeAttribute('data-font-family')
+    document.documentElement.removeAttribute('data-font-size')
+    vi.restoreAllMocks()
+  })
 
   it('initializes with defaults and reflects them on <html>', () => {
     render(
       <ThemeProvider>
         <Probe />
       </ThemeProvider>,
-    );
-    expect(screen.getByTestId('theme-probe-theme')).toHaveTextContent('light');
-    expect(screen.getByTestId('theme-probe-brand')).toHaveTextContent('blue');
-    expect(document.documentElement.getAttribute('data-theme')).toBeNull(); // light omitted
-    expect(document.documentElement.getAttribute('data-brand')).toBe('blue');
-  });
+    )
+    expect(screen.getByTestId('theme-probe-theme')).toHaveTextContent('light')
+    expect(screen.getByTestId('theme-probe-brand')).toHaveTextContent('blue')
+    expect(document.documentElement.getAttribute('data-theme')).toBeNull() // light omitted
+    expect(document.documentElement.getAttribute('data-brand')).toBe('blue')
+  })
 
   it('updates state, <html> attributes, and localStorage when a setter is called', () => {
     render(
       <ThemeProvider>
         <Probe />
       </ThemeProvider>,
-    );
+    )
 
     act(() => {
-      screen.getByTestId('theme-probe-set-dark').click();
-    });
+      screen.getByTestId('theme-probe-set-dark').click()
+    })
 
-    expect(screen.getByTestId('theme-probe-theme')).toHaveTextContent('dark');
-    expect(document.documentElement.getAttribute('data-theme')).toBe('dark');
-    expect(window.localStorage.getItem(THEME_STORAGE_KEYS.theme)).toBe('dark');
-  });
+    expect(screen.getByTestId('theme-probe-theme')).toHaveTextContent('dark')
+    expect(document.documentElement.getAttribute('data-theme')).toBe('dark')
+    expect(window.localStorage.getItem(THEME_STORAGE_KEYS.theme)).toBe('dark')
+  })
 
   it('falls back to a persisted valid value on initial load', () => {
-    window.localStorage.setItem(THEME_STORAGE_KEYS.brand, 'purple');
+    window.localStorage.setItem(THEME_STORAGE_KEYS.brand, 'purple')
     render(
       <ThemeProvider>
         <Probe />
       </ThemeProvider>,
-    );
-    expect(screen.getByTestId('theme-probe-brand')).toHaveTextContent('purple');
-  });
+    )
+    expect(screen.getByTestId('theme-probe-brand')).toHaveTextContent('purple')
+  })
 
   it('ignores a corrupt persisted value and falls back to the default', () => {
-    window.localStorage.setItem(THEME_STORAGE_KEYS.brand, 'not-a-real-brand');
+    window.localStorage.setItem(THEME_STORAGE_KEYS.brand, 'not-a-real-brand')
     render(
       <ThemeProvider>
         <Probe />
       </ThemeProvider>,
-    );
-    expect(screen.getByTestId('theme-probe-brand')).toHaveTextContent('blue');
-  });
+    )
+    expect(screen.getByTestId('theme-probe-brand')).toHaveTextContent('blue')
+  })
 
   it('syncs state when another tab changes localStorage (storage event)', () => {
     render(
       <ThemeProvider>
         <Probe />
       </ThemeProvider>,
-    );
+    )
 
     act(() => {
-      window.localStorage.setItem(THEME_STORAGE_KEYS.brand, 'orange');
+      window.localStorage.setItem(THEME_STORAGE_KEYS.brand, 'orange')
       window.dispatchEvent(
         new StorageEvent('storage', {
           key: THEME_STORAGE_KEYS.brand,
           newValue: 'orange',
           storageArea: window.localStorage,
         }),
-      );
-    });
+      )
+    })
 
-    expect(screen.getByTestId('theme-probe-brand')).toHaveTextContent('orange');
-  });
+    expect(screen.getByTestId('theme-probe-brand')).toHaveTextContent('orange')
+  })
 
   it('does not throw and keeps working when localStorage.setItem fails', () => {
     vi.spyOn(window.localStorage, 'setItem').mockImplementation(() => {
-      throw new DOMException('QuotaExceededError');
-    });
+      throw new DOMException('QuotaExceededError')
+    })
 
     render(
       <ThemeProvider>
         <Probe />
       </ThemeProvider>,
-    );
+    )
 
     expect(() => {
       act(() => {
-        screen.getByTestId('theme-probe-set-green').click();
-      });
-    }).not.toThrow();
-    expect(screen.getByTestId('theme-probe-brand')).toHaveTextContent('green');
-  });
+        screen.getByTestId('theme-probe-set-green').click()
+      })
+    }).not.toThrow()
+    expect(screen.getByTestId('theme-probe-brand')).toHaveTextContent('green')
+  })
 
   it('has no detectable accessibility violations', async () => {
     const { container } = render(
       <ThemeProvider>
         <Probe />
       </ThemeProvider>,
-    );
-    expect(await axe(container)).toHaveNoViolations();
-  });
-});
+    )
+    expect(await axe(container)).toHaveNoViolations()
+  })
+})
 
 describe('useTheme outside of ThemeProvider', () => {
   it('returns fallback defaults instead of throwing', () => {
     function Standalone() {
-      const { theme } = useTheme();
-      return <span data-testid="standalone-theme">{theme}</span>;
+      const { theme } = useTheme()
+      return <span data-testid="standalone-theme">{theme}</span>
     }
-    expect(() => render(<Standalone />)).not.toThrow();
-    expect(screen.getByTestId('standalone-theme')).toHaveTextContent('light');
-  });
-});
+    expect(() => render(<Standalone />)).not.toThrow()
+    expect(screen.getByTestId('standalone-theme')).toHaveTextContent('light')
+  })
+})

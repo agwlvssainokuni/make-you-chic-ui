@@ -13,6 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-export { ToastProvider } from './ToastProvider';
-export type { ToastContextValue, ToastItem, ToastVariant, ShowToastOptions } from './ToastProvider';
-export { useToast } from './useToast';
+export { ToastProvider } from './ToastProvider'
+export type { ToastContextValue, ToastItem, ToastVariant, ShowToastOptions } from './ToastProvider'
+export { useToast } from './useToast'

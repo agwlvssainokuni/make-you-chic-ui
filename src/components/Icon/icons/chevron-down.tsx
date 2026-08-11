@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { SVGProps } from 'react';
+import type { SVGProps } from 'react'
 
 export function ChevronDownIconSvg(props: SVGProps<SVGSVGElement>): React.JSX.Element {
   return (
@@ -26,5 +26,5 @@ export function ChevronDownIconSvg(props: SVGProps<SVGSVGElement>): React.JSX.El
         strokeLinejoin="round"
       />
     </svg>
-  );
+  )
 }

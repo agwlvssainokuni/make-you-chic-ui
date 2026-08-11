@@ -13,23 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import './FormField.css';
-import { useId, type ReactNode } from 'react';
-import { FormFieldContext, type FormFieldContextValue } from './FormFieldContext';
+import './FormField.css'
+import { useId, type ReactNode } from 'react'
+import { FormFieldContext, type FormFieldContextValue } from './FormFieldContext'
 
 export interface FormFieldProps {
   /** Field label text. */
-  label: string;
+  label: string
   /** Error message. When present, the field is shown in an error state. */
-  error?: string;
+  error?: string
   /** Helper text shown when there is no error. */
-  helperText?: string;
+  helperText?: string
   /** Marks the field as required (adds a visual indicator only; no validation is performed). */
-  required?: boolean;
+  required?: boolean
   /** The input component (TextInput, Select, etc.) this field wraps. */
-  children: ReactNode;
-  className?: string;
-  style?: React.CSSProperties;
+  children: ReactNode
+  className?: string
+  style?: React.CSSProperties
 }
 
 /**
@@ -46,16 +46,16 @@ export function FormField({
   className,
   style,
 }: FormFieldProps): React.JSX.Element {
-  const fieldId = useId();
-  const errorId = error ? `${fieldId}-error` : undefined;
-  const helperTextId = !error && helperText ? `${fieldId}-helper` : undefined;
+  const fieldId = useId()
+  const errorId = error ? `${fieldId}-error` : undefined
+  const helperTextId = !error && helperText ? `${fieldId}-helper` : undefined
 
   const contextValue: FormFieldContextValue = {
     fieldId,
     errorId,
     helperTextId,
     hasError: Boolean(error),
-  };
+  }
 
   return (
     <div className={className ? `wds-form-field ${className}` : 'wds-form-field'} style={style}>
@@ -79,5 +79,5 @@ export function FormField({
         </span>
       )}
     </div>
-  );
+  )
 }

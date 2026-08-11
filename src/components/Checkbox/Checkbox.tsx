@@ -13,21 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import './Checkbox.css';
-import { forwardRef } from 'react';
-import { useFieldProps } from '../FormField/useFieldProps';
-import { useControllableState } from '../../utils/useControllableState';
-import { Icon } from '../Icon';
+import './Checkbox.css'
+import { forwardRef } from 'react'
+import { useFieldProps } from '../FormField/useFieldProps'
+import { useControllableState } from '../../utils/useControllableState'
+import { Icon } from '../Icon'
 
 export interface CheckboxProps extends Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
   'type' | 'checked' | 'defaultChecked' | 'onChange'
 > {
-  checked?: boolean;
-  defaultChecked?: boolean;
-  onChange?: (checked: boolean) => void;
+  checked?: boolean
+  defaultChecked?: boolean
+  onChange?: (checked: boolean) => void
   /** Optional inline label, for lightweight use outside of <FormField>. */
-  label?: string;
+  label?: string
 }
 
 /** Boolean input styled as a checkbox with a custom check glyph. */
@@ -35,12 +35,12 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
   { checked, defaultChecked = false, onChange, label, className, disabled, ...rest },
   ref,
 ) {
-  const fieldProps = useFieldProps();
+  const fieldProps = useFieldProps()
   const [isChecked, setChecked] = useControllableState({
     value: checked,
     defaultValue: defaultChecked,
     onChange,
-  });
+  })
 
   const input = (
     <span className="wds-checkbox-box" data-testid="checkbox-box">
@@ -57,10 +57,10 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
       />
       {isChecked && <Icon name="check" size={14} />}
     </span>
-  );
+  )
 
   if (!label) {
-    return input;
+    return input
   }
 
   return (
@@ -68,5 +68,5 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
       {input}
       {label}
     </label>
-  );
-});
+  )
+})

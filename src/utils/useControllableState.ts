@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react'
 
 export interface UseControllableStateOptions<T> {
-  value?: T;
-  defaultValue: T;
-  onChange?: (value: T) => void;
+  value?: T
+  defaultValue: T
+  onChange?: (value: T) => void
 }
 
 /**
@@ -38,27 +38,27 @@ export function useControllableState<T>({
   defaultValue,
   onChange,
 }: UseControllableStateOptions<T>): [T, (next: T) => void] {
-  const isControlled = value !== undefined;
-  const [internalValue, setInternalValue] = useState<T>(defaultValue);
-  const wasControlled = useRef(isControlled);
+  const isControlled = value !== undefined
+  const [internalValue, setInternalValue] = useState<T>(defaultValue)
+  const wasControlled = useRef(isControlled)
 
   useEffect(() => {
     if (import.meta.env?.DEV && wasControlled.current !== isControlled) {
       console.warn(
         '[web-design-system-sample] A component switched between controlled and uncontrolled. Decide between using a controlled or uncontrolled value for the lifetime of the component.',
-      );
+      )
     }
-    wasControlled.current = isControlled;
-  }, [isControlled]);
+    wasControlled.current = isControlled
+  }, [isControlled])
 
-  const currentValue = isControlled ? (value as T) : internalValue;
+  const currentValue = isControlled ? (value as T) : internalValue
 
   function setValue(next: T): void {
     if (!isControlled) {
-      setInternalValue(next);
+      setInternalValue(next)
     }
-    onChange?.(next);
+    onChange?.(next)
   }
 
-  return [currentValue, setValue];
+  return [currentValue, setValue]
 }

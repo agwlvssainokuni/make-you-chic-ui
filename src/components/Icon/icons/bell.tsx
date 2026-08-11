@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { SVGProps } from 'react';
+import type { SVGProps } from 'react'
 
 export function BellIconSvg(props: SVGProps<SVGSVGElement>): React.JSX.Element {
   return (
@@ -33,5 +33,5 @@ export function BellIconSvg(props: SVGProps<SVGSVGElement>): React.JSX.Element {
         strokeLinejoin="round"
       />
     </svg>
-  );
+  )
 }

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { ThemeAxis, ThemeState } from './types';
+import type { ThemeAxis, ThemeState } from './types'
 
 /** Valid values per theme axis (requirements: business-rules.md). */
 export const THEME_VALID_VALUES: { [K in ThemeAxis]: ReadonlyArray<ThemeState[K]> } = {
@@ -21,7 +21,7 @@ export const THEME_VALID_VALUES: { [K in ThemeAxis]: ReadonlyArray<ThemeState[K]
   brand: ['blue', 'green', 'purple', 'orange'],
   fontFamily: ['sans', 'serif'],
   fontSize: ['sm', 'md', 'lg'],
-};
+}
 
 /** Default value per axis when no persisted value exists (business-rules.md). */
 export const THEME_DEFAULTS: ThemeState = {
@@ -29,7 +29,7 @@ export const THEME_DEFAULTS: ThemeState = {
   brand: 'blue',
   fontFamily: 'sans',
   fontSize: 'md',
-};
+}
 
 /**
  * Validates that `value` is one of the allowed values for `axis`.
@@ -40,8 +40,8 @@ export function isValidThemeValue<K extends ThemeAxis>(
   axis: K,
   value: unknown,
 ): value is ThemeState[K] {
-  const allowed: ReadonlyArray<unknown> = THEME_VALID_VALUES[axis];
-  return typeof value === 'string' && allowed.includes(value);
+  const allowed: ReadonlyArray<unknown> = THEME_VALID_VALUES[axis]
+  return typeof value === 'string' && allowed.includes(value)
 }
 
 /**
@@ -55,10 +55,10 @@ export function resolveInitialThemeValue<K extends ThemeAxis>(
   prefersDark: boolean,
 ): ThemeState[K] {
   if (isValidThemeValue(axis, persisted)) {
-    return persisted;
+    return persisted
   }
   if (axis === 'theme') {
-    return (prefersDark ? 'dark' : 'light') as ThemeState[K];
+    return (prefersDark ? 'dark' : 'light') as ThemeState[K]
   }
-  return THEME_DEFAULTS[axis];
+  return THEME_DEFAULTS[axis]
 }

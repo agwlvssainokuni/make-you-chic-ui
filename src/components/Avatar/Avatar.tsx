@@ -13,27 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import './Avatar.css';
-import { forwardRef, useEffect, useState } from 'react';
+import './Avatar.css'
+import { forwardRef, useEffect, useState } from 'react'
 
 export interface AvatarProps {
   /** Image URL. When omitted or failing to load, initials derived from `name` are shown. */
-  src?: string;
+  src?: string
   /** Person's name; source for initials and the image's alt text. */
-  name: string;
+  name: string
   /** @default 'md' */
-  size?: 'sm' | 'md' | 'lg';
-  className?: string;
-  style?: React.CSSProperties;
+  size?: 'sm' | 'md' | 'lg'
+  className?: string
+  style?: React.CSSProperties
 }
 
 /** Computes up to 2 uppercase initials from the first two words of `name` (business-rules.md). */
 export function getInitials(name: string): string {
-  const words = name.trim().split(/\s+/).filter(Boolean);
+  const words = name.trim().split(/\s+/).filter(Boolean)
   return words
     .slice(0, 2)
     .map((word) => word.charAt(0).toUpperCase())
-    .join('');
+    .join('')
 }
 
 /** Circular avatar: shows an image, falling back to initials on missing/broken `src`. */
@@ -41,15 +41,15 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(function Avatar(
   { src, name, size = 'md', className, style },
   ref,
 ) {
-  const [imageError, setImageError] = useState(false);
+  const [imageError, setImageError] = useState(false)
 
   // Reset the error flag whenever the caller provides a new src.
   useEffect(() => {
-    setImageError(false);
-  }, [src]);
+    setImageError(false)
+  }, [src])
 
-  const classes = ['wds-avatar', `size-${size}`, className].filter(Boolean).join(' ');
-  const showImage = Boolean(src) && !imageError;
+  const classes = ['wds-avatar', `size-${size}`, className].filter(Boolean).join(' ')
+  const showImage = Boolean(src) && !imageError
 
   return (
     <div
@@ -72,5 +72,5 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(function Avatar(
         getInitials(name)
       )}
     </div>
-  );
-});
+  )
+})

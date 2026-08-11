@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { forwardRef } from 'react';
+import { forwardRef } from 'react'
 
 export interface RadioProps extends Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
   'type' | 'onChange'
 > {
-  label: string;
-  onChange?: (checked: boolean) => void;
+  label: string
+  onChange?: (checked: boolean) => void
 }
 
 /**
@@ -48,5 +48,5 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(
       </span>
       {label}
     </label>
-  );
-});
+  )
+})

@@ -5,15 +5,15 @@
 ```ts
 function safeLocalStorageGet(key: string): string | null {
   try {
-    return window.localStorage.getItem(key);
+    return window.localStorage.getItem(key)
   } catch {
-    return null; // プライベートブラウジング/無効化/例外時はnull扱い(デフォルト値へフォールバック)
+    return null // プライベートブラウジング/無効化/例外時はnull扱い(デフォルト値へフォールバック)
   }
 }
 
 function safeLocalStorageSet(key: string, value: string): void {
   try {
-    window.localStorage.setItem(key, value);
+    window.localStorage.setItem(key, value)
   } catch {
     // 永続化は諦めるが、呼び出し元のstate更新自体は継続する(メモリ上でのみ動作)
   }
@@ -60,7 +60,7 @@ function safeLocalStorageSet(key: string, value: string): void {
 const value = useMemo(
   () => ({ theme, brand, fontFamily, fontSize, setTheme, setBrand, setFontFamily, setFontSize }),
   [theme, brand, fontFamily, fontSize, setTheme, setBrand, setFontFamily, setFontSize],
-);
+)
 ```
 
 各`setXXX`は`useCallback`で参照を固定し、`useMemo`の依存配列を安定させる。

@@ -13,5 +13,5 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-export { Alert } from './Alert';
-export type { AlertProps, AlertVariant, AlertAction } from './Alert';
+export { Alert } from './Alert'
+export type { AlertProps, AlertVariant, AlertAction } from './Alert'

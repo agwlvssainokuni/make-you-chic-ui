@@ -13,34 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useState } from 'react';
-import { Modal, FormField, TextInput, Select, Button } from '../../src';
-import type { SampleUser } from '../data/sampleUsers';
+import { useState } from 'react'
+import { Modal, FormField, TextInput, Select, Button } from '../../src'
+import type { SampleUser } from '../data/sampleUsers'
 
 export interface EditUserFormValues {
-  name: string;
-  email: string;
-  role: 'admin' | 'member';
+  name: string
+  email: string
+  role: 'admin' | 'member'
 }
 
 export interface EditUserModalProps {
-  mode: 'create' | 'edit';
-  user?: SampleUser;
-  open: boolean;
-  onClose: () => void;
-  onSave: (values: EditUserFormValues) => void;
+  mode: 'create' | 'edit'
+  user?: SampleUser
+  open: boolean
+  onClose: () => void
+  onSave: (values: EditUserFormValues) => void
 }
 
 const ROLE_OPTIONS = [
   { label: '管理者', value: 'admin' },
   { label: '一般ユーザー', value: 'member' },
-];
+]
 
 function resolveInitialValues(mode: 'create' | 'edit', user?: SampleUser): EditUserFormValues {
   if (mode === 'edit' && user) {
-    return { name: user.name, email: user.email, role: user.role };
+    return { name: user.name, email: user.email, role: user.role }
   }
-  return { name: '', email: '', role: 'member' };
+  return { name: '', email: '', role: 'member' }
 }
 
 /** New-user / edit-user form, sharing one Modal (Functional Design: business-rules.md). */
@@ -51,13 +51,13 @@ export function EditUserModal({
   onClose,
   onSave,
 }: EditUserModalProps): React.JSX.Element {
-  const [values, setValues] = useState<EditUserFormValues>(() => resolveInitialValues(mode, user));
+  const [values, setValues] = useState<EditUserFormValues>(() => resolveInitialValues(mode, user))
 
-  const isValid = values.name.trim() !== '' && values.email.trim() !== '';
+  const isValid = values.name.trim() !== '' && values.email.trim() !== ''
 
   function handleSave(): void {
-    if (!isValid) return;
-    onSave(values);
+    if (!isValid) return
+    onSave(values)
   }
 
   return (
@@ -102,5 +102,5 @@ export function EditUserModal({
         </Button>
       </div>
     </Modal>
-  );
+  )
 }

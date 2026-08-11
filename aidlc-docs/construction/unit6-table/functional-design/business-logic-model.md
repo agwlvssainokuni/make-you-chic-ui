@@ -4,9 +4,9 @@
 
 ```ts
 function nextSortState(current: SortState | null, clickedKey: string): SortState | null {
-  if (current === null || current.key !== clickedKey) return { key: clickedKey, direction: 'asc' };
-  if (current.direction === 'asc') return { key: clickedKey, direction: 'desc' };
-  return null; // desc → 未ソート
+  if (current === null || current.key !== clickedKey) return { key: clickedKey, direction: 'asc' }
+  if (current.direction === 'asc') return { key: clickedKey, direction: 'desc' }
+  return null // desc → 未ソート
 }
 ```
 
@@ -16,7 +16,7 @@ function nextSortState(current: SortState | null, clickedKey: string): SortState
 
 ```ts
 function computeTotalPages(totalCount: number, pageSize: number): number {
-  return Math.max(1, Math.ceil(totalCount / pageSize));
+  return Math.max(1, Math.ceil(totalCount / pageSize))
 }
 ```
 
@@ -24,21 +24,21 @@ function computeTotalPages(totalCount: number, pageSize: number): number {
 
 ```ts
 function toggleRowSelection(selected: Set<string>, rowId: string): Set<string> {
-  const next = new Set(selected);
-  if (next.has(rowId)) next.delete(rowId);
-  else next.add(rowId);
-  return next;
+  const next = new Set(selected)
+  if (next.has(rowId)) next.delete(rowId)
+  else next.add(rowId)
+  return next
 }
 
 function toggleAllSelection(selected: Set<string>, pageRowIds: string[]): Set<string> {
-  const allSelected = pageRowIds.every((id) => selected.has(id));
-  const next = new Set(selected);
+  const allSelected = pageRowIds.every((id) => selected.has(id))
+  const next = new Set(selected)
   if (allSelected) {
-    pageRowIds.forEach((id) => next.delete(id));
+    pageRowIds.forEach((id) => next.delete(id))
   } else {
-    pageRowIds.forEach((id) => next.add(id));
+    pageRowIds.forEach((id) => next.add(id))
   }
-  return next;
+  return next
 }
 ```
 

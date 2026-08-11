@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useContext, useId } from 'react';
-import { FormFieldContext } from './FormFieldContext';
+import { useContext, useId } from 'react'
+import { FormFieldContext } from './FormFieldContext'
 
 export interface FieldA11yProps {
-  id: string;
-  'aria-describedby': string | undefined;
-  'aria-invalid': boolean | undefined;
+  id: string
+  'aria-describedby': string | undefined
+  'aria-invalid': boolean | undefined
 }
 
 /**
@@ -30,18 +30,18 @@ export interface FieldA11yProps {
  * Question 1 = A).
  */
 export function useFieldProps(): FieldA11yProps {
-  const ctx = useContext(FormFieldContext);
-  const standaloneId = useId();
+  const ctx = useContext(FormFieldContext)
+  const standaloneId = useId()
 
   if (ctx === null) {
-    return { id: standaloneId, 'aria-describedby': undefined, 'aria-invalid': undefined };
+    return { id: standaloneId, 'aria-describedby': undefined, 'aria-invalid': undefined }
   }
 
-  const describedBy = [ctx.errorId, ctx.helperTextId].filter(Boolean).join(' ') || undefined;
+  const describedBy = [ctx.errorId, ctx.helperTextId].filter(Boolean).join(' ') || undefined
 
   return {
     id: ctx.fieldId,
     'aria-describedby': describedBy,
     'aria-invalid': ctx.hasError || undefined,
-  };
+  }
 }

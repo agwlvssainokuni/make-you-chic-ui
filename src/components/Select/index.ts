@@ -13,5 +13,5 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-export { Select } from './Select';
-export type { SelectProps, SelectOption } from './Select';
+export { Select } from './Select'
+export type { SelectProps, SelectOption } from './Select'

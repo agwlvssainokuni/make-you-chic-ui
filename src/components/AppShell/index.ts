@@ -13,6 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-export { AppShell } from './AppShell';
-export type { AppShellProps, AppShellNavItem, AppShellUser } from './AppShell';
-export { useAppShell } from './AppShellContext';
+export { AppShell } from './AppShell'
+export type { AppShellProps, AppShellNavItem, AppShellUser } from './AppShell'
+export { useAppShell } from './AppShellContext'

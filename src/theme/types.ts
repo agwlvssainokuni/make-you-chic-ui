@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-export type ThemeMode = 'light' | 'dark';
-export type ThemeBrand = 'blue' | 'green' | 'purple' | 'orange';
-export type ThemeFontFamily = 'sans' | 'serif';
-export type ThemeFontSize = 'sm' | 'md' | 'lg';
+export type ThemeMode = 'light' | 'dark'
+export type ThemeBrand = 'blue' | 'green' | 'purple' | 'orange'
+export type ThemeFontFamily = 'sans' | 'serif'
+export type ThemeFontSize = 'sm' | 'md' | 'lg'
 
 export interface ThemeState {
-  theme: ThemeMode;
-  brand: ThemeBrand;
-  fontFamily: ThemeFontFamily;
-  fontSize: ThemeFontSize;
+  theme: ThemeMode
+  brand: ThemeBrand
+  fontFamily: ThemeFontFamily
+  fontSize: ThemeFontSize
 }
 
-export type ThemeAxis = keyof ThemeState;
+export type ThemeAxis = keyof ThemeState

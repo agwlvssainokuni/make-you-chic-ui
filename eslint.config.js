@@ -18,11 +18,11 @@
  * setup keep working without needing each plugin's own flat-config export
  * shape (which varies release to release across this project's plugins).
  */
-import { FlatCompat } from '@eslint/eslintrc';
-import js from '@eslint/js';
-import globals from 'globals';
+import { FlatCompat } from '@eslint/eslintrc'
+import js from '@eslint/js'
+import globals from 'globals'
 
-const compat = new FlatCompat({ baseDirectory: import.meta.dirname });
+const compat = new FlatCompat({ baseDirectory: import.meta.dirname })
 
 export default [
   { ignores: ['dist', 'node_modules', 'html-demo'] },
@@ -51,4 +51,4 @@ export default [
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     },
   },
-];
+]

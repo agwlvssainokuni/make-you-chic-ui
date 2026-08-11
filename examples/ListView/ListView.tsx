@@ -13,19 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useState } from 'react';
-import { TextInput, Select, Table, Badge, Button, type TableColumn } from '../../src';
-import { EditUserModal, type EditUserFormValues } from '../EditUserModal/EditUserModal';
-import { DeleteConfirmModal } from '../DeleteConfirmModal/DeleteConfirmModal';
-import { initialSampleUsers, type SampleUser } from '../data/sampleUsers';
+import { useState } from 'react'
+import { TextInput, Select, Table, Badge, Button, type TableColumn } from '../../src'
+import { EditUserModal, type EditUserFormValues } from '../EditUserModal/EditUserModal'
+import { DeleteConfirmModal } from '../DeleteConfirmModal/DeleteConfirmModal'
+import { initialSampleUsers, type SampleUser } from '../data/sampleUsers'
 
 const ROLE_FILTER_OPTIONS = [
   { label: 'すべての役割', value: '' },
   { label: '管理者', value: 'admin' },
   { label: '一般ユーザー', value: 'member' },
-];
+]
 
-const PAGE_SIZE = 3;
+const PAGE_SIZE = 3
 
 /**
  * List View screen pattern: filter bar + bulk-action bar (selection-only)
@@ -34,26 +34,26 @@ const PAGE_SIZE = 3;
  * decision: examples/ is not part of the published API).
  */
 export function ListView(): React.JSX.Element {
-  const [users, setUsers] = useState<SampleUser[]>(initialSampleUsers);
-  const [searchText, setSearchText] = useState('');
-  const [roleFilter, setRoleFilter] = useState('');
-  const [page, setPage] = useState(1);
-  const [selectedRowIds, setSelectedRowIds] = useState<Set<string>>(new Set());
+  const [users, setUsers] = useState<SampleUser[]>(initialSampleUsers)
+  const [searchText, setSearchText] = useState('')
+  const [roleFilter, setRoleFilter] = useState('')
+  const [page, setPage] = useState(1)
+  const [selectedRowIds, setSelectedRowIds] = useState<Set<string>>(new Set())
   const [editingUser, setEditingUser] = useState<{
-    mode: 'create' | 'edit';
-    user?: SampleUser;
-  } | null>(null);
-  const [deleteTarget, setDeleteTarget] = useState<{ ids: string[] } | null>(null);
+    mode: 'create' | 'edit'
+    user?: SampleUser
+  } | null>(null)
+  const [deleteTarget, setDeleteTarget] = useState<{ ids: string[] } | null>(null)
 
   const filteredUsers = users.filter((u) => {
     const matchesText =
-      searchText.trim() === '' || u.name.includes(searchText) || u.email.includes(searchText);
-    const matchesRole = roleFilter === '' || u.role === roleFilter;
-    return matchesText && matchesRole;
-  });
+      searchText.trim() === '' || u.name.includes(searchText) || u.email.includes(searchText)
+    const matchesRole = roleFilter === '' || u.role === roleFilter
+    return matchesText && matchesRole
+  })
 
-  const pageStart = (page - 1) * PAGE_SIZE;
-  const pageUsers = filteredUsers.slice(pageStart, pageStart + PAGE_SIZE);
+  const pageStart = (page - 1) * PAGE_SIZE
+  const pageUsers = filteredUsers.slice(pageStart, pageStart + PAGE_SIZE)
 
   const columns: TableColumn<SampleUser>[] = [
     { key: 'name', header: '名前', sortable: true },
@@ -91,28 +91,28 @@ export function ListView(): React.JSX.Element {
         </div>
       ),
     },
-  ];
+  ]
 
   function handleSave(values: EditUserFormValues): void {
     if (editingUser?.mode === 'edit' && editingUser.user) {
-      const targetId = editingUser.user.id;
-      setUsers((prev) => prev.map((u) => (u.id === targetId ? { ...u, ...values } : u)));
+      const targetId = editingUser.user.id
+      setUsers((prev) => prev.map((u) => (u.id === targetId ? { ...u, ...values } : u)))
     } else {
-      setUsers((prev) => [...prev, { ...values, id: String(Date.now()), tablePermissions: [] }]);
+      setUsers((prev) => [...prev, { ...values, id: String(Date.now()), tablePermissions: [] }])
     }
-    setEditingUser(null);
+    setEditingUser(null)
   }
 
   function handleDeleteConfirmed(): void {
-    if (!deleteTarget) return;
-    const idsToRemove = new Set(deleteTarget.ids);
-    setUsers((prev) => prev.filter((u) => !idsToRemove.has(u.id)));
+    if (!deleteTarget) return
+    const idsToRemove = new Set(deleteTarget.ids)
+    setUsers((prev) => prev.filter((u) => !idsToRemove.has(u.id)))
     setSelectedRowIds((prev) => {
-      const next = new Set(prev);
-      deleteTarget.ids.forEach((id) => next.delete(id));
-      return next;
-    });
-    setDeleteTarget(null);
+      const next = new Set(prev)
+      deleteTarget.ids.forEach((id) => next.delete(id))
+      return next
+    })
+    setDeleteTarget(null)
   }
 
   return (
@@ -121,8 +121,8 @@ export function ListView(): React.JSX.Element {
         <TextInput
           value={searchText}
           onChange={(v) => {
-            setSearchText(v);
-            setPage(1);
+            setSearchText(v)
+            setPage(1)
           }}
           placeholder="名前・メールアドレスで検索"
           aria-label="ユーザー検索"
@@ -132,8 +132,8 @@ export function ListView(): React.JSX.Element {
           options={ROLE_FILTER_OPTIONS}
           value={roleFilter}
           onChange={(v) => {
-            setRoleFilter(v);
-            setPage(1);
+            setRoleFilter(v)
+            setPage(1)
           }}
           aria-label="役割で絞り込み"
           data-testid="list-view-role-filter"
@@ -197,5 +197,5 @@ export function ListView(): React.JSX.Element {
         />
       )}
     </div>
-  );
+  )
 }

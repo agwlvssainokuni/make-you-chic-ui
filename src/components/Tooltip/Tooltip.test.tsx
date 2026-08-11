@@ -13,126 +13,124 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { render, screen, act, fireEvent } from '@testing-library/react';
-import { axe } from 'vitest-axe';
-import { Tooltip } from './Tooltip';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
+import { render, screen, act, fireEvent } from '@testing-library/react'
+import { axe } from 'vitest-axe'
+import { Tooltip } from './Tooltip'
 
 describe('Tooltip', () => {
   beforeEach(() => {
-    vi.useFakeTimers();
-  });
+    vi.useFakeTimers()
+  })
 
   afterEach(() => {
-    vi.useRealTimers();
-  });
+    vi.useRealTimers()
+  })
 
   it('is not visible initially', () => {
     render(
       <Tooltip content="削除します">
         <button>削除</button>
       </Tooltip>,
-    );
-    expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
-  });
+    )
+    expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
+  })
 
   it('shows after the delay following mouseenter', () => {
     render(
       <Tooltip content="削除します">
         <button>削除</button>
       </Tooltip>,
-    );
-    fireEvent.mouseEnter(screen.getByRole('button'));
-    expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+    )
+    fireEvent.mouseEnter(screen.getByRole('button'))
+    expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
 
     act(() => {
-      vi.advanceTimersByTime(300);
-    });
-    expect(screen.getByRole('tooltip')).toHaveTextContent('削除します');
-  });
+      vi.advanceTimersByTime(300)
+    })
+    expect(screen.getByRole('tooltip')).toHaveTextContent('削除します')
+  })
 
   it('cancels the pending show if mouseleave happens before the delay elapses', () => {
     render(
       <Tooltip content="削除します">
         <button>削除</button>
       </Tooltip>,
-    );
-    fireEvent.mouseEnter(screen.getByRole('button'));
+    )
+    fireEvent.mouseEnter(screen.getByRole('button'))
     act(() => {
-      vi.advanceTimersByTime(150);
-    });
-    fireEvent.mouseLeave(screen.getByRole('button'));
+      vi.advanceTimersByTime(150)
+    })
+    fireEvent.mouseLeave(screen.getByRole('button'))
     act(() => {
-      vi.advanceTimersByTime(300);
-    });
-    expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
-  });
+      vi.advanceTimersByTime(300)
+    })
+    expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
+  })
 
   it('hides immediately on mouseleave once shown', () => {
     render(
       <Tooltip content="削除します">
         <button>削除</button>
       </Tooltip>,
-    );
-    fireEvent.mouseEnter(screen.getByRole('button'));
+    )
+    fireEvent.mouseEnter(screen.getByRole('button'))
     act(() => {
-      vi.advanceTimersByTime(300);
-    });
-    expect(screen.getByRole('tooltip')).toBeInTheDocument();
+      vi.advanceTimersByTime(300)
+    })
+    expect(screen.getByRole('tooltip')).toBeInTheDocument()
 
-    fireEvent.mouseLeave(screen.getByRole('button'));
-    expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
-  });
+    fireEvent.mouseLeave(screen.getByRole('button'))
+    expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
+  })
 
   it('shows on focus and hides on Escape', () => {
     render(
       <Tooltip content="削除します">
         <button>削除</button>
       </Tooltip>,
-    );
-    fireEvent.focus(screen.getByRole('button'));
+    )
+    fireEvent.focus(screen.getByRole('button'))
     act(() => {
-      vi.advanceTimersByTime(300);
-    });
-    expect(screen.getByRole('tooltip')).toBeInTheDocument();
+      vi.advanceTimersByTime(300)
+    })
+    expect(screen.getByRole('tooltip')).toBeInTheDocument()
 
-    fireEvent.keyDown(screen.getByRole('button'), { key: 'Escape' });
-    expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
-  });
+    fireEvent.keyDown(screen.getByRole('button'), { key: 'Escape' })
+    expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
+  })
 
   it('sets aria-describedby on the trigger pointing at the tooltip id', () => {
     render(
       <Tooltip content="削除します">
         <button>削除</button>
       </Tooltip>,
-    );
-    fireEvent.focus(screen.getByRole('button'));
+    )
+    fireEvent.focus(screen.getByRole('button'))
     act(() => {
-      vi.advanceTimersByTime(300);
-    });
-    const trigger = screen.getByRole('button');
-    const tooltip = screen.getByRole('tooltip');
-    expect(trigger.getAttribute('aria-describedby')).toBe(tooltip.id);
-  });
+      vi.advanceTimersByTime(300)
+    })
+    const trigger = screen.getByRole('button')
+    const tooltip = screen.getByRole('tooltip')
+    expect(trigger.getAttribute('aria-describedby')).toBe(tooltip.id)
+  })
 
   it('has no detectable accessibility violations while visible', async () => {
     render(
       <Tooltip content="削除します">
         <button>削除</button>
       </Tooltip>,
-    );
-    fireEvent.focus(screen.getByRole('button'));
+    )
+    fireEvent.focus(screen.getByRole('button'))
     act(() => {
-      vi.advanceTimersByTime(300);
-    });
+      vi.advanceTimersByTime(300)
+    })
     // axe() relies on real async timing internally, which never resolves
     // while fake timers are active.
-    vi.useRealTimers();
+    vi.useRealTimers()
     // The tooltip portals to document.body outside of any page landmark;
     // the "region" rule checks whole-page landmark coverage, which isn't
     // meaningful when testing an isolated component fragment.
-    expect(
-      await axe(document.body, { rules: { region: { enabled: false } } }),
-    ).toHaveNoViolations();
-  });
-});
+    expect(await axe(document.body, { rules: { region: { enabled: false } } })).toHaveNoViolations()
+  })
+})

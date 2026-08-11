@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { SVGProps } from 'react';
+import type { SVGProps } from 'react'
 
 export function UserIconSvg(props: SVGProps<SVGSVGElement>): React.JSX.Element {
   return (
@@ -27,5 +27,5 @@ export function UserIconSvg(props: SVGProps<SVGSVGElement>): React.JSX.Element {
       />
       <circle cx="12" cy="7" r="4" stroke="currentColor" strokeWidth="2" />
     </svg>
-  );
+  )
 }
