@@ -364,3 +364,19 @@
 **Context**: CONSTRUCTION - Unit 2 Code Generation (成果物作成完了、承認待ち)
 
 ---
+
+## CONSTRUCTION - Unit 2(基本入力系) - Code Generation (承認)
+**Timestamp**: 2026-08-11T10:26:10Z
+**User Input**: "Continue to Next Stage"
+**AI Response**: Code Generationを承認済みとして確定。Unit 2(基本入力系)の全ステージが完了。Unit 3(静的表示系)のFunctional Designへ進む。
+**Context**: CONSTRUCTION - Unit 2(基本入力系) 完了 → Unit 3(静的表示系) 開始
+
+---
+
+## CONSTRUCTION - Unit 3(静的表示系) - Functional Design (計画・質問提示)
+**Timestamp**: 2026-08-11T10:27:37Z
+**User Input**: (Unit 2完了後、自動的にUnit 3 Functional Designへ遷移)
+**AI Response**: `aidlc-docs/construction/plans/unit3-static-display-functional-design-plan.md` を作成。Avatarのイニシャル生成規則、画像読み込み失敗時の挙動、Badgeの件数丸め規則、Cardの構造の4問を提示。ユーザーの回答待ち。
+**Context**: CONSTRUCTION - Unit 3 Functional Design (質問ファイル提示、回答待ちゲート)
+
+---
