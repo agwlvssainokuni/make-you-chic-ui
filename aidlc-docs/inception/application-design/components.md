@@ -102,4 +102,5 @@
 ### AppShell
 - **目的**: 全画面が描画される最上位のレイアウトシェル(Sidebar+Topbar+Content)
 - **責務**: Sidebar折り畳み状態の管理・永続化、内部Context経由での状態公開(`useAppShell()`、Question 5=A)。Sidebarナビ項目はprops駆動(Question 1=B)
-- **インターフェース概要**: `navItems`(`{label, icon, href}[]`), `user`(Topbarのユーザーメニュー用), `notificationCount`, `children`(Contentスロット)。`useAppShell()`が`{ collapsed, toggleCollapsed, setCollapsed }`を返す
+- **インターフェース概要**: `navItems`(`{label, icon, href}[]`), `user`(Topbarのユーザーメニュー用), `userMenuItems`(Unit 5 Functional Designで追加), `children`(Contentスロット)。`useAppShell()`が`{ collapsed, toggleCollapsed, setCollapsed }`を返す
+- **変更履歴**: `notificationCount`propはUnit 5 Functional Design(Question 5)で廃止。通知アイコン機能自体を持たないこととした

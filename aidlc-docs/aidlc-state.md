@@ -3,7 +3,7 @@
 ## Project Information
 - **Project Type**: Greenfield
 - **Start Date**: 2026-08-11T06:21:52Z
-- **Current Stage**: CONSTRUCTION - Unit 5(ナビゲーション・レイアウト系): Functional Design
+- **Current Stage**: CONSTRUCTION - Unit 5(ナビゲーション・レイアウト系): Code Generation
 
 ## Workspace State
 - **Existing Code**: No
@@ -79,11 +79,11 @@
 - [x] Code Generation (2026-08-11T11:12:13Z 承認済み) — アプリコードはワークスペースルート(`src/components/{Modal,Toast,Alert,Tooltip}`, `src/utils/{getFocusableElements,useFocusTrap}.ts`, `html-demo/`)、サマリーは`aidlc-docs/construction/unit4-feedback/code/`。**Unit 4 完了**
 
 #### Unit 5: ナビゲーション・レイアウト系(Tabs, Dropdown/Menu, AppShell)
-- [ ] Functional Design - EXECUTE(進行中)
-- [ ] NFR Requirements - 要否判定はFunctional Design後
-- [ ] NFR Design - 要否判定はNFR Requirements後
-- [ ] Infrastructure Design - SKIP
-- [ ] Code Generation - EXECUTE
+- [x] Functional Design (2026-08-11T11:24:38Z 承認済み) — `aidlc-docs/construction/unit5-nav-layout/functional-design/`。AppShellの`notificationCount`(通知アイコン)を廃止、`userMenuItems`を追加(Inception成果物に遡って反映済み)
+- [x] NFR Requirements - SKIP(技術スタック確定済み)
+- [x] NFR Design - SKIP(同上)
+- [x] Infrastructure Design - SKIP
+- [ ] Code Generation - EXECUTE(進行中)
 
 #### Unit 6〜8
 - 未着手(Unit 4完了後に順次着手。詳細は`unit-of-work-dependency.md`の確定シーケンス参照)

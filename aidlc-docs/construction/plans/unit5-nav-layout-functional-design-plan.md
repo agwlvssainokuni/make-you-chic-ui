@@ -4,10 +4,10 @@
 
 ## 実施タスク
 
-- [ ] `aidlc-docs/construction/unit5-nav-layout/functional-design/business-logic-model.md` を作成
-- [ ] `aidlc-docs/construction/unit5-nav-layout/functional-design/business-rules.md` を作成
-- [ ] `aidlc-docs/construction/unit5-nav-layout/functional-design/domain-entities.md` を作成
-- [ ] `aidlc-docs/construction/unit5-nav-layout/functional-design/frontend-components.md` を作成
+- [x] `aidlc-docs/construction/unit5-nav-layout/functional-design/business-logic-model.md` を作成
+- [x] `aidlc-docs/construction/unit5-nav-layout/functional-design/business-rules.md` を作成
+- [x] `aidlc-docs/construction/unit5-nav-layout/functional-design/domain-entities.md` を作成
+- [x] `aidlc-docs/construction/unit5-nav-layout/functional-design/frontend-components.md` を作成
 
 ## カテゴリ別の適用判定
 
@@ -32,7 +32,7 @@ B) manual: 矢印キーはフォーカス移動のみ、Enter/Spaceキーで明�
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ### Question 2: Dropdown/Menuの開閉トリガー
 
@@ -44,7 +44,7 @@ B) ホバーで開き、ホバーが外れると閉じる(Tooltipと同様の方
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ### Question 3: Dropdown/Menuのキーボード操作範囲
 
@@ -56,7 +56,7 @@ B) 簡易実装(通常のTabキーでの移動のみ、矢印キー専用の制�
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ### Question 4: AppShellのユーザーメニュー項目
 
@@ -68,9 +68,9 @@ B) メニュー項目は持たず、Avatarはクリック不可の表示専用�
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
-### Question 5: AppShellの通知アイコンクリック時の挙動
+### Question 5: AppShellの通知アイコンクリック時の挙動(廃止)
 
 `notificationCount`propはBadgeの件数表示のみですが、通知アイコン自体をクリックした時の挙動を補います。
 
@@ -80,7 +80,7 @@ B) クリックイベントは扱わない(表示専用)
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: X — 通知アイコン機能自体を廃止する。`notificationCount`propおよびTopbarの通知アイコン(Bell)表示を`AppShellProps`から削除する。Application Design時点(`aidlc-docs/inception/application-design/`)の`AppShellProps`定義からの変更点として、後続のドキュメント更新時に反映する。
 
 ### Question 6: AppShellのウィンドウ幅変化時の挙動
 
@@ -92,4 +92,4 @@ B) 一定の幅(例: 1024px)を下回ったら自動的に折り畳み状態に�
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A

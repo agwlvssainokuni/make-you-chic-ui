@@ -470,3 +470,11 @@
 **Context**: CONSTRUCTION - Unit 5 Functional Design (質問ファイル提示、回答待ちゲート)
 
 ---
+
+## CONSTRUCTION - Unit 5(ナビゲーション・レイアウト系) - Functional Design (承認) / 成果物作成
+**Timestamp**: 2026-08-11T11:24:38Z
+**User Input**: "推奨は？" → 推奨提示 → "推奨の通りとします。ただし、Q5の通知アイコンは廃止とします。"
+**AI Response**: Q1/Q2/Q3/Q4/Q6は推奨通り(A)。Q5は通知アイコン機能自体を廃止(`notificationCount`propおよびTopbarの通知アイコンを削除)する方針に変更。この変更をInception段階の`aidlc-docs/inception/requirements/requirements.md`、`aidlc-docs/inception/application-design/{components.md, component-methods.md, component-dependency.md}`に遡って反映し、整合性を確保。`business-logic-model.md`, `business-rules.md`, `domain-entities.md`, `frontend-components.md`(Tabs/Dropdown/AppShell)を作成。NFR Requirements/NFR Designは技術スタック確定済みのためSKIPと判定。
+**Context**: CONSTRUCTION - Unit 5 Functional Design (完了) → NFR Requirements/NFR Design (SKIP) → Code Generation (開始)
+
+---

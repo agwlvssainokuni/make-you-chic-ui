@@ -15,7 +15,7 @@
 | Table | Checkbox, Icon | 行選択チェックボックス、ソート矢印アイコン |
 | TextInput / Textarea / Select / Checkbox / Radio / Switch | FormField(Context経由、任意) | `FormField`配下で使われた場合、id/aria-describedbyを自動取得 |
 | RadioGroup | Radio | 内部実装として個々のRadioを描画 |
-| AppShell | Icon, Badge, Avatar, Dropdown/Menu | Sidebarナビアイコン、Topbar通知件数(Badge)、ユーザーメニュー(Avatar+Dropdown) |
+| AppShell | Icon, Avatar, Dropdown/Menu | Sidebarナビアイコン、ユーザーメニュー(Avatar+Dropdown)。通知アイコン(Badge依存)はUnit 5 Functional Designで廃止 |
 | AppShell | ThemeProvider(独立、任意) | 併用は可能だが直接依存はしない |
 
 依存のない独立コンポーネント: Button, Card, ThemeProvider, ToastProvider

@@ -186,13 +186,15 @@ interface DropdownProps {
 const Dropdown: React.FC<DropdownProps>;
 
 interface AppShellNavItem { label: string; icon?: string; href: string; }
+interface AppShellUserMenuItem { label: string; onClick(): void; } // Unit 5 Functional Designで追加
 interface AppShellProps {
   navItems: AppShellNavItem[];
   user?: { name: string; avatarSrc?: string };
-  notificationCount?: number;
+  userMenuItems?: AppShellUserMenuItem[]; // Unit 5 Functional Designで追加
   children: React.ReactNode; // Contentスロット
 }
 const AppShell: React.FC<AppShellProps>;
+// notificationCountはUnit 5 Functional Design(Question 5)で廃止(通知アイコン機能を持たない)
 ```
 
 ## すべてのコンポーネント共通のprops(Question 7=A, Question 8=B)
