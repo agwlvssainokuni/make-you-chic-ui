@@ -33,6 +33,24 @@ export type {
 export { Icon } from './components/Icon';
 export type { IconProps, IconName } from './components/Icon';
 
+// Basic input components (Unit 2)
+export { Button } from './components/Button';
+export type { ButtonProps } from './components/Button';
+export { FormField } from './components/FormField';
+export type { FormFieldProps } from './components/FormField';
+export { TextInput } from './components/TextInput';
+export type { TextInputProps } from './components/TextInput';
+export { Textarea } from './components/Textarea';
+export type { TextareaProps } from './components/Textarea';
+export { Select } from './components/Select';
+export type { SelectProps, SelectOption } from './components/Select';
+export { Checkbox } from './components/Checkbox';
+export type { CheckboxProps } from './components/Checkbox';
+export { Switch } from './components/Switch';
+export type { SwitchProps } from './components/Switch';
+export { RadioGroup, Radio } from './components/RadioGroup';
+export type { RadioGroupProps, RadioGroupOption, RadioProps } from './components/RadioGroup';
+
 // Global stylesheets — consuming apps must import these once at the root
 // (see docs/integration-guide.md, produced by Unit 8).
 import './theme/tokens.css';

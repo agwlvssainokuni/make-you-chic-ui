@@ -16,50 +16,50 @@
 
 ## 実施ステップ
 
-- [ ] **Step 1: FormField 生成(Context含む)+ 単体テスト**
+- [x] **Step 1: FormField 生成(Context含む)+ 単体テスト**(共通ヘルパー`useFieldProps`を`useFieldProps.ts`として追加)
   - `src/components/FormField/FormFieldContext.ts`(Context定義)
   - `src/components/FormField/FormField.tsx`
   - `src/components/FormField/FormField.css`
   - `src/components/FormField/index.ts`
   - `src/components/FormField/FormField.test.tsx`(vitest-axe含む)
 
-- [ ] **Step 2: Button 生成 + 単体テスト**
+- [x] **Step 2: Button 生成 + 単体テスト**(`@testing-library/user-event`を依存関係に追加)
   - `src/components/Button/Button.tsx`, `Button.css`, `index.ts`
   - `src/components/Button/Button.test.tsx`(loading/disabled/variant/size、vitest-axe含む)
 
-- [ ] **Step 3: TextInput 生成 + 単体テスト**
+- [x] **Step 3: TextInput 生成 + 単体テスト**(共通ヘルパー`useControllableState`を`src/utils/`に追加、以降のコンポーネントで再利用)
   - `src/components/TextInput/TextInput.tsx`, `TextInput.css`, `index.ts`
   - `src/components/TextInput/TextInput.test.tsx`(Controlled/Uncontrolled、FormField連携、FormField外単体利用、vitest-axe含む)
 
-- [ ] **Step 4: Textarea 生成 + 単体テスト**
+- [x] **Step 4: Textarea 生成 + 単体テスト**
   - `src/components/Textarea/Textarea.tsx`, `Textarea.css`, `index.ts`
   - `src/components/Textarea/Textarea.test.tsx`
 
-- [ ] **Step 5: Select 生成 + 単体テスト**
+- [x] **Step 5: Select 生成 + 単体テスト**
   - `src/components/Select/Select.tsx`, `Select.css`, `index.ts`
   - `src/components/Select/Select.test.tsx`
 
-- [ ] **Step 6: Checkbox 生成 + 単体テスト**
+- [x] **Step 6: Checkbox 生成 + 単体テスト**
   - `src/components/Checkbox/Checkbox.tsx`, `Checkbox.css`, `index.ts`
   - `src/components/Checkbox/Checkbox.test.tsx`
 
-- [ ] **Step 7: Switch 生成 + 単体テスト**
+- [x] **Step 7: Switch 生成 + 単体テスト**
   - `src/components/Switch/Switch.tsx`, `Switch.css`, `index.ts`
   - `src/components/Switch/Switch.test.tsx`
 
-- [ ] **Step 8: RadioGroup / Radio 生成 + 単体テスト**
+- [x] **Step 8: RadioGroup / Radio 生成 + 単体テスト**(Checkbox/RadioのCSSは当初サイブリング結合子で設計したが、input要素をアイコン等と入れ子にする構造との不整合に気付き`:has()`ベースに修正)
   - `src/components/RadioGroup/Radio.tsx`(内部プリミティブ)
   - `src/components/RadioGroup/RadioGroup.tsx`, `RadioGroup.css`, `index.ts`
   - `src/components/RadioGroup/RadioGroup.test.tsx`
 
-- [ ] **Step 9: バレルエクスポート更新**
+- [x] **Step 9: バレルエクスポート更新**
   - `src/index.ts`に8コンポーネントのexportを追加
 
-- [ ] **Step 10: HTML版デモへの反映**
+- [x] **Step 10: HTML版デモへの反映**
   - `html-demo/components/basic-input-demo.html`(FormField配下にButton/TextInput/Textarea/Select/Checkbox/Switch/RadioGroupを並べたデモ、Vanilla JSでControlled相当の状態管理を再現)
   - `html-demo/index.html`のリンク一覧を更新
 
-- [ ] **Step 11: サマリードキュメント作成**
+- [x] **Step 11: サマリードキュメント作成**
   - `aidlc-docs/construction/unit2-basic-input/code/summary.md`
 
 ## 要件トレーサビリティ

@@ -1,0 +1,80 @@
+/**
+ * Copyright 2026 agwlvssainokuni
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+.wds-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: var(--font-family-active);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.wds-button:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+.wds-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* size */
+.wds-button.size-sm { font-size: var(--font-size-sm); padding: var(--space-1) var(--space-3); }
+.wds-button.size-md { font-size: var(--font-size-md); padding: var(--space-2) var(--space-4); }
+.wds-button.size-lg { font-size: var(--font-size-lg); padding: var(--space-3) var(--space-6); }
+
+/* variant */
+.wds-button.variant-primary {
+  background: var(--color-primary);
+  color: #fff;
+}
+.wds-button.variant-primary:hover:not(:disabled) { background: var(--color-primary-hover); }
+.wds-button.variant-primary:active:not(:disabled) { background: var(--color-primary-active); }
+
+.wds-button.variant-secondary {
+  background: var(--color-surface);
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+.wds-button.variant-secondary:hover:not(:disabled) { background: var(--color-surface-hover); }
+
+.wds-button.variant-danger {
+  background: var(--color-danger);
+  color: #fff;
+}
+.wds-button.variant-danger:hover:not(:disabled) { background: var(--color-danger-hover); }
+
+.wds-button.variant-ghost {
+  background: transparent;
+  color: var(--color-text);
+}
+.wds-button.variant-ghost:hover:not(:disabled) { background: var(--color-surface-hover); }
+
+.wds-button-spinner {
+  width: 1em;
+  height: 1em;
+  border: 2px solid currentcolor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: wds-button-spin 0.6s linear infinite;
+}
+
+@keyframes wds-button-spin {
+  to { transform: rotate(360deg); }
+}

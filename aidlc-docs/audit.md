@@ -347,3 +347,20 @@
 **Context**: CONSTRUCTION - Unit 2 Code Generation Part 1 (計画提示、承認待ち)
 
 ---
+
+## CONSTRUCTION - Unit 2(基本入力系) - Code Generation Plan Approval
+**Timestamp**: 2026-08-11T10:14:09Z
+**AI Prompt**: "この計画で実際のコード生成に進んでよろしいですか?"
+**User Response**: "Yes, proceed to generation"
+**Status**: Approved
+**Context**: `unit2-basic-input-code-generation-plan.md`を承認。Part 2(Generation)へ進む。
+
+---
+
+## CONSTRUCTION - Unit 2(基本入力系) - Code Generation (Part 2: Generation完了)
+**Timestamp**: 2026-08-11T10:23:27Z
+**User Input**: (Part 1計画承認後、自動的にPart 2 Generationへ遷移)
+**AI Response**: 計画の全11ステップを実行。共有ユーティリティ(FormFieldContext/useFieldProps/useControllableState)、8コンポーネント(FormField/Button/TextInput/Textarea/Select/Checkbox/Switch/RadioGroup+Radio)とその単体テスト(vitest-axe含む)、HTML版デモ(basic-input-demo.html)、サマリーを生成。実装中にCheckbox/RadioのCSSをsibling結合子から`:has()`ベースに修正(構造との不整合を発見したため)。`@testing-library/user-event`を依存関係に追加。全ファイルにApache License 2.0表記(agwlvssainokuni)を付与。
+**Context**: CONSTRUCTION - Unit 2 Code Generation (成果物作成完了、承認待ち)
+
+---
