@@ -425,3 +425,11 @@
 **Context**: CONSTRUCTION - Unit 4 Functional Design (質問ファイル提示、回答待ちゲート)
 
 ---
+
+## CONSTRUCTION - Unit 4(フィードバック系) - Functional Design (承認) / NFR要否判定 / 成果物作成
+**Timestamp**: 2026-08-11T10:54:52Z
+**User Input**: "推奨は？" → 推奨提示 → "推奨の通りとします。"
+**AI Response**: 6問すべてに推奨通りの回答(Q1=B initialFocusRef, Q2=A Modalスタック対応, Q3=B 右上4秒, Q4=A 新しいもの上+ホバー一時停止, Q5=B 簡易衝突検出, Q6=A ディレイ付きhover/focus)を反映。`business-logic-model.md`(フォーカストラップ・スタック管理、Toastキュー管理、Tooltip位置計算)、`business-rules.md`, `domain-entities.md`, `frontend-components.md`を作成。NFR Requirements/NFR Designは、残る実装詳細(スクロール時の再計算タイミング等)がCode Generation時点の実装詳細に留まると判断しSKIP。
+**Context**: CONSTRUCTION - Unit 4 Functional Design (完了) → NFR Requirements/NFR Design (SKIP) → Code Generation (開始)
+
+---

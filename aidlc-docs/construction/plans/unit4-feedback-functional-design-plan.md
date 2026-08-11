@@ -4,10 +4,10 @@
 
 ## 実施タスク
 
-- [ ] `aidlc-docs/construction/unit4-feedback/functional-design/business-logic-model.md` を作成
-- [ ] `aidlc-docs/construction/unit4-feedback/functional-design/business-rules.md` を作成
-- [ ] `aidlc-docs/construction/unit4-feedback/functional-design/domain-entities.md` を作成
-- [ ] `aidlc-docs/construction/unit4-feedback/functional-design/frontend-components.md` を作成
+- [x] `aidlc-docs/construction/unit4-feedback/functional-design/business-logic-model.md` を作成
+- [x] `aidlc-docs/construction/unit4-feedback/functional-design/business-rules.md` を作成
+- [x] `aidlc-docs/construction/unit4-feedback/functional-design/domain-entities.md` を作成
+- [x] `aidlc-docs/construction/unit4-feedback/functional-design/frontend-components.md` を作成
 
 ## カテゴリ別の適用判定
 
@@ -32,7 +32,7 @@ B) `initialFocusRef`propで指定された要素があればそこへ、なけ�
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: B
 
 ### Question 2: Modalの多重表示(スタッキング)対応
 
@@ -44,7 +44,7 @@ B) 対応しない。常に1つのModalのみが開ける前提とする(2つ目
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ### Question 3: Toastの自動消滅時間・表示位置
 
@@ -58,7 +58,7 @@ C) 自動消滅させず、ユーザーが閉じるまで表示し続ける
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: B
 
 ### Question 4: Toastのスタック順・ホバー時の挙動
 
@@ -70,7 +70,7 @@ B) 新しいToastが下に追加され、ホバー中の一時停止は行わな
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ### Question 5: Tooltipの位置計算方式
 
@@ -82,7 +82,7 @@ B) 自前実装で簡易的な衝突検出(画面端に近い場合は反対側�
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: B
 
 ### Question 6: Tooltipの表示・非表示トリガー
 
@@ -94,4 +94,4 @@ B) ディレイなしで即座に表示・非表示を切り替える(実装を�
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
