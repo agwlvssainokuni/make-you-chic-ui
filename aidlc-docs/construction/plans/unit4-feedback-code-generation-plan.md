@@ -8,20 +8,20 @@
 
 ## 実施ステップ
 
-- [ ] **Step 1: 共通ユーティリティ生成**
+- [x] **Step 1: 共通ユーティリティ生成**
   - `src/utils/useFocusTrap.ts`(フォーカストラップ、Modalスタック管理)
   - `src/utils/getFocusableElements.ts`
-- [ ] **Step 2: Modal 生成 + 単体テスト**
+- [x] **Step 2: Modal 生成 + 単体テスト**(スタック管理・inert制御用に`ModalStackContext.tsx`を追加)
   - `src/components/Modal/Modal.tsx`, `Modal.css`, `index.ts`, `Modal.test.tsx`(vitest-axe含む)
-- [ ] **Step 3: Toast/ToastProvider 生成 + 単体テスト**
+- [x] **Step 3: Toast/ToastProvider 生成 + 単体テスト**(`--color-warning`セマンティックトークンをUnit 1のsemantic.css(React版/HTML版両方)に追加、stylelintの禁止パターンにorange/purpleを追加)
   - `src/components/Toast/{ToastProvider,useToast,Toast}.tsx`, `Toast.css`, `index.ts`, `Toast.test.tsx`
-- [ ] **Step 4: Alert 生成 + 単体テスト**
+- [x] **Step 4: Alert 生成 + 単体テスト**
   - `src/components/Alert/Alert.tsx`, `Alert.css`, `index.ts`, `Alert.test.tsx`
-- [ ] **Step 5: Tooltip 生成 + 単体テスト**
+- [x] **Step 5: Tooltip 生成 + 単体テスト**(`--color-tooltip-bg`/`--color-tooltip-text`セマンティックトークンを追加)
   - `src/components/Tooltip/Tooltip.tsx`, `Tooltip.css`, `index.ts`, `Tooltip.test.tsx`
-- [ ] **Step 6: バレルエクスポート更新**(`src/index.ts`)
-- [ ] **Step 7: HTML版デモへの反映**(`html-demo/components/feedback-demo.html`、`html-demo/index.html`更新)
-- [ ] **Step 8: サマリードキュメント作成**
+- [x] **Step 6: バレルエクスポート更新**(`src/index.ts`)
+- [x] **Step 7: HTML版デモへの反映**(`html-demo/components/feedback-demo.html`、`html-demo/index.html`更新)
+- [x] **Step 8: サマリードキュメント作成**
 
 ## 共通ルール(継続)
 

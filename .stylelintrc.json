@@ -11,7 +11,7 @@
       "rules": {
         "declaration-property-value-disallowed-list": {
           "/.+/": [
-            "/var\\(--(gray|blue|red|green|brand)-[0-9]+/",
+            "/var\\(--(gray|blue|red|green|orange|purple|brand)-[0-9]+/",
             "/var\\(--space-[0-9]+/",
             "/var\\(--radius-(sm|md|lg)/"
           ]

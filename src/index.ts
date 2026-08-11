@@ -59,6 +59,21 @@ export type { BadgeProps } from './components/Badge';
 export { Card } from './components/Card';
 export type { CardProps } from './components/Card';
 
+// Feedback components (Unit 4)
+export { Modal, ModalStackProvider } from './components/Modal';
+export type { ModalProps } from './components/Modal';
+export { ToastProvider, useToast } from './components/Toast';
+export type {
+  ToastContextValue,
+  ToastItem,
+  ToastVariant,
+  ShowToastOptions,
+} from './components/Toast';
+export { Alert } from './components/Alert';
+export type { AlertProps, AlertVariant, AlertAction } from './components/Alert';
+export { Tooltip } from './components/Tooltip';
+export type { TooltipProps, TooltipPlacement } from './components/Tooltip';
+
 // Global stylesheets — consuming apps must import these once at the root
 // (see docs/integration-guide.md, produced by Unit 8).
 import './theme/tokens.css';

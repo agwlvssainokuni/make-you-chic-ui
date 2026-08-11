@@ -1,0 +1,65 @@
+/**
+ * Copyright 2026 agwlvssainokuni
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+.wds-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: var(--color-overlay);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+}
+
+.wds-modal-dialog {
+  background: var(--color-surface);
+  color: var(--color-text);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  outline: none;
+  box-shadow: 0 10px 40px rgb(0 0 0 / 20%);
+}
+.wds-modal-dialog.size-sm { max-width: 360px; }
+.wds-modal-dialog.size-md { max-width: 480px; }
+.wds-modal-dialog.size-lg { max-width: 720px; }
+
+.wds-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-lg);
+}
+
+.wds-modal-close-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-muted);
+  padding: var(--space-1);
+  border-radius: var(--radius-sm);
+}
+.wds-modal-close-button:hover { background: var(--color-surface-hover); }
+.wds-modal-close-button:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+
+.wds-modal-body {
+  padding: var(--space-4);
+  overflow-y: auto;
+}

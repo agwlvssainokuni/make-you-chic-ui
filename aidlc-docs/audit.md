@@ -440,3 +440,18 @@
 **Context**: CONSTRUCTION - Unit 4 Code Generation Part 1 (計画提示、承認待ち)
 
 ---
+
+## CONSTRUCTION - Unit 4(フィードバック系) - Code Generation Plan Approval
+**Timestamp**: 2026-08-11T10:58:22Z
+**User Response**: "Yes, proceed to generation"
+**Status**: Approved
+**Context**: `unit4-feedback-code-generation-plan.md`を承認。Part 2(Generation)へ進む。
+
+---
+
+## CONSTRUCTION - Unit 4(フィードバック系) - Code Generation (Part 2: Generation完了)
+**Timestamp**: 2026-08-11T11:10:34Z
+**AI Response**: 計画の全8ステップを実行。共通ユーティリティ(getFocusableElements/useFocusTrap)、Modal(ModalStackContextによるスタック管理・inert制御)、Toast/ToastProvider(キュー管理・ホバー一時停止)、Alert、Tooltip(300msディレイ・簡易衝突検出)とその単体テスト(vitest-axe含む)、HTML版デモ(feedback-demo.html)、サマリーを生成。実装中、Toastのスタック順のCSSバグとプリミティブトークン直接参照(NFR2違反)を発見し修正(`--color-warning`, `--color-tooltip-bg`, `--color-tooltip-text`を追加)。
+**Context**: CONSTRUCTION - Unit 4 Code Generation (成果物作成完了、承認待ち)
+
+---
