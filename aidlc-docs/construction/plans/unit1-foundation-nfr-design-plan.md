@@ -2,8 +2,8 @@
 
 ## 実施タスク
 
-- [ ] `aidlc-docs/construction/unit1-foundation/nfr-design/nfr-design-patterns.md` を作成
-- [ ] `aidlc-docs/construction/unit1-foundation/nfr-design/logical-components.md` を作成
+- [x] `aidlc-docs/construction/unit1-foundation/nfr-design/nfr-design-patterns.md` を作成
+- [x] `aidlc-docs/construction/unit1-foundation/nfr-design/logical-components.md` を作成
 
 ## カテゴリ別の適用判定
 
@@ -25,7 +25,7 @@ B) 例外を再スローし、利用側アプリでのエラーハンドリン�
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ### Question 2: `localStorage`読み込み時の値検証
 
@@ -37,7 +37,7 @@ B) 検証しない。`set*`時の検証のみで十分とする
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ### Question 3: Webフォント読み込み戦略(FR8)
 
@@ -49,4 +49,4 @@ B) `font-display: optional`を使用し、読み込みが十分速い場合の�
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
