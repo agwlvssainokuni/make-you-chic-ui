@@ -87,3 +87,11 @@
 **Context**: INCEPTION - Requirements Analysis (要件定義書の修正、承認待ち)
 
 ---
+
+## INCEPTION - Requirements Analysis (AppShell/レイアウトシェルの追加)
+**Timestamp**: 2026-08-11T07:21:48Z
+**User Input**: "レイアウトシェルに相当するものはどれ？" → "OK"
+**AI Response**: 現行要件ではFR2の「共通レイアウト」という記述に埋没しており、独立コンポーネントとして定義されていないことを確認。状態管理(Sidebar折り畳み)・複数コンポーネントの合成・全画面での再利用という点でGrid/Description Listとは逆に部品化の意義が強いと判断し、`AppShell`をFR1に追加。FR2は共通レイアウトの記述を`AppShell`利用の説明に置き換え(画面パターン数は5→4)。requirements.mdのFR1/FR2/リスク欄/サマリーを更新。
+**Context**: INCEPTION - Requirements Analysis (要件定義書の修正、承認待ち)
+
+---

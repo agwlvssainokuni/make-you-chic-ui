@@ -34,9 +34,10 @@
   - Tooltip(アイコンのみのボタン等の補助説明用)
   - Card(Detail View等のコンテンツグルーピング用コンテナ)
   - Alert/Banner(フォーム全体のエラーサマリー等、常時表示・非モーダルの通知。variant: info/success/warning/danger、閉じるボタン・アクションリンクは任意)
+  - **AppShell(レイアウトシェル)**: Sidebar(折り畳み可能、状態は`localStorage`等に永続化)+ Topbar(ユーザーメニュー・通知アイコン、パンくずなし)+ Contentスロットを束ねる、全画面が描画される最上位のレイアウトコンポーネント。折り畳み状態の管理を内包する
 
-  補足: Sidebar/Topbarはコンポーネントではなく、FR2の共通レイアウトの一部として扱う(独立コンポーネント化はしない)。汎用的な複数カラムGridレイアウト、およびDetail Viewのラベル+値表示(Description List)についても、JSの状態管理やa11y上の複雑なロジックを要さず、具体的な利用箇所も限定的であるため、独立したFR1コンポーネントとしては切り出さない(Description Listの扱いはFR2を参照)。
-- **FR2 画面パターンの実装**: List View、Detail View、編集Modal(新規/編集共用)、削除確認(簡易/確認テキスト入力式)、共通レイアウト(Sidebar折り畳み可能+Topbar+Content)を実装する。Detail Viewのラベル+値表示は、独立コンポーネント化はせず、セマンティックトークンを使った`<dl>`向けCSS命名パターン(`.description-list` / `.description-list-term` / `.description-list-description`)として定義し、画面パターン内で使用する
+  補足: 汎用的な複数カラムGridレイアウト、およびDetail Viewのラベル+値表示(Description List)については、JSの状態管理やa11y上の複雑なロジックを要さず、具体的な利用箇所も限定的であるため、独立したFR1コンポーネントとしては切り出さない(Description Listの扱いはFR2を参照)。
+- **FR2 画面パターンの実装**: List View、Detail View、編集Modal(新規/編集共用)、削除確認(簡易/確認テキスト入力式)を実装する。共通レイアウトはFR1の`AppShell`コンポーネントを土台とし、各画面パターンはその Contentスロット内に描画する。Detail Viewのラベル+値表示は、独立コンポーネント化はせず、セマンティックトークンを使った`<dl>`向けCSS命名パターン(`.description-list` / `.description-list-term` / `.description-list-description`)として定義し、画面パターン内で使用する
 - **FR3 テーマ機能4軸の実装**: `data-theme`(ライト/ダーク、`localStorage`永続化、初回`prefers-color-scheme`尊重)、`data-brand`(blue/green/purple/orange)、`data-font-family`(ゴシック/明朝)、`data-font-size`(sm/md/lg)を、セマンティックトークン層のみで完結させる(コンポーネント側CSSは変更不要)
 - **FR4 デザイントークン設計**: プリミティブ/セマンティックの2層構造をCSS変数で実装する。コンポーネントのCSSはセマンティックトークンのみ参照する
 - **FR5 React + TypeScript版の実装**: 部品として他プロジェクトから利用する本体は React + TypeScript で実装する
@@ -65,9 +66,9 @@
 
 ## スコープに関するリスク・留意事項
 
-- 当初5種類だったコンポーネントは、画面パターン実現に必要な部品を洗い出した結果、Textarea/Radio・RadioGroup/Switch・Toggle/Avatar/Tabs/Dropdown・Menu/Badge/Icon/Tooltip/Card/Alert・Bannerを加えた**十数種類規模**に拡大した。これによりスコープが広範化しているため、後続のWorkflow Planning / Units Generationで**実装単位への分割**(例: 基本入力系/レイアウト・ナビゲーション系/フィードバック系/Table等の複合コンポーネント、といったグルーピング)を強く推奨する
+- 当初5種類だったコンポーネントは、画面パターン実現に必要な部品を洗い出した結果、Textarea/Radio・RadioGroup/Switch・Toggle/Avatar/Tabs/Dropdown・Menu/Badge/Icon/Tooltip/Card/Alert・Banner/AppShellを加えた**十数種類規模**に拡大した。これによりスコープが広範化しているため、後続のWorkflow Planning / Units Generationで**実装単位への分割**(例: 基本入力系/レイアウト・ナビゲーション系(AppShell含む)/フィードバック系/Table等の複合コンポーネント、といったグルーピング)を強く推奨する
 - HTML版とReact版で実装ロジック(状態設計、イベントハンドリング、a11y対応)の整合を保つ必要がある。`reference/CLAUDE.md`には「Reactコンポーネント化する際はVanilla JS実装のロジックをそのまま移植する」との方針記載があり、本要件ではこれを両方向(React→HTML版の更新も含む)で保つ
 
 ## サマリー
 
-React + TypeScriptによるコンポーネントライブラリ(Button、FormField系(TextInput/Textarea/Select/Checkbox/Radio/Switch)、Table、Modal、Toast、Avatar、Tabs、Dropdown/Menu、Badge、Icon、Tooltip、Card、Alert/Bannerの計十数コンポーネント、5画面パターン、4軸テーマ機能)を、WCAG 2.1 AA準拠を目標に実装する。並行してNode.js不要のHTML+CSS(+JS)静的デモ版と、他プロジェクトへの組み込みガイドを作成する。本リポジトリはプロトタイプ/サンプル位置づけとし、パッケージ配布は今回のスコープ外とする。
+React + TypeScriptによるコンポーネントライブラリ(Button、FormField系(TextInput/Textarea/Select/Checkbox/Radio/Switch)、Table、Modal、Toast、Avatar、Tabs、Dropdown/Menu、Badge、Icon、Tooltip、Card、Alert/Banner、AppShellの計十数コンポーネント、4画面パターン、4軸テーマ機能)を、WCAG 2.1 AA準拠を目標に実装する。並行してNode.js不要のHTML+CSS(+JS)静的デモ版と、他プロジェクトへの組み込みガイドを作成する。本リポジトリはプロトタイプ/サンプル位置づけとし、パッケージ配布は今回のスコープ外とする。
