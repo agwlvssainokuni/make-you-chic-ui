@@ -478,3 +478,10 @@
 **Context**: CONSTRUCTION - Unit 5 Functional Design (完了) → NFR Requirements/NFR Design (SKIP) → Code Generation (開始)
 
 ---
+
+## CONSTRUCTION - Unit 5(ナビゲーション・レイアウト系) - Code Generation (Part 1: Planning)
+**Timestamp**: 2026-08-11T11:26:12Z
+**AI Response**: `aidlc-docs/construction/plans/unit5-nav-layout-code-generation-plan.md` を作成。全7ステップ(位置計算ユーティリティの共通化、Tabs, Dropdown, AppShell, バレルエクスポート, HTML版反映, サマリー)。Unit 4のTooltip位置計算ロジックを共通ユーティリティ化して再利用する方針を明記。承認待ち。
+**Context**: CONSTRUCTION - Unit 5 Code Generation Part 1 (計画提示、承認待ち)
+
+---
