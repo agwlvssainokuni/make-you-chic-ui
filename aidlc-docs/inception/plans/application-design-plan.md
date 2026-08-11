@@ -26,7 +26,7 @@ C) 基本はB(props駆動)とし、Tabs/Dropdownなど利用側でのカスタ�
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: B
 
 ### Question 2: Controlled / Uncontrolled
 
@@ -38,7 +38,7 @@ B) 両対応(value指定時はControlled、未指定時はdefaultValueでUncontr
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: B
 
 ### Question 3: Iconコンポーネントのアイコン供給方法
 
@@ -52,7 +52,7 @@ C) 既存のアイコンライブラリ(react-iconsやlucide-react等)に依存�
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ### Question 4: テーマ機能のサービス層設計
 
@@ -64,7 +64,7 @@ B) デザインシステムはCSS(セマンティックトークン)のみ提供
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ### Question 5: AppShellの状態アクセス
 
@@ -76,7 +76,7 @@ B) 不要。折り畳みトグルはAppShell内部(Sidebar自身)で完結させ
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ### Question 6: FormFieldとInput系コンポーネントの連携方式
 
@@ -88,7 +88,7 @@ B) Props方式: `<FormField>`と`<TextInput>`は独立しており、利用側�
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ### Question 7: スタイル上書きポリシー
 
@@ -102,7 +102,7 @@ C) 限定的に許容。レイアウト調整に関わるprops(`className`のみ
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ### Question 8: ref転送の対象範囲
 
@@ -114,7 +114,7 @@ B) DOM要素をルートに持つ全コンポーネント(Button, Card, Avatar�
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: B
 
 ### Question 9: パッケージのエクスポート構成
 
@@ -126,4 +126,4 @@ B) サブパスエクスポート(`import { Button } from 'design-system/Button'
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
