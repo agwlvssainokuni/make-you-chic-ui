@@ -3,7 +3,7 @@
 ## Project Information
 - **Project Type**: Greenfield
 - **Start Date**: 2026-08-11T06:21:52Z
-- **Current Stage**: CONSTRUCTION - Unit 7(画面パターン): Code Generation
+- **Current Stage**: CONSTRUCTION - Unit 7(画面パターン): Code Generation(承認待ち)
 
 ## Workspace State
 - **Existing Code**: No
@@ -97,7 +97,7 @@
 - [x] NFR Requirements - SKIP(新規NFR論点なし)
 - [x] NFR Design - SKIP(同上)
 - [x] Infrastructure Design - SKIP
-- [ ] Code Generation - EXECUTE(進行中)
+- [x] Code Generation (2026-08-11T12:21:01Z 成果物作成完了、承認待ち) — アプリコードは`examples/`、サマリーは`aidlc-docs/construction/unit7-screen-patterns/code/`
 
 #### Unit 8
 - 未着手(Unit 4完了後に順次着手。詳細は`unit-of-work-dependency.md`の確定シーケンス参照)

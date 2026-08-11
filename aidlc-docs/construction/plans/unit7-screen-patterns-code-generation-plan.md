@@ -9,20 +9,20 @@
 
 ## 実施ステップ
 
-- [ ] **Step 1: サンプルデータ生成**
+- [x] **Step 1: サンプルデータ生成**(初回作成時に`permission`値の型不整合を発見し修正)
   - `examples/data/sampleUsers.ts`(`SampleUser`型、モックデータ配列)
-- [ ] **Step 2: EditUserModal 生成 + 単体テスト**
+- [x] **Step 2: EditUserModal 生成 + 単体テスト**
   - `examples/EditUserModal/EditUserModal.tsx`, `EditUserModal.test.tsx`
-- [ ] **Step 3: DeleteConfirmModal 生成 + 単体テスト**
+- [x] **Step 3: DeleteConfirmModal 生成 + 単体テスト**
   - `examples/DeleteConfirmModal/DeleteConfirmModal.tsx`, `DeleteConfirmModal.test.tsx`
-- [ ] **Step 4: ListView 生成 + 単体テスト**
+- [x] **Step 4: ListView 生成 + 単体テスト**
   - `examples/ListView/ListView.tsx`, `ListView.test.tsx`(EditUserModal/DeleteConfirmModalを利用)
-- [ ] **Step 5: DetailView 生成 + 単体テスト**
+- [x] **Step 5: DetailView 生成 + 単体テスト**(`DetailView.css`にDescription ListのCSS命名パターンを実装)
   - `examples/DetailView/DetailView.tsx`, `DetailView.test.tsx`(DeleteConfirmModalを利用)
-- [ ] **Step 6: HTML版デモへの反映**
+- [x] **Step 6: HTML版デモへの反映**
   - `html-demo/patterns/list-view.html`, `html-demo/patterns/detail-view.html`(`reference/integrated-app-demo.html`をベースにUnit 1〜6のトークン・命名規則へ合わせて拡張)
   - `html-demo/index.html`のリンク一覧を更新
-- [ ] **Step 7: サマリードキュメント作成**
+- [x] **Step 7: サマリードキュメント作成**
 
 ## 共通ルール(継続)
 

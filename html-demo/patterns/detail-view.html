@@ -1,0 +1,126 @@
+<!--
+  Copyright 2026 agwlvssainokuni
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detail View 画面パターン デモ — Unit 7</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/semantic.css">
+<link rel="stylesheet" href="../assets/fonts.css">
+<style>
+  .demo-wrap { max-width: 640px; margin: var(--space-6) auto; padding: 0 var(--space-4); }
+  .detail-header { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-4); }
+  .wds-avatar { display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 56px; border-radius: 50%; background: var(--color-primary-subtle); color: var(--color-primary); font-weight: var(--font-weight-semibold); font-size: var(--font-size-lg); }
+  .wds-badge { display: inline-flex; align-items: center; padding: 0 var(--space-2); height: 18px; border-radius: 999px; font-size: var(--font-size-sm); background: var(--color-primary); color: #fff; }
+  .wds-tabs-list { display: flex; gap: var(--space-1); border-bottom: 1px solid var(--color-border); }
+  .wds-tab { padding: var(--space-2) var(--space-4); background: none; border: none; border-bottom: 2px solid transparent; font-size: var(--font-size-md); color: var(--color-text-muted); cursor: pointer; }
+  .wds-tab.active { color: var(--color-primary); border-bottom-color: var(--color-primary); }
+  .wds-tab-panel { display: none; padding: var(--space-4) 0; }
+  .wds-tab-panel.active { display: block; }
+  .description-list { display: grid; grid-template-columns: 140px 1fr; gap: var(--space-3) var(--space-4); }
+  .description-list-term { font-size: var(--font-size-sm); color: var(--color-text-muted); }
+  .wds-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-4); }
+  .wds-button { font-size: var(--font-size-md); padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); border: 1px solid transparent; cursor: pointer; }
+  .wds-button.variant-danger { background: var(--color-danger); color: #fff; }
+  .wds-button:disabled { opacity: 0.5; cursor: not-allowed; }
+  .wds-modal-overlay { position: fixed; inset: 0; background: var(--color-overlay); display: none; align-items: center; justify-content: center; }
+  .wds-modal-overlay.open { display: flex; }
+  .wds-modal-dialog { background: var(--color-surface); border-radius: var(--radius-lg); max-width: 420px; width: 100%; padding: var(--space-4); }
+  .wds-text-input { width: 100%; box-sizing: border-box; font-size: var(--font-size-md); padding: var(--space-2) var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-md); margin: var(--space-2) 0; }
+</style>
+</head>
+<body>
+  <div class="demo-wrap">
+    <div class="detail-header">
+      <div class="wds-avatar" role="img" aria-label="山田 太郎">山太</div>
+      <div>
+        <h1 style="margin:0; font-size: var(--font-size-xl); font-weight: var(--font-weight-semibold);">山田 太郎</h1>
+        <span class="wds-badge">管理者</span>
+      </div>
+    </div>
+
+    <div class="wds-tabs-list" role="tablist" aria-label="詳細セクション">
+      <button class="wds-tab active" role="tab" data-tab="basic" type="button">基本情報</button>
+      <button class="wds-tab" role="tab" data-tab="permissions" type="button">アクセス権限</button>
+      <button class="wds-tab" role="tab" data-tab="danger" type="button">危険操作</button>
+    </div>
+
+    <div class="wds-tab-panel active" data-panel="basic">
+      <dl class="description-list">
+        <dt class="description-list-term">名前</dt><dd>山田 太郎</dd>
+        <dt class="description-list-term">メールアドレス</dt><dd>yamada@example.com</dd>
+        <dt class="description-list-term">役割</dt><dd>管理者</dd>
+      </dl>
+    </div>
+    <div class="wds-tab-panel" data-panel="permissions">
+      <p>users: 読み取り/書き込み</p>
+    </div>
+    <div class="wds-tab-panel" data-panel="danger">
+      <div class="wds-card">
+        <p style="font-weight: var(--font-weight-semibold); margin: 0 0 4px;">このユーザーを削除</p>
+        <p style="color: var(--color-text-muted); margin: 0 0 12px;">削除すると復元できません。関連するアクセス権限もすべて失われます。</p>
+        <button class="wds-button variant-danger" id="open-delete" type="button">削除する</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="wds-modal-overlay" id="delete-modal">
+    <div class="wds-modal-dialog" role="dialog" aria-modal="true">
+      <p>確認のため「山田 太郎」と入力してください。この操作は取り消せません。</p>
+      <input class="wds-text-input" id="confirm-input" type="text" aria-label="確認のため「山田 太郎」と入力してください">
+      <div style="display:flex; gap:8px; justify-content:flex-end;">
+        <button class="wds-button" id="cancel-delete" type="button" style="background:var(--color-surface); border-color:var(--color-border); color:var(--color-text);">キャンセル</button>
+        <button class="wds-button variant-danger" id="confirm-delete" type="button" disabled>削除する</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll('.wds-tab').forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        document.querySelectorAll('.wds-tab').forEach(function (t) { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+        document.querySelectorAll('.wds-tab-panel').forEach(function (p) { p.classList.remove('active'); });
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+        document.querySelector('[data-panel="' + tab.getAttribute('data-tab') + '"]').classList.add('active');
+      });
+    });
+
+    var modal = document.getElementById('delete-modal');
+    var confirmInput = document.getElementById('confirm-input');
+    var confirmButton = document.getElementById('confirm-delete');
+
+    document.getElementById('open-delete').addEventListener('click', function () {
+      modal.classList.add('open');
+      confirmInput.focus();
+    });
+    document.getElementById('cancel-delete').addEventListener('click', function () {
+      modal.classList.remove('open');
+      confirmInput.value = '';
+      confirmButton.disabled = true;
+    });
+    confirmInput.addEventListener('input', function () {
+      confirmButton.disabled = confirmInput.value !== '山田 太郎';
+    });
+    confirmButton.addEventListener('click', function () {
+      alert('削除しました(デモ)');
+      modal.classList.remove('open');
+    });
+  </script>
+</body>
+</html>
