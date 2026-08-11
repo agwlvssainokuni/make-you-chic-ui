@@ -433,3 +433,10 @@
 **Context**: CONSTRUCTION - Unit 4 Functional Design (完了) → NFR Requirements/NFR Design (SKIP) → Code Generation (開始)
 
 ---
+
+## CONSTRUCTION - Unit 4(フィードバック系) - Code Generation (Part 1: Planning)
+**Timestamp**: 2026-08-11T10:56:12Z
+**AI Response**: `aidlc-docs/construction/plans/unit4-feedback-code-generation-plan.md` を作成。全8ステップ(共通ユーティリティ, Modal, Toast/ToastProvider, Alert, Tooltip, バレルエクスポート, HTML版反映, サマリー)。承認待ち。
+**Context**: CONSTRUCTION - Unit 4 Code Generation Part 1 (計画提示、承認待ち)
+
+---
