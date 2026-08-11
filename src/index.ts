@@ -51,6 +51,14 @@ export type { SwitchProps } from './components/Switch';
 export { RadioGroup, Radio } from './components/RadioGroup';
 export type { RadioGroupProps, RadioGroupOption, RadioProps } from './components/RadioGroup';
 
+// Static display components (Unit 3)
+export { Avatar, getInitials } from './components/Avatar';
+export type { AvatarProps } from './components/Avatar';
+export { Badge } from './components/Badge';
+export type { BadgeProps } from './components/Badge';
+export { Card } from './components/Card';
+export type { CardProps } from './components/Card';
+
 // Global stylesheets — consuming apps must import these once at the root
 // (see docs/integration-guide.md, produced by Unit 8).
 import './theme/tokens.css';
