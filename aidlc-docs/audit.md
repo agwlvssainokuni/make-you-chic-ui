@@ -545,3 +545,18 @@
 **Context**: CONSTRUCTION - Unit 6 Code Generation (成果物作成完了、承認待ち)
 
 ---
+
+## CONSTRUCTION - Unit 6(Table) - Code Generation (承認)
+**Timestamp**: 2026-08-11T12:03:20Z
+**User Input**: "Continue to Next Stage"
+**AI Response**: Code Generationを承認済みとして確定。Unit 6完了、全コンポーネント(Unit 1〜6)が完成。Unit 7(画面パターン: List View, Detail View, 編集Modal, 削除確認)のFunctional Designへ進む。
+**Context**: CONSTRUCTION - Unit 6(Table) 完了 → Unit 7(画面パターン) 開始
+
+---
+
+## CONSTRUCTION - Unit 7(画面パターン) - Functional Design (計画・質問提示)
+**Timestamp**: 2026-08-11T12:05:18Z
+**AI Response**: `aidlc-docs/construction/plans/unit7-screen-patterns-functional-design-plan.md` を作成。サンプルドメイン(ユーザー管理)、サンプルデータの所有方法(APIなし・ローカルstateのみ)、List Viewのフィルタ・一括操作対象、削除確認の使い分けの4問を提示。ユーザーの回答待ち。
+**Context**: CONSTRUCTION - Unit 7 Functional Design (質問ファイル提示、回答待ちゲート)
+
+---

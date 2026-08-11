@@ -3,7 +3,7 @@
 ## Project Information
 - **Project Type**: Greenfield
 - **Start Date**: 2026-08-11T06:21:52Z
-- **Current Stage**: CONSTRUCTION - Unit 6(Table): Code Generation(承認待ち)
+- **Current Stage**: CONSTRUCTION - Unit 7(画面パターン): Functional Design
 
 ## Workspace State
 - **Existing Code**: No
@@ -90,9 +90,16 @@
 - [x] NFR Requirements - SKIP(PBT適用は既存フレームワークの機械的適用でありCode Generationレベル)
 - [x] NFR Design - SKIP(同上)
 - [x] Infrastructure Design - SKIP
-- [x] Code Generation (2026-08-11T11:56:11Z 成果物作成完了、承認待ち) — アプリコードはワークスペースルート(`src/components/Table/`, `html-demo/`)、サマリーは`aidlc-docs/construction/unit6-table/code/`
+- [x] Code Generation (2026-08-11T12:03:20Z 承認済み) — アプリコードはワークスペースルート(`src/components/Table/`, `html-demo/`)、サマリーは`aidlc-docs/construction/unit6-table/code/`。**Unit 6 完了(全コンポーネント完成)**
 
-#### Unit 7〜8
+#### Unit 7: 画面パターン(List View, Detail View, 編集Modal, 削除確認)
+- [ ] Functional Design - EXECUTE(進行中)
+- [ ] NFR Requirements - 要否判定はFunctional Design後
+- [ ] NFR Design - 要否判定はNFR Requirements後
+- [ ] Infrastructure Design - SKIP
+- [ ] Code Generation - EXECUTE
+
+#### Unit 8
 - 未着手(Unit 4完了後に順次着手。詳細は`unit-of-work-dependency.md`の確定シーケンス参照)
 
 ### Build and Test(全ユニット完了後)
