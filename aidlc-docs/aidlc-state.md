@@ -3,7 +3,7 @@
 ## Project Information
 - **Project Type**: Greenfield
 - **Start Date**: 2026-08-11T06:21:52Z
-- **Current Stage**: CONSTRUCTION - Unit 1(基盤): Code Generation(承認待ち)
+- **Current Stage**: CONSTRUCTION - Unit 2(基本入力系): Functional Design
 
 ## Workspace State
 - **Existing Code**: No
@@ -55,10 +55,17 @@
 - [x] NFR Requirements (2026-08-11T09:28:01Z 承認済み) — テストフレームワーク等をプロジェクト全体の基盤として確定。`aidlc-docs/construction/unit1-foundation/nfr-requirements/`
 - [x] NFR Design (2026-08-11T09:35:19Z 承認済み) — `aidlc-docs/construction/unit1-foundation/nfr-design/`
 - [x] Infrastructure Design - SKIP
-- [x] Code Generation (2026-08-11T09:48:02Z 成果物作成完了、承認待ち) — アプリコードはワークスペースルート(`src/`, `html-demo/`)、サマリーは`aidlc-docs/construction/unit1-foundation/code/`
+- [x] Code Generation (2026-08-11T09:56:20Z 承認済み) — アプリコードはワークスペースルート(`src/`, `html-demo/`)、サマリーは`aidlc-docs/construction/unit1-foundation/code/`。**Unit 1 完了**
 
-#### Unit 2〜8
-- 未着手(Unit 1完了後に順次着手。詳細は`unit-of-work-dependency.md`の確定シーケンス参照)
+#### Unit 2: 基本入力系(Button, FormField, TextInput, Textarea, Select, Checkbox, Radio/RadioGroup, Switch)
+- [ ] Functional Design - EXECUTE(進行中)
+- [ ] NFR Requirements - 要否判定はFunctional Design後
+- [ ] NFR Design - 要否判定はNFR Requirements後
+- [ ] Infrastructure Design - SKIP
+- [ ] Code Generation - EXECUTE
+
+#### Unit 3〜8
+- 未着手(Unit 2完了後に順次着手。詳細は`unit-of-work-dependency.md`の確定シーケンス参照)
 
 ### Build and Test(全ユニット完了後)
 - [ ] Build and Test - EXECUTE
@@ -68,6 +75,6 @@
 
 ## Current Status
 - **Lifecycle Phase**: CONSTRUCTION
-- **Current Stage**: Unit 1(基盤) - Functional Design(進行中)
-- **Next Stage**: Unit 1 - NFR Requirements
+- **Current Stage**: Unit 2(基本入力系) - Functional Design(進行中)
+- **Next Stage**: Unit 2 - NFR Requirements
 - **Status**: 進行中

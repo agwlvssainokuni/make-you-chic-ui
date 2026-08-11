@@ -307,3 +307,11 @@
 **Context**: CONSTRUCTION - Unit 1 Code Generation (成果物修正、承認待ち)
 
 ---
+
+## CONSTRUCTION - Unit 1(基盤) - Code Generation (承認)
+**Timestamp**: 2026-08-11T09:56:20Z
+**User Input**: "Continue to Next Stage"
+**AI Response**: Code Generationを承認済みとして確定。Unit 1(基盤)の全ステージ(Functional Design/NFR Requirements/NFR Design/Infrastructure Design[SKIP]/Code Generation)が完了。Unit 2(基本入力系)のFunctional Designへ進む。
+**Context**: CONSTRUCTION - Unit 1(基盤) 完了 → Unit 2(基本入力系) 開始
+
+---
