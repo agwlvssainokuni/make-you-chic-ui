@@ -605,3 +605,18 @@
 **Context**: CONSTRUCTION - Unit 8 Code Generation Part 1 (計画提示、承認待ち)
 
 ---
+
+## CONSTRUCTION - Unit 8(組み込みガイド) - Code Generation Plan Approval
+**Timestamp**: 2026-08-11T12:35:04Z
+**User Response**: "Yes, proceed to generation"
+**Status**: Approved
+**Context**: `unit8-integration-guide-code-generation-plan.md`を承認。Part 2(Generation)へ進む。
+
+---
+
+## CONSTRUCTION - Unit 8(組み込みガイド) - Code Generation (Part 2: Generation完了)
+**Timestamp**: 2026-08-11T12:36:56Z
+**AI Response**: `docs/integration-guide.md`を作成(全6セクション: セットアップ、基本的な使い方、テーマ設定、スタイルカスタマイズ指針、HTML版デモ案内、既知の制約)。サマリー作成。**Unit 1〜8の全実装作業が完了**。次はBuild and Testフェーズ。
+**Context**: CONSTRUCTION - Unit 8 Code Generation (成果物作成完了、承認待ち)
+
+---

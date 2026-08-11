@@ -3,7 +3,7 @@
 ## Project Information
 - **Project Type**: Greenfield
 - **Start Date**: 2026-08-11T06:21:52Z
-- **Current Stage**: CONSTRUCTION - Unit 8(組み込みガイド): Code Generation
+- **Current Stage**: CONSTRUCTION - Unit 8(組み込みガイド): Code Generation(承認待ち)
 
 ## Workspace State
 - **Existing Code**: No
@@ -104,7 +104,7 @@
 - [x] NFR Requirements - SKIP(同上)
 - [x] NFR Design - SKIP(同上)
 - [x] Infrastructure Design - SKIP
-- [ ] Code Generation - EXECUTE(進行中、最終ユニット)
+- [x] Code Generation (2026-08-11T12:36:56Z 成果物作成完了、承認待ち) — `docs/integration-guide.md`、サマリーは`aidlc-docs/construction/unit8-integration-guide/code/`
 - 未着手(Unit 4完了後に順次着手。詳細は`unit-of-work-dependency.md`の確定シーケンス参照)
 
 ### Build and Test(全ユニット完了後)
