@@ -590,3 +590,18 @@
 **Context**: CONSTRUCTION - Unit 7 Code Generation (成果物作成完了、承認待ち)
 
 ---
+
+## CONSTRUCTION - Unit 7(画面パターン) - Code Generation (承認) / Unit 8開始
+**Timestamp**: 2026-08-11T12:31:47Z
+**User Input**: "Continue to Next Stage"
+**AI Response**: Code Generationを承認済みとして確定。Unit 7完了。Unit 8(組み込みガイド)はコンポーネント・業務ロジックを持たない純粋ドキュメント成果物(unit-of-work.md記載)のため、Functional Design/NFR Requirements/NFR DesignをすべてSKIPし、直接Code Generationへ進む。
+**Context**: CONSTRUCTION - Unit 7(画面パターン) 完了 → Unit 8(組み込みガイド) 開始
+
+---
+
+## CONSTRUCTION - Unit 8(組み込みガイド) - Code Generation (Part 1: Planning)
+**Timestamp**: 2026-08-11T12:33:02Z
+**AI Response**: `aidlc-docs/construction/plans/unit8-integration-guide-code-generation-plan.md` を作成。全7ステップ(インストール・セットアップ、import・基本的な使い方、テーマ設定、スタイルカスタマイズ指針、HTML版デモ案内、既知の制約案内、サマリー)。承認待ち。
+**Context**: CONSTRUCTION - Unit 8 Code Generation Part 1 (計画提示、承認待ち)
+
+---
