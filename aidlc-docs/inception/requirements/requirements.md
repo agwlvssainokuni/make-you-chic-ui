@@ -20,12 +20,22 @@
 
 ## 機能要件 (Functional Requirements)
 
-- **FR1 コンポーネント一式の実装**: 以下5種類のコンポーネントをReactで実装する
+- **FR1 コンポーネント一式の実装**: 以下のコンポーネントをReactで実装する
   - Button(variant: primary/secondary/danger/ghost、size: sm/md/lg、loading状態 `aria-busy`)
-  - FormField + TextInput / Select / Checkbox(`forwardRef` 対応必須)
+  - FormField + TextInput / Textarea / Select / Checkbox / Radio・RadioGroup / Switch・Toggle(`forwardRef` 対応必須)
   - Table(3段階トグルソート、ページネーション、行選択(`Set`管理の制御コンポーネント)、列幅調整(ドラッグ終了時のみstate更新)、セルクリックによるインライン編集)
   - Modal(`createPortal`でbody直下配置、フォーカストラップ、Escキー・背景クリックで閉じる)
   - Toast(Context + `useToast`フック、`aria-live="polite"`、複数同時表示対応)
+  - Avatar(Detail Viewヘッダーのアバター表示用)
+  - Tabs(Detail Viewのタブ切替用)
+  - Dropdown/Menu(Topbarのユーザーメニュー用)
+  - Badge(通知件数表示等)
+  - Icon(Avatar/Badge/通知アイコン等が内部で利用する共通アイコンプリミティブ)
+  - Tooltip(アイコンのみのボタン等の補助説明用)
+  - Card(Detail View等のコンテンツグルーピング用コンテナ)
+  - Alert/Banner(フォーム全体のエラーサマリー等、常時表示・非モーダルの通知。variant: info/success/warning/danger、閉じるボタン・アクションリンクは任意)
+
+  補足: Sidebar/Topbarはコンポーネントではなく、FR2の共通レイアウトの一部として扱う(独立コンポーネント化はしない)。
 - **FR2 画面パターンの実装**: List View、Detail View、編集Modal(新規/編集共用)、削除確認(簡易/確認テキスト入力式)、共通レイアウト(Sidebar折り畳み可能+Topbar+Content)を実装する
 - **FR3 テーマ機能4軸の実装**: `data-theme`(ライト/ダーク、`localStorage`永続化、初回`prefers-color-scheme`尊重)、`data-brand`(blue/green/purple/orange)、`data-font-family`(ゴシック/明朝)、`data-font-size`(sm/md/lg)を、セマンティックトークン層のみで完結させる(コンポーネント側CSSは変更不要)
 - **FR4 デザイントークン設計**: プリミティブ/セマンティックの2層構造をCSS変数で実装する。コンポーネントのCSSはセマンティックトークンのみ参照する
@@ -55,9 +65,9 @@
 
 ## スコープに関するリスク・留意事項
 
-- 今回のスコープはコンポーネント5種+画面パターン5種+テーマ4軸+React版/HTML版の二重実装+組み込みガイドと広範囲であるため、後続のWorkflow Planning / Units Generationで**実装単位への分割**を検討することを推奨する
+- 当初5種類だったコンポーネントは、画面パターン実現に必要な部品を洗い出した結果、Textarea/Radio・RadioGroup/Switch・Toggle/Avatar/Tabs/Dropdown・Menu/Badge/Icon/Tooltip/Card/Alert・Bannerを加えた**十数種類規模**に拡大した。これによりスコープが広範化しているため、後続のWorkflow Planning / Units Generationで**実装単位への分割**(例: 基本入力系/レイアウト・ナビゲーション系/フィードバック系/Table等の複合コンポーネント、といったグルーピング)を強く推奨する
 - HTML版とReact版で実装ロジック(状態設計、イベントハンドリング、a11y対応)の整合を保つ必要がある。`reference/CLAUDE.md`には「Reactコンポーネント化する際はVanilla JS実装のロジックをそのまま移植する」との方針記載があり、本要件ではこれを両方向(React→HTML版の更新も含む)で保つ
 
 ## サマリー
 
-React + TypeScriptによるコンポーネントライブラリ(Button/FormField系/Table/Modal/Toast の5コンポーネント、5画面パターン、4軸テーマ機能)を、WCAG 2.1 AA準拠を目標に実装する。並行してNode.js不要のHTML+CSS(+JS)静的デモ版と、他プロジェクトへの組み込みガイドを作成する。本リポジトリはプロトタイプ/サンプル位置づけとし、パッケージ配布は今回のスコープ外とする。
+React + TypeScriptによるコンポーネントライブラリ(Button、FormField系(TextInput/Textarea/Select/Checkbox/Radio/Switch)、Table、Modal、Toast、Avatar、Tabs、Dropdown/Menu、Badge、Icon、Tooltip、Card、Alert/Bannerの計十数コンポーネント、5画面パターン、4軸テーマ機能)を、WCAG 2.1 AA準拠を目標に実装する。並行してNode.js不要のHTML+CSS(+JS)静的デモ版と、他プロジェクトへの組み込みガイドを作成する。本リポジトリはプロトタイプ/サンプル位置づけとし、パッケージ配布は今回のスコープ外とする。

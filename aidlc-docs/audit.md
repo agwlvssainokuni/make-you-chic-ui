@@ -71,3 +71,11 @@
 **Context**: INCEPTION - Requirements Analysis (要件定義書作成、承認待ち)
 
 ---
+
+## INCEPTION - Requirements Analysis (FR1へのコンポーネント追加リクエスト)
+**Timestamp**: 2026-08-11T07:09:56Z
+**User Input**: "FR1のコンポーネントについて。複数行テキスト、ラジオボタンも欲しい。他に部品ってあったっけ？" その後AskUserQuestionでの複数回のやり取りを経て、"Avatar, Tabs, Dropdown/Menu, Badge, 他にある？" → "Icon, Switch/Toggle, Tooltip, 他にある？" → "Card, Alert/Banner, 他にある？あと、Alert/Bannerの具体的なイメージを知りたい。" と回答。Sidebar/Topbarは非選択(コンポーネント化せず画面パターンのまま)。
+**AI Response**: `reference/CLAUDE.md`の画面パターン記述を根拠に追加候補を3ラウンドにわたって提示し、Alert/Bannerの具体像(Toastとの違い)を説明。最終的にTextarea, Radio/RadioGroup, Switch/Toggle, Avatar, Tabs, Dropdown/Menu, Badge, Icon, Tooltip, Card, Alert/Bannerの11部品をFR1に追加(既存5種+11種で十数種類規模に拡大)。requirements.mdのFR1・リスク欄・サマリーを更新。これ以上の候補は憶測ベースになるため打ち止めを提案。
+**Context**: INCEPTION - Requirements Analysis (要件定義書の修正、承認待ち)
+
+---
