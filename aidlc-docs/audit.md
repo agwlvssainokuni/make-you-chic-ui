@@ -410,3 +410,18 @@
 **Context**: CONSTRUCTION - Unit 3 Code Generation (成果物作成完了、承認待ち)
 
 ---
+
+## CONSTRUCTION - Unit 3(静的表示系) - Code Generation (承認)
+**Timestamp**: 2026-08-11T10:46:16Z
+**User Input**: "Continue to Next Stage"
+**AI Response**: Code Generationを承認済みとして確定。Unit 3(静的表示系)完了。Unit 4(フィードバック系: Modal, Toast, Alert/Banner, Tooltip)のFunctional Designへ進む。
+**Context**: CONSTRUCTION - Unit 3(静的表示系) 完了 → Unit 4(フィードバック系) 開始
+
+---
+
+## CONSTRUCTION - Unit 4(フィードバック系) - Functional Design (計画・質問提示)
+**Timestamp**: 2026-08-11T10:47:35Z
+**AI Response**: `aidlc-docs/construction/plans/unit4-feedback-functional-design-plan.md` を作成。Modal初期フォーカス、Modal多重表示対応、Toastの自動消滅時間・表示位置、Toastのスタック順・ホバー挙動、Tooltipの位置計算方式、Tooltipの表示トリガーの6問を提示。ユーザーの回答待ち。
+**Context**: CONSTRUCTION - Unit 4 Functional Design (質問ファイル提示、回答待ちゲート)
+
+---

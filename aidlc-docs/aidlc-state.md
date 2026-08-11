@@ -3,7 +3,7 @@
 ## Project Information
 - **Project Type**: Greenfield
 - **Start Date**: 2026-08-11T06:21:52Z
-- **Current Stage**: CONSTRUCTION - Unit 3(静的表示系): Code Generation(承認待ち)
+- **Current Stage**: CONSTRUCTION - Unit 4(フィードバック系): Functional Design
 
 ## Workspace State
 - **Existing Code**: No
@@ -69,10 +69,17 @@
 - [x] NFR Requirements - SKIP(技術スタック確定済み、新規NFRなし)
 - [x] NFR Design - SKIP(同上)
 - [x] Infrastructure Design - SKIP
-- [x] Code Generation (2026-08-11T10:44:28Z 成果物作成完了、承認待ち) — アプリコードはワークスペースルート(`src/components/{Avatar,Badge,Card}`, `html-demo/`)、サマリーは`aidlc-docs/construction/unit3-static-display/code/`
+- [x] Code Generation (2026-08-11T10:46:16Z 承認済み) — アプリコードはワークスペースルート(`src/components/{Avatar,Badge,Card}`, `html-demo/`)、サマリーは`aidlc-docs/construction/unit3-static-display/code/`。**Unit 3 完了**
 
-#### Unit 4〜8
-- 未着手(Unit 3完了後に順次着手。詳細は`unit-of-work-dependency.md`の確定シーケンス参照)
+#### Unit 4: フィードバック系(Modal, Toast/ToastProvider, Alert/Banner, Tooltip)
+- [ ] Functional Design - EXECUTE(進行中)
+- [ ] NFR Requirements - 要否判定はFunctional Design後
+- [ ] NFR Design - 要否判定はNFR Requirements後
+- [ ] Infrastructure Design - SKIP
+- [ ] Code Generation - EXECUTE
+
+#### Unit 5〜8
+- 未着手(Unit 4完了後に順次着手。詳細は`unit-of-work-dependency.md`の確定シーケンス参照)
 
 ### Build and Test(全ユニット完了後)
 - [ ] Build and Test - EXECUTE
