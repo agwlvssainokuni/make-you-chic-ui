@@ -120,3 +120,20 @@
 **Context**: `aidlc-docs/inception/plans/execution-plan.md` を作成。Application Design・Units GenerationをEXECUTE、User Stories・Infrastructure DesignをSKIPと判定。Functional Design/NFR Requirements/NFR Designはユニット単位で要否判定するEXECUTEとした。
 
 ---
+
+## Workflow Planning - Approval
+**Timestamp**: 2026-08-11T07:28:32Z
+**AI Prompt**: "Ready to proceed with this plan?"
+**User Response**: "Approve & Continue"
+**Status**: Approved
+**Context**: 実行計画(`aidlc-docs/inception/plans/execution-plan.md`)を承認。Application Designへ進む。
+
+---
+
+## INCEPTION - Application Design (計画・質問提示)
+**Timestamp**: 2026-08-11T07:30:15Z
+**User Input**: (Workflow Planning承認後、自動的にApplication Designへ遷移)
+**AI Response**: `aidlc-docs/inception/plans/application-design-plan.md` を作成。複合コンポーネントAPIパターン、Controlled/Uncontrolled方針、Icon供給方法、テーマのサービス層設計、AppShell状態アクセス、FormField連携方式、スタイル上書きポリシー、ref転送範囲、パッケージエクスポート構成の9問を提示。ユーザーの回答待ち。
+**Context**: INCEPTION - Application Design (質問ファイル提示、回答待ちゲート)
+
+---
