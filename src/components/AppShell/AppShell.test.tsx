@@ -97,6 +97,29 @@ describe('AppShell', () => {
     expect(loggedOut).toBe(true)
   })
 
+  it('calls onClick on a nav item when clicked (SPA router integration)', async () => {
+    let clicked = false
+    render(
+      <AppShell
+        navItems={[
+          ...navItems,
+          {
+            label: 'カタログ',
+            href: '/catalog',
+            onClick: (e) => {
+              e.preventDefault()
+              clicked = true
+            },
+          },
+        ]}
+      >
+        <p>本文</p>
+      </AppShell>,
+    )
+    await userEvent.click(screen.getByTestId('sidebar-nav-/catalog'))
+    expect(clicked).toBe(true)
+  })
+
   it('does not render a notification icon (discontinued feature)', () => {
     render(
       <AppShell navItems={navItems}>

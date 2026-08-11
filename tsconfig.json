@@ -20,5 +20,13 @@
 
     "types": ["vite/client", "vitest/globals"]
   },
-  "include": ["src", "examples", "vite.config.ts", "vitest.config.ts", "vitest.setup.ts"]
+  "include": [
+    "src",
+    "examples",
+    "sample-app",
+    "vite.config.ts",
+    "vite.sample-app.config.ts",
+    "vitest.config.ts",
+    "vitest.setup.ts"
+  ]
 }

@@ -795,3 +795,40 @@
 **Context**: Build and Testステージ レビュー対応 — 依存関係の再確認、ユーザーのコミット許可待ち
 
 ---
+
+## 新規スコープ: サンプルアプリケーションの要望(要件定義の漏れ)
+
+**Timestamp**: 2026-08-11T15:39:37Z
+**User Input**: "このデザインシステムを使って画面を表示できるサンプルアプリまで期待していたのだけれど、最初の要件定義で漏れていました。これから作れますか？"
+**AI Response**: `examples/`配下のReactコンポーネント(ListView, DetailView, EditUserModal, DeleteConfirmModal)は既に存在するが、実際にブラウザで動かして確認できる`index.html`/エントリーポイントは存在しないことを確認(現状`npm run dev`はライブラリビルド専用の`vite.config.ts`のみで、実行可能なアプリとしては機能しない)。新規スコープとして受け付け、実装方針の確認質問を提示。
+**Context**: Build and Testステージ完了後に発覚した要件漏れ — 新規ユニットとして追加予定、方針確認中
+
+---
+
+## Unit 9(サンプルアプリケーション) - 方針確認・Requirements/Application Design更新
+
+**Timestamp**: 2026-08-11T16:28:27Z
+**AI Prompt**: AskUserQuestionで3点確認(配置・起動方法/ナビゲーション実装/デモ範囲)
+**User Response**: 配置=本リポジトリにindex.html追加(推奨案)、ナビゲーション=react-router導入、デモ範囲=「欲しいのは部品を一通り並べたカタログページと、exampleとして設けた複合部品を含む一連の操作フローを実装したページ。これらをAppShellのコンテンツとして配置。sidebarのメニューからそれぞれ辿れるようにする」(テーマ切り替えパネルも含む)
+**AI Response**: `requirements.md`にFR9(サンプルアプリケーションの実装)を追加。`unit-of-work.md`にUnit 9を登録。react-router統合にあたり`AppShellNavItem`が`href`のみでSPA遷移(フルページリロード回避)ができないという設計上のギャップを発見したため、`onClick`オプショナルプロパティの追加を`component-methods.md`に反映。`aidlc-docs/construction/plans/unit9-sample-app-code-generation-plan.md`を作成(全9ステップ)。承認待ち。
+**Context**: Unit 9 Code Generation Part 1(計画提示、承認待ち)
+
+---
+
+## Unit 9(サンプルアプリケーション) - Code Generation Plan Approval
+
+**Timestamp**: 2026-08-11T16:37:55Z
+**User Response**: "Yes, proceed to generation"
+**Status**: Approved
+**Context**: `unit9-sample-app-code-generation-plan.md`を承認。Part 2(Generation)へ進む。
+
+---
+
+## Unit 9(サンプルアプリケーション) - Code Generation (Part 2: Generation完了)
+
+**Timestamp**: 2026-08-11T17:06:42Z
+**AI Response**: 計画の全9ステップを実行。`AppShellNavItem.onClick`・`ListView.onViewUser`(オプショナル追加、既存挙動に影響なし)、`react-router`依存追加、`sample-app/`配下にCatalogPage(コンポーネントカタログ)・UserListPage/UserDetailPage(List→Detail操作フロー)・ThemeSettingsPage(テーマ4軸切り替え)・App/main(AppShell+react-router)を実装。`index.html`・`vite.sample-app.config.ts`・`sample-app:build`スクリプトを追加(既存のライブラリビルド`npm run build`には影響なし、モジュール数93のまま変化なしを確認)。`npm run dev`を実際に起動しVite開発サーバーへのHTTPリクエストで主要モジュールが200で変換されることを確認(ブラウザでのクリック操作による目視確認は本セッションの実行環境では未実施)。
+**検証結果**: `tsc --noEmit`0エラー、`npm test` 199/199件成功(新規3件)、`npm run lint`(oxlint+eslint)0エラー、`npm run lint:css`0エラー、`npm run format:check`クリーン、`npm run build`・`npm run sample-app:build`ともに成功
+**Context**: Unit 9 Code Generation(成果物作成完了、承認待ち)
+
+---

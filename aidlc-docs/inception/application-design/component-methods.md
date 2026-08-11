@@ -223,6 +223,7 @@ interface AppShellNavItem {
   label: string
   icon?: string
   href: string
+  onClick?(event: React.MouseEvent): void // Unit 9で追加: SPAルーター(react-router等)統合用。指定時はhrefと併用しconsumer側でevent.preventDefault()+navigate()を呼ぶ想定
 }
 interface AppShellUserMenuItem {
   label: string

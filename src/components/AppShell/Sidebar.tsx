@@ -20,6 +20,12 @@ export interface AppShellNavItem {
   label: string
   icon?: IconName
   href: string
+  /**
+   * SPA router integration (e.g. react-router): when provided, called on
+   * click alongside the native `href` navigation. Call
+   * `event.preventDefault()` inside to take over navigation yourself.
+   */
+  onClick?: (event: React.MouseEvent) => void
 }
 
 export interface SidebarProps {
@@ -43,6 +49,7 @@ export function Sidebar({ navItems }: SidebarProps): React.JSX.Element {
           <li key={item.href}>
             <a
               href={item.href}
+              onClick={item.onClick}
               className="wds-sidebar-nav-link"
               aria-label={item.label}
               data-testid={`sidebar-nav-${item.href}`}

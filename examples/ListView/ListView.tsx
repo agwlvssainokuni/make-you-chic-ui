@@ -27,13 +27,18 @@ const ROLE_FILTER_OPTIONS = [
 
 const PAGE_SIZE = 3
 
+export interface ListViewProps {
+  /** When provided, shows a "詳細" action per row that calls back with the row (Unit 9: List → Detail navigation). */
+  onViewUser?: (user: SampleUser) => void
+}
+
 /**
  * List View screen pattern: filter bar + bulk-action bar (selection-only)
  * + Table + pagination (Functional Design: business-rules.md).
  * Reference implementation only — not exported from the package (Unit 5
  * decision: examples/ is not part of the published API).
  */
-export function ListView(): React.JSX.Element {
+export function ListView({ onViewUser }: ListViewProps = {}): React.JSX.Element {
   const [users, setUsers] = useState<SampleUser[]>(initialSampleUsers)
   const [searchText, setSearchText] = useState('')
   const [roleFilter, setRoleFilter] = useState('')
@@ -72,6 +77,16 @@ export function ListView(): React.JSX.Element {
       header: '',
       render: (row) => (
         <div style={{ display: 'flex', gap: 8 }}>
+          {onViewUser && (
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={() => onViewUser(row)}
+              data-testid={`list-view-view-${row.id}`}
+            >
+              詳細
+            </Button>
+          )}
           <Button
             variant="secondary"
             size="sm"

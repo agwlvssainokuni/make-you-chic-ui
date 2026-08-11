@@ -56,6 +56,13 @@
 - **対応Application Design**: 該当なし(ドキュメント成果物)
 - **備考**: HTML版デモ成果物を持たない唯一のユニット
 
+### Unit 9: サンプルアプリケーション(Build and Testステージ完了後に追加)
+
+- **責務**: デザインシステムを実際に組み込んで動作確認できるReactアプリケーションの実装(コンポーネントカタログページ、画面パターン操作フローページ、テーマ設定ページの3画面、`AppShell`+react-routerによるSidebarナビゲーション)
+- **対応FR/NFR**: FR9(サンプルアプリケーションの実装。要件定義漏れとしてBuild and Testステージ完了後に追加)
+- **対応Application Design**: `AppShellNavItem`に`onClick`を追加(SPAルーター統合のため。既存の`href`のみの構成では`<a>`のネイティブ遷移となりフルページリロードが発生するため)、`ListView`に`onViewUser`オプショナルpropを追加(List→Detail遷移のため)
+- **位置づけ**: `sample-app/`配下に配置。パッケージのバレルエクスポートには含めず、npm発行対象(`npm run build`)にも含めない。`npm run dev`で起動、専用のビルドスクリプト(`npm run sample-app:build`)で別途ビルド可能
+
 ## コード構成方針(Q4=A: 単一パッケージ構成)
 
 ```

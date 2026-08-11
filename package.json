@@ -8,11 +8,12 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "sample-app:build": "tsc -b && vite build --config vite.sample-app.config.ts",
     "preview": "vite preview",
     "test": "NODE_OPTIONS=--no-experimental-webstorage vitest run",
     "test:watch": "NODE_OPTIONS=--no-experimental-webstorage vitest",
     "lint": "oxlint . && eslint .",
-    "lint:css": "stylelint \"src/**/*.css\" \"html-demo/**/*.css\"",
+    "lint:css": "stylelint \"src/**/*.css\" \"html-demo/**/*.css\" \"sample-app/**/*.css\"",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
@@ -35,6 +36,7 @@
     "jsdom": "^30.0.1",
     "oxlint": "^1.78.0",
     "prettier": "^3.9.6",
+    "react-router": "^8.3.0",
     "stylelint": "^17.14.1",
     "stylelint-config-standard": "^40.0.0",
     "typescript": "^6.0.3",

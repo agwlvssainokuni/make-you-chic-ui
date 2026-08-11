@@ -45,6 +45,18 @@ describe('ListView', () => {
     expect(screen.queryByText('山田 太郎')).not.toBeInTheDocument()
   })
 
+  it('does not render a view action when onViewUser is not provided', () => {
+    render(<ListView />)
+    expect(screen.queryByTestId('list-view-view-1')).not.toBeInTheDocument()
+  })
+
+  it('calls onViewUser with the row when the view action is clicked', async () => {
+    let viewedName = ''
+    render(<ListView onViewUser={(user) => (viewedName = user.name)} />)
+    await userEvent.click(screen.getByTestId('list-view-view-1'))
+    expect(viewedName).toBe('山田 太郎')
+  })
+
   it('opens the create modal and adds a new user', async () => {
     render(<ListView />)
     await userEvent.click(screen.getByText('新規作成'))

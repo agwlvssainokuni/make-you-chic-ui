@@ -132,6 +132,12 @@
 - [x] oxlintへの移行(ESLintとの併用) (2026-08-11T14:07:53Z) — 現行ルール一つ一つとの突き合わせ検証の結果、`react-hooks/refs`等14ルールがoxlint未実装と判明したため、oxlint(jsx-a11y/react/typescript相当を`.oxlintrc.json`で明示設定)+ ESLint(`eslint-plugin-react-hooks`のみに縮小)の併用構成へ移行。検証中に`Switch.tsx`の`aria-checked`欠落という実バグを発見・修正。`npm run lint`は`oxlint . && eslint .`に変更。詳細は`audit.md`該当エントリ参照。
 - [x] 依存関係の再最新化 (2026-08-11T15:34:19Z) — oxlint移行でESLint 9上限の原因だった2パッケージを削除済みだったため、ESLintを`^9.39.5`→`^10.8.1`に更新可能と判明。クリーン再インストール実施。TypeScriptは`@typescript-eslint/parser`の制約により`6.0.3`で据え置き。再検証済み(tsc/vitest 196件/lint/lint:css/format:check/build全てクリーン、npm audit脆弱性0件)。
 
+### Unit 9: サンプルアプリケーション(Build and Testステージ完了後に追加、要件定義漏れへの対応)
+
+- [x] Functional Design(方針確認) (2026-08-11T16:28:27Z 承認済み) — AskUserQuestionで配置/ナビゲーション/デモ範囲を確認。`requirements.md`にFR9追加、`unit-of-work.md`にUnit 9登録、`AppShellNavItem.onClick`追加を`component-methods.md`に反映
+- [x] NFR Requirements / NFR Design / Infrastructure Design - SKIP(技術スタック確定済み、新規NFRなし)
+- [x] Code Generation (2026-08-11T17:06:42Z 承認済み) — `AppShellNavItem.onClick`・`ListView.onViewUser`追加(既存挙動に影響なし)、`sample-app/`配下にApp/main/CatalogPage/UserListPage/UserDetailPage/ThemeSettingsPageを実装、`index.html`・`vite.sample-app.config.ts`・`sample-app:build`スクリプト追加。サマリーは`aidlc-docs/construction/unit9-sample-app/code/summary.md`。**Unit 9完了**
+
 ### 🟡 OPERATIONS PHASE
 
 - [ ] Operations - PLACEHOLDER
