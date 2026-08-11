@@ -568,3 +568,10 @@
 **Context**: CONSTRUCTION - Unit 7 Functional Design (完了) → NFR Requirements/NFR Design (SKIP) → Code Generation (開始)
 
 ---
+
+## CONSTRUCTION - Unit 7(画面パターン) - Code Generation (Part 1: Planning)
+**Timestamp**: 2026-08-11T12:13:43Z
+**AI Response**: `aidlc-docs/construction/plans/unit7-screen-patterns-code-generation-plan.md` を作成。全7ステップ(サンプルデータ、EditUserModal、DeleteConfirmModal、ListView、DetailView、HTML版反映、サマリー)。examples/配下はバレルエクスポートに含めない方針を明記。承認待ち。
+**Context**: CONSTRUCTION - Unit 7 Code Generation Part 1 (計画提示、承認待ち)
+
+---
