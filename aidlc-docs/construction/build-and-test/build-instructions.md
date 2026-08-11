@@ -4,7 +4,7 @@
 
 - **Build Tool**: Vite 8.2 (via `vite build`) + TypeScript 6.0 (via `tsc -b`)
 - **Runtime**: Node.js 20.13+ (native ESM, `import.meta.env`). Verified against Node v26.5.0.
-- **Dependencies**: see `package.json` — React 19, TypeScript, Vite, Vitest, Testing Library, vitest-axe, fast-check, ESLint, Prettier, stylelint (full list in `package.json`)
+- **Dependencies**: see `package.json` — React 19, TypeScript, Vite, Vitest, Testing Library, vitest-axe, fast-check, oxlint, ESLint, Prettier, stylelint (full list in `package.json`)
 - **Environment Variables**: None required
 - **System Requirements**: No unusual requirements; a standard developer laptop is sufficient
 
@@ -25,6 +25,15 @@ Two other pre-existing issues surfaced only once actually testing against the ne
 **Build output filename changed**: Vite 8's library-mode CSS output is now named after the library (`dist/web-design-system-sample.css`) rather than the previous generic `dist/style.css`. `docs/integration-guide.md`'s import example was updated to match.
 
 **Prettier reformatted the whole tree**: the version bump (`3.3.3` → `3.9.6`) changed some formatting heuristics (e.g. long ternary line-wrapping) enough that `npm run format:check` failed across ~110 files project-wide on the new version. All changes were purely cosmetic (verified via `git diff` on a sample before applying broadly); `npm run format` was run once to bring the whole tree back to a clean `format:check` state. Note that Prettier's CSS formatting does not preserve blank lines between adjacent one-line rules the way `stylelint-config-standard`'s `rule-empty-line-before` requires — if `npm run format` and `stylelint --fix` are both run, run `stylelint --fix` last so its formatting wins on `.css` files.
+
+## Linting Toolchain (as of the 2026-08-11 oxlint migration)
+
+`npm run lint` runs `oxlint . && eslint .` — a hybrid setup, not a full replacement:
+
+- **oxlint** (`.oxlintrc.json`) handles almost everything: core JS correctness, and explicit rule-by-rule equivalents of `@typescript-eslint/recommended`, `eslint-plugin-react/recommended`, and `eslint-plugin-jsx-a11y/recommended`. Rules are listed individually rather than via broad category flags, so the config doesn't silently pick up unrelated rules on an oxlint upgrade. One default-category rule (`jsx_a11y/prefer-tag-over-role`) is explicitly turned off — see the comment in `.oxlintrc.json` for why (it would suggest replacing the custom `Modal`/`Toast` implementations with native `<dialog>`/`<output>`, which are semantically/behaviorally different from what's actually built and already axe-tested).
+- **ESLint** (`eslint.config.js`) is scoped to `eslint-plugin-react-hooks` only. Verified rule-by-rule against oxlint's rule catalog (see `git log` for the investigation): oxlint reimplements only 2 of `react-hooks/recommended`'s 16 rules (`rules-of-hooks`, `exhaustive-deps`); the other 14 — including `refs`, which caught a genuine bug in this project (see the Dependency Version Notes above) — have no oxlint equivalent yet. Rather than split the 16 rules across both tools (fragile if oxlint's coverage changes), ESLint keeps the full `react-hooks/recommended` set.
+- Suppression comments must use the tool that owns the rule: `// oxlint-disable-next-line <rule>` for anything in `.oxlintrc.json` (e.g. `jsx_a11y/no-autofocus`), `// eslint-disable-next-line <rule>` for `react-hooks/*` rules. Mixing them up produces an ESLint "rule definition not found" error, since ESLint validates every `eslint-disable` comment it encounters even for rules it no longer has loaded.
+- oxlint is dramatically faster in practice on this codebase: ~0.4s vs. ~1.8s for the (now much smaller) ESLint pass.
 
 ## Build Steps
 

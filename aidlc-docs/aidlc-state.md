@@ -128,6 +128,8 @@
 
 - [x] Build and Test (2026-08-11T13:15:12Z 完了、承認待ち) — `npm run build`成功(tsc -b 0エラー、vite build成功)。`npm test` 196/196件成功(28ファイル)。`npm run lint`(ESLint)・`npm run lint:css`(stylelint)ともに0エラー。成果物は`aidlc-docs/construction/build-and-test/{build-instructions.md, unit-test-instructions.md, integration-test-instructions.md, performance-test-instructions.md, build-and-test-summary.md}`。詳細は`build-and-test-summary.md`参照。
 - [x] 依存関係の最新化 (2026-08-11T13:40:48Z) — `package.json`の`version`を`0.0.0`に変更、全依存を最新化(React 19/Vite 8/Vitest 4/TypeScript 6.0/ESLint 9等、一部パッケージの対応状況によりTypeScript/ESLintは各々6.0.3/9.39.5に固定)。`eslint-config-prettier`のサプライチェーン攻撃を検出し安全な`10.1.8`に完全固定。ESLint flat config移行(`eslint.config.js`)、`react-hooks/refs`新ルールへの対応、Prettier全体再フォーマットを実施。再検証済み(tsc/vitest/lint/lint:css/format:check/build全てクリーン)。詳細は`build-instructions.md`「Dependency Version Notes」参照。
+- [x] セミコロン無しスタイルへの統一 (2026-08-11T13:48:19Z) — `.prettierrc.json`の`semi`を`false`に変更しプロジェクト全体を再フォーマット。`CLAUDE.md`/`.aidlc-rule-details/`は`.prettierignore`で対象外。
+- [x] oxlintへの移行(ESLintとの併用) (2026-08-11T14:07:53Z) — 現行ルール一つ一つとの突き合わせ検証の結果、`react-hooks/refs`等14ルールがoxlint未実装と判明したため、oxlint(jsx-a11y/react/typescript相当を`.oxlintrc.json`で明示設定)+ ESLint(`eslint-plugin-react-hooks`のみに縮小)の併用構成へ移行。検証中に`Switch.tsx`の`aria-checked`欠落という実バグを発見・修正。`npm run lint`は`oxlint . && eslint .`に変更。詳細は`audit.md`該当エントリ参照。
 
 ### 🟡 OPERATIONS PHASE
 

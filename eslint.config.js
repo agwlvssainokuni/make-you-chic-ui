@@ -13,42 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * ESLint 9 requires flat config (eslint.config.js) by default; FlatCompat
- * lets the same `extends`-style preset list from the pre-9.0 .eslintrc
- * setup keep working without needing each plugin's own flat-config export
- * shape (which varies release to release across this project's plugins).
+ * As of the oxlint migration, ESLint is scoped to eslint-plugin-react-hooks
+ * ONLY: oxlint (see .oxlintrc.json) now covers everything else (core JS
+ * correctness, @typescript-eslint, eslint-plugin-react, eslint-plugin-jsx-a11y
+ * equivalents). Of react-hooks/recommended's 16 rules, oxlint only
+ * reimplements 2 (rules-of-hooks, exhaustive-deps) — the other 14 (e.g.
+ * `refs`, which caught a real render-time ref read/write bug in this project)
+ * have no oxlint equivalent yet, so the full recommended set stays here
+ * rather than splitting it and risking drift if oxlint's coverage changes.
  */
-import { FlatCompat } from '@eslint/eslintrc'
-import js from '@eslint/js'
-import globals from 'globals'
-
-const compat = new FlatCompat({ baseDirectory: import.meta.dirname })
+import tsParser from '@typescript-eslint/parser'
+import reactHooks from 'eslint-plugin-react-hooks'
 
 export default [
   { ignores: ['dist', 'node_modules', 'html-demo'] },
-  js.configs.recommended,
-  ...compat.extends(
-    'plugin:@typescript-eslint/recommended',
-    'plugin:react/recommended',
-    'plugin:react-hooks/recommended',
-    'plugin:jsx-a11y/recommended',
-    'eslint-config-prettier',
-  ),
   {
+    files: ['**/*.{ts,tsx}'],
+    plugins: { 'react-hooks': reactHooks },
     languageOptions: {
-      globals: { ...globals.browser, ...globals.es2021, ...globals.node },
+      parser: tsParser,
       parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',
         ecmaFeatures: { jsx: true },
       },
     },
-    settings: {
-      react: { version: 'detect' },
-    },
-    rules: {
-      'react/react-in-jsx-scope': 'off',
-      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
-    },
+    rules: reactHooks.configs.recommended.rules,
   },
 ]

@@ -58,10 +58,12 @@ All dependencies were updated to their latest available versions via a clean uni
 
 ## Static Analysis
 
-### ESLint (`npm run lint`)
+### Linting (`npm run lint` = `oxlint . && eslint .`)
 
-- **Status**: Pass (0 errors) after fixes
-- 8 errors were found and fixed on first run: an empty-interface pattern in `Card.tsx` (converted to a `type` alias), a non-focusable `role="menu"` container in `Dropdown.tsx` (`tabIndex={-1}` added), a non-native interactive overlay in `Modal.tsx` and a non-native interactive resize handle in `Table.tsx` (both marked `role="presentation"` as decorative/mouse-only affordances with documented keyboard alternatives elsewhere), an `autoFocus` usage in `Table/CellEditor.tsx` that is correct for its user-initiated edit-mode-entry context (annotated with a scoped `eslint-disable-next-line` and rationale comment), and the intentionally-empty declaration-merging interfaces in `src/types/vitest-axe-matchers.d.ts` (annotated with a scoped `eslint-disable`/`eslint-enable` block, since a type alias would break the required declaration-merging).
+- **Status**: Pass (0 errors)
+- **2026-08-11 tooling change**: migrated to a hybrid oxlint + ESLint setup after the user asked to switch to oxlint if it could match current coverage. Rule-by-rule verification against oxlint's actual rule catalog found near-total parity for `@typescript-eslint/recommended`, `eslint-plugin-react/recommended`, and `eslint-plugin-jsx-a11y/recommended` (now explicit rules in `.oxlintrc.json`), but `eslint-plugin-react-hooks/recommended` was only 2/16 covered (`rules-of-hooks`, `exhaustive-deps`) — the other 14, including `refs`, have no oxlint equivalent. Decision: oxlint for everything else, ESLint scoped to `eslint-plugin-react-hooks` only (see `eslint.config.js`). Full detail in `build-instructions.md`'s "Linting Toolchain" section and `aidlc-docs/audit.md`.
+- The oxlint migration's rule-by-rule verification also surfaced one genuine accessibility bug oxlint's stricter `jsx_a11y/role-has-required-aria-props` caught (but the previous eslint-plugin-jsx-a11y version hadn't): `Switch.tsx`'s `role="switch"` input was missing the required `aria-checked`, fixed by adding it.
+- Original (pre-oxlint) ESLint fixes remain relevant to the rules ESLint still owns or that were ported into `.oxlintrc.json`: an empty-interface pattern in `Card.tsx` (converted to a `type` alias), a non-focusable `role="menu"` container in `Dropdown.tsx` (`tabIndex={-1}` added), a non-native interactive overlay in `Modal.tsx` and a non-native interactive resize handle in `Table.tsx` (both marked `role="presentation"` as decorative/mouse-only affordances with documented keyboard alternatives elsewhere), an `autoFocus` usage in `Table/CellEditor.tsx` that is correct for its user-initiated edit-mode-entry context (now an `oxlint-disable-next-line` with rationale comment), and the intentionally-empty declaration-merging interfaces in `src/types/vitest-axe-matchers.d.ts` (now an `oxlint-disable`/`oxlint-enable` block, since a type alias would break the required declaration-merging).
 
 ### stylelint (`npm run lint:css`)
 

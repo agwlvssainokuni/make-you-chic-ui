@@ -764,3 +764,24 @@
 **Context**: Build and Testステージ レビュー対応 — コーディングスタイル指摘への対応完了、ユーザーのコミット許可待ち
 
 ---
+
+## Build and Test Stage - レビュー指摘2: oxlintへの移行検討・実施
+
+**Timestamp**: 2026-08-11T14:07:53Z
+**User Input**: "最近はoxlintというのがあるそうです。eslintとの比較を教えてください。" → (比較調査を提示) → "oxlintでも現行と同等のチェックができるならば乗り換えたい。"
+**AI Response**: oxlintを実際にインストールし、現行ESLintの有効ルール(jsx-a11y/recommended, react/recommended, react-hooks/recommended, @typescript-eslint/recommended)と1ルールずつ突き合わせて検証。結論:
+
+- jsx-a11y/recommended・@typescript-eslint/recommended・react/recommended(PropTypes/クラスコンポーネント関連の無関係4件を除く)は明示的なルール設定でoxlintが完全カバー
+- react-hooks/recommended(16ルール)はoxlintが2ルール(`rules-of-hooks`, `exhaustive-deps`)のみカバーし、`refs`(直近の依存関係更新で`useControllableState.ts`の実バグを検出した当のルール)を含む14ルールは未実装
+  ユーザーの判断: oxlint + ESLint(react-hooksのみ)の併用を選択。実装内容:
+- `.oxlintrc.json`を新規作成し、jsx-a11y/react/typescript相当のルールを明示的に設定(カテゴリ一括有効化ではなく個別指定で意図しないルール混入を防止)
+- 検証過程で判明した実バグ1件を修正: `Switch.tsx`の`role="switch"`に`aria-checked`が欠落(oxlintの`role-has-required-aria-props`が検出。旧eslint-plugin-jsx-a11yでは未検出だった実装差異)
+- `jsx_a11y/prefer-tag-over-role`はoxlintのデフォルトカテゴリ由来の追加ルールのため無効化(Modal/ToastをHTML5ネイティブ要素に置き換える提案は、既存のfocus trap・ARIA実装を壊すリスクがあるため不採用)
+- `eslint.config.js`を`eslint-plugin-react-hooks`のrecommended設定のみに縮小(`@typescript-eslint/eslint-plugin`, `eslint-plugin-react`, `eslint-plugin-jsx-a11y`, `eslint-config-prettier`, `@eslint/js`, `@eslint/eslintrc`, `globals`を削除、`@typescript-eslint/parser`はTSX構文解析のため維持)
+- `package.json`の`lint`スクリプトを`oxlint . && eslint .`に変更
+- 各ファイルの`eslint-disable`コメントのうち、oxlint管轄に移ったルール(`jsx-a11y/no-autofocus`, `@typescript-eslint/no-empty-object-type`, `@typescript-eslint/no-unused-vars`)を`oxlint-disable`構文に置き換え
+  **速度計測**: oxlint 0.42秒 vs 旧ESLint(react-hooksのみに縮小後でも)1.75秒
+  **検証結果**: `npm run lint`(oxlint+eslint)・`tsc`・`npm test`(196/196)・`lint:css`・`format:check`・`build`すべてクリーン
+  **Context**: Build and Testステージ レビュー対応 — リンティングツール移行、ユーザーのコミット許可待ち
+
+---

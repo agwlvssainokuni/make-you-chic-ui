@@ -39,7 +39,7 @@ export function DefaultCellEditor({
       // Entering edit mode is a user-initiated action, not a page-load
       // autofocus; the editor must receive focus immediately for inline
       // editing to work.
-      // eslint-disable-next-line jsx-a11y/no-autofocus
+      // oxlint-disable-next-line jsx_a11y/no-autofocus
       autoFocus
       value={draft}
       onChange={setDraft}

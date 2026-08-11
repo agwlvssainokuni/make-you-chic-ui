@@ -52,6 +52,7 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
         ref={ref}
         type="checkbox"
         role="switch"
+        aria-checked={isChecked}
         className="wds-switch-input"
         checked={isChecked}
         disabled={disabled}

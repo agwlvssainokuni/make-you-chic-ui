@@ -35,9 +35,9 @@ import type { AxeMatchers } from 'vitest-axe'
 // alias) is required to augment vitest's own `Assertion`/
 // `AsymmetricMatchersContaining` interfaces, and the `T` parameter must be
 // kept to match the type parameter list of the interface being merged into.
-/* eslint-disable @typescript-eslint/no-empty-object-type, @typescript-eslint/no-unused-vars */
+/* oxlint-disable typescript/no-empty-object-type, no-unused-vars */
 declare module 'vitest' {
   interface Assertion<T = unknown> extends AxeMatchers {}
   interface AsymmetricMatchersContaining extends AxeMatchers {}
 }
-/* eslint-enable @typescript-eslint/no-empty-object-type, @typescript-eslint/no-unused-vars */
+/* oxlint-enable typescript/no-empty-object-type, no-unused-vars */
