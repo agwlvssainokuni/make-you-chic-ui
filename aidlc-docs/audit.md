@@ -194,3 +194,19 @@
 **Context**: INCEPTION - Units Generation (成果物修正、承認待ち)
 
 ---
+
+## INCEPTION - Units Generation (承認)
+**Timestamp**: 2026-08-11T09:13:27Z
+**User Input**: "Approve & Continue"
+**AI Response**: `aidlc-docs/inception/application-design/unit-of-work*.md` を承認済みとして確定。INCEPTIONフェーズ完了。CONSTRUCTION PHASE(Unit 1: 基盤)へ進む。
+**Context**: INCEPTION (完了) → CONSTRUCTION PHASE 開始(Unit 1)
+
+---
+
+## CONSTRUCTION - Unit 1(基盤) - Functional Design (計画・質問提示)
+**Timestamp**: 2026-08-11T09:15:03Z
+**User Input**: (Units Generation承認後、自動的にCONSTRUCTION PHASE Unit 1へ遷移)
+**AI Response**: `aidlc-docs/construction/plans/unit1-foundation-functional-design-plan.md` を作成。テーマのマルチタブ同期、Iconのレンダリング方式、未定義Icon名の挙動、テーマリセット操作の要否の4問を提示。Integration Points/Business Scenariosは非該当と判断(理由明記)。ユーザーの回答待ち。
+**Context**: CONSTRUCTION - Unit 1 Functional Design (質問ファイル提示、回答待ちゲート)
+
+---
