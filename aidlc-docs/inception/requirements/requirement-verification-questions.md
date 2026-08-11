@@ -18,7 +18,7 @@ C) このリポジトリ自体は検証・サンプル用であり、将来的�
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: C
 
 ## Question 2
 実装言語・フレームワークについて、`reference/CLAUDE.md` 末尾に「Reactコンポーネント化する際は」との記載がありました。React前提で進めてよいですか?
@@ -31,7 +31,7 @@ C) いいえ。Vanilla JS(参考実装デモと同様の方式)のまま拡張�
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: X — A(React + TypeScript)をベースとしつつ、Node.js環境がなくてもデザインイメージを確認できるよう、HTML+CSS(+必要に応じてJS)の静的デモ版も別途作成する。
 
 ## Question 3
 ビルドツール・パッケージマネージャーの希望はありますか?
@@ -44,7 +44,7 @@ C) 特にこだわりはない(AI側で標準的な構成を提案してよい)
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ## Question 4
 今回のワークフローで実装するスコープはどこまでとしますか? (`reference/CLAUDE.md` には実装済みコンポーネント5種・画面パターン5種・テーマ機能4軸が記載されています)
@@ -57,7 +57,7 @@ C) まずはButton・FormField系など基本コンポーネントのみ実装�
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ## Question 5
 スタイリング方式は `reference` のデモと同様「CSS変数によるプリミティブ/セマンティック2層構造」を採用する前提でよいですか? (CSS Modules / Vanilla CSS / CSS-in-JS のいずれを使うか)
@@ -70,7 +70,7 @@ C) CSS-in-JS(styled-components や vanilla-extract 等)
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ## Question 6
 コンポーネントカタログ/ドキュメントとして Storybook のような開発環境を用意しますか?
@@ -83,7 +83,7 @@ C) いいえ、今回は不要(単体テストのみで十分)
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: B
 
 ## Question 7
 テストについて、どこまで求めますか?
@@ -96,7 +96,7 @@ C) 現時点ではテスト不要(後続フェーズで追加)
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ## Question 8
 サポート対象ブラウザの範囲はどこまでですか? (`color-mix()` 等のモダンCSS機能を使用しているため確認)
@@ -109,7 +109,7 @@ C) 特に指定なし(AI側で一般的なモダンブラウザ対応として�
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ## Question 9
 アクセシビリティの目標基準はありますか? (`reference/CLAUDE.md` にフォーカスリング・フォーカストラップ等の実装方針の記載あり)
@@ -122,7 +122,7 @@ C) 特に定めない
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ## Question 10
 Webフォント(Noto Sans JP / Noto Serif JP)の読み込み方式について、今回のスコープではどちらとしますか? (`reference/CLAUDE.md` には「本番はセルフホスティングに切り替える」との記載あり)
@@ -133,7 +133,7 @@ B) 今回からセルフホスティング(woff2同梱)で実装する
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: B
 
 ## Question 11
 多言語対応(i18n)は必要ですか?
@@ -144,7 +144,7 @@ B) 必要。将来的な多言語対応を見据えた設計(文言の外出し�
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: B
 
 ## Question: Security Extensions
 Should security extension rules be enforced for this project?
@@ -155,7 +155,7 @@ B) No — skip all SECURITY rules (suitable for PoCs, prototypes, and experiment
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: B
 
 ## Question: Resiliency Extensions
 Should the resiliency baseline be applied to this project?
@@ -172,7 +172,7 @@ B) No — skip the resiliency baseline (suitable for PoCs, prototypes, and exper
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: B
 
 ## Question: Property-Based Testing Extension
 Should property-based testing (PBT) rules be enforced for this project?
@@ -185,4 +185,11 @@ C) No — skip all PBT rules (suitable for simple CRUD applications, UI-only pro
 
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: B
+
+---
+
+## 補足事項(質問項目に無かったもの・チャットでの追加発言)
+
+1. **他プロジェクトへの組み込みガイド**: 本デザインシステムを他プロジェクト(MasterMeister等)でWEB UIの部品として利用する際の組み込み手順書(インストール方法、コンポーネントのimport方法、テーマ設定方法等)を成果物に含める。
+2. **Node.js不要のHTML版(念押し)**: React+TypeScript版(部品として利用する本体)とは別に、Node.js環境がなくてもブラウザで直接開いてデザインイメージを確認できるHTML+CSS(+必要に応じてJS)の静的デモ版を必ず作成する。(Question 2の回答と同一趣旨)

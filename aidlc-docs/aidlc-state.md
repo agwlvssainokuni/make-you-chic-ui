@@ -3,7 +3,7 @@
 ## Project Information
 - **Project Type**: Greenfield
 - **Start Date**: 2026-08-11T06:21:52Z
-- **Current Stage**: INCEPTION - Requirements Analysis
+- **Current Stage**: INCEPTION - Requirements Analysis (完了、承認待ち)
 
 ## Workspace State
 - **Existing Code**: No
@@ -29,8 +29,13 @@
 - ドキュメント内のファイルパスは絶対パスでなく相対パスで記述する
 
 ## Extension Configuration
-(未設定 — Requirements Analysisフェーズで確認予定)
+| Extension | Enabled | Decided At |
+|---|---|---|
+| Security Baseline | No | Requirements Analysis |
+| Resiliency Baseline | No | Requirements Analysis |
+| Property-Based Testing | Partial(PBT-02, 03, 07, 08, 09のみ強制) | Requirements Analysis |
 
 ## Stage Progress
+### 🔵 INCEPTION PHASE
 - [x] Workspace Detection (2026-08-11T06:21:52Z) — Greenfieldと判定、Requirements Analysisへ
-- [ ] Requirements Analysis
+- [x] Requirements Analysis (2026-08-11T06:23:00Z 質問提示 → 回答受領・分析完了) — `aidlc-docs/inception/requirements/requirements.md` 作成、ユーザー承認待ち
