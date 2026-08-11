@@ -26,9 +26,23 @@
   flex-shrink: 0;
 }
 
-.wds-avatar.size-sm { width: 24px; height: 24px; font-size: var(--font-size-sm); }
-.wds-avatar.size-md { width: 36px; height: 36px; font-size: var(--font-size-md); }
-.wds-avatar.size-lg { width: 56px; height: 56px; font-size: var(--font-size-lg); }
+.wds-avatar.size-sm {
+  width: 24px;
+  height: 24px;
+  font-size: var(--font-size-sm);
+}
+
+.wds-avatar.size-md {
+  width: 36px;
+  height: 36px;
+  font-size: var(--font-size-md);
+}
+
+.wds-avatar.size-lg {
+  width: 56px;
+  height: 56px;
+  font-size: var(--font-size-lg);
+}
 
 .wds-avatar-image {
   width: 100%;

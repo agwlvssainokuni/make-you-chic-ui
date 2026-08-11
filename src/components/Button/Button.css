@@ -25,46 +25,74 @@
   cursor: pointer;
   white-space: nowrap;
 }
+
 .wds-button:focus-visible {
   outline: none;
   box-shadow: var(--focus-ring);
 }
+
 .wds-button:disabled {
   cursor: not-allowed;
   opacity: 0.6;
 }
 
 /* size */
-.wds-button.size-sm { font-size: var(--font-size-sm); padding: var(--space-1) var(--space-3); }
-.wds-button.size-md { font-size: var(--font-size-md); padding: var(--space-2) var(--space-4); }
-.wds-button.size-lg { font-size: var(--font-size-lg); padding: var(--space-3) var(--space-6); }
+.wds-button.size-sm {
+  font-size: var(--font-size-sm);
+  padding: var(--space-1) var(--space-3);
+}
+
+.wds-button.size-md {
+  font-size: var(--font-size-md);
+  padding: var(--space-2) var(--space-4);
+}
+
+.wds-button.size-lg {
+  font-size: var(--font-size-lg);
+  padding: var(--space-3) var(--space-6);
+}
 
 /* variant */
 .wds-button.variant-primary {
   background: var(--color-primary);
   color: #fff;
 }
-.wds-button.variant-primary:hover:not(:disabled) { background: var(--color-primary-hover); }
-.wds-button.variant-primary:active:not(:disabled) { background: var(--color-primary-active); }
+
+.wds-button.variant-primary:hover:not(:disabled) {
+  background: var(--color-primary-hover);
+}
+
+.wds-button.variant-primary:active:not(:disabled) {
+  background: var(--color-primary-active);
+}
 
 .wds-button.variant-secondary {
   background: var(--color-surface);
   color: var(--color-text);
   border-color: var(--color-border);
 }
-.wds-button.variant-secondary:hover:not(:disabled) { background: var(--color-surface-hover); }
+
+.wds-button.variant-secondary:hover:not(:disabled) {
+  background: var(--color-surface-hover);
+}
 
 .wds-button.variant-danger {
   background: var(--color-danger);
   color: #fff;
 }
-.wds-button.variant-danger:hover:not(:disabled) { background: var(--color-danger-hover); }
+
+.wds-button.variant-danger:hover:not(:disabled) {
+  background: var(--color-danger-hover);
+}
 
 .wds-button.variant-ghost {
   background: transparent;
   color: var(--color-text);
 }
-.wds-button.variant-ghost:hover:not(:disabled) { background: var(--color-surface-hover); }
+
+.wds-button.variant-ghost:hover:not(:disabled) {
+  background: var(--color-surface-hover);
+}
 
 .wds-button-spinner {
   width: 1em;

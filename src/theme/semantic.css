@@ -27,18 +27,21 @@
   --brand-600: var(--blue-600);
   --brand-700: var(--blue-700);
 }
+
 :root[data-brand='green'] {
   --brand-400: var(--green-brand-400);
   --brand-500: var(--green-brand-500);
   --brand-600: var(--green-brand-600);
   --brand-700: var(--green-brand-700);
 }
+
 :root[data-brand='purple'] {
   --brand-400: var(--purple-400);
   --brand-500: var(--purple-500);
   --brand-600: var(--purple-600);
   --brand-700: var(--purple-700);
 }
+
 :root[data-brand='orange'] {
   --brand-400: var(--orange-400);
   --brand-500: var(--orange-500);
@@ -55,26 +58,23 @@
   --color-danger-hover: var(--red-600);
   --color-success: var(--green-600);
   --color-warning: var(--orange-500);
-
   --color-text: var(--gray-700);
   --color-text-muted: var(--gray-500);
   --color-border: var(--gray-300);
-  --color-surface: #ffffff;
+  --color-surface: #fff;
   --color-surface-disabled: var(--gray-100);
   --color-surface-hover: var(--gray-100);
-  --color-input-bg: #ffffff;
+  --color-input-bg: #fff;
   --color-bg: #fafafa;
   --color-sidebar-bg: var(--gray-900);
   --color-sidebar-text: var(--gray-100);
   --color-overlay: rgb(0 0 0 / 40%);
   --color-tooltip-bg: var(--gray-900);
-  --color-tooltip-text: #ffffff;
-
+  --color-tooltip-text: #fff;
   --color-primary-subtle: color-mix(in srgb, var(--color-primary) 12%, var(--color-surface));
   --color-danger-subtle: #fef2f2;
   --color-warning-subtle-bg: #fef3c7;
   --color-warning-subtle-text: #92400e;
-
   --focus-ring: 0 0 0 3px color-mix(in srgb, var(--brand-500) 40%, transparent);
 }
 
@@ -99,6 +99,7 @@
 :root[data-font-family='sans'] {
   --font-family-active: var(--font-family-sans-raw);
 }
+
 :root[data-font-family='serif'] {
   --font-family-active: var(--font-family-serif-raw);
 }
@@ -108,9 +109,11 @@
 :root[data-font-size='md'] {
   --font-scale: 1;
 }
+
 :root[data-font-size='sm'] {
   --font-scale: 0.9;
 }
+
 :root[data-font-size='lg'] {
   --font-scale: 1.125;
 }

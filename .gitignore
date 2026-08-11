@@ -11,3 +11,6 @@ coverage/
 
 # editor / OS
 .DS_Store
+
+# build info
+tsconfig.tsbuildinfo

@@ -22,6 +22,7 @@
   color: var(--color-text);
   cursor: pointer;
 }
+
 .wds-switch-label:has(input:disabled) {
   color: var(--color-text-muted);
   cursor: not-allowed;
@@ -36,6 +37,7 @@
   background: var(--color-border);
   transition: background-color 0.15s ease;
 }
+
 .wds-switch-track.checked {
   background: var(--color-primary);
 }
@@ -50,6 +52,7 @@
   background: #fff;
   transition: transform 0.15s ease;
 }
+
 .wds-switch-track.checked .wds-switch-thumb {
   transform: translateX(16px);
 }
@@ -61,6 +64,7 @@
   opacity: 0;
   cursor: inherit;
 }
+
 .wds-switch-input:focus-visible ~ .wds-switch-thumb {
   box-shadow: var(--focus-ring);
 }

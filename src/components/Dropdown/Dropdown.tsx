@@ -131,6 +131,7 @@ export function Dropdown({ trigger, items, placement = 'bottom-start' }: Dropdow
             ref={menuRef}
             role="menu"
             id={id}
+            tabIndex={-1}
             className="wds-dropdown-menu"
             style={{ top: position.top, left: position.left }}
             onKeyDown={handleMenuKeyDown}

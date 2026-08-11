@@ -3,7 +3,7 @@
 ## Project Information
 - **Project Type**: Greenfield
 - **Start Date**: 2026-08-11T06:21:52Z
-- **Current Stage**: CONSTRUCTION - Unit 8(組み込みガイド): Code Generation(承認待ち)
+- **Current Stage**: CONSTRUCTION - Build and Test
 
 ## Workspace State
 - **Existing Code**: No
@@ -104,17 +104,17 @@
 - [x] NFR Requirements - SKIP(同上)
 - [x] NFR Design - SKIP(同上)
 - [x] Infrastructure Design - SKIP
-- [x] Code Generation (2026-08-11T12:36:56Z 成果物作成完了、承認待ち) — `docs/integration-guide.md`、サマリーは`aidlc-docs/construction/unit8-integration-guide/code/`
+- [x] Code Generation (2026-08-11T12:45:11Z 承認済み) — `docs/integration-guide.md`、サマリーは`aidlc-docs/construction/unit8-integration-guide/code/`。**Unit 8 完了(全ユニット完了)**
 - 未着手(Unit 4完了後に順次着手。詳細は`unit-of-work-dependency.md`の確定シーケンス参照)
 
 ### Build and Test(全ユニット完了後)
-- [ ] Build and Test - EXECUTE
+- [x] Build and Test (2026-08-11T13:15:12Z 完了、承認待ち) — `npm run build`成功(tsc -b 0エラー、vite build成功)。`npm test` 196/196件成功(28ファイル)。`npm run lint`(ESLint)・`npm run lint:css`(stylelint)ともに0エラー。成果物は`aidlc-docs/construction/build-and-test/{build-instructions.md, unit-test-instructions.md, integration-test-instructions.md, performance-test-instructions.md, build-and-test-summary.md}`。詳細は`build-and-test-summary.md`参照。
 
 ### 🟡 OPERATIONS PHASE
 - [ ] Operations - PLACEHOLDER
 
 ## Current Status
 - **Lifecycle Phase**: CONSTRUCTION
-- **Current Stage**: Unit 3(静的表示系) - Functional Design(進行中)
-- **Next Stage**: Unit 3 - NFR Requirements(要否判定)
-- **Status**: 進行中
+- **Current Stage**: Build and Test(完了、承認待ち)
+- **Next Stage**: Operations(プレースホルダー)
+- **Status**: Build and Testフェーズ完了、ユーザーのApprove & Continue待ち

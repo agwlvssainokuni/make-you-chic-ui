@@ -54,6 +54,7 @@
   color: inherit;
   padding: 0;
 }
+
 .wds-table-th-sortable:focus-visible {
   outline: none;
   box-shadow: var(--focus-ring);

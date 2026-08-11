@@ -22,13 +22,34 @@
   font-size: var(--font-size-sm);
 }
 
-.wds-alert.variant-info { background: var(--color-primary-subtle); color: var(--color-text); }
-.wds-alert.variant-success { background: color-mix(in srgb, var(--color-success) 12%, var(--color-surface)); color: var(--color-text); }
-.wds-alert.variant-warning { background: var(--color-warning-subtle-bg); color: var(--color-warning-subtle-text); }
-.wds-alert.variant-danger { background: var(--color-danger-subtle); color: var(--color-danger); }
+.wds-alert.variant-info {
+  background: var(--color-primary-subtle);
+  color: var(--color-text);
+}
 
-.wds-alert-body { flex: 1; }
-.wds-alert-title { font-weight: var(--font-weight-semibold); margin: 0 0 var(--space-1); }
+.wds-alert.variant-success {
+  background: color-mix(in srgb, var(--color-success) 12%, var(--color-surface));
+  color: var(--color-text);
+}
+
+.wds-alert.variant-warning {
+  background: var(--color-warning-subtle-bg);
+  color: var(--color-warning-subtle-text);
+}
+
+.wds-alert.variant-danger {
+  background: var(--color-danger-subtle);
+  color: var(--color-danger);
+}
+
+.wds-alert-body {
+  flex: 1;
+}
+
+.wds-alert-title {
+  font-weight: var(--font-weight-semibold);
+  margin: 0 0 var(--space-1);
+}
 
 .wds-alert-action {
   background: none;
@@ -50,4 +71,8 @@
   border-radius: var(--radius-sm);
   flex-shrink: 0;
 }
-.wds-alert-dismiss-button:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+
+.wds-alert-dismiss-button:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}

@@ -75,6 +75,7 @@ export function Modal({
     <div
       ref={overlayRef}
       className="wds-modal-overlay"
+      role="presentation"
       onMouseDown={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}

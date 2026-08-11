@@ -28,6 +28,7 @@
   color: var(--color-text);
   cursor: pointer;
 }
+
 .wds-radio-label:has(input:disabled) {
   color: var(--color-text-muted);
   cursor: not-allowed;
@@ -45,9 +46,11 @@
   align-items: center;
   justify-content: center;
 }
+
 .wds-radio-circle:has(.wds-radio-input:checked) {
   border-color: var(--color-primary);
 }
+
 .wds-radio-circle:has(.wds-radio-input:checked)::after {
   content: '';
   width: 8px;
@@ -63,6 +66,7 @@
   opacity: 0;
   cursor: inherit;
 }
+
 .wds-radio-circle:has(.wds-radio-input:focus-visible) {
   box-shadow: var(--focus-ring);
 }

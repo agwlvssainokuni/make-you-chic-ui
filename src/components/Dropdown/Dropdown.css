@@ -37,6 +37,7 @@
   border-radius: var(--radius-sm);
   cursor: pointer;
 }
+
 .wds-dropdown-item:hover,
 .wds-dropdown-item:focus-visible {
   background: var(--color-surface-hover);

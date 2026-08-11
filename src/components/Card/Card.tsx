@@ -16,7 +16,7 @@
 import './Card.css';
 import { forwardRef } from 'react';
 
-export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {}
+export type CardProps = React.HTMLAttributes<HTMLDivElement>;
 
 /** Simple bordered/padded container for grouping related content (Functional Design Question 4 = A). */
 export const Card = forwardRef<HTMLDivElement, CardProps>(function Card(

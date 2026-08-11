@@ -144,6 +144,9 @@ describe('ToastProvider / useToast', () => {
     await act(async () => {
       screen.getByTestId('show-toast').click();
     });
+    // axe() relies on real async timing internally, which never resolves
+    // while fake timers are active.
+    vi.useRealTimers();
     // Toast content is rendered via a portal into document.body, so scan
     // the whole body rather than the RTL-returned container.
     expect(await axe(document.body)).toHaveNoViolations();

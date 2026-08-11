@@ -17,7 +17,7 @@ import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'vitest-axe';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Modal } from './Modal';
 import { ModalStackProvider } from './ModalStackContext';
 
@@ -104,7 +104,7 @@ describe('Modal', () => {
     expect(onClose).toHaveBeenCalledTimes(1);
   });
 
-  it('moves initial focus to the first focusable element inside the dialog', () => {
+  it('moves initial focus to the first focusable element inside the dialog (the header close button)', () => {
     render(
       <ModalStackProvider>
         <Modal open onClose={() => {}} title="確認">
@@ -112,7 +112,27 @@ describe('Modal', () => {
         </Modal>
       </ModalStackProvider>,
     );
-    expect(screen.getByTestId('first-button')).toHaveFocus();
+    // The close button is rendered in the header, before the body content,
+    // so it is legitimately first in DOM order.
+    expect(screen.getByTestId('modal-close-button')).toHaveFocus();
+  });
+
+  it('moves initial focus to initialFocusRef when provided', () => {
+    function ModalWithInitialFocusRef() {
+      const ref = useRef<HTMLButtonElement>(null);
+      return (
+        <ModalStackProvider>
+          <Modal open onClose={() => {}} title="確認" initialFocusRef={ref}>
+            <button data-testid="first-button">最初</button>
+            <button ref={ref} data-testid="target-button">
+              対象
+            </button>
+          </Modal>
+        </ModalStackProvider>
+      );
+    }
+    render(<ModalWithInitialFocusRef />);
+    expect(screen.getByTestId('target-button')).toHaveFocus();
   });
 
   it('restores focus to the triggering element after closing', async () => {

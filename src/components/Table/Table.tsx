@@ -210,6 +210,7 @@ export function Table<T>({
                   )}
                   <span
                     className="wds-table-resize-handle"
+                    role="presentation"
                     onMouseDown={(e) => handleResizeStart(column.key, e)}
                     data-testid={`table-resize-${column.key}`}
                   />

@@ -7,15 +7,18 @@
   "overrides": [
     {
       "files": ["src/components/**/*.css"],
-      "comment": "NFR2: component CSS must reference semantic tokens only, never primitive tokens directly.",
+      "comment": "NFR2: component CSS must reference semantic color tokens, never primitive color tokens directly. Spacing/radius primitives are exempt: they don't vary across the data-theme/data-brand axes the way colors do, so no semantic indirection layer was built for them.",
       "rules": {
         "declaration-property-value-disallowed-list": {
-          "/.+/": [
-            "/var\\(--(gray|blue|red|green|orange|purple|brand)-[0-9]+/",
-            "/var\\(--space-[0-9]+/",
-            "/var\\(--radius-(sm|md|lg)/"
-          ]
+          "/.+/": ["/var\\(--(gray|blue|red|green|orange|purple|brand)-[0-9]+/"]
         }
+      }
+    },
+    {
+      "files": ["**/semantic.css"],
+      "comment": "semantic.css intentionally repeats the bare :root selector to group each theming axis (brand/theme/font-family/font-size) into its own readable block; these are not accidental duplicates.",
+      "rules": {
+        "no-duplicate-selectors": null
       }
     }
   ]

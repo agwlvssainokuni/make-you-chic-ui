@@ -26,6 +26,7 @@
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: 'Noto Sans JP';
   src: url('../fonts/noto-sans-jp-500.woff2') format('woff2');
@@ -33,6 +34,7 @@
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: 'Noto Sans JP';
   src: url('../fonts/noto-sans-jp-600.woff2') format('woff2');
@@ -40,6 +42,7 @@
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: 'Noto Sans JP';
   src: url('../fonts/noto-sans-jp-700.woff2') format('woff2');
@@ -55,6 +58,7 @@
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: 'Noto Serif JP';
   src: url('../fonts/noto-serif-jp-500.woff2') format('woff2');
@@ -62,6 +66,7 @@
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: 'Noto Serif JP';
   src: url('../fonts/noto-serif-jp-600.woff2') format('woff2');
@@ -69,6 +74,7 @@
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: 'Noto Serif JP';
   src: url('../fonts/noto-serif-jp-700.woff2') format('woff2');

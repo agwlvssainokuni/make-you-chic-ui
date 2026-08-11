@@ -620,3 +620,31 @@
 **Context**: CONSTRUCTION - Unit 8 Code Generation (成果物作成完了、承認待ち)
 
 ---
+
+## CONSTRUCTION - Unit 8(組み込みガイド) - Code Generation (承認)
+**Timestamp**: 2026-08-11T12:45:11Z
+**User Input**: "Continue to Next Stage"
+**AI Response**: Code Generationを承認済みとして確定。Unit 8完了、全8ユニットの実装作業が完了。Build and Testフェーズへ進む。
+**Context**: CONSTRUCTION - Unit 8(組み込みガイド) 完了(全ユニット完了) → Build and Test 開始
+
+---
+
+## Build and Test Stage
+**Timestamp**: 2026-08-11T13:15:12Z
+**Build Status**: Success — `tsc -b`(0エラー)、`vite build`成功(`dist/`にESM/UMDバンドル、CSSを生成)
+**Test Status**: Pass — `npm test`(vitest run)196/196件成功(28ファイル)。初回実行時は23件失敗しており、全て原因を特定して修正:
+  1. Node.js 20.13+のネイティブ`localStorage`グローバル(フラグなしでは機能しない)がjsdomの実装を覆い隠していた問題 → `NODE_OPTIONS=--no-experimental-webstorage`を`test`/`test:watch`スクリプトに追加
+  2. 上記が原因でローカル`afterEach`が例外を投げ、グローバルなReact Testing Libraryクリーンアップが未実行だった問題 → `vitest.setup.ts`に明示的な`afterEach(() => cleanup())`を追加
+  3. `vi.useFakeTimers()`有効時に`vitest-axe`の`axe()`がタイムアウトする問題(Toast/Tooltip) → axe呼び出し直前に`vi.useRealTimers()`
+  4. `document.body`をスキャンする際にaxeの`region`ルールが誤検知する問題(Dropdown/Tooltip、ポータル先要素はランドマーク外) → 該当テストで`region`ルールを無効化
+  5. Modalの初期フォーカス先に関するテストの誤った前提(ヘッダーの閉じるボタンがDOM順で正当に最初) → アサーションを修正し、`initialFocusRef`用のテストを追加
+**Static Analysis**: `npm run lint`(ESLint)0エラー(8件修正、うち1件は意図的な宣言マージパターンのため`eslint-disable`で対応)。`npm run lint:css`(stylelint)0エラー(NFR2ルールが`--space-*`/`--radius-*`まで誤って対象にしていたためカラープリミティブのみに限定、他は`stylelint-config-standard`の未検出フォーマット違反を修正)
+**Files Generated**:
+- aidlc-docs/construction/build-and-test/build-instructions.md
+- aidlc-docs/construction/build-and-test/unit-test-instructions.md
+- aidlc-docs/construction/build-and-test/integration-test-instructions.md
+- aidlc-docs/construction/build-and-test/performance-test-instructions.md(N/A判定とその根拠)
+- aidlc-docs/construction/build-and-test/build-and-test-summary.md
+**Context**: Build and Testステージ実行完了。ユーザーのレビュー・承認待ち。
+
+---

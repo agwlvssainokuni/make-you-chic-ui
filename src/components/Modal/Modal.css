@@ -56,8 +56,15 @@
   padding: var(--space-1);
   border-radius: var(--radius-sm);
 }
-.wds-modal-close-button:hover { background: var(--color-surface-hover); }
-.wds-modal-close-button:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+
+.wds-modal-close-button:hover {
+  background: var(--color-surface-hover);
+}
+
+.wds-modal-close-button:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
 
 .wds-modal-body {
   padding: var(--space-4);

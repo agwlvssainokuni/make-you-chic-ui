@@ -30,9 +30,21 @@
   color: var(--color-text-muted);
   cursor: pointer;
 }
-.wds-tab:hover { color: var(--color-text); }
-.wds-tab.active { color: var(--color-primary); border-bottom-color: var(--color-primary); }
-.wds-tab:focus-visible { outline: none; box-shadow: var(--focus-ring); border-radius: var(--radius-sm); }
+
+.wds-tab:hover {
+  color: var(--color-text);
+}
+
+.wds-tab.active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+.wds-tab:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  border-radius: var(--radius-sm);
+}
 
 .wds-tab-panel {
   padding: var(--space-4) 0;

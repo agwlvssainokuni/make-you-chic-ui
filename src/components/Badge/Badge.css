@@ -27,10 +27,25 @@
   line-height: 1;
 }
 
-.wds-badge.variant-primary { background: var(--color-primary); color: #fff; }
-.wds-badge.variant-secondary { background: var(--color-surface-hover); color: var(--color-text); }
-.wds-badge.variant-danger { background: var(--color-danger); color: #fff; }
-.wds-badge.variant-success { background: var(--color-success); color: #fff; }
+.wds-badge.variant-primary {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.wds-badge.variant-secondary {
+  background: var(--color-surface-hover);
+  color: var(--color-text);
+}
+
+.wds-badge.variant-danger {
+  background: var(--color-danger);
+  color: #fff;
+}
+
+.wds-badge.variant-success {
+  background: var(--color-success);
+  color: #fff;
+}
 
 .wds-badge.wds-badge-empty {
   min-width: 8px;

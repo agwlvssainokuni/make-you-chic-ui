@@ -15,13 +15,15 @@
  */
 .wds-app-shell {
   display: grid;
-  grid-template-columns: var(--sidebar-width) 1fr;
-  grid-template-rows: var(--topbar-height) 1fr;
-  grid-template-areas: 'sidebar topbar' 'sidebar content';
+  grid-template:
+    'sidebar topbar' var(--topbar-height)
+    'sidebar content' 1fr
+    / var(--sidebar-width) 1fr;
   min-height: 100vh;
   background: var(--color-bg);
   transition: grid-template-columns 0.15s ease;
 }
+
 .wds-app-shell.collapsed {
   grid-template-columns: var(--sidebar-width-collapsed) 1fr;
 }
@@ -53,8 +55,15 @@
   font-family: var(--font-family-active);
   font-size: var(--font-size-sm);
 }
-.wds-sidebar-nav-link:hover { background: rgb(255 255 255 / 10%); }
-.wds-sidebar-nav-link:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+
+.wds-sidebar-nav-link:hover {
+  background: rgb(255 255 255 / 10%);
+}
+
+.wds-sidebar-nav-link:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
 
 .wds-topbar {
   grid-area: topbar;
@@ -75,10 +84,12 @@
   color: var(--color-text);
   display: inline-flex;
 }
+
 .wds-topbar-collapse-button:hover,
 .wds-topbar-user-trigger:hover {
   background: var(--color-surface-hover);
 }
+
 .wds-topbar-collapse-button:focus-visible,
 .wds-topbar-user-trigger:focus-visible {
   outline: none;
