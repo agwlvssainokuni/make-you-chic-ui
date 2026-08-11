@@ -46,7 +46,7 @@
 - [x] Requirements Analysis (2026-08-11T07:25:06Z 承認済み) — `aidlc-docs/inception/requirements/requirements.md`。User Storiesはスキップ(ユーザー向け業務要件を持たない開発者向けコンポーネントライブラリのため)
 - [x] Workflow Planning (2026-08-11T07:28:32Z 承認済み) — `aidlc-docs/inception/plans/execution-plan.md`
 - [x] Application Design (2026-08-11T07:58:34Z 承認済み) — `aidlc-docs/inception/application-design/`
-- [ ] Units Generation - EXECUTE (進行中)
+- [ ] Units Generation - EXECUTE (成果物作成完了、承認待ち) — 8ユニット(基盤/基本入力系/静的表示系/フィードバック系/ナビ・レイアウト系/Table/画面パターン/組み込みガイド)
 
 ### 🟢 CONSTRUCTION PHASE
 - [ ] Functional Design - EXECUTE(ユニット単位で要否判定)

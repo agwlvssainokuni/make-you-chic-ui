@@ -2,12 +2,12 @@
 
 ## 実施タスク
 
-- [ ] `aidlc-docs/inception/application-design/unit-of-work.md` を作成(ユニット定義・責務)
-- [ ] `aidlc-docs/inception/application-design/unit-of-work-dependency.md` を作成(依存関係マトリクス・実装順序)
-- [ ] `aidlc-docs/inception/application-design/unit-of-work-story-map.md` を作成(User Storiesはスキップ済みのため、FR1〜FR8の各要件をどのユニットが満たすかのマッピングとして代用)
-- [ ] Greenfieldのためコード構成方針(ディレクトリ構造)を`unit-of-work.md`に記載
-- [ ] ユニット境界・依存関係の妥当性を検証
-- [ ] 全FR/NFRがいずれかのユニットに割り当てられていることを確認
+- [x] `aidlc-docs/inception/application-design/unit-of-work.md` を作成(ユニット定義・責務)
+- [x] `aidlc-docs/inception/application-design/unit-of-work-dependency.md` を作成(依存関係マトリクス・実装順序)
+- [x] `aidlc-docs/inception/application-design/unit-of-work-story-map.md` を作成(User Storiesはスキップ済みのため、FR1〜FR8の各要件をどのユニットが満たすかのマッピングとして代用)
+- [x] Greenfieldのためコード構成方針(ディレクトリ構造)を`unit-of-work.md`に記載
+- [x] ユニット境界・依存関係の妥当性を検証
+- [x] 全FR/NFRがいずれかのユニットに割り当てられていることを確認
 
 ## 前提
 
