@@ -6,11 +6,58 @@
 
 ## 1. インストール・セットアップ
 
-npm発行は行っていないため、本リポジトリを利用側プロジェクトの依存として直接参照する形になります(例: git submoduleやパッケージのローカル参照)。将来npm registryへ発行する場合は、以下のようなコマンドに置き換わります。
+npm発行は行っていないため、本リポジトリを利用側プロジェクトの依存として直接参照する形になります。将来npm registryへ発行する場合は、以下のようなコマンドに置き換わります。
 
 ```bash
 npm install <パッケージ名>
 ```
+
+**`src/`をコピーする方式は推奨しません**。`dist/`のビルド成果物(ESM/CJS/CSS/型定義一式)を利用側プロジェクトが素通しで消費できるようにするのがこのパッケージ構成の前提であり、`src/`にはテストファイル(`*.test.tsx`)等の非公開ファイルも含まれます。コピーすると、利用側で本リポジトリと同じビルド設定(Vite libraryモード・`vite-plugin-dts`・TypeScript設定)を再構築しない限りコンパイルできず、将来の更新も手動diff/マージが必要になります。
+
+### 手順A: git submodule + ローカルpackage参照(推奨)
+
+```bash
+# 1. 利用側プロジェクトのルートでsubmoduleとして取り込む
+git submodule add <このリポジトリのURL> vendor/web-design-system
+cd vendor/web-design-system
+npm install
+npm run build   # dist/ に ESM/CJS/CSS/.d.ts 一式を生成
+cd ../..
+
+# 2. 利用側プロジェクトの依存として追加(package.jsonのdependenciesに
+#    "web-design-system": "file:vendor/web-design-system" が追記される)
+npm install ./vendor/web-design-system
+```
+
+以降、`import { Button } from 'web-design-system'`のように、パッケージ名でそのままimportできます(`<パッケージ名>`はこの`web-design-system`を指します)。
+
+**更新時の手順**:
+
+```bash
+cd vendor/web-design-system
+git pull origin main
+npm install
+npm run build
+cd ../..
+npm install   # file: 参照を再解決させ、更新後のdist/を反映させる
+```
+
+`npm install`のfile:参照がnode_modules配下にsymlink/コピーどちらとして配置されるかはnpmのバージョンに依存するため、`dist/`再ビルド後は必ず利用側で`npm install`を再実行し、反映されたことを確認してください。
+
+### 手順B: npm pack によるtarball参照
+
+git submoduleを使いたくない場合は、ビルド成果物をtarball化して参照する方法もあります。
+
+```bash
+# このリポジトリ側で
+npm run build
+npm pack   # web-design-system-0.0.0.tgz を生成
+
+# 利用側プロジェクトで
+npm install /path/to/web-design-system-0.0.0.tgz
+```
+
+こちらは更新のたびに`npm pack`をやり直し、利用側で`npm install`し直す必要があります。submoduleより追跡は手間ですが、利用側リポジトリにgit submoduleを持ち込みたくない場合の選択肢です。
 
 `npm run build`は`dist/`に型定義(`.d.ts`、`package.json`の`types`フィールドが指す`dist/index.d.ts`から各コンポーネントの型を再export)も出力します。利用側では追加設定なしでTypeScriptの型補完・型チェックが効きます。
 

@@ -1007,3 +1007,20 @@
 **Context**: 命名一貫性の点検・修正、ユーザーのコミット許可待ち
 
 ---
+
+## 質問: 実プロジェクトへの組み込み方法(src丸ごとコピーの適否)
+
+**Timestamp**: 2026-08-12T04:41:00Z
+**User Input**: "実プロジェクトに組み込むとしたら src を丸ごとコピーするのが適正ですよね？"
+**AI Response**: `docs/integration-guide.md`の既存記述(git submodule/ローカルパッケージ参照を案内)を根拠に、`src`丸ごとコピーは不適正と回答。理由: (1)`dist/`が正式なビルド成果物(ESM/CJS/CSS/型定義)として整っている前提を無にする、(2)`src/`にはテストファイル等の非公開ファイルが混在、(3)将来の更新が手動diff/マージになる、(4)依存解決(react/react-dom重複回避等)が効かなくなる。適正な方法として git submodule + `npm install file:...` または `npm pack`によるtarball参照を提示し、具体的な手順の追記要否を確認。
+**User Response**: "手順を追記してください。"
+**AI Response**: `docs/integration-guide.md`セクション1に以下を追記:
+
+- 「`src/`をコピーする方式は推奨しません」との明記と理由
+- 手順A(推奨): git submodule追加 → submodule側で`npm install && npm run build` → 利用側で`npm install ./vendor/web-design-system`(`file:`参照)。更新時の手順(`git pull` → 再ビルド → 利用側で`npm install`再実行)も明記
+- 手順B: `npm pack`によるtarball生成 → 利用側で`npm install /path/to/*.tgz`(submoduleを持ち込みたくない場合の代替)
+
+**検証結果**: `npm run format:check`クリーン(Markdownのみの変更、他の検証項目に影響なし)
+**Context**: 組み込みガイドの手順追加、ユーザーのコミット許可待ち
+
+---
