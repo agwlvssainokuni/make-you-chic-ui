@@ -1059,3 +1059,31 @@
 **Context**: ディレクトリ構成の整理、ユーザーのコミット許可待ち
 
 ---
+
+## 自己発見バグ: 直前のコミット(7a63bf6)が一部の修正を反映していなかった
+
+**Timestamp**: 2026-08-12T05:20:38Z
+**発見経緯**: ログイン画面の作業のため`git status --short`を確認したところ、既にコミット済みのはずの`sample-app/screen-patterns/*`が再び`RM`(rename staged + 未ステージの変更あり)と表示されることに気づいた。`git show HEAD:sample-app/screen-patterns/ListView/ListView.tsx`等で確認したところ、コミット`7a63bf6`には`../../src`(移動前の2階層パス、`sample-app/src`という存在しないパスを指す壊れた状態)がそのまま残っており、`../../../src`への修正・コメント更新・`DetailView.css`のstylelint修正のいずれも反映されていなかったことが判明。
+**原因**: `git mv`実行後に行った追加編集(相対パス修正・コメント更新・`stylelint --fix`)を、`git add -A examples sample-app ...`で一括ステージしようとしたが`examples`パススペックが不一致(既に移動済みで存在しない)で失敗し、後続の個別`git add`にこれら6ファイルを含め忘れたまま`git commit`を実行してしまった。結果、コミットメッセージには「相対パス修正」「stylelint修正」を行った旨を記載しながら、実際のコミット内容にはそれらが含まれていないという不整合が生じた。作業ツリー自体は正しい状態を保っていたため、`tsc`/`build`/テスト等の検証はすべて作業ツリーに対して実行されており問題を検出できなかった。
+**対応**: 作業ツリーの正しい状態を、独立した修正コミットとして反映する。今後は`git mv`後に追加編集を行った場合、`git status`の`R`/`RM`の意味(`RM`=リネームはステージ済みだが追加の未ステージ変更が存在)を必ず確認し、コミット前に全対象ファイルが実際にステージされているか(`git diff --cached`で差分確認)を徹底する。
+**Context**: 自己発見の作業ミス修正、ユーザーへ報告済み
+
+---
+
+## ログイン画面: AppShellと異なるレイアウトのRoutes設計
+
+**Timestamp**: 2026-08-12T05:12:00Z
+**User Input**: "ログイン画面はAppShellとは別のレイアウトになるはず。その場合のRoutesの書き方は？"
+**AI Response**: 現状の`sample-app/App.tsx`は`<AppShell>`が`<Routes>`全体を直接ラップしており、全ルートがAppShell配下になる構成だったことを確認。react-routerの「レイアウトルート」パターン(`path`なしの`<Route element={...}>`が`<Outlet/>`を描画し、ネストした子ルートだけがそのレイアウトを継承する)を提案し、`App.tsx`の書き換え例を提示。実装するか確認。
+**User Response**: "着手してください。"
+**AI Response**: 実装:
+
+- `sample-app/pages/LoginPage.tsx`(新規)・`LoginPage.css`(新規): `Card`/`FormField`/`TextInput`/`Button`を使った簡易ログインフォーム。実際の認証は行わず、メール・パスワードとも非空で送信すると`/catalog`へ`navigate`する参考実装
+- `sample-app/App.tsx`: `useNavigate()`とnavItems構築ロジックを`AppShellLayout`(pathなしのレイアウトルート、`<AppShell><Outlet/></AppShell>`)に分離。`<Route path="/login" element={<LoginPage />} />`をAppShellLayoutの外(兄弟)に配置し、既存の`/catalog`・`/users`・`/users/:id`・`/theme`は`<Route element={<AppShellLayout />}>`配下にネスト
+- `TextInput`の`type="email"`/`type="password"`が正しく効くこと(`type="text"`のハードコードは`{...rest}`スプレッドより前にあり後勝ちで上書きされる、`Button`の`type="submit"`も同様)をソース確認の上で採用
+- `docs/integration-guide.md`「AppShellの例」節にレイアウトルートパターンの説明・コード例を追記、`sample-app/App.tsx`を実装例として参照
+
+**検証結果**: `npx tsc --noEmit` 0エラー、`npm run lint`(oxlint+eslint)・`npm run lint:css`・`npm run format:check`すべてクリーン(Prettier整形1件反映)、`npm test`199/199(既存ページと同様、`sample-app/pages/*`・`App.tsx`は目視/ビルド確認のみで単体テストなしという既存の方針を踏襲)、`npm run build`・`npm run sample-app:build`・`npm audit`(0件)すべて正常。`npm run dev`実機起動+`curl`で`/login`・`LoginPage.tsx`・`LoginPage.css`・`App.tsx`の変換結果(react-router/AppShell/LoginPageのimportが正しく解決)を確認、devサーバー停止・ポート解放済み
+**Context**: react-routerレイアウトルートパターンの実装追加、ユーザーのコミット許可待ち
+
+---

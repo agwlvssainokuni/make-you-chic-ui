@@ -13,20 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Navigate, Route, Routes, useNavigate } from 'react-router'
+import { Navigate, Outlet, Route, Routes, useNavigate } from 'react-router'
 import { AppShell, type AppShellNavItem } from '../src'
+import { LoginPage } from './pages/LoginPage'
 import { CatalogPage } from './pages/CatalogPage'
 import { UserListPage } from './pages/UserListPage'
 import { UserDetailPage } from './pages/UserDetailPage'
 import { ThemeSettingsPage } from './pages/ThemeSettingsPage'
 
 /**
- * Sample application root (Unit 9, FR9): demonstrates the design system
- * wired into a real, running app — AppShell as the layout, react-router for
- * SPA navigation between the component catalog, the users list/detail
- * screen-pattern flow, and the theme settings panel.
+ * Layout route (react-router "pathless route" pattern): wraps its nested
+ * child routes in AppShell via <Outlet/>. Routes outside this route (e.g.
+ * /login) render without AppShell's Sidebar/Topbar, since useNavigate() is
+ * only callable from inside <Routes>, the navItems/go() logic that used to
+ * live in App() lives here instead.
  */
-export function App(): React.JSX.Element {
+function AppShellLayout(): React.JSX.Element {
   const navigate = useNavigate()
 
   function go(path: string): (event: React.MouseEvent) => void {
@@ -44,13 +46,29 @@ export function App(): React.JSX.Element {
 
   return (
     <AppShell navItems={navItems}>
-      <Routes>
+      <Outlet />
+    </AppShell>
+  )
+}
+
+/**
+ * Sample application root (Unit 9, FR9): demonstrates the design system
+ * wired into a real, running app — AppShell as the layout, react-router for
+ * SPA navigation between the component catalog, the users list/detail
+ * screen-pattern flow, and the theme settings panel. /login sits outside
+ * AppShellLayout, demonstrating a route with its own, independent layout.
+ */
+export function App(): React.JSX.Element {
+  return (
+    <Routes>
+      <Route path="/login" element={<LoginPage />} />
+      <Route element={<AppShellLayout />}>
         <Route path="/" element={<Navigate to="/catalog" replace />} />
         <Route path="/catalog" element={<CatalogPage />} />
         <Route path="/users" element={<UserListPage />} />
         <Route path="/users/:id" element={<UserDetailPage />} />
         <Route path="/theme" element={<ThemeSettingsPage />} />
-      </Routes>
-    </AppShell>
+      </Route>
+    </Routes>
   )
 }

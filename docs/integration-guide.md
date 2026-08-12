@@ -160,6 +160,18 @@ import { Button, FormField, TextInput, Table, AppShell } from '<パッケージ�
 
 > **注記**: `AppShell`に通知アイコン機能はありません(Unit 5 Functional Designで廃止)。通知が必要な場合は、`children`側で独自に実装するか、`Badge`/`Icon`を組み合わせて独自のTopbar拡張を検討してください。
 
+**ログイン画面等、AppShellと異なるレイアウトが必要な画面がある場合**は、react-routerの「レイアウトルート」パターン(`path`なしの`<Route>`が`<Outlet/>`を描画し、ネストした子ルートだけがそのレイアウトを継承する)で分離してください。`sample-app/App.tsx`の`AppShellLayout`/`LoginPage`が実装例です。
+
+```tsx
+<Routes>
+  <Route path="/login" element={<LoginPage />} /> {/* AppShellの外 */}
+  <Route element={<AppShellLayout />}>
+    {/* ここに列挙したpathだけがAppShell配下になる */}
+    <Route path="/dashboard" element={<DashboardPage />} />
+  </Route>
+</Routes>
+```
+
 ### 画面パターンの参考実装
 
 List View・Detail View・編集Modal・削除確認の組み合わせ方は、本リポジトリの`sample-app/screen-patterns/`配下(`ListView`, `DetailView`, `EditUserModal`, `DeleteConfirmModal`)を参考にしてください。これらは配布パッケージには含まれない参考実装です。
