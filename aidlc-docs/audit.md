@@ -900,3 +900,13 @@
 **Context**: ダークモード表示不具合の修正、ユーザーのコミット許可待ち
 
 ---
+
+## バグ: Tooltipがダークモードで見にくい
+
+**Timestamp**: 2026-08-12T00:11:16Z
+**User Input**: "tooltipがdarkモードで見にくい。"
+**AI Response**: `--color-tooltip-bg`(`var(--gray-900)`)・`--color-tooltip-text`(`#fff`)がライトテーマの`:root`ブロックにのみ定義されており、`:root[data-theme='dark']`でオーバーライドされていないことを確認。ダークモードではページ背景が`--gray-950`まで暗くなる一方Tooltip自体は`--gray-900`のままで、背景同士のコントラストがほぼ無くTooltipの境界が視認しづらくなっていた。`src/theme/semantic.css`のダークテーマブロックに`--color-tooltip-bg: var(--gray-100)`・`--color-tooltip-text: var(--gray-900)`を追加(明暗反転、多くのデザインシステムで採用されるダークモードTooltipパターン)。`html-demo/assets/semantic.css`にも同一の修正を反映(同じギャップが存在していた)。
+**検証結果**: `lint:css`・`format:check`・`npm test`(199/199)・`npm run build`・`npm run sample-app:build`すべてクリーン
+**Context**: ダークモードTooltip視認性不具合の修正、ユーザーのコミット許可待ち
+
+---
