@@ -156,7 +156,8 @@
 - [x] ログイン画面(AppShell外レイアウト)をreact-routerレイアウトルートパターンで追加 (2026-08-12T05:18:32Z, コミット`eba74b0`) — `sample-app/pages/LoginPage.tsx`/`.css`新規作成、`App.tsx`を`AppShellLayout`(pathなしレイアウトルート)方式に書き換え。`docs/integration-guide.md`にパターン説明を追記。詳細は`audit.md`該当エントリ参照
 - [x] 自己発見バグ修正: 前回コミット(7a63bf6)の一部変更が未ステージのままコミットされていた不整合を修正 (2026-08-12T05:20:38Z, コミット`f615a66`) — `git add -A`のパススペック不一致エラーが原因。作業ツリーの正しい内容を独立コミットとして反映
 - [x] Topbarユーザーメニューにログアウトを追加 (2026-08-12T05:24:24Z, コミット`19d2c3a`) — `AppShellLayout`に`user`/`userMenuItems`(ログアウト→`/login`)を追加。詳細は`audit.md`該当エントリ参照
-- [x] TopbarのAvatarサイズを`sm`→`md`に変更 (2026-08-12T05:29:37Z) — `src/components/AppShell/Topbar.tsx`(デザインシステム本体)の2箇所を統一。詳細は`audit.md`該当エントリ参照。**ユーザーのコミット許可待ち**
+- [x] TopbarのAvatarサイズを`sm`→`md`に変更 (2026-08-12T05:29:37Z, コミット`9b567d7`) — `src/components/AppShell/Topbar.tsx`(デザインシステム本体)の2箇所を統一。詳細は`audit.md`該当エントリ参照
+- [x] README.md新規作成 (2026-08-12T05:59:00Z) — リポジトリルートに概要・特徴・ディレクトリ構成・セットアップ/開発/ビルド/テストコマンド・組み込み方の要約・ライセンスを記載。詳細は`audit.md`該当エントリ参照。**ユーザーのコミット許可待ち**
 
 ### 🟡 OPERATIONS PHASE
 
@@ -167,4 +168,4 @@
 - **Lifecycle Phase**: CONSTRUCTION
 - **Current Stage**: Build and Test(レビュー継続中 — ユーザーの指摘対応が完了するまでフェーズは終了しない、との明示ルールに基づく)
 - **Next Stage**: Operations(プレースホルダー)
-- **Status**: 直近のレビュー対応(ビルド成果物の型定義欠落修正)完了、ユーザーのコミット許可待ち。Approve & Continueはユーザーからの明示的な合図があるまで提示しない
+- **Status**: 直近の対応(README.md新規作成)完了、ユーザーのコミット許可待ち。Approve & Continueはユーザーからの明示的な合図があるまで提示しない

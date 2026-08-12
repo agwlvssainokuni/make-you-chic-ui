@@ -1104,6 +1104,16 @@
 **User Input**: "ユーザメニューのAvatorはmdで"
 **AI Response**: `src/components/AppShell/Topbar.tsx`(デザインシステム本体、`sample-app`固有ではない)で`Avatar`の`size`が2箇所とも`"sm"`にハードコードされていることを確認: (1) `userMenuItems`がある場合のDropdownトリガー内(59行目)、(2) `userMenuItems`が無い場合の表示専用フォールバック(66行目)。ユーザーの指す「ユーザーメニューのAvatar」は前者(実際にメニューを開くトリガー)だが、両分岐は同じ視覚要素(Topbar右上のユーザーアバター)でありメニュー有無で見た目が変わるのは一貫性を欠くため、両方とも`size="md"`に統一。
 **検証結果**: `npx tsc --noEmit` 0エラー、`npm run lint`(oxlint+eslint)・`npm run lint:css`・`npm run format:check`すべてクリーン、`npm test`199/199(既存の`Topbar`/`AppShell`テストに`Avatar`サイズを検証するアサーションはなく影響なし)、`npm run build`・`npm run sample-app:build`・`npm audit`(0件)すべて正常
-**Context**: デザインシステム本体(AppShell/Topbar)のAvatarサイズ修正、ユーザーのコミット許可待ち
+**Context**: デザインシステム本体(AppShell/Topbar)のAvatarサイズ修正、コミット`9b567d7`として反映済み
+
+---
+
+## README.mdの新規作成
+
+**Timestamp**: 2026-08-12T05:59:00Z
+**User Input**: "README.mdを作成して。"
+**AI Response**: リポジトリルートに`README.md`が存在しなかったため新規作成。`package.json`(パッケージ名・スクリプト一覧)、`src/index.ts`(バレルエクスポートの対象コンポーネント)、`aidlc-docs/inception/requirements/requirements.md`(プロジェクトの位置づけ・機能要件)、`docs/integration-guide.md`(既存の組み込みガイド)を参照して整合させた。内容: 概要、プロトタイプとしての位置づけ(npm registry未発行の明記)、特徴(コンポーネント一覧・テーマ4軸・トークン設計・Vanilla CSS・a11yテスト・Webフォント自己ホスティング・HTML版デモ)、ディレクトリ構成、セットアップ・開発・ビルド・テスト/静的検証の各コマンド、他プロジェクトへの組み込み例(`docs/integration-guide.md`への誘導)、ライセンス。コード生成物ではなくドキュメントのため、ライセンスヘッダーコメントは付与していない(既存の`docs/integration-guide.md`と同様の扱い)。
+**検証結果**: `npx prettier --check README.md`クリーン。他の検証コマンド(tsc/lint/test/build等)は対象外(ドキュメントのみの変更のため)
+**Context**: README.md新規作成、ユーザーのコミット許可待ち
 
 ---
