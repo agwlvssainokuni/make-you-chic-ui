@@ -150,7 +150,8 @@
 - [x] 質問対応: sample-appのdist参照可否の検証 (2026-08-12T04:20:00Z) — 一時検証アプリで動作確認(dist参照でも動くが、CSS別途import・事前ビルドが必要)。設計判断として`../src`直接参照を維持。コード変更なし
 - [x] package.jsonの`name`を`web-design-system-sample`→`web-design-system`に変更 (2026-08-12T04:34:03Z, コミット`5f02181`) — ディレクトリ/リポジトリ名は変更対象外(ユーザー明示指示)。dev向け警告メッセージのプレフィックスも追従。詳細は`audit.md`該当エントリ参照
 - [x] 「sample」を含む他箇所の点検・`index.html`のtitle修正 (2026-08-12T04:38:32Z, コミット`7507c48`) — `Web Design System Sample — サンプルアプリ`→`Web Design System — サンプルアプリ`。他の該当箇所はすべて意図的な命名と確認
-- [x] `docs/integration-guide.md`に実プロジェクトへの組み込み手順を追記 (2026-08-12T04:45:55Z) — `src`丸ごとコピーは非推奨と明記、git submodule + `file:`参照の手順A(推奨)・`npm pack`によるtarball参照の手順Bを追加。**ユーザーのコミット許可待ち**
+- [x] `docs/integration-guide.md`に実プロジェクトへの組み込み手順を追記 (2026-08-12T04:45:55Z, コミット`f8dd8b7`) — `src`丸ごとコピーは非推奨と明記、git submodule + `file:`参照の手順A(推奨)・`npm pack`によるtarball参照の手順Bを追加
+- [x] レビュー対応: `npm pack`実機検証で発覚した重大なパッケージング不具合を修正 (2026-08-12T04:54:45Z) — `files`フィールド未設定により`.gitignore`にフォールバックし、`dist/`が同梱されずリポジトリ全体(280ファイル)が同梱される逆転現象が発生していた。`"files": ["dist"]`追加で修正(42.5kB/72ファイルに削減)。実consumerプロジェクトでのエンドツーエンド動作確認済み。詳細は`audit.md`該当エントリ・`build-instructions.md`参照。**ユーザーのコミット許可待ち**
 
 ### 🟡 OPERATIONS PHASE
 

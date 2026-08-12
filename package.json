@@ -5,6 +5,9 @@
   "type": "module",
   "license": "Apache-2.0",
   "description": "Web UI design system component library (prototype)",
+  "files": [
+    "dist"
+  ],
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",

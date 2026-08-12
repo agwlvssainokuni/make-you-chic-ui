@@ -1024,3 +1024,16 @@
 **Context**: 組み込みガイドの手順追加、ユーザーのコミット許可待ち
 
 ---
+
+## バグ: npm packでdistが同梱されずリポジトリ全体が含まれる
+
+**Timestamp**: 2026-08-12T04:54:45Z
+**User Input**: "npm packで実際にtarball化して動作確認してみて"
+**AI Response**: `npm run build`後に`npm pack`を実際に実行して検証。生成されたtarballを`tar -tzf`で確認したところ、`dist/`が一切含まれておらず、代わりに`src/`・`examples/`・`sample-app/`・`aidlc-docs/`・`.idea/`・`CLAUDE.md`等リポジトリのほぼ全体(280ファイル、5.1MB)が同梱されていることが判明。原因は`package.json`に`files`フィールドがなく`.npmignore`も存在しないため、npmが`.gitignore`にフォールバックし、gitignore対象の`dist/`(ビルド成果物のため除外設定)が除外される一方、それ以外の全ファイルが同梱される逆転現象が起きていたため。`package.json`に`"files": ["dist"]`を追加して修正(`package.json`/`LICENSE`はnpmが常に同梱するため個別指定不要)。
+
+修正後、再度`npm run build && npm pack`で検証: tarballは42.5kB・72ファイル(`dist/`一式+`LICENSE`+`package.json`のみ)に減少。さらに実際のconsumerプロジェクトを一時作成(scratchpad配下、リポジトリ外)し、`npm install <tarball>`→`Button`/`ThemeProvider`/`useTheme`を実際にimportするコード作成→`tsc --noEmit`(0エラー、`vite/client`型が必要な点を確認)→`vite build`(成功)→`vite`devサーバー起動+`curl`でHTML/CSS/JSが正しく配信されること・`web-design-system`パッケージが正しく解決されることを確認。検証用ファイル・devサーバーはすべて削除・停止・ポート解放済み。
+
+**検証結果**: `npx tsc --noEmit` 0エラー、`npm run lint`(oxlint+eslint)・`npm run lint:css`・`npm run format:check`すべてクリーン、`npm test`199/199、`npm run build`・`npm run sample-app:build`・`npm audit`(0件)すべて正常。加えて上記の実consumerプロジェクトでのエンドツーエンド動作確認済み
+**Context**: パッケージング上の重大な不具合の発見と修正、ユーザーのコミット許可待ち
+
+---
