@@ -1155,6 +1155,22 @@
 **User Input**: "CSSクラス接頭辞、改名したい。"→(AIから新接頭辞の候補を確認: chic- / myc- / mycui-)→"mycui- が良いかなと思っている。が、長くなりすぎるなら再考したい。CSSクラス名をリストアップして長さを確認して欲しい。"→(AIが実際のクラス名67種類を長さ比較で提示)→"mycui- とします。"
 **AI Response**: `grep`で`wds-`の使用範囲を`src/`(48ファイル)・`html-demo/`(7ファイル、静的HTML版デモ)の計55ファイル・67種類のクラス名・209箇所と特定(`aidlc-docs/audit.md`内の言及は議題としての言及のみのため対象外、`dist/`はビルド成果物のため対象外)。置換前に全出現箇所の直前文字を確認し、`wds-`が常にクォート・ドット・空白等の区切り文字の直後に現れる(誤置換のリスクがない)ことを確認した上で、対象55ファイルに`sed 's/wds-/mycui-/g'`を適用。副次的に`src/theme/semantic.css`のコメント内`.wds-*`という表記も`.mycui-*`に置換された(意図通り)。
 **検証結果**: `npx tsc --noEmit` 0エラー、`npm run lint`(oxlint+eslint)・`npm run lint:css`すべてクリーン、`npm run format:check`で`html-demo/patterns/detail-view.html`(クラス名が長くなったことによる行折り返し)と`aidlc-docs/audit.md`の整形崩れを検出し`prettier --write`で修正(いずれも内容変更なし)、`npm test`199/199(既存テストのクラス名アサーションが新プレフィックスで通ることを確認)、`npm run build`・`npm run sample-app:build`・`npm audit`(0件)すべて正常。`npx vite --port 5799`実機起動+`curl`で配信される`AppShell.css`の内容が`.mycui-app-shell`等に置き換わっていることを確認、devサーバー停止・ポート解放済み
-**Context**: CSSクラス名接頭辞の改名、ユーザーのコミット許可待ち
+**Context**: CSSクラス名接頭辞の改名、コミット`44cf229`として反映済み
+
+---
+
+## ディレクトリ名変更(web-design-system-sample→make-you-chic-ui)に伴う`aidlc-docs/`の追従
+
+**Timestamp**: 2026-08-12T09:40:00Z
+**User Input**: "ディレクトリ名を修正しました。"
+**AI Response**: `pwd`でシェルの作業ディレクトリが`/Users/agawa/Documents/project/git/make-you-chic-ui`に変わっていることを確認(本セッションはinodeベースでカレントディレクトリを追跡するため、ディレクトリ改名後もツールは問題なく新パスを認識した)。`aidlc-docs/`配下で`web-design-system-sample`/`web-design-system`を参照している箇所を`grep`で洗い出し、「現在の状態を表す記述」と「過去の出来事の記録」を区別した上で、前者のみ更新:
+
+- `aidlc-state.md`の`Workspace Root`(`web-design-system-sample/`→`make-you-chic-ui/`、旧名併記)
+- `requirements.md`の「本リポジトリ(...)は」の記述(旧名併記)
+- `unit-of-work.md`のディレクトリ構成図のルートフォルダ名
+
+**変更しなかった箇所**(履歴記録のため): `audit.md`内の過去ログ全般、`aidlc-state.md`のチェックリスト内の過去エントリ(151行目、当時`web-design-system-sample`だった事実の記録)、`requirement-verification-questions.md`(要件確認時のQ&A記録)、`build-instructions.md`/`build-and-test-summary.md`内のビルド成果物ファイル名の変遷を記録した箇所(いずれも「当時どうだったか」の記録であり、書き換えると履歴が失われるため)
+**検証結果**: 変更対象がMarkdownドキュメントのみのため、`npx prettier --check`で該当3ファイルの整形を確認(クリーン)。コード・テストへの影響なし
+**Context**: ディレクトリ名変更に伴う`aidlc-docs/`の追従、ユーザーのコミット許可待ち
 
 ---

@@ -66,7 +66,7 @@
 ## コード構成方針(Q4=A: 単一パッケージ構成)
 
 ```
-web-design-system-sample/
+make-you-chic-ui/
 ├── src/
 │   ├── components/
 │   │   ├── Button/
