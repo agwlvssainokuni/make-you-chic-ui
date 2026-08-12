@@ -890,3 +890,13 @@
   **Context**: フォントアーキテクチャの最終簡素化、ユーザーのコミット許可待ち
 
 ---
+
+## バグ: ダークモードで地の文の文字色が黒のまま
+
+**Timestamp**: 2026-08-12T00:03:35Z
+**User Input**: "darkモードで地の文の文字色が黒のままになっている。"
+**AI Response**: 調査の結果、`src/theme/`配下(React版)には`body`要素に`color`/`background`を適用するCSSルールが一切存在しないことが判明(コンポーネント個々は`--color-text`を参照するが、コンポーネント外の素のテキスト(サンプルアプリの`<h1>`/`<p>`等)はブラウザ既定の黒に留まる)。`html-demo/assets/semantic.css`には同等の`body`ルールが既に存在しており、React版への移植漏れと判明。`src/theme/semantic.css`末尾に同等の`body { background: var(--color-bg); color: var(--color-text); font-family: var(--font-family-active); font-size: var(--font-size-md); }`を追加。`ThemeProvider`が`data-theme`等を`<html>`(documentElement)に設定するため、CSSカスタムプロパティの継承により`body`へ正しく反映されることを確認。
+**検証結果**: `lint:css`・`format:check`・`npm test`(199/199)・`npm run build`(`dist/*.css`に修正反映を確認)・`npm run sample-app:build`すべてクリーン
+**Context**: ダークモード表示不具合の修正、ユーザーのコミット許可待ち
+
+---
