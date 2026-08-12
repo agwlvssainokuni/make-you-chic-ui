@@ -153,7 +153,9 @@
 - [x] `docs/integration-guide.md`に実プロジェクトへの組み込み手順を追記 (2026-08-12T04:45:55Z, コミット`f8dd8b7`) — `src`丸ごとコピーは非推奨と明記、git submodule + `file:`参照の手順A(推奨)・`npm pack`によるtarball参照の手順Bを追加
 - [x] レビュー対応: `npm pack`実機検証で発覚した重大なパッケージング不具合を修正 (2026-08-12T04:54:45Z, コミット`ffc74a2`) — `files`フィールド未設定により`.gitignore`にフォールバックし、`dist/`が同梱されずリポジトリ全体(280ファイル)が同梱される逆転現象が発生していた。`"files": ["dist"]`追加で修正(42.5kB/72ファイルに削減)。実consumerプロジェクトでのエンドツーエンド動作確認済み。詳細は`audit.md`該当エントリ・`build-instructions.md`参照
 - [x] `examples/`を`sample-app/screen-patterns/`へ移動・改名 (2026-08-12T05:09:00Z, コミット`7a63bf6`) — `git mv`で移動、`../../src`→`../../../src`の相対パス修正、`tsconfig.json`/`docs/integration-guide.md`更新。副次的に`DetailView.css`が`lint:css`のどのglobにも含まれていなかった(未検査だった)ことが判明し修正。詳細は`audit.md`該当エントリ参照
-- [x] ログイン画面(AppShell外レイアウト)をreact-routerレイアウトルートパターンで追加 (2026-08-12T05:18:32Z) — `sample-app/pages/LoginPage.tsx`/`.css`新規作成、`App.tsx`を`AppShellLayout`(pathなしレイアウトルート)方式に書き換え。`docs/integration-guide.md`にパターン説明を追記。詳細は`audit.md`該当エントリ参照。**ユーザーのコミット許可待ち**
+- [x] ログイン画面(AppShell外レイアウト)をreact-routerレイアウトルートパターンで追加 (2026-08-12T05:18:32Z, コミット`eba74b0`) — `sample-app/pages/LoginPage.tsx`/`.css`新規作成、`App.tsx`を`AppShellLayout`(pathなしレイアウトルート)方式に書き換え。`docs/integration-guide.md`にパターン説明を追記。詳細は`audit.md`該当エントリ参照
+- [x] 自己発見バグ修正: 前回コミット(7a63bf6)の一部変更が未ステージのままコミットされていた不整合を修正 (2026-08-12T05:20:38Z, コミット`f615a66`) — `git add -A`のパススペック不一致エラーが原因。作業ツリーの正しい内容を独立コミットとして反映
+- [x] Topbarユーザーメニューにログアウトを追加 (2026-08-12T05:24:24Z) — `AppShellLayout`に`user`/`userMenuItems`(ログアウト→`/login`)を追加。詳細は`audit.md`該当エントリ参照。**ユーザーのコミット許可待ち**
 
 ### 🟡 OPERATIONS PHASE
 

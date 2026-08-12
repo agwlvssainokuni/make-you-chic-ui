@@ -45,7 +45,11 @@ function AppShellLayout(): React.JSX.Element {
   ]
 
   return (
-    <AppShell navItems={navItems}>
+    <AppShell
+      navItems={navItems}
+      user={{ name: 'サンプル太郎' }}
+      userMenuItems={[{ label: 'ログアウト', onClick: () => navigate('/login') }]}
+    >
       <Outlet />
     </AppShell>
   )

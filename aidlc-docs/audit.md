@@ -1087,3 +1087,13 @@
 **Context**: react-routerレイアウトルートパターンの実装追加、ユーザーのコミット許可待ち
 
 ---
+
+## Topbarユーザーメニューにログアウトを追加
+
+**Timestamp**: 2026-08-12T05:24:24Z
+**User Input**: "topbarにユーザメニューとしてログアウトを追加。"
+**AI Response**: `sample-app/App.tsx`の`AppShellLayout`が`AppShell`に`user`/`userMenuItems`propsを渡していなかったことを確認(`AppShellProps`は両方ともoptional)。`user={{ name: 'サンプル太郎' }}`と`userMenuItems={[{ label: 'ログアウト', onClick: () => navigate('/login') }]}`を追加。実際の認証状態は持たないデモのため、ログアウトは単純に`/login`へ`navigate`するのみ(`AppShellLayout`内は既に`useNavigate()`を保持しているため追加のフック呼び出しは不要)。
+**検証結果**: `npx tsc --noEmit` 0エラー、`npm run lint`(oxlint+eslint)・`npm run lint:css`・`npm run format:check`すべてクリーン、`npm test`199/199、`npm run build`・`npm run sample-app:build`・`npm audit`(0件)すべて正常。`npm run dev`実機起動+`curl`で`App.tsx`の変換結果に`userMenuItems`(ログアウト→`/login`)が正しく反映されていることを確認、devサーバー停止・ポート解放済み
+**Context**: Topbarユーザーメニュー追加、ユーザーのコミット許可待ち
+
+---
