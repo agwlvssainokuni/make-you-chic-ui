@@ -22,7 +22,6 @@
   },
   "include": [
     "src",
-    "examples",
     "sample-app",
     "vite.config.ts",
     "vite.sample-app.config.ts",

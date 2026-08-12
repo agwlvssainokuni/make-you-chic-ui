@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 import { Navigate, useNavigate, useParams } from 'react-router'
-import { DetailView } from '../../examples/DetailView/DetailView'
-import { initialSampleUsers } from '../../examples/data/sampleUsers'
+import { DetailView } from '../screen-patterns/DetailView/DetailView'
+import { initialSampleUsers } from '../screen-patterns/data/sampleUsers'
 
 /**
  * Looks up the routed :id against the static sample dataset and renders

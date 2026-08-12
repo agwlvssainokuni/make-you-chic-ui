@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import { useNavigate } from 'react-router'
-import { ListView } from '../../examples/ListView/ListView'
+import { ListView } from '../screen-patterns/ListView/ListView'
 
 /** Wraps ListView with router-based navigation to the detail page (Unit 9). */
 export function UserListPage(): React.JSX.Element {

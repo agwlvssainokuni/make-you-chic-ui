@@ -1037,3 +1037,25 @@
 **Context**: パッケージング上の重大な不具合の発見と修正、ユーザーのコミット許可待ち
 
 ---
+
+## examples/をsample-app/screen-patterns/へ移動・改名
+
+**Timestamp**: 2026-08-12T04:56:00Z
+**User Input**: "examples は sample-app 配下に移動した方が良いかも。"
+**AI Response**: 現状`examples/`を実際にimportしているのは`sample-app/`のみである一方、`docs/integration-guide.md`では独立した「画面パターンの参考実装」として案内している経緯(Unit 7)を説明し、トレードオフを提示。移動を進めるかは保留し回答待ち。
+**User Response**: "移動はするとして。名前を見直したい。"
+**AI Response**: `aidlc-docs`で一貫して使われている「画面パターン」(Unit 7 = `unit7-screen-patterns`)という用語との整合性から`screen-patterns`を提案(`sample-app/pages/`との語感統一も考慮)。
+**User Response**: "OK"
+**AI Response**: `git mv`で`examples/{DeleteConfirmModal,DetailView,EditUserModal,ListView,data}`を`sample-app/screen-patterns/`配下へ移動。付随修正:
+
+- `sample-app/pages/UserListPage.tsx`・`UserDetailPage.tsx`のimportパスを`../../examples/...`→`../screen-patterns/...`に修正
+- 移動先の4ファイル(`ListView.tsx`・`DetailView.tsx`・`EditUserModal.tsx`・`DeleteConfirmModal.tsx`)内の`../../src`(旧: リポジトリ直下から2階層)を`../../../src`(新: 3階層)に修正 — ディレクトリの深さが1段増えたことによる相対パス崩れ、移動作業で見落としやすいポイントとして確認が必要だった
+- コード内コメントの`examples/`への言及3箇所(`ListView.tsx`・`DetailView.tsx`・`sampleUsers.ts`)を`sample-app/screen-patterns/`に更新
+- `tsconfig.json`の`include`から独立していた`"examples"`エントリを削除(`"sample-app"`が既に新パスを包含するため)
+- `docs/integration-guide.md`の`examples/`言及2箇所を`sample-app/screen-patterns/`に更新
+- 副次的な発見: `DetailView.css`は`examples/`が元々`lint:css`のどのglob(`src/**`・`html-demo/**`・`sample-app/**`)にも含まれていなかったため、これまで一度もstylelintでチェックされていなかったことが判明(`rule-empty-line-before`違反2件、`--fix`で修正)。移動によって`sample-app/**/*.css`の対象に入り、初めて検出された
+
+**検証結果**: `npx tsc --noEmit` 0エラー、`npm run lint`(oxlint+eslint)・`npm run lint:css`(修正後)・`npm run format:check`すべてクリーン、`npm test`199/199、`npm run build`・`npm run sample-app:build`・`npm audit`(0件)すべて正常。`npm run dev`実機起動+`curl`で`sample-app/screen-patterns/ListView/ListView.tsx`等の新パスが200で配信されることを確認、devサーバー停止・ポート解放済み
+**Context**: ディレクトリ構成の整理、ユーザーのコミット許可待ち
+
+---

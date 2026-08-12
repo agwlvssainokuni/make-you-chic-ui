@@ -162,7 +162,7 @@ import { Button, FormField, TextInput, Table, AppShell } from '<パッケージ�
 
 ### 画面パターンの参考実装
 
-List View・Detail View・編集Modal・削除確認の組み合わせ方は、本リポジトリの`examples/`配下(`ListView`, `DetailView`, `EditUserModal`, `DeleteConfirmModal`)を参考にしてください。これらは配布パッケージには含まれない参考実装です。
+List View・Detail View・編集Modal・削除確認の組み合わせ方は、本リポジトリの`sample-app/screen-patterns/`配下(`ListView`, `DetailView`, `EditUserModal`, `DeleteConfirmModal`)を参考にしてください。これらは配布パッケージには含まれない参考実装です。
 
 ## 3. テーマ設定
 
@@ -208,4 +208,4 @@ function ThemeToggle() {
 
 - **本番運用には未対応**: 本リポジトリはプロトタイプ位置づけであり、npm発行やCI/CDパイプラインは今回のスコープ外です
 - **レスポンシブはデスクトップのみ**: タブレット・モバイル幅への最適化は行っていません(NFR9)。デスクトップブラウザのウィンドウ幅の伸縮のみに対応します
-- **画面パターン(`examples/`)は配布対象外**: List View等の組み合わせ方は参考実装として提供されますが、パッケージのAPIとしては公開されていません。利用側プロジェクトで同様のパターンを実装する際の出発点としてご利用ください
+- **画面パターン(`sample-app/screen-patterns/`)は配布対象外**: List View等の組み合わせ方は参考実装として提供されますが、パッケージのAPIとしては公開されていません。利用側プロジェクトで同様のパターンを実装する際の出発点としてご利用ください
