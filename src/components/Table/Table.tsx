@@ -175,8 +175,8 @@ export function Table<T>({
   }
 
   return (
-    <div className="wds-table-wrapper" data-testid="table">
-      <table className="wds-table" aria-label={ariaLabel}>
+    <div className="mycui-table-wrapper" data-testid="table">
+      <table className="mycui-table" aria-label={ariaLabel}>
         <thead>
           <tr>
             {selectedRowIds && onSelectionChange && (
@@ -215,7 +215,7 @@ export function Table<T>({
                   {column.sortable ? (
                     <button
                       type="button"
-                      className="wds-table-th-sortable"
+                      className="mycui-table-th-sortable"
                       onClick={() => handleSortClick(column.key)}
                       data-testid={`table-sort-${column.key}`}
                     >
@@ -228,7 +228,7 @@ export function Table<T>({
                     column.header
                   )}
                   <span
-                    className="wds-table-resize-handle"
+                    className="mycui-table-resize-handle"
                     role="presentation"
                     onMouseDown={(e) => handleResizeStart(column.key, e)}
                     data-testid={`table-resize-${column.key}`}
@@ -242,7 +242,7 @@ export function Table<T>({
           {data.map((row) => {
             const rowId = getRowId(row)
             return (
-              <tr key={rowId} className="wds-table-row" data-testid={`table-row-${rowId}`}>
+              <tr key={rowId} className="mycui-table-row" data-testid={`table-row-${rowId}`}>
                 {selectedRowIds && onSelectionChange && (
                   <td>
                     <Checkbox
@@ -264,7 +264,7 @@ export function Table<T>({
                   return (
                     <td
                       key={column.key}
-                      className={column.editable ? 'wds-table-cell-editable' : undefined}
+                      className={column.editable ? 'mycui-table-cell-editable' : undefined}
                       onClick={
                         column.editable && !isEditing
                           ? () => startEdit(rowId, column.key)
@@ -291,8 +291,8 @@ export function Table<T>({
           })}
         </tbody>
       </table>
-      <div className="wds-table-pagination">
-        <span className="wds-table-pagination-status">
+      <div className="mycui-table-pagination">
+        <span className="mycui-table-pagination-status">
           {totalCount === 0 ? '0件' : `${page} / ${totalPages}ページ(全${totalCount}件)`}
         </span>
         <Button

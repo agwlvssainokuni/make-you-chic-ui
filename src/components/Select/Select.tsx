@@ -47,10 +47,10 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select
   const [currentValue, setValue] = useControllableState({ value, defaultValue, onChange })
 
   return (
-    <span className="wds-select-wrapper">
+    <span className="mycui-select-wrapper">
       <select
         ref={ref}
-        className={className ? `wds-select ${className}` : 'wds-select'}
+        className={className ? `mycui-select ${className}` : 'mycui-select'}
         value={currentValue}
         onChange={(e) => setValue(e.target.value)}
         data-testid="select"
@@ -63,7 +63,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select
           </option>
         ))}
       </select>
-      <span className="wds-select-chevron">
+      <span className="mycui-select-chevron">
         <Icon name="chevron-down" size={16} />
       </span>
     </span>

@@ -74,7 +74,7 @@ export function Modal({
   return createPortal(
     <div
       ref={overlayRef}
-      className="wds-modal-overlay"
+      className="mycui-modal-overlay"
       role="presentation"
       onMouseDown={(e) => {
         if (e.target === e.currentTarget) onClose()
@@ -82,17 +82,17 @@ export function Modal({
       data-testid="modal-overlay"
     >
       <div
-        className={`wds-modal-dialog size-${size}`}
+        className={`mycui-modal-dialog size-${size}`}
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
         data-testid="modal-dialog"
       >
-        <div className="wds-modal-header">
+        <div className="mycui-modal-header">
           <span id={titleId}>{title}</span>
           <button
             type="button"
-            className="wds-modal-close-button"
+            className="mycui-modal-close-button"
             onClick={onClose}
             aria-label="閉じる"
             data-testid="modal-close-button"
@@ -100,7 +100,7 @@ export function Modal({
             <Icon name="close" size={18} />
           </button>
         </div>
-        <div className="wds-modal-body">{children}</div>
+        <div className="mycui-modal-body">{children}</div>
       </div>
     </div>,
     document.body,

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-.wds-alert {
+.mycui-alert {
   display: flex;
   align-items: flex-start;
   gap: var(--space-3);
@@ -22,36 +22,36 @@
   font-size: var(--font-size-sm);
 }
 
-.wds-alert.variant-info {
+.mycui-alert.variant-info {
   background: var(--color-primary-subtle);
   color: var(--color-text);
 }
 
-.wds-alert.variant-success {
+.mycui-alert.variant-success {
   background: color-mix(in srgb, var(--color-success) 12%, var(--color-surface));
   color: var(--color-text);
 }
 
-.wds-alert.variant-warning {
+.mycui-alert.variant-warning {
   background: var(--color-warning-subtle-bg);
   color: var(--color-warning-subtle-text);
 }
 
-.wds-alert.variant-danger {
+.mycui-alert.variant-danger {
   background: var(--color-danger-subtle);
   color: var(--color-danger);
 }
 
-.wds-alert-body {
+.mycui-alert-body {
   flex: 1;
 }
 
-.wds-alert-title {
+.mycui-alert-title {
   font-weight: var(--font-weight-semibold);
   margin: 0 0 var(--space-1);
 }
 
-.wds-alert-action {
+.mycui-alert-action {
   background: none;
   border: none;
   padding: 0;
@@ -62,7 +62,7 @@
   color: inherit;
 }
 
-.wds-alert-dismiss-button {
+.mycui-alert-dismiss-button {
   background: none;
   border: none;
   cursor: pointer;
@@ -72,7 +72,7 @@
   flex-shrink: 0;
 }
 
-.wds-alert-dismiss-button:focus-visible {
+.mycui-alert-dismiss-button:focus-visible {
   outline: none;
   box-shadow: var(--focus-ring);
 }

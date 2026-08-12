@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-.wds-modal-overlay {
+.mycui-modal-overlay {
   position: fixed;
   inset: 0;
   background-color: var(--color-overlay);
@@ -23,7 +23,7 @@
   padding: var(--space-4);
 }
 
-.wds-modal-dialog {
+.mycui-modal-dialog {
   background: var(--color-surface);
   color: var(--color-text);
   border-radius: var(--radius-lg);
@@ -35,19 +35,19 @@
   box-shadow: 0 10px 40px rgb(0 0 0 / 20%);
 }
 
-.wds-modal-dialog.size-sm {
+.mycui-modal-dialog.size-sm {
   max-width: 360px;
 }
 
-.wds-modal-dialog.size-md {
+.mycui-modal-dialog.size-md {
   max-width: 480px;
 }
 
-.wds-modal-dialog.size-lg {
+.mycui-modal-dialog.size-lg {
   max-width: 720px;
 }
 
-.wds-modal-header {
+.mycui-modal-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -57,7 +57,7 @@
   font-size: var(--font-size-lg);
 }
 
-.wds-modal-close-button {
+.mycui-modal-close-button {
   background: none;
   border: none;
   cursor: pointer;
@@ -66,16 +66,16 @@
   border-radius: var(--radius-sm);
 }
 
-.wds-modal-close-button:hover {
+.mycui-modal-close-button:hover {
   background: var(--color-surface-hover);
 }
 
-.wds-modal-close-button:focus-visible {
+.mycui-modal-close-button:focus-visible {
   outline: none;
   box-shadow: var(--focus-ring);
 }
 
-.wds-modal-body {
+.mycui-modal-body {
   padding: var(--space-4);
   overflow-y: auto;
 }

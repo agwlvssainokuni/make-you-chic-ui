@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-.wds-badge {
+.mycui-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -27,27 +27,27 @@
   line-height: 1;
 }
 
-.wds-badge.variant-primary {
+.mycui-badge.variant-primary {
   background: var(--color-primary);
   color: #fff;
 }
 
-.wds-badge.variant-secondary {
+.mycui-badge.variant-secondary {
   background: var(--color-surface-hover);
   color: var(--color-text);
 }
 
-.wds-badge.variant-danger {
+.mycui-badge.variant-danger {
   background: var(--color-danger);
   color: #fff;
 }
 
-.wds-badge.variant-success {
+.mycui-badge.variant-success {
   background: var(--color-success);
   color: #fff;
 }
 
-.wds-badge.wds-badge-empty {
+.mycui-badge.mycui-badge-empty {
   min-width: 8px;
   width: 8px;
   height: 8px;

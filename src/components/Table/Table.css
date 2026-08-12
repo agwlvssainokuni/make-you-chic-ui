@@ -13,27 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-.wds-table-wrapper {
+.mycui-table-wrapper {
   overflow-x: auto;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
 }
 
-.wds-table {
+.mycui-table {
   width: 100%;
   border-collapse: collapse;
   font-family: var(--font-family-active);
   font-size: var(--font-size-sm);
 }
 
-.wds-table th,
-.wds-table td {
+.mycui-table th,
+.mycui-table td {
   padding: var(--space-2) var(--space-3);
   text-align: left;
   border-bottom: 1px solid var(--color-border);
 }
 
-.wds-table th {
+.mycui-table th {
   position: relative;
   background: var(--color-surface-hover);
   font-weight: var(--font-weight-semibold);
@@ -42,7 +42,7 @@
   user-select: none;
 }
 
-.wds-table-th-sortable {
+.mycui-table-th-sortable {
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -55,12 +55,12 @@
   padding: 0;
 }
 
-.wds-table-th-sortable:focus-visible {
+.mycui-table-th-sortable:focus-visible {
   outline: none;
   box-shadow: var(--focus-ring);
 }
 
-.wds-table-resize-handle {
+.mycui-table-resize-handle {
   position: absolute;
   right: 0;
   top: 0;
@@ -69,15 +69,15 @@
   cursor: col-resize;
 }
 
-.wds-table-row:hover {
+.mycui-table-row:hover {
   background: var(--color-surface-hover);
 }
 
-.wds-table-cell-editable {
+.mycui-table-cell-editable {
   cursor: text;
 }
 
-.wds-table-pagination {
+.mycui-table-pagination {
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -86,7 +86,7 @@
   border-top: 1px solid var(--color-border);
 }
 
-.wds-table-pagination-status {
+.mycui-table-pagination-status {
   font-size: var(--font-size-sm);
   color: var(--color-text-muted);
   margin-right: var(--space-2);

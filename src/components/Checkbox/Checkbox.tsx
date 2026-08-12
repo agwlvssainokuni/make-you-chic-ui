@@ -43,11 +43,11 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
   })
 
   const input = (
-    <span className="wds-checkbox-box" data-testid="checkbox-box">
+    <span className="mycui-checkbox-box" data-testid="checkbox-box">
       <input
         ref={ref}
         type="checkbox"
-        className={className ? `wds-checkbox-input ${className}` : 'wds-checkbox-input'}
+        className={className ? `mycui-checkbox-input ${className}` : 'mycui-checkbox-input'}
         checked={isChecked}
         disabled={disabled}
         onChange={(e) => setChecked(e.target.checked)}
@@ -64,7 +64,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
   }
 
   return (
-    <label className="wds-checkbox-label">
+    <label className="mycui-checkbox-label">
       {input}
       {label}
     </label>

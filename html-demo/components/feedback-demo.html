@@ -31,7 +31,7 @@
         flex-direction: column;
         gap: var(--space-4);
       }
-      .wds-button {
+      .mycui-button {
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -44,22 +44,22 @@
         font-size: var(--font-size-md);
         padding: var(--space-2) var(--space-4);
       }
-      .wds-button.variant-primary {
+      .mycui-button.variant-primary {
         background: var(--color-primary);
         color: #fff;
       }
-      .wds-button.variant-secondary {
+      .mycui-button.variant-secondary {
         background: var(--color-surface);
         color: var(--color-text);
         border-color: var(--color-border);
       }
-      .wds-button.variant-danger {
+      .mycui-button.variant-danger {
         background: var(--color-danger);
         color: #fff;
       }
 
       /* Modal */
-      .wds-modal-overlay {
+      .mycui-modal-overlay {
         position: fixed;
         inset: 0;
         background-color: var(--color-overlay);
@@ -69,10 +69,10 @@
         padding: var(--space-4);
         z-index: 1000;
       }
-      .wds-modal-overlay.open {
+      .mycui-modal-overlay.open {
         display: flex;
       }
-      .wds-modal-dialog {
+      .mycui-modal-dialog {
         background: var(--color-surface);
         color: var(--color-text);
         border-radius: var(--radius-lg);
@@ -81,7 +81,7 @@
         outline: none;
         box-shadow: 0 10px 40px rgb(0 0 0 / 20%);
       }
-      .wds-modal-header {
+      .mycui-modal-header {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -89,12 +89,12 @@
         border-bottom: 1px solid var(--color-border);
         font-weight: var(--font-weight-semibold);
       }
-      .wds-modal-body {
+      .mycui-modal-body {
         padding: var(--space-4);
       }
 
       /* Toast */
-      .wds-toast-container {
+      .mycui-toast-container {
         position: fixed;
         top: var(--space-4);
         right: var(--space-4);
@@ -103,7 +103,7 @@
         flex-direction: column;
         gap: var(--space-2);
       }
-      .wds-toast {
+      .mycui-toast {
         padding: var(--space-3) var(--space-4);
         border-radius: var(--radius-md);
         background: var(--color-surface);
@@ -114,7 +114,7 @@
       }
 
       /* Alert */
-      .wds-alert {
+      .mycui-alert {
         padding: var(--space-3) var(--space-4);
         border-radius: var(--radius-md);
         font-size: var(--font-size-sm);
@@ -123,11 +123,11 @@
       }
 
       /* Tooltip */
-      .wds-tooltip-wrap {
+      .mycui-tooltip-wrap {
         position: relative;
         display: inline-block;
       }
-      .wds-tooltip {
+      .mycui-tooltip {
         position: absolute;
         bottom: 130%;
         left: 50%;
@@ -140,8 +140,8 @@
         white-space: nowrap;
         display: none;
       }
-      .wds-tooltip-wrap:hover .wds-tooltip,
-      .wds-tooltip-wrap:focus-within .wds-tooltip {
+      .mycui-tooltip-wrap:hover .mycui-tooltip,
+      .mycui-tooltip-wrap:focus-within .mycui-tooltip {
         display: block;
       }
     </style>
@@ -154,46 +154,46 @@
 
       <section>
         <h2 style="font-size: var(--font-size-md); color: var(--color-text-muted)">Modal</h2>
-        <button class="wds-button variant-primary" id="open-modal-btn" type="button">
+        <button class="mycui-button variant-primary" id="open-modal-btn" type="button">
           確認Modalを開く
         </button>
       </section>
 
       <section>
         <h2 style="font-size: var(--font-size-md); color: var(--color-text-muted)">Toast</h2>
-        <button class="wds-button variant-secondary" id="show-toast-btn" type="button">
+        <button class="mycui-button variant-secondary" id="show-toast-btn" type="button">
           Toastを表示
         </button>
       </section>
 
       <section>
         <h2 style="font-size: var(--font-size-md); color: var(--color-text-muted)">Alert</h2>
-        <div class="wds-alert" role="alert">入力内容にエラーがあります</div>
+        <div class="mycui-alert" role="alert">入力内容にエラーがあります</div>
       </section>
 
       <section>
         <h2 style="font-size: var(--font-size-md); color: var(--color-text-muted)">Tooltip</h2>
-        <span class="wds-tooltip-wrap">
+        <span class="mycui-tooltip-wrap">
           <button
-            class="wds-button variant-secondary"
+            class="mycui-button variant-secondary"
             type="button"
             aria-describedby="demo-tooltip"
           >
             ?
           </button>
-          <span class="wds-tooltip" role="tooltip" id="demo-tooltip">補足説明を表示します</span>
+          <span class="mycui-tooltip" role="tooltip" id="demo-tooltip">補足説明を表示します</span>
         </span>
       </section>
     </div>
 
-    <div class="wds-modal-overlay" id="demo-modal">
+    <div class="mycui-modal-overlay" id="demo-modal">
       <div
-        class="wds-modal-dialog"
+        class="mycui-modal-dialog"
         role="dialog"
         aria-modal="true"
         aria-labelledby="demo-modal-title"
       >
-        <div class="wds-modal-header">
+        <div class="mycui-modal-header">
           <span id="demo-modal-title">削除確認</span>
           <button
             type="button"
@@ -204,9 +204,9 @@
             ×
           </button>
         </div>
-        <div class="wds-modal-body">
+        <div class="mycui-modal-body">
           <p>この操作は取り消せません。よろしいですか?</p>
-          <button class="wds-button variant-danger" type="button" id="confirm-modal-btn">
+          <button class="mycui-button variant-danger" type="button" id="confirm-modal-btn">
             削除する
           </button>
         </div>
@@ -214,7 +214,7 @@
     </div>
 
     <div
-      class="wds-toast-container"
+      class="mycui-toast-container"
       id="demo-toast-container"
       role="status"
       aria-live="polite"
@@ -247,7 +247,7 @@
       var toastContainer = document.getElementById('demo-toast-container')
       document.getElementById('show-toast-btn').addEventListener('click', function () {
         var toast = document.createElement('div')
-        toast.className = 'wds-toast'
+        toast.className = 'mycui-toast'
         toast.textContent = '保存しました'
         toastContainer.prepend(toast)
         setTimeout(function () {

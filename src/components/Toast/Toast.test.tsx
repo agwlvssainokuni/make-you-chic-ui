@@ -78,7 +78,7 @@ describe('ToastProvider / useToast', () => {
     await act(async () => {
       screen.getByTestId('show-toast').click()
     })
-    const toastEl = screen.getByText('保存しました').closest('.wds-toast')!
+    const toastEl = screen.getByText('保存しました').closest('.mycui-toast')!
 
     await act(async () => {
       vi.advanceTimersByTime(3000)
@@ -120,7 +120,7 @@ describe('ToastProvider / useToast', () => {
       screen.getByTestId('show-two').click()
     })
     const container = screen.getByTestId('toast-container')
-    const messages = Array.from(container.querySelectorAll('.wds-toast-message')).map(
+    const messages = Array.from(container.querySelectorAll('.mycui-toast-message')).map(
       (el) => el.textContent,
     )
     expect(messages).toEqual(['2件目', '1件目'])

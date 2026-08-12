@@ -33,12 +33,12 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(
   ref,
 ) {
   return (
-    <label className="wds-radio-label">
-      <span className={className ? `wds-radio-circle ${className}` : 'wds-radio-circle'}>
+    <label className="mycui-radio-label">
+      <span className={className ? `mycui-radio-circle ${className}` : 'mycui-radio-circle'}>
         <input
           ref={ref}
           type="radio"
-          className="wds-radio-input"
+          className="mycui-radio-input"
           checked={checked}
           disabled={disabled}
           onChange={(e) => onChange?.(e.target.checked)}

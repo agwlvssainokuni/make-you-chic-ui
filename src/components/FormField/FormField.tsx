@@ -58,23 +58,23 @@ export function FormField({
   }
 
   return (
-    <div className={className ? `wds-form-field ${className}` : 'wds-form-field'} style={style}>
-      <label className="wds-form-field-label" htmlFor={fieldId}>
+    <div className={className ? `mycui-form-field ${className}` : 'mycui-form-field'} style={style}>
+      <label className="mycui-form-field-label" htmlFor={fieldId}>
         {label}
         {required && (
-          <span className="wds-form-field-required-mark" aria-hidden="true">
+          <span className="mycui-form-field-required-mark" aria-hidden="true">
             *
           </span>
         )}
       </label>
       <FormFieldContext.Provider value={contextValue}>{children}</FormFieldContext.Provider>
       {error && (
-        <span className="wds-form-field-error-text" id={errorId} role="alert">
+        <span className="mycui-form-field-error-text" id={errorId} role="alert">
           {error}
         </span>
       )}
       {!error && helperText && (
-        <span className="wds-form-field-helper-text" id={helperTextId}>
+        <span className="mycui-form-field-helper-text" id={helperTextId}>
           {helperText}
         </span>
       )}

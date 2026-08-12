@@ -46,17 +46,17 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
   { variant, title, children, onDismiss, action, className, style },
   ref,
 ) {
-  const classes = ['wds-alert', `variant-${variant}`, className].filter(Boolean).join(' ')
+  const classes = ['mycui-alert', `variant-${variant}`, className].filter(Boolean).join(' ')
   const role = variant === 'danger' || variant === 'warning' ? 'alert' : 'status'
 
   return (
     <div ref={ref} className={classes} style={style} role={role} data-testid="alert">
       <Icon name={VARIANT_ICON[variant]} size={18} />
-      <div className="wds-alert-body">
-        {title && <p className="wds-alert-title">{title}</p>}
+      <div className="mycui-alert-body">
+        {title && <p className="mycui-alert-title">{title}</p>}
         <div>{children}</div>
         {action && (
-          <button type="button" className="wds-alert-action" onClick={action.onClick}>
+          <button type="button" className="mycui-alert-action" onClick={action.onClick}>
             {action.label}
           </button>
         )}
@@ -64,7 +64,7 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
       {onDismiss && (
         <button
           type="button"
-          className="wds-alert-dismiss-button"
+          className="mycui-alert-dismiss-button"
           onClick={onDismiss}
           aria-label="閉じる"
           data-testid="alert-dismiss-button"

@@ -42,8 +42,8 @@
       .bulk-bar.visible {
         display: flex;
       }
-      .wds-text-input,
-      .wds-select {
+      .mycui-text-input,
+      .mycui-select {
         font-size: var(--font-size-md);
         color: var(--color-text);
         background: var(--color-input-bg);
@@ -51,51 +51,51 @@
         border-radius: var(--radius-md);
         padding: var(--space-2) var(--space-3);
       }
-      .wds-button {
+      .mycui-button {
         font-size: var(--font-size-md);
         padding: var(--space-2) var(--space-4);
         border-radius: var(--radius-md);
         border: 1px solid transparent;
         cursor: pointer;
       }
-      .wds-button.variant-primary {
+      .mycui-button.variant-primary {
         background: var(--color-primary);
         color: #fff;
       }
-      .wds-button.variant-secondary {
+      .mycui-button.variant-secondary {
         background: var(--color-surface);
         color: var(--color-text);
         border-color: var(--color-border);
       }
-      .wds-button.variant-danger {
+      .mycui-button.variant-danger {
         background: var(--color-danger);
         color: #fff;
       }
-      .wds-button.size-sm {
+      .mycui-button.size-sm {
         font-size: var(--font-size-sm);
         padding: var(--space-1) var(--space-3);
       }
-      .wds-table-wrapper {
+      .mycui-table-wrapper {
         overflow-x: auto;
         border: 1px solid var(--color-border);
         border-radius: var(--radius-lg);
       }
-      .wds-table {
+      .mycui-table {
         width: 100%;
         border-collapse: collapse;
         font-size: var(--font-size-sm);
       }
-      .wds-table th,
-      .wds-table td {
+      .mycui-table th,
+      .mycui-table td {
         padding: var(--space-2) var(--space-3);
         text-align: left;
         border-bottom: 1px solid var(--color-border);
       }
-      .wds-table th {
+      .mycui-table th {
         background: var(--color-surface-hover);
         font-weight: var(--font-weight-semibold);
       }
-      .wds-badge {
+      .mycui-badge {
         display: inline-flex;
         align-items: center;
         padding: 0 var(--space-2);
@@ -103,11 +103,11 @@
         border-radius: 999px;
         font-size: var(--font-size-sm);
       }
-      .wds-badge.variant-primary {
+      .mycui-badge.variant-primary {
         background: var(--color-primary);
         color: #fff;
       }
-      .wds-badge.variant-secondary {
+      .mycui-badge.variant-secondary {
         background: var(--color-surface-hover);
         color: var(--color-text);
       }
@@ -121,27 +121,27 @@
 
       <div class="filter-bar">
         <input
-          class="wds-text-input"
+          class="mycui-text-input"
           id="search-input"
           type="text"
           placeholder="名前・メールアドレスで検索"
           aria-label="ユーザー検索"
         />
-        <select class="wds-select" id="role-filter" aria-label="役割で絞り込み">
+        <select class="mycui-select" id="role-filter" aria-label="役割で絞り込み">
           <option value="">すべての役割</option>
           <option value="admin">管理者</option>
           <option value="member">一般ユーザー</option>
         </select>
-        <button class="wds-button variant-primary" type="button">新規作成</button>
+        <button class="mycui-button variant-primary" type="button">新規作成</button>
       </div>
 
       <div class="bulk-bar" id="bulk-bar">
         <span id="bulk-count"></span>
-        <button class="wds-button variant-danger size-sm" type="button">削除</button>
+        <button class="mycui-button variant-danger size-sm" type="button">削除</button>
       </div>
 
-      <div class="wds-table-wrapper">
-        <table class="wds-table" aria-label="ユーザー一覧">
+      <div class="mycui-table-wrapper">
+        <table class="mycui-table" aria-label="ユーザー一覧">
           <thead>
             <tr>
               <th><input type="checkbox" id="select-all" aria-label="全ての行を選択" /></th>
@@ -191,7 +191,7 @@
             '<td>' +
             u.email +
             '</td>' +
-            '<td><span class="wds-badge variant-' +
+            '<td><span class="mycui-badge variant-' +
             roleVariant +
             '">' +
             roleLabel +

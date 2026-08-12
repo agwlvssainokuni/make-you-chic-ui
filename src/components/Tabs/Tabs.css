@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-.wds-tabs-list {
+.mycui-tabs-list {
   display: flex;
   gap: var(--space-1);
   border-bottom: 1px solid var(--color-border);
 }
 
-.wds-tab {
+.mycui-tab {
   padding: var(--space-2) var(--space-4);
   background: none;
   border: none;
@@ -31,21 +31,21 @@
   cursor: pointer;
 }
 
-.wds-tab:hover {
+.mycui-tab:hover {
   color: var(--color-text);
 }
 
-.wds-tab.active {
+.mycui-tab.active {
   color: var(--color-primary);
   border-bottom-color: var(--color-primary);
 }
 
-.wds-tab:focus-visible {
+.mycui-tab:focus-visible {
   outline: none;
   box-shadow: var(--focus-ring);
   border-radius: var(--radius-sm);
 }
 
-.wds-tab-panel {
+.mycui-tab-panel {
   padding: var(--space-4) 0;
 }

@@ -42,7 +42,7 @@ export function Badge({
     count !== undefined ? (count > maxCount ? `${maxCount}+` : String(count)) : children
   const isEmpty = content === undefined || content === null || content === ''
 
-  const classes = ['wds-badge', `variant-${variant}`, isEmpty && 'wds-badge-empty', className]
+  const classes = ['mycui-badge', `variant-${variant}`, isEmpty && 'mycui-badge-empty', className]
     .filter(Boolean)
     .join(' ')
 

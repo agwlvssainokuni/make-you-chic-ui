@@ -139,7 +139,7 @@ export function Dropdown({
             role="menu"
             id={id}
             tabIndex={-1}
-            className="wds-dropdown-menu"
+            className="mycui-dropdown-menu"
             style={{ top: position.top, left: position.left }}
             onKeyDown={handleMenuKeyDown}
             data-testid="dropdown-menu"
@@ -153,7 +153,7 @@ export function Dropdown({
                 type="button"
                 role="menuitem"
                 tabIndex={-1}
-                className="wds-dropdown-item"
+                className="mycui-dropdown-item"
                 onClick={() => {
                   item.onClick()
                   close(true)

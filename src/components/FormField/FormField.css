@@ -13,30 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-.wds-form-field {
+.mycui-form-field {
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
   font-family: var(--font-family-active);
 }
 
-.wds-form-field-label {
+.mycui-form-field-label {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   color: var(--color-text);
 }
 
-.wds-form-field-required-mark {
+.mycui-form-field-required-mark {
   color: var(--color-danger);
   margin-left: 2px;
 }
 
-.wds-form-field-helper-text {
+.mycui-form-field-helper-text {
   font-size: var(--font-size-sm);
   color: var(--color-text-muted);
 }
 
-.wds-form-field-error-text {
+.mycui-form-field-error-text {
   font-size: var(--font-size-sm);
   color: var(--color-danger);
 }

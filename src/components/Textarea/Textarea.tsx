@@ -40,7 +40,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function 
   return (
     <textarea
       ref={ref}
-      className={className ? `wds-textarea ${className}` : 'wds-textarea'}
+      className={className ? `mycui-textarea ${className}` : 'mycui-textarea'}
       rows={rows}
       value={currentValue}
       onChange={(e) => setValue(e.target.value)}

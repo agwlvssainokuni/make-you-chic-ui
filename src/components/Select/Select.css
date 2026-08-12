@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-.wds-select-wrapper {
+.mycui-select-wrapper {
   position: relative;
   display: inline-block;
   width: 100%;
 }
 
-.wds-select {
+.mycui-select {
   width: 100%;
   appearance: none;
   font-family: var(--font-family-active);
@@ -31,21 +31,21 @@
   padding: var(--space-2) var(--space-6) var(--space-2) var(--space-3);
 }
 
-.wds-select:focus-visible {
+.mycui-select:focus-visible {
   outline: none;
   box-shadow: var(--focus-ring);
 }
 
-.wds-select:disabled {
+.mycui-select:disabled {
   background: var(--color-surface-disabled);
   cursor: not-allowed;
 }
 
-.wds-select[aria-invalid='true'] {
+.mycui-select[aria-invalid='true'] {
   border-color: var(--color-danger);
 }
 
-.wds-select-chevron {
+.mycui-select-chevron {
   position: absolute;
   right: var(--space-2);
   top: 50%;

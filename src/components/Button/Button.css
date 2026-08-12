@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-.wds-button {
+.mycui-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -26,84 +26,84 @@
   white-space: nowrap;
 }
 
-.wds-button:focus-visible {
+.mycui-button:focus-visible {
   outline: none;
   box-shadow: var(--focus-ring);
 }
 
-.wds-button:disabled {
+.mycui-button:disabled {
   cursor: not-allowed;
   opacity: 0.6;
 }
 
 /* size */
-.wds-button.size-sm {
+.mycui-button.size-sm {
   font-size: var(--font-size-sm);
   padding: var(--space-1) var(--space-3);
 }
 
-.wds-button.size-md {
+.mycui-button.size-md {
   font-size: var(--font-size-md);
   padding: var(--space-2) var(--space-4);
 }
 
-.wds-button.size-lg {
+.mycui-button.size-lg {
   font-size: var(--font-size-lg);
   padding: var(--space-3) var(--space-6);
 }
 
 /* variant */
-.wds-button.variant-primary {
+.mycui-button.variant-primary {
   background: var(--color-primary);
   color: #fff;
 }
 
-.wds-button.variant-primary:hover:not(:disabled) {
+.mycui-button.variant-primary:hover:not(:disabled) {
   background: var(--color-primary-hover);
 }
 
-.wds-button.variant-primary:active:not(:disabled) {
+.mycui-button.variant-primary:active:not(:disabled) {
   background: var(--color-primary-active);
 }
 
-.wds-button.variant-secondary {
+.mycui-button.variant-secondary {
   background: var(--color-surface);
   color: var(--color-text);
   border-color: var(--color-border);
 }
 
-.wds-button.variant-secondary:hover:not(:disabled) {
+.mycui-button.variant-secondary:hover:not(:disabled) {
   background: var(--color-surface-hover);
 }
 
-.wds-button.variant-danger {
+.mycui-button.variant-danger {
   background: var(--color-danger);
   color: #fff;
 }
 
-.wds-button.variant-danger:hover:not(:disabled) {
+.mycui-button.variant-danger:hover:not(:disabled) {
   background: var(--color-danger-hover);
 }
 
-.wds-button.variant-ghost {
+.mycui-button.variant-ghost {
   background: transparent;
   color: var(--color-text);
 }
 
-.wds-button.variant-ghost:hover:not(:disabled) {
+.mycui-button.variant-ghost:hover:not(:disabled) {
   background: var(--color-surface-hover);
 }
 
-.wds-button-spinner {
+.mycui-button-spinner {
   width: 1em;
   height: 1em;
   border: 2px solid currentcolor;
   border-right-color: transparent;
   border-radius: 50%;
-  animation: wds-button-spin 0.6s linear infinite;
+  animation: mycui-button-spin 0.6s linear infinite;
 }
 
-@keyframes wds-button-spin {
+@keyframes mycui-button-spin {
   to {
     transform: rotate(360deg);
   }

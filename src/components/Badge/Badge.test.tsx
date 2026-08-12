@@ -41,7 +41,7 @@ describe('Badge', () => {
 
   it('renders as an empty dot when neither count nor children are provided', () => {
     render(<Badge />)
-    expect(screen.getByTestId('badge')).toHaveClass('wds-badge-empty')
+    expect(screen.getByTestId('badge')).toHaveClass('mycui-badge-empty')
     expect(screen.getByTestId('badge')).toHaveTextContent('')
   })
 

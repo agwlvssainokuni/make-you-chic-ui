@@ -77,7 +77,7 @@ describe('FormField', () => {
         <Probe />
       </FormField>,
     )
-    expect(container.querySelector('.wds-form-field-required-mark')).toBeInTheDocument()
+    expect(container.querySelector('.mycui-form-field-required-mark')).toBeInTheDocument()
   })
 
   it('has no detectable accessibility violations', async () => {

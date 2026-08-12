@@ -30,7 +30,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   { variant = 'primary', size = 'md', loading = false, disabled, className, children, ...rest },
   ref,
 ) {
-  const classes = ['wds-button', `variant-${variant}`, `size-${size}`, className]
+  const classes = ['mycui-button', `variant-${variant}`, `size-${size}`, className]
     .filter(Boolean)
     .join(' ')
 
@@ -45,7 +45,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       {...rest}
     >
       {loading && (
-        <span className="wds-button-spinner" aria-hidden="true" data-testid="button-spinner" />
+        <span className="mycui-button-spinner" aria-hidden="true" data-testid="button-spinner" />
       )}
       {children}
     </button>

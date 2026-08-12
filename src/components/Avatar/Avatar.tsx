@@ -48,7 +48,7 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(function Avatar(
     setImageError(false)
   }, [src])
 
-  const classes = ['wds-avatar', `size-${size}`, className].filter(Boolean).join(' ')
+  const classes = ['mycui-avatar', `size-${size}`, className].filter(Boolean).join(' ')
   const showImage = Boolean(src) && !imageError
 
   return (
@@ -62,7 +62,7 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(function Avatar(
     >
       {showImage ? (
         <img
-          className="wds-avatar-image"
+          className="mycui-avatar-image"
           src={src}
           alt={name}
           onError={() => setImageError(true)}

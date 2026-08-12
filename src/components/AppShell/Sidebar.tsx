@@ -41,21 +41,21 @@ export function Sidebar({ navItems }: SidebarProps): React.JSX.Element {
 
   return (
     <nav
-      className={collapsed ? 'wds-sidebar collapsed' : 'wds-sidebar'}
+      className={collapsed ? 'mycui-sidebar collapsed' : 'mycui-sidebar'}
       aria-label="メインナビゲーション"
     >
-      <ul className="wds-sidebar-nav-list">
+      <ul className="mycui-sidebar-nav-list">
         {navItems.map((item) => (
           <li key={item.href}>
             <a
               href={item.href}
               onClick={item.onClick}
-              className="wds-sidebar-nav-link"
+              className="mycui-sidebar-nav-link"
               aria-label={item.label}
               data-testid={`sidebar-nav-${item.href}`}
             >
               {item.icon && <Icon name={item.icon} size={18} />}
-              {!collapsed && <span className="wds-sidebar-nav-label">{item.label}</span>}
+              {!collapsed && <span className="mycui-sidebar-nav-label">{item.label}</span>}
             </a>
           </li>
         ))}

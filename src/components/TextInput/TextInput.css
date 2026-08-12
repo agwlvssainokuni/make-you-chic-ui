@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-.wds-text-input {
+.mycui-text-input {
   font-family: var(--font-family-active);
   font-size: var(--font-size-md);
   color: var(--color-text);
@@ -23,16 +23,16 @@
   padding: var(--space-2) var(--space-3);
 }
 
-.wds-text-input:focus-visible {
+.mycui-text-input:focus-visible {
   outline: none;
   box-shadow: var(--focus-ring);
 }
 
-.wds-text-input:disabled {
+.mycui-text-input:disabled {
   background: var(--color-surface-disabled);
   cursor: not-allowed;
 }
 
-.wds-text-input[aria-invalid='true'] {
+.mycui-text-input[aria-invalid='true'] {
   border-color: var(--color-danger);
 }

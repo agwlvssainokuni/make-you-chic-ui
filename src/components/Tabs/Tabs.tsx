@@ -73,7 +73,7 @@ export function Tabs({
 
   return (
     <div data-testid="tabs">
-      <div className="wds-tabs-list" role="tablist" aria-label={ariaLabel}>
+      <div className="mycui-tabs-list" role="tablist" aria-label={ariaLabel}>
         {items.map((item, index) => {
           const selected = index === current
           const tabId = `${baseId}-tab-${index}`
@@ -87,7 +87,7 @@ export function Tabs({
               type="button"
               role="tab"
               id={tabId}
-              className={selected ? 'wds-tab active' : 'wds-tab'}
+              className={selected ? 'mycui-tab active' : 'mycui-tab'}
               aria-selected={selected}
               aria-controls={panelId}
               tabIndex={selected ? 0 : -1}
@@ -101,7 +101,7 @@ export function Tabs({
         })}
       </div>
       <div
-        className="wds-tab-panel"
+        className="mycui-tab-panel"
         role="tabpanel"
         id={`${baseId}-panel-${current}`}
         aria-labelledby={`${baseId}-tab-${current}`}

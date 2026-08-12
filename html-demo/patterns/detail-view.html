@@ -34,7 +34,7 @@
         gap: var(--space-3);
         margin-bottom: var(--space-4);
       }
-      .wds-avatar {
+      .mycui-avatar {
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -46,7 +46,7 @@
         font-weight: var(--font-weight-semibold);
         font-size: var(--font-size-lg);
       }
-      .wds-badge {
+      .mycui-badge {
         display: inline-flex;
         align-items: center;
         padding: 0 var(--space-2);
@@ -56,12 +56,12 @@
         background: var(--color-primary);
         color: #fff;
       }
-      .wds-tabs-list {
+      .mycui-tabs-list {
         display: flex;
         gap: var(--space-1);
         border-bottom: 1px solid var(--color-border);
       }
-      .wds-tab {
+      .mycui-tab {
         padding: var(--space-2) var(--space-4);
         background: none;
         border: none;
@@ -70,15 +70,15 @@
         color: var(--color-text-muted);
         cursor: pointer;
       }
-      .wds-tab.active {
+      .mycui-tab.active {
         color: var(--color-primary);
         border-bottom-color: var(--color-primary);
       }
-      .wds-tab-panel {
+      .mycui-tab-panel {
         display: none;
         padding: var(--space-4) 0;
       }
-      .wds-tab-panel.active {
+      .mycui-tab-panel.active {
         display: block;
       }
       .description-list {
@@ -90,28 +90,28 @@
         font-size: var(--font-size-sm);
         color: var(--color-text-muted);
       }
-      .wds-card {
+      .mycui-card {
         background: var(--color-surface);
         border: 1px solid var(--color-border);
         border-radius: var(--radius-lg);
         padding: var(--space-4);
       }
-      .wds-button {
+      .mycui-button {
         font-size: var(--font-size-md);
         padding: var(--space-2) var(--space-4);
         border-radius: var(--radius-md);
         border: 1px solid transparent;
         cursor: pointer;
       }
-      .wds-button.variant-danger {
+      .mycui-button.variant-danger {
         background: var(--color-danger);
         color: #fff;
       }
-      .wds-button:disabled {
+      .mycui-button:disabled {
         opacity: 0.5;
         cursor: not-allowed;
       }
-      .wds-modal-overlay {
+      .mycui-modal-overlay {
         position: fixed;
         inset: 0;
         background: var(--color-overlay);
@@ -119,17 +119,17 @@
         align-items: center;
         justify-content: center;
       }
-      .wds-modal-overlay.open {
+      .mycui-modal-overlay.open {
         display: flex;
       }
-      .wds-modal-dialog {
+      .mycui-modal-dialog {
         background: var(--color-surface);
         border-radius: var(--radius-lg);
         max-width: 420px;
         width: 100%;
         padding: var(--space-4);
       }
-      .wds-text-input {
+      .mycui-text-input {
         width: 100%;
         box-sizing: border-box;
         font-size: var(--font-size-md);
@@ -143,7 +143,7 @@
   <body>
     <div class="demo-wrap">
       <div class="detail-header">
-        <div class="wds-avatar" role="img" aria-label="山田 太郎">山太</div>
+        <div class="mycui-avatar" role="img" aria-label="山田 太郎">山太</div>
         <div>
           <h1
             style="
@@ -154,19 +154,19 @@
           >
             山田 太郎
           </h1>
-          <span class="wds-badge">管理者</span>
+          <span class="mycui-badge">管理者</span>
         </div>
       </div>
 
-      <div class="wds-tabs-list" role="tablist" aria-label="詳細セクション">
-        <button class="wds-tab active" role="tab" data-tab="basic" type="button">基本情報</button>
-        <button class="wds-tab" role="tab" data-tab="permissions" type="button">
+      <div class="mycui-tabs-list" role="tablist" aria-label="詳細セクション">
+        <button class="mycui-tab active" role="tab" data-tab="basic" type="button">基本情報</button>
+        <button class="mycui-tab" role="tab" data-tab="permissions" type="button">
           アクセス権限
         </button>
-        <button class="wds-tab" role="tab" data-tab="danger" type="button">危険操作</button>
+        <button class="mycui-tab" role="tab" data-tab="danger" type="button">危険操作</button>
       </div>
 
-      <div class="wds-tab-panel active" data-panel="basic">
+      <div class="mycui-tab-panel active" data-panel="basic">
         <dl class="description-list">
           <dt class="description-list-term">名前</dt>
           <dd>山田 太郎</dd>
@@ -176,34 +176,36 @@
           <dd>管理者</dd>
         </dl>
       </div>
-      <div class="wds-tab-panel" data-panel="permissions">
+      <div class="mycui-tab-panel" data-panel="permissions">
         <p>users: 読み取り/書き込み</p>
       </div>
-      <div class="wds-tab-panel" data-panel="danger">
-        <div class="wds-card">
+      <div class="mycui-tab-panel" data-panel="danger">
+        <div class="mycui-card">
           <p style="font-weight: var(--font-weight-semibold); margin: 0 0 4px">
             このユーザーを削除
           </p>
           <p style="color: var(--color-text-muted); margin: 0 0 12px">
             削除すると復元できません。関連するアクセス権限もすべて失われます。
           </p>
-          <button class="wds-button variant-danger" id="open-delete" type="button">削除する</button>
+          <button class="mycui-button variant-danger" id="open-delete" type="button">
+            削除する
+          </button>
         </div>
       </div>
     </div>
 
-    <div class="wds-modal-overlay" id="delete-modal">
-      <div class="wds-modal-dialog" role="dialog" aria-modal="true">
+    <div class="mycui-modal-overlay" id="delete-modal">
+      <div class="mycui-modal-dialog" role="dialog" aria-modal="true">
         <p>確認のため「山田 太郎」と入力してください。この操作は取り消せません。</p>
         <input
-          class="wds-text-input"
+          class="mycui-text-input"
           id="confirm-input"
           type="text"
           aria-label="確認のため「山田 太郎」と入力してください"
         />
         <div style="display: flex; gap: 8px; justify-content: flex-end">
           <button
-            class="wds-button"
+            class="mycui-button"
             id="cancel-delete"
             type="button"
             style="
@@ -214,7 +216,7 @@
           >
             キャンセル
           </button>
-          <button class="wds-button variant-danger" id="confirm-delete" type="button" disabled>
+          <button class="mycui-button variant-danger" id="confirm-delete" type="button" disabled>
             削除する
           </button>
         </div>
@@ -222,13 +224,13 @@
     </div>
 
     <script>
-      document.querySelectorAll('.wds-tab').forEach(function (tab) {
+      document.querySelectorAll('.mycui-tab').forEach(function (tab) {
         tab.addEventListener('click', function () {
-          document.querySelectorAll('.wds-tab').forEach(function (t) {
+          document.querySelectorAll('.mycui-tab').forEach(function (t) {
             t.classList.remove('active')
             t.setAttribute('aria-selected', 'false')
           })
-          document.querySelectorAll('.wds-tab-panel').forEach(function (p) {
+          document.querySelectorAll('.mycui-tab-panel').forEach(function (p) {
             p.classList.remove('active')
           })
           tab.classList.add('active')

@@ -159,7 +159,8 @@
 - [x] TopbarのAvatarサイズを`sm`→`md`に変更 (2026-08-12T05:29:37Z, コミット`9b567d7`) — `src/components/AppShell/Topbar.tsx`(デザインシステム本体)の2箇所を統一。詳細は`audit.md`該当エントリ参照
 - [x] README.md新規作成 (2026-08-12T05:59:00Z, コミット`e541647`) — リポジトリルートに概要・特徴・ディレクトリ構成・セットアップ/開発/ビルド/テストコマンド・組み込み方の要約・ライセンスを記載。詳細は`audit.md`該当エントリ参照
 - [x] 相談: プロジェクト名の変更 (2026-08-12T09:00:00Z) — 新しいプロジェクト名を`make-you-chic-ui`に決定。ディレクトリ名・GitHubリポジトリ名の変更作業自体はユーザーが別途実施(このセッションでは未実施)。詳細は`audit.md`該当エントリ参照
-- [x] GitHubリポジトリ名変更に伴うパッケージ名の追従 (2026-08-12T09:15:00Z) — GitHubリポジトリ名が`agwlvssainokuni/make-you-chic-ui`に変更され`origin`にも反映済みであることを確認した上で、`package.json`/`package-lock.json`の`name`、`README.md`、`index.html`の`<title>`、`docs/integration-guide.md`のパス・パッケージ名例、ソースコード内のdev向け警告メッセージプレフィックス(4ファイル)を`make-you-chic-ui`に更新。ディレクトリ名は未変更のため`aidlc-docs/`配下のディレクトリ名参照箇所は今回スコープ外。詳細は`audit.md`該当エントリ参照。**ユーザーのコミット許可待ち**
+- [x] GitHubリポジトリ名変更に伴うパッケージ名の追従 (2026-08-12T09:15:00Z, コミット`3a21621`) — GitHubリポジトリ名が`agwlvssainokuni/make-you-chic-ui`に変更され`origin`にも反映済みであることを確認した上で、`package.json`/`package-lock.json`の`name`、`README.md`、`index.html`の`<title>`、`docs/integration-guide.md`のパス・パッケージ名例、ソースコード内のdev向け警告メッセージプレフィックス(4ファイル)を`make-you-chic-ui`に更新。ディレクトリ名は未変更のため`aidlc-docs/`配下のディレクトリ名参照箇所は今回スコープ外。詳細は`audit.md`該当エントリ参照
+- [x] CSSクラス名接頭辞`wds-`→`mycui-`への改名 (2026-08-12T09:30:00Z) — `src/`(48ファイル)・`html-demo/`(7ファイル)の全`wds-`プレフィックス(67種類・209箇所)を`mycui-`に一括置換。詳細は`audit.md`該当エントリ参照。**ユーザーのコミット許可待ち**
 
 ### 🟡 OPERATIONS PHASE
 
@@ -170,4 +171,4 @@
 - **Lifecycle Phase**: CONSTRUCTION
 - **Current Stage**: Build and Test(レビュー継続中 — ユーザーの指摘対応が完了するまでフェーズは終了しない、との明示ルールに基づく)
 - **Next Stage**: Operations(プレースホルダー)
-- **Status**: GitHubリポジトリ名変更(`make-you-chic-ui`)に伴うパッケージ名の追従完了、ユーザーのコミット許可待ち。ディレクトリ名変更は未実施(ユーザーが別途実施予定)。Approve & Continueはユーザーからの明示的な合図があるまで提示しない
+- **Status**: CSSクラス名接頭辞`wds-`→`mycui-`への改名完了、ユーザーのコミット許可待ち。ディレクトリ名変更は未実施(ユーザーが別途実施予定)。Approve & Continueはユーザーからの明示的な合図があるまで提示しない

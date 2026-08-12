@@ -101,7 +101,7 @@ export function Tooltip({ content, children, placement = 'top' }: TooltipProps):
             ref={tooltipRef}
             role="tooltip"
             id={id}
-            className="wds-tooltip"
+            className="mycui-tooltip"
             style={{ top: position.top, left: position.left }}
             data-testid="tooltip"
           >

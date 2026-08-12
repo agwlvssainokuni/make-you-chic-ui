@@ -112,7 +112,7 @@ export function ToastProvider({ children }: { children: ReactNode }): React.JSX.
       {children}
       {createPortal(
         <div
-          className="wds-toast-container"
+          className="mycui-toast-container"
           role="status"
           aria-live="polite"
           data-testid="toast-container"
@@ -120,13 +120,13 @@ export function ToastProvider({ children }: { children: ReactNode }): React.JSX.
           {items.map((item) => (
             <div
               key={item.id}
-              className={`wds-toast variant-${item.variant}`}
+              className={`mycui-toast variant-${item.variant}`}
               onMouseEnter={() => pause(item.id)}
               onMouseLeave={() => resume(item.id)}
               data-testid={`toast-${item.id}`}
             >
               <Icon name={VARIANT_ICON[item.variant]} size={16} />
-              <span className="wds-toast-message">{item.message}</span>
+              <span className="mycui-toast-message">{item.message}</span>
             </div>
           ))}
         </div>,

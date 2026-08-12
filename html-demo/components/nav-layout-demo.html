@@ -24,22 +24,22 @@
     <link rel="stylesheet" href="../assets/fonts.css" />
     <style>
       /* AppShell */
-      .wds-app-shell {
+      .mycui-app-shell {
         display: grid;
         grid-template-columns: var(--sidebar-width) 1fr;
         grid-template-rows: var(--topbar-height) 1fr;
         grid-template-areas: 'sidebar topbar' 'sidebar content';
         min-height: 100vh;
       }
-      .wds-app-shell.collapsed {
+      .mycui-app-shell.collapsed {
         grid-template-columns: var(--sidebar-width-collapsed) 1fr;
       }
-      .wds-sidebar {
+      .mycui-sidebar {
         grid-area: sidebar;
         background: var(--color-sidebar-bg);
         padding: var(--space-4) var(--space-2);
       }
-      .wds-sidebar-nav-list {
+      .mycui-sidebar-nav-list {
         list-style: none;
         margin: 0;
         padding: 0;
@@ -47,7 +47,7 @@
         flex-direction: column;
         gap: var(--space-1);
       }
-      .wds-sidebar-nav-link {
+      .mycui-sidebar-nav-link {
         display: flex;
         align-items: center;
         gap: var(--space-2);
@@ -57,7 +57,7 @@
         text-decoration: none;
         font-size: var(--font-size-sm);
       }
-      .wds-topbar {
+      .mycui-topbar {
         grid-area: topbar;
         display: flex;
         align-items: center;
@@ -65,24 +65,24 @@
         background: var(--color-surface);
         border-bottom: 1px solid var(--color-border);
       }
-      .wds-topbar-collapse-button {
+      .mycui-topbar-collapse-button {
         background: none;
         border: none;
         cursor: pointer;
         padding: var(--space-1);
       }
-      .wds-app-shell-content {
+      .mycui-app-shell-content {
         grid-area: content;
         padding: var(--space-4);
       }
 
       /* Tabs */
-      .wds-tabs-list {
+      .mycui-tabs-list {
         display: flex;
         gap: var(--space-1);
         border-bottom: 1px solid var(--color-border);
       }
-      .wds-tab {
+      .mycui-tab {
         padding: var(--space-2) var(--space-4);
         background: none;
         border: none;
@@ -91,16 +91,16 @@
         color: var(--color-text-muted);
         cursor: pointer;
       }
-      .wds-tab.active {
+      .mycui-tab.active {
         color: var(--color-primary);
         border-bottom-color: var(--color-primary);
       }
-      .wds-tab-panel {
+      .mycui-tab-panel {
         padding: var(--space-4) 0;
       }
 
       /* Dropdown */
-      .wds-dropdown-menu {
+      .mycui-dropdown-menu {
         position: absolute;
         min-width: 160px;
         background: var(--color-surface);
@@ -110,14 +110,14 @@
         padding: var(--space-1);
         display: none;
       }
-      .wds-dropdown-wrap {
+      .mycui-dropdown-wrap {
         position: relative;
         display: inline-block;
       }
-      .wds-dropdown-wrap.open .wds-dropdown-menu {
+      .mycui-dropdown-wrap.open .mycui-dropdown-menu {
         display: block;
       }
-      .wds-dropdown-item {
+      .mycui-dropdown-item {
         display: block;
         width: 100%;
         text-align: left;
@@ -130,20 +130,20 @@
     </style>
   </head>
   <body>
-    <div class="wds-app-shell" id="app-shell">
-      <nav class="wds-sidebar">
-        <ul class="wds-sidebar-nav-list">
+    <div class="mycui-app-shell" id="app-shell">
+      <nav class="mycui-sidebar">
+        <ul class="mycui-sidebar-nav-list">
           <li>
-            <a class="wds-sidebar-nav-link" href="#" aria-label="ダッシュボード"
+            <a class="mycui-sidebar-nav-link" href="#" aria-label="ダッシュボード"
               >📊 ダッシュボード</a
             >
           </li>
-          <li><a class="wds-sidebar-nav-link" href="#" aria-label="ユーザー">👤 ユーザー</a></li>
+          <li><a class="mycui-sidebar-nav-link" href="#" aria-label="ユーザー">👤 ユーザー</a></li>
         </ul>
       </nav>
-      <header class="wds-topbar">
+      <header class="mycui-topbar">
         <button
-          class="wds-topbar-collapse-button"
+          class="mycui-topbar-collapse-button"
           id="sidebar-toggle"
           type="button"
           aria-label="サイドバーを折り畳む"
@@ -151,7 +151,7 @@
           ☰
         </button>
         <div style="flex: 1"></div>
-        <div class="wds-dropdown-wrap" id="user-menu-wrap">
+        <div class="mycui-dropdown-wrap" id="user-menu-wrap">
           <button
             type="button"
             id="user-menu-trigger"
@@ -161,25 +161,25 @@
           >
             👤 山田 太郎
           </button>
-          <div class="wds-dropdown-menu" role="menu">
-            <button class="wds-dropdown-item" role="menuitem" type="button">プロフィール</button>
-            <button class="wds-dropdown-item" role="menuitem" type="button">ログアウト</button>
+          <div class="mycui-dropdown-menu" role="menu">
+            <button class="mycui-dropdown-item" role="menuitem" type="button">プロフィール</button>
+            <button class="mycui-dropdown-item" role="menuitem" type="button">ログアウト</button>
           </div>
         </div>
       </header>
-      <main class="wds-app-shell-content">
+      <main class="mycui-app-shell-content">
         <h1 style="font-size: var(--font-size-xl); font-weight: var(--font-weight-semibold)">
           Tabs デモ
         </h1>
-        <div class="wds-tabs-list" role="tablist" aria-label="詳細セクション">
-          <button class="wds-tab active" role="tab" aria-selected="true" type="button">
+        <div class="mycui-tabs-list" role="tablist" aria-label="詳細セクション">
+          <button class="mycui-tab active" role="tab" aria-selected="true" type="button">
             基本情報
           </button>
-          <button class="wds-tab" role="tab" aria-selected="false" type="button">
+          <button class="mycui-tab" role="tab" aria-selected="false" type="button">
             アクセス権限
           </button>
         </div>
-        <div class="wds-tab-panel" role="tabpanel">
+        <div class="mycui-tab-panel" role="tabpanel">
           <p>基本情報の内容がここに表示されます。</p>
         </div>
       </main>

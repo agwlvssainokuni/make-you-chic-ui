@@ -57,7 +57,7 @@ export function Icon({
     <SvgComponent
       width={size}
       height={size}
-      className={className ? `wds-icon ${className}` : 'wds-icon'}
+      className={className ? `mycui-icon ${className}` : 'mycui-icon'}
       style={style}
       data-testid={`icon-${name}`}
       {...a11yProps}

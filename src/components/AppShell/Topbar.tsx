@@ -36,24 +36,24 @@ export function Topbar({ user, userMenuItems }: TopbarProps): React.JSX.Element 
   const { toggleCollapsed, collapsed } = useAppShell()
 
   return (
-    <header className="wds-topbar">
+    <header className="mycui-topbar">
       <button
         type="button"
-        className="wds-topbar-collapse-button"
+        className="mycui-topbar-collapse-button"
         onClick={toggleCollapsed}
         aria-label={collapsed ? 'サイドバーを開く' : 'サイドバーを折り畳む'}
         data-testid="sidebar-toggle"
       >
         <Icon name="menu" size={20} />
       </button>
-      <div className="wds-topbar-spacer" />
+      <div className="mycui-topbar-spacer" />
       {user &&
         (userMenuItems && userMenuItems.length > 0 ? (
           <Dropdown
             trigger={
               <button
                 type="button"
-                className="wds-topbar-user-trigger"
+                className="mycui-topbar-user-trigger"
                 aria-label={`${user.name}のメニュー`}
               >
                 <Avatar name={user.name} src={user.avatarSrc} size="md" />

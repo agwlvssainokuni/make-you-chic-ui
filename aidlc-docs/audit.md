@@ -1135,6 +1135,7 @@
 **Timestamp**: 2026-08-12T09:15:00Z
 **User Input**: "GitHubリポジトリ名を変更しました。本プロジェクトの.gitにも反映済みです。ただし、ディレクトリ名は未変更です。"→(AIから`package.json`の`name`等の追従タイミングを確認)→"今進めてください。"
 **AI Response**: `git remote -v`で`origin`が`https://github.com/agwlvssainokuni/make-you-chic-ui.git`に更新済みであることを確認。リポジトリ内で`web-design-system`(パッケージ名)を参照している箇所を`grep`で洗い出し、以下を`make-you-chic-ui`に更新:
+
 - `package.json`の`name`
 - `package-lock.json`(`npm install --package-lock-only`で同期)
 - `README.md`: 見出し(`# web-design-system`→`# make-you-chic-ui`)、importの例
@@ -1144,6 +1145,16 @@
 
 **スコープ外とした事項**: `aidlc-docs/`配下の各フェーズ成果物(`requirements.md`・`aidlc-state.md`の`Workspace Root`・`unit-of-work.md`のディレクトリ構成図等)は、ディレクトリ名(`web-design-system-sample`)自体が本セッションでは未変更のため、実態と齟齬がなく変更不要と判断(ディレクトリ名変更後に別途追従が必要)。`audit.md`内の過去ログは履歴記録のため変更対象外。CSSクラス名接頭辞`wds-`(48ファイル・209箇所、"Web Design System"由来)についてはスコープ確認のため別途ユーザーに相談する
 **検証結果**: `npx tsc --noEmit` 0エラー、`npm run lint`(oxlint+eslint)・`npm run lint:css`すべてクリーン、`npm run format:check`で`aidlc-docs/audit.md`の整形崩れを検出し`prettier --write`で修正(内容変更なし、空行・インデントのみ)、`npm test`199/199、`npm run build`・`npm run sample-app:build`・`npm audit`(0件)すべて正常
-**Context**: パッケージ名のリポジトリ名追従、ユーザーのコミット許可待ち
+**Context**: パッケージ名のリポジトリ名追従、コミット`3a21621`として反映済み
+
+---
+
+## CSSクラス名接頭辞`wds-`→`mycui-`への改名
+
+**Timestamp**: 2026-08-12T09:30:00Z
+**User Input**: "CSSクラス接頭辞、改名したい。"→(AIから新接頭辞の候補を確認: chic- / myc- / mycui-)→"mycui- が良いかなと思っている。が、長くなりすぎるなら再考したい。CSSクラス名をリストアップして長さを確認して欲しい。"→(AIが実際のクラス名67種類を長さ比較で提示)→"mycui- とします。"
+**AI Response**: `grep`で`wds-`の使用範囲を`src/`(48ファイル)・`html-demo/`(7ファイル、静的HTML版デモ)の計55ファイル・67種類のクラス名・209箇所と特定(`aidlc-docs/audit.md`内の言及は議題としての言及のみのため対象外、`dist/`はビルド成果物のため対象外)。置換前に全出現箇所の直前文字を確認し、`wds-`が常にクォート・ドット・空白等の区切り文字の直後に現れる(誤置換のリスクがない)ことを確認した上で、対象55ファイルに`sed 's/wds-/mycui-/g'`を適用。副次的に`src/theme/semantic.css`のコメント内`.wds-*`という表記も`.mycui-*`に置換された(意図通り)。
+**検証結果**: `npx tsc --noEmit` 0エラー、`npm run lint`(oxlint+eslint)・`npm run lint:css`すべてクリーン、`npm run format:check`で`html-demo/patterns/detail-view.html`(クラス名が長くなったことによる行折り返し)と`aidlc-docs/audit.md`の整形崩れを検出し`prettier --write`で修正(いずれも内容変更なし)、`npm test`199/199(既存テストのクラス名アサーションが新プレフィックスで通ることを確認)、`npm run build`・`npm run sample-app:build`・`npm audit`(0件)すべて正常。`npx vite --port 5799`実機起動+`curl`で配信される`AppShell.css`の内容が`.mycui-app-shell`等に置き換わっていることを確認、devサーバー停止・ポート解放済み
+**Context**: CSSクラス名接頭辞の改名、ユーザーのコミット許可待ち
 
 ---

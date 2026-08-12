@@ -41,7 +41,7 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
     onChange,
   })
 
-  const trackClass = isChecked ? 'wds-switch-track checked' : 'wds-switch-track'
+  const trackClass = isChecked ? 'mycui-switch-track checked' : 'mycui-switch-track'
 
   const input = (
     <span
@@ -53,7 +53,7 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
         type="checkbox"
         role="switch"
         aria-checked={isChecked}
-        className="wds-switch-input"
+        className="mycui-switch-input"
         checked={isChecked}
         disabled={disabled}
         onChange={(e) => setChecked(e.target.checked)}
@@ -61,7 +61,7 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
         {...fieldProps}
         {...rest}
       />
-      <span className="wds-switch-thumb" />
+      <span className="mycui-switch-thumb" />
     </span>
   )
 
@@ -70,7 +70,7 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
   }
 
   return (
-    <label className="wds-switch-label">
+    <label className="mycui-switch-label">
       {input}
       {label}
     </label>

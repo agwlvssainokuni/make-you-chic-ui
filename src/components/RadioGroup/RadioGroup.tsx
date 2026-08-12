@@ -57,7 +57,7 @@ export function RadioGroup({
     <div
       role="radiogroup"
       id={fieldProps.id}
-      className={className ? `wds-radio-group ${className}` : 'wds-radio-group'}
+      className={className ? `mycui-radio-group ${className}` : 'mycui-radio-group'}
       style={style}
       aria-describedby={fieldProps['aria-describedby']}
       aria-invalid={fieldProps['aria-invalid']}

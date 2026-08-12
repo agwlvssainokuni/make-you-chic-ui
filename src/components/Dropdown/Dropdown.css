@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-.wds-dropdown-menu {
+.mycui-dropdown-menu {
   position: fixed;
   z-index: 2500;
   min-width: 160px;
@@ -24,7 +24,7 @@
   padding: var(--space-1);
 }
 
-.wds-dropdown-item {
+.mycui-dropdown-item {
   display: block;
   width: 100%;
   text-align: left;
@@ -38,8 +38,8 @@
   cursor: pointer;
 }
 
-.wds-dropdown-item:hover,
-.wds-dropdown-item:focus-visible {
+.mycui-dropdown-item:hover,
+.mycui-dropdown-item:focus-visible {
   background: var(--color-surface-hover);
   outline: none;
 }

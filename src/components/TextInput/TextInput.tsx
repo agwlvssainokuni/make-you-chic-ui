@@ -39,7 +39,7 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(function T
     <input
       ref={ref}
       type="text"
-      className={className ? `wds-text-input ${className}` : 'wds-text-input'}
+      className={className ? `mycui-text-input ${className}` : 'mycui-text-input'}
       value={currentValue}
       onChange={(e) => setValue(e.target.value)}
       data-testid="text-input"

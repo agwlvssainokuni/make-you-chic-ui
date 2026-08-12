@@ -26,7 +26,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(function Card(
   return (
     <div
       ref={ref}
-      className={className ? `wds-card ${className}` : 'wds-card'}
+      className={className ? `mycui-card ${className}` : 'mycui-card'}
       data-testid="card"
       {...rest}
     >

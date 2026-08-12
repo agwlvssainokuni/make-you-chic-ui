@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-.wds-avatar {
+.mycui-avatar {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -26,25 +26,25 @@
   flex-shrink: 0;
 }
 
-.wds-avatar.size-sm {
+.mycui-avatar.size-sm {
   width: 24px;
   height: 24px;
   font-size: var(--font-size-sm);
 }
 
-.wds-avatar.size-md {
+.mycui-avatar.size-md {
   width: 36px;
   height: 36px;
   font-size: var(--font-size-md);
 }
 
-.wds-avatar.size-lg {
+.mycui-avatar.size-lg {
   width: 56px;
   height: 56px;
   font-size: var(--font-size-lg);
 }
 
-.wds-avatar-image {
+.mycui-avatar-image {
   width: 100%;
   height: 100%;
   object-fit: cover;

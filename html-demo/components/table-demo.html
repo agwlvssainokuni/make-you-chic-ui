@@ -28,28 +28,28 @@
         margin: var(--space-6) auto;
         padding: 0 var(--space-4);
       }
-      .wds-table-wrapper {
+      .mycui-table-wrapper {
         overflow-x: auto;
         border: 1px solid var(--color-border);
         border-radius: var(--radius-lg);
       }
-      .wds-table {
+      .mycui-table {
         width: 100%;
         border-collapse: collapse;
         font-size: var(--font-size-sm);
       }
-      .wds-table th,
-      .wds-table td {
+      .mycui-table th,
+      .mycui-table td {
         padding: var(--space-2) var(--space-3);
         text-align: left;
         border-bottom: 1px solid var(--color-border);
       }
-      .wds-table th {
+      .mycui-table th {
         background: var(--color-surface-hover);
         font-weight: var(--font-weight-semibold);
         user-select: none;
       }
-      .wds-table-th-sortable {
+      .mycui-table-th-sortable {
         cursor: pointer;
         background: none;
         border: none;
@@ -58,17 +58,17 @@
         color: inherit;
         padding: 0;
       }
-      .wds-table-resize-handle {
+      .mycui-table-resize-handle {
         position: relative;
         display: inline-block;
         width: 6px;
         cursor: col-resize;
         margin-left: var(--space-2);
       }
-      .wds-table-cell-editable {
+      .mycui-table-cell-editable {
         cursor: text;
       }
-      .wds-table-pagination {
+      .mycui-table-pagination {
         display: flex;
         align-items: center;
         justify-content: flex-end;
@@ -76,7 +76,7 @@
         padding: var(--space-3);
         border-top: 1px solid var(--color-border);
       }
-      .wds-button {
+      .mycui-button {
         font-size: var(--font-size-sm);
         padding: var(--space-1) var(--space-3);
         border-radius: var(--radius-md);
@@ -84,7 +84,7 @@
         background: var(--color-surface);
         cursor: pointer;
       }
-      .wds-button:disabled {
+      .mycui-button:disabled {
         opacity: 0.5;
         cursor: not-allowed;
       }
@@ -97,12 +97,12 @@
       </h1>
       <p>ヘッダークリックでソート、セルクリックでインライン編集(名前列)ができます。</p>
 
-      <div class="wds-table-wrapper">
-        <table class="wds-table" id="demo-table" aria-label="ユーザー一覧">
+      <div class="mycui-table-wrapper">
+        <table class="mycui-table" id="demo-table" aria-label="ユーザー一覧">
           <thead>
             <tr>
               <th>
-                <button class="wds-table-th-sortable" data-sort-key="name">
+                <button class="mycui-table-th-sortable" data-sort-key="name">
                   名前 <span id="sort-indicator"></span>
                 </button>
               </th>
@@ -112,10 +112,10 @@
           <tbody id="demo-tbody"></tbody>
         </table>
       </div>
-      <div class="wds-table-pagination">
+      <div class="mycui-table-pagination">
         <span id="page-status"></span>
-        <button class="wds-button" id="prev-page" type="button">前へ</button>
-        <button class="wds-button" id="next-page" type="button">次へ</button>
+        <button class="mycui-button" id="prev-page" type="button">前へ</button>
+        <button class="mycui-button" id="next-page" type="button">次へ</button>
       </div>
     </div>
 
@@ -159,7 +159,7 @@
         pageRows.forEach(function (row) {
           var tr = document.createElement('tr')
           var nameTd = document.createElement('td')
-          nameTd.className = 'wds-table-cell-editable'
+          nameTd.className = 'mycui-table-cell-editable'
           nameTd.textContent = row.name
           nameTd.tabIndex = 0
           nameTd.addEventListener('click', function () {

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-.wds-textarea {
+.mycui-textarea {
   font-family: var(--font-family-active);
   font-size: var(--font-size-md);
   color: var(--color-text);
@@ -24,16 +24,16 @@
   resize: vertical;
 }
 
-.wds-textarea:focus-visible {
+.mycui-textarea:focus-visible {
   outline: none;
   box-shadow: var(--focus-ring);
 }
 
-.wds-textarea:disabled {
+.mycui-textarea:disabled {
   background: var(--color-surface-disabled);
   cursor: not-allowed;
 }
 
-.wds-textarea[aria-invalid='true'] {
+.mycui-textarea[aria-invalid='true'] {
   border-color: var(--color-danger);
 }

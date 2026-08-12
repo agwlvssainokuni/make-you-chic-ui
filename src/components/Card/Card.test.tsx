@@ -30,7 +30,7 @@ describe('Card', () => {
 
   it('merges a custom className with the base class', () => {
     render(<Card className="custom">content</Card>)
-    expect(screen.getByTestId('card')).toHaveClass('wds-card', 'custom')
+    expect(screen.getByTestId('card')).toHaveClass('mycui-card', 'custom')
   })
 
   it('forwards the ref to the root element', () => {

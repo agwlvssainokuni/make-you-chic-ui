@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-.wds-radio-group {
+.mycui-radio-group {
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
 }
 
-.wds-radio-label {
+.mycui-radio-label {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
@@ -29,12 +29,12 @@
   cursor: pointer;
 }
 
-.wds-radio-label:has(input:disabled) {
+.mycui-radio-label:has(input:disabled) {
   color: var(--color-text-muted);
   cursor: not-allowed;
 }
 
-.wds-radio-circle {
+.mycui-radio-circle {
   position: relative;
   width: 18px;
   height: 18px;
@@ -47,11 +47,11 @@
   justify-content: center;
 }
 
-.wds-radio-circle:has(.wds-radio-input:checked) {
+.mycui-radio-circle:has(.mycui-radio-input:checked) {
   border-color: var(--color-primary);
 }
 
-.wds-radio-circle:has(.wds-radio-input:checked)::after {
+.mycui-radio-circle:has(.mycui-radio-input:checked)::after {
   content: '';
   width: 8px;
   height: 8px;
@@ -59,7 +59,7 @@
   background: var(--color-primary);
 }
 
-.wds-radio-input {
+.mycui-radio-input {
   position: absolute;
   inset: 0;
   margin: 0;
@@ -67,6 +67,6 @@
   cursor: inherit;
 }
 
-.wds-radio-circle:has(.wds-radio-input:focus-visible) {
+.mycui-radio-circle:has(.mycui-radio-input:focus-visible) {
   box-shadow: var(--focus-ring);
 }

@@ -136,7 +136,7 @@
 
 /*
  * Applies the theme's text/background color at the page root. Without
- * this, plain text nodes outside any .wds-* component (e.g. a consuming
+ * this, plain text nodes outside any .mycui-* component (e.g. a consuming
  * app's own <h1>/<p>) fall back to the browser default (black) and never
  * follow data-theme='dark' — component internals reference --color-text
  * themselves, but nothing previously propagated it to `body`. Mirrors the

@@ -76,12 +76,12 @@ export function AppShell({
   return (
     <AppShellContext.Provider value={contextValue}>
       <div
-        className={collapsed ? 'wds-app-shell collapsed' : 'wds-app-shell'}
+        className={collapsed ? 'mycui-app-shell collapsed' : 'mycui-app-shell'}
         data-testid="app-shell"
       >
         <Sidebar navItems={navItems} />
         <Topbar user={user} userMenuItems={userMenuItems} />
-        <main className="wds-app-shell-content" data-testid="app-shell-content">
+        <main className="mycui-app-shell-content" data-testid="app-shell-content">
           {children}
         </main>
       </div>
