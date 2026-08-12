@@ -56,14 +56,14 @@ export function Topbar({ user, userMenuItems }: TopbarProps): React.JSX.Element 
                 className="wds-topbar-user-trigger"
                 aria-label={`${user.name}のメニュー`}
               >
-                <Avatar name={user.name} src={user.avatarSrc} size="sm" />
+                <Avatar name={user.name} src={user.avatarSrc} size="md" />
               </button>
             }
             items={userMenuItems}
             placement="bottom-end"
           />
         ) : (
-          <Avatar name={user.name} src={user.avatarSrc} size="sm" />
+          <Avatar name={user.name} src={user.avatarSrc} size="md" />
         ))}
     </header>
   )

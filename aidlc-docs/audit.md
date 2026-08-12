@@ -1097,3 +1097,13 @@
 **Context**: Topbarユーザーメニュー追加、ユーザーのコミット許可待ち
 
 ---
+
+## TopbarのAvatarサイズをmdに変更
+
+**Timestamp**: 2026-08-12T05:29:37Z
+**User Input**: "ユーザメニューのAvatorはmdで"
+**AI Response**: `src/components/AppShell/Topbar.tsx`(デザインシステム本体、`sample-app`固有ではない)で`Avatar`の`size`が2箇所とも`"sm"`にハードコードされていることを確認: (1) `userMenuItems`がある場合のDropdownトリガー内(59行目)、(2) `userMenuItems`が無い場合の表示専用フォールバック(66行目)。ユーザーの指す「ユーザーメニューのAvatar」は前者(実際にメニューを開くトリガー)だが、両分岐は同じ視覚要素(Topbar右上のユーザーアバター)でありメニュー有無で見た目が変わるのは一貫性を欠くため、両方とも`size="md"`に統一。
+**検証結果**: `npx tsc --noEmit` 0エラー、`npm run lint`(oxlint+eslint)・`npm run lint:css`・`npm run format:check`すべてクリーン、`npm test`199/199(既存の`Topbar`/`AppShell`テストに`Avatar`サイズを検証するアサーションはなく影響なし)、`npm run build`・`npm run sample-app:build`・`npm audit`(0件)すべて正常
+**Context**: デザインシステム本体(AppShell/Topbar)のAvatarサイズ修正、ユーザーのコミット許可待ち
+
+---

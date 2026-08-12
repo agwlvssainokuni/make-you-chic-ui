@@ -155,7 +155,8 @@
 - [x] `examples/`を`sample-app/screen-patterns/`へ移動・改名 (2026-08-12T05:09:00Z, コミット`7a63bf6`) — `git mv`で移動、`../../src`→`../../../src`の相対パス修正、`tsconfig.json`/`docs/integration-guide.md`更新。副次的に`DetailView.css`が`lint:css`のどのglobにも含まれていなかった(未検査だった)ことが判明し修正。詳細は`audit.md`該当エントリ参照
 - [x] ログイン画面(AppShell外レイアウト)をreact-routerレイアウトルートパターンで追加 (2026-08-12T05:18:32Z, コミット`eba74b0`) — `sample-app/pages/LoginPage.tsx`/`.css`新規作成、`App.tsx`を`AppShellLayout`(pathなしレイアウトルート)方式に書き換え。`docs/integration-guide.md`にパターン説明を追記。詳細は`audit.md`該当エントリ参照
 - [x] 自己発見バグ修正: 前回コミット(7a63bf6)の一部変更が未ステージのままコミットされていた不整合を修正 (2026-08-12T05:20:38Z, コミット`f615a66`) — `git add -A`のパススペック不一致エラーが原因。作業ツリーの正しい内容を独立コミットとして反映
-- [x] Topbarユーザーメニューにログアウトを追加 (2026-08-12T05:24:24Z) — `AppShellLayout`に`user`/`userMenuItems`(ログアウト→`/login`)を追加。詳細は`audit.md`該当エントリ参照。**ユーザーのコミット許可待ち**
+- [x] Topbarユーザーメニューにログアウトを追加 (2026-08-12T05:24:24Z, コミット`19d2c3a`) — `AppShellLayout`に`user`/`userMenuItems`(ログアウト→`/login`)を追加。詳細は`audit.md`該当エントリ参照
+- [x] TopbarのAvatarサイズを`sm`→`md`に変更 (2026-08-12T05:29:37Z) — `src/components/AppShell/Topbar.tsx`(デザインシステム本体)の2箇所を統一。詳細は`audit.md`該当エントリ参照。**ユーザーのコミット許可待ち**
 
 ### 🟡 OPERATIONS PHASE
 
