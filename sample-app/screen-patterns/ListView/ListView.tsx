@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import { useState } from 'react'
-import { TextInput, Select, Table, Badge, Button, type TableColumn } from '../../src'
+import { TextInput, Select, Table, Badge, Button, type TableColumn } from '../../../src'
 import { EditUserModal, type EditUserFormValues } from '../EditUserModal/EditUserModal'
 import { DeleteConfirmModal } from '../DeleteConfirmModal/DeleteConfirmModal'
 import { initialSampleUsers, type SampleUser } from '../data/sampleUsers'
@@ -36,7 +36,7 @@ export interface ListViewProps {
  * List View screen pattern: filter bar + bulk-action bar (selection-only)
  * + Table + pagination (Functional Design: business-rules.md).
  * Reference implementation only — not exported from the package (Unit 5
- * decision: examples/ is not part of the published API).
+ * decision: sample-app/screen-patterns/ is not part of the published API).
  */
 export function ListView({ onViewUser }: ListViewProps = {}): React.JSX.Element {
   const [users, setUsers] = useState<SampleUser[]>(initialSampleUsers)

@@ -28,7 +28,7 @@ export interface SampleUser {
   tablePermissions: TablePermission[]
 }
 
-/** Mock data for examples/ only — not part of the published package (Question 2 = A). */
+/** Mock data for sample-app/screen-patterns/ only — not part of the published package (Question 2 = A). */
 export const initialSampleUsers: SampleUser[] = [
   {
     id: '1',

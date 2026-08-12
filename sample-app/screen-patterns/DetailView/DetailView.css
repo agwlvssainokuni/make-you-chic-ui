@@ -21,10 +21,12 @@
   grid-template-columns: 140px 1fr;
   gap: var(--space-3) var(--space-4);
 }
+
 .description-list-term {
   font-size: var(--font-size-sm);
   color: var(--color-text-muted);
 }
+
 .description-list-description {
   margin: 0;
 }

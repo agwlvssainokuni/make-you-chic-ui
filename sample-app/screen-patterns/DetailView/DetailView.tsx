@@ -15,7 +15,7 @@
  */
 import './DetailView.css'
 import { useState } from 'react'
-import { Avatar, Tabs, Card, Table, Badge, Button, type TableColumn } from '../../src'
+import { Avatar, Tabs, Card, Table, Badge, Button, type TableColumn } from '../../../src'
 import { DeleteConfirmModal } from '../DeleteConfirmModal/DeleteConfirmModal'
 import type { SampleUser, TablePermission } from '../data/sampleUsers'
 
@@ -40,8 +40,8 @@ const permissionColumns: TableColumn<TablePermission>[] = [
 /**
  * Detail View screen pattern: header (Avatar + name + role) + Tabs, with
  * dangerous actions isolated in their own tab (Functional Design:
- * business-rules.md). Reference implementation only (examples/, not
- * exported from the package).
+ * business-rules.md). Reference implementation only (sample-app/screen-patterns/,
+ * not exported from the package).
  */
 export function DetailView({ user, onDelete }: DetailViewProps): React.JSX.Element {
   const [confirmingDelete, setConfirmingDelete] = useState(false)
