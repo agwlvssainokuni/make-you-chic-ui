@@ -5,6 +5,17 @@
   "type": "module",
   "license": "Apache-2.0",
   "description": "Web UI design system component library (prototype)",
+  "main": "./dist/web-design-system-sample.umd.js",
+  "module": "./dist/web-design-system-sample.es.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/web-design-system-sample.es.js",
+      "require": "./dist/web-design-system-sample.umd.js"
+    },
+    "./style.css": "./dist/web-design-system-sample.css"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -43,6 +54,7 @@
     "stylelint-config-standard": "^40.0.0",
     "typescript": "^6.0.3",
     "vite": "^8.2.1",
+    "vite-plugin-dts": "^5.0.3",
     "vitest": "^4.1.10",
     "vitest-axe": "^0.1.0"
   }

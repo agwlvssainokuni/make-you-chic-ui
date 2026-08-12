@@ -140,6 +140,12 @@
 - [x] レビュー対応: Tableその場編集追加 (2026-08-11T17:49:14Z)
 - [x] レビュー対応: Webフォント(FR8)のライセンス表記追加+実は壊れていた(日本語グリフ0件)ファイルを`@fontsource`経由の正しいものに差し替え、library buildのbase64インライン化肥大化(30MB)を回避するため`fonts.css`をバレルエクスポートから分離 (2026-08-11T23:47:11Z) — 詳細は`audit.md`該当エントリ参照
 - [x] レビュー対応: Webフォントのデザインシステム側同梱を廃止、`@fontsource/*`を`dependencies`化し利用側でimportする構成に単純化 (2026-08-11T23:57:11Z) — `src/fonts/`・`src/theme/fonts.css`を削除。html-demo(Node.js不要)は物理同梱のまま変更なし。詳細は`audit.md`該当エントリ参照
+- [x] レビュー対応: ダークモードで地の文の文字色が黒のままになる不具合を修正 (2026-08-12T00:03:35Z) — `src/theme/semantic.css`に`body`のcolor/background規則を追加(`html-demo`側には既存)
+- [x] レビュー対応: Tooltipがダークモードで見にくい不具合を修正 (2026-08-12T00:11:16Z) — `--color-tooltip-bg`/`--color-tooltip-text`のダークテーマ用オーバーライドを追加(`src/theme/semantic.css`・`html-demo/assets/semantic.css`両方)
+- [x] `.idea/`をGit管理対象に追加 (2026-08-12T00:15:00Z, コミット`ba65552`) — ユーザー指示に基づく。`.idea/.gitignore`により`workspace.xml`は引き続き追跡対象外
+- [x] 質問対応: react-routerがdevDependenciesである理由の確認 (2026-08-12T02:20:00Z) — `src/`は実際にはimportしておらず(JSDocでの例示のみ)、`sample-app/`(配布対象外)限定であることを確認、意図的と回答。コード変更なし
+- [x] 質問対応: テーマ4軸の権限区分の理解確認 (2026-08-12T02:45:00Z) — デザインシステム側は4軸を対称に扱う設計であり、利用側アプリの運用判断(初期化時一括設定 or 利用者向け設定UI)に委ねる、という理解を確認。コード変更不要と確認済み
+- [x] レビュー対応: ビルド成果物に型定義(`.d.ts`)が含まれていなかった不具合を修正 (2026-08-12T03:35:00Z) — `vite-plugin-dts`導入、`package.json`に`types`/`main`/`module`/`exports`追加。詳細は`audit.md`該当エントリ・`build-instructions.md`「Dependency Version Notes」参照。**ユーザーのコミット許可待ち**
 
 ### 🟡 OPERATIONS PHASE
 
@@ -148,6 +154,6 @@
 ## Current Status
 
 - **Lifecycle Phase**: CONSTRUCTION
-- **Current Stage**: Build and Test(完了、承認待ち)
+- **Current Stage**: Build and Test(レビュー継続中 — ユーザーの指摘対応が完了するまでフェーズは終了しない、との明示ルールに基づく)
 - **Next Stage**: Operations(プレースホルダー)
-- **Status**: Build and Testフェーズ完了、ユーザーのApprove & Continue待ち
+- **Status**: 直近のレビュー対応(ビルド成果物の型定義欠落修正)完了、ユーザーのコミット許可待ち。Approve & Continueはユーザーからの明示的な合図があるまで提示しない

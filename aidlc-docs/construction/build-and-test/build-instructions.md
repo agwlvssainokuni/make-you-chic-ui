@@ -25,6 +25,8 @@ Two other pre-existing issues surfaced only once actually testing against the ne
 
 **Build output filename changed**: Vite 8's library-mode CSS output is now named after the library (`dist/web-design-system-sample.css`) rather than the previous generic `dist/style.css`. `docs/integration-guide.md`'s import example was updated to match.
 
+**Type declarations added (2026-08-12)**: `vite build` (library mode) does not emit `.d.ts` files on its own, and `tsconfig.json` sets `noEmit: true`, so `dist/` previously shipped zero type information — a review finding once someone actually tried consuming the built package from TypeScript. Fixed by adding `vite-plugin-dts` (`^5.0.3`, built on `unplugin-dts`) to `vite.config.ts`'s `plugins`, scoped to `include: ['src']` with `src/**/*.test.{ts,tsx}` and the ambient `src/types/vitest-axe-matchers.d.ts` excluded (the latter is test-only global augmentation, not part of the public API). `package.json` gained `types`/`main`/`module`/`exports` fields pointing at the `dist/` outputs. The plugin's `bundleTypes` option (single-file `.d.ts` bundling) was deliberately left off — it requires an additional `@microsoft/api-extractor` dependency, and this repository is explicitly a prototype/reference, not something published to npm (see `requirements.md`), so the per-module `.d.ts` tree that `vite-plugin-dts` emits by default is sufficient.
+
 **Prettier reformatted the whole tree**: the version bump (`3.3.3` → `3.9.6`) changed some formatting heuristics (e.g. long ternary line-wrapping) enough that `npm run format:check` failed across ~110 files project-wide on the new version. All changes were purely cosmetic (verified via `git diff` on a sample before applying broadly); `npm run format` was run once to bring the whole tree back to a clean `format:check` state. Note that Prettier's CSS formatting does not preserve blank lines between adjacent one-line rules the way `stylelint-config-standard`'s `rule-empty-line-before` requires — if `npm run format` and `stylelint --fix` are both run, run `stylelint --fix` last so its formatting wins on `.css` files.
 
 ## Linting Toolchain (as of the 2026-08-11 oxlint migration)
@@ -56,16 +58,17 @@ This is a single npm package (not a multi-service project), so there is one buil
 npm run build
 ```
 
-This runs `tsc -b` (project-wide type-check, no emit for the library itself beyond declaration files) followed by `vite build` (bundles `src/index.ts` to `dist/`).
+This runs `tsc -b` (project-wide type-check, no emit) followed by `vite build`, which bundles `src/index.ts` to `dist/` and (via the `vite-plugin-dts` plugin configured in `vite.config.ts`) emits `.d.ts` declaration files mirroring the `src/` module structure.
 
 ### 4. Verify Build Success
 
-- **Expected Output**: `tsc -b` prints nothing on success (0 errors); `vite build` prints a chunk size summary and `✓ built in <time>`.
+- **Expected Output**: `tsc -b` prints nothing on success (0 errors); `vite build` prints two `[unplugin:dts] Declaration files built in <time>ms` lines (once per format target) plus a chunk size summary and `✓ built in <time>`.
 - **Build Artifacts**:
   - `dist/web-design-system-sample.es.js` (ESM bundle)
   - `dist/web-design-system-sample.umd.js` (UMD bundle)
-  - `dist/style.css` (bundled component CSS)
-- **Common Warnings**: Vite prints `"../fonts/noto-sans-jp-*.woff2 referenced ... didn't resolve at build time, it will remain unchanged"` for each font file referenced in `src/theme/fonts.css`. This is expected: font files are not bundled into the package by design — see the "manual font hosting" limitation in `docs/integration-guide.md`. It is not a build failure.
+  - `dist/web-design-system-sample.css` (bundled component CSS)
+  - `dist/index.d.ts` + per-module `.d.ts` files under `dist/components/`, `dist/theme/`, `dist/utils/` — `package.json`'s `types` field points at `dist/index.d.ts` (added 2026-08-12; previously the build produced no type declarations at all, so consumers got no editor/type-check support — see Dependency Version Notes below)
+- Font files are no longer referenced from any file the library build processes (FR8: fonts are a consumer-side `@fontsource/*` import, not bundled by this package), so no font-related warnings are expected during `npm run build`.
 
 ## Troubleshooting
 

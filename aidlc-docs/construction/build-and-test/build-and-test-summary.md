@@ -4,7 +4,7 @@
 
 - **Build Tool**: TypeScript 6.0 (`tsc -b`) + Vite 8.2 (`vite build`)
 - **Build Status**: Success
-- **Build Artifacts**: `dist/web-design-system-sample.es.js` (ESM), `dist/web-design-system-sample.umd.js` (UMD), `dist/web-design-system-sample.css`
+- **Build Artifacts**: `dist/web-design-system-sample.es.js` (ESM), `dist/web-design-system-sample.umd.js` (UMD), `dist/web-design-system-sample.css`, `dist/index.d.ts` + per-module `.d.ts` tree (added 2026-08-12, see "Type Declarations" below)
 - **Build Time**: ~250ms (Vite bundling step; `tsc -b` type-check time not separately measured)
 
 ## Dependency Refresh (2026-08-11)
@@ -16,6 +16,17 @@ All dependencies were updated to their latest available versions via a clean uni
 - **Security**: `eslint-config-prettier` pinned to the exact clean version `10.1.8` (no `^`) after identifying that this package suffered a real supply-chain compromise on 2026-07-18 (malicious versions `8.10.1`/`9.1.1`/`10.1.6`/`10.1.7`, cleaned up within hours by the maintainers). `npm audit`: 0 vulnerabilities.
 - **Follow-on fixes required by the upgrade**: removed the deprecated, unused `baseUrl`/`paths` from `tsconfig.json`; migrated ESLint config from `.eslintrc.cjs` to flat config (`eslint.config.js`); fixed one genuine new `react-hooks/refs` violation (a ref read/write moved from render body into `useEffect` in `useControllableState.ts`) and suppressed two false positives of that same new rule on an established `cloneElement` ref-callback pattern (`Dropdown.tsx`, `Tooltip.tsx`); reformatted the whole tree with the updated Prettier (cosmetic only); updated `docs/integration-guide.md` for Vite 8's changed CSS output filename.
 - **Verification after the refresh**: `npx tsc --noEmit` 0 errors, `npm test` 196/196 passing, `npm run lint` 0 errors, `npm run lint:css` 0 errors, `npm run format:check` clean, `npm run build` succeeds.
+
+## Post-Approval Review Fixes (after this summary was first written)
+
+This stage stayed open past the initial "Ready for Operations" checkpoint below because further user review surfaced additional gaps. Notable ones, in order:
+
+- **Unit 9 (sample application, FR9)**: a requirements-analysis gap — no runnable app existed to actually see the design system in a browser. Added `sample-app/` (component catalog, List/Detail/edit/delete flow, theme settings panel) plus a small router-agnostic `onClick` extension to `AppShellNavItem`. See `aidlc-docs/construction/unit9-sample-app/code/summary.md`.
+- **Web fonts (FR8)**: the originally-committed `src/fonts/*.woff2` files were found to contain zero Japanese glyphs (Latin-only, verified with `fontTools`), independent of the license-completeness issue that was also raised. Architecture was simplified twice, ending with the design system shipping no font bytes at all — `@fontsource/noto-sans-jp`/`@fontsource/noto-serif-jp` are a `dependencies` entry, and the consuming app imports the CSS directly (see `docs/integration-guide.md` and the same Unit 9 summary's "追補" section).
+- **Dark mode bugs**: plain body text staying black in dark mode (missing global `body` color rule) and low-contrast `Tooltip` in dark mode (missing dark-theme token override) — both fixed in `src/theme/semantic.css` (and mirrored in `html-demo/assets/semantic.css`).
+- **Missing type declarations** (2026-08-12): `dist/` shipped no `.d.ts` files at all (`tsconfig.json` has `noEmit: true`, and plain `vite build` doesn't emit declarations). Fixed by adding `vite-plugin-dts` to `vite.config.ts` and `types`/`main`/`module`/`exports` fields to `package.json`. Full detail in `build-instructions.md`'s "Dependency Version Notes" section.
+
+Current verification snapshot after all of the above: `npx tsc --noEmit` 0 errors, `npm test` 199/199 passing (28 test files), `npm run lint` 0 errors, `npm run lint:css` 0 errors, `npm run format:check` clean, `npm run build` and `npm run sample-app:build` both succeed, `npm audit` 0 vulnerabilities.
 
 ## Type Check
 
@@ -74,10 +85,10 @@ All dependencies were updated to their latest available versions via a clean uni
 ## Overall Status
 
 - **Build**: Success
-- **All Tests**: Pass (196/196)
-- **Static Analysis**: Pass (ESLint + stylelint both clean)
-- **Ready for Operations**: Yes
+- **All Tests**: Pass (199/199 as of the latest check — see "Post-Approval Review Fixes" above)
+- **Static Analysis**: Pass (oxlint + ESLint, stylelint, Prettier all clean)
+- **Ready for Operations**: Pending — this stage stays open until the user's review feedback is fully addressed and explicitly confirmed (see `aidlc-docs/audit.md`), not merely when checks are green. Several rounds of review fixes have landed after this doc's original "Ready" line (see above); do not treat that original line as still authoritative.
 
 ## Next Steps
 
-Ready to proceed to the Operations phase (currently a placeholder per `CLAUDE.md`).
+Awaiting explicit user confirmation that review feedback is exhausted before proceeding to the Operations phase (currently a placeholder per `CLAUDE.md`).

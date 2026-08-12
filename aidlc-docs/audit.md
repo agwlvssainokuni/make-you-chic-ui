@@ -910,3 +910,49 @@
 **Context**: ダークモードTooltip視認性不具合の修正、ユーザーのコミット許可待ち
 
 ---
+
+## .idea/ のコミット
+
+**Timestamp**: 2026-08-12T00:15:00Z
+**User Input**: ".idea をコミット。"
+**AI Response**: ユーザーの明示的な指示に基づき`.idea/`をGit管理対象に追加してコミット(`ba65552`)。`.idea/.gitignore`(JetBrains自動生成)が`/workspace.xml`(個人・ローカルIDE状態)を除外設定済みであることを確認し、当該ファイルが意図通り追跡対象外のままであることを検証。
+**Context**: コミット完了(`ba65552`)
+
+---
+
+## 質問: react-routerがdevDependenciesなのは意図的か
+
+**Timestamp**: 2026-08-12T02:20:00Z
+**User Input**: "react-routerがdevDependenciesなのは意図的？"
+**AI Response**: 調査の結果、`src/`(配布対象のライブラリ本体)内で`react-router`から実際にimportしている箇所は存在せず、`AppShellNavItem.onClick`のJSDocコメント内で「例: react-router」と言及されているのみであることを確認。実際の`import ... from 'react-router'`は`sample-app/`(配布対象外のデモアプリ)の4ファイルに限定。`docs/integration-guide.md`もreact-routerのインストールを指示していない(ルーター非依存の`onClick`コールバック機構のみを案内)。この根拠に基づき、`@fontsource/*`(利用側に直接importを指示しているため`dependencies`化した)とは事情が異なり、`react-router`が`devDependencies`のままであることは意図的かつ妥当と回答。コード変更なし。
+**Context**: 設計意図の確認、対応不要
+
+---
+
+## 質問: テーマ4軸の権限区分の理解確認
+
+**Timestamp**: 2026-08-12T02:45:00Z
+**User Input**: "テーマについて。4軸のうちのThmeMode, ThemeFontSizeは利用者が変えられる、ThemeBrand, ThemeFontFamilyはサービス提供側が設定するものという印象です。実際のところこの理解はあっていますでしょうか？"
+**AI Response**: `src/theme/ThemeProvider.tsx`・`types.ts`を確認し、4軸(`theme`/`brand`/`fontFamily`/`fontSize`)はAPI上完全に対称(`setTheme`/`setBrand`/`setFontFamily`/`setFontSize`とも同一の永続化・マルチタブ同期ロジック)で、権限差はデザインシステム側には実装されていないと回答。`sample-app/pages/ThemeSettingsPage.tsx`(FR7のリファレンス実装)も4軸すべてをエンドユーザー操作可能なパネルとして実装している。一方でユーザーの理解(theme/fontSize=エンドユーザー向け、brand/fontFamily=サービス提供側が決めるもの)は値の性質としては妥当であり、これは利用側アプリが採用できる運用上の慣習(初期化時に一度だけ設定 vs. 設定UIを提供)であって、デザインシステム自体が強制する制約ではない、と説明。
+**User Response**: "理解しました。デザインシステムとしては4軸に権限差を設ける必要性は低くて、これを使ってアプリを開発する時に、初期化時に一回だけ設定する、利用者に設定UIを提供する、を区別すれば十分ということですね。" → 確認に対し正しいと回答。「初期化時一括設定」パターンの実演をサンプルアプリに追加するか尋ねたところ、"はい、現在は特に対応不要です。"と回答。
+**Context**: 設計意図の確認、対応不要
+
+---
+
+## バグ: ビルド成果物に型情報が含まれていない
+
+**Timestamp**: 2026-08-12T03:35:00Z
+**User Input**: "ビルド結果に型情報ないみたい。"
+**AI Response**: 調査の結果、`tsconfig.json`が`"noEmit": true`のため`tsc -b`は型チェックのみで`.d.ts`を出力せず、`vite build`(ライブラリモード)自体も型定義プラグインなしでは型定義を生成しないことを確認。実際`dist/`は`.css`/`.es.js`/`.umd.js`のみで`.d.ts`が皆無、`package.json`にも`types`フィールドがなかった。原因と対応方針(`vite-plugin-dts`導入)を説明し、ユーザーから「進めてください。」との承認を得て対応:
+
+- `vite-plugin-dts`(`^5.0.3`)を`devDependencies`に追加、`vite.config.ts`の`plugins`に追加(`include: ['src']`、テストファイルとテスト専用のアンビエント型`src/types/vitest-axe-matchers.d.ts`を除外)
+- `bundleTypes`(単一ファイルへのバンドル)は`@microsoft/api-extractor`追加インストールが必要になるため見送り。本リポジトリはプロトタイプ/サンプル位置づけ(npm発行対象外)であり、`vite-plugin-dts`が既定で出力するモジュール構造をミラーした`.d.ts`ツリーで十分と判断
+- `package.json`に`types`/`main`/`module`/`exports`フィールドを追加(`dist/index.d.ts`を型のエントリポイントとして指定)
+- `dist/index.d.ts`が各コンポーネント・テーマの型を正しく再exportすることを確認(`vitest-axe-matchers.d.ts`が紛れ込んでいないことも確認)
+- `docs/integration-guide.md`のセットアップ節に型定義が自動的に効く旨を追記
+- `aidlc-docs/construction/build-and-test/build-instructions.md`(Build Artifacts一覧・古い`dist/style.css`表記・削除済み`fonts.css`参照の警告文を修正、型定義追加の経緯を追記)・`build-and-test-summary.md`(Post-Approval Review Fixesセクションを新設し、Unit 9/フォント/ダークモード/型定義の各修正を集約、Overall Statusの"Ready for Operations"をレビュー継続中に訂正)を更新
+
+**検証結果**: `npx tsc --noEmit` 0エラー、`npm run lint`(oxlint+eslint)・`npm run lint:css`・`npm run format:check`すべてクリーン、`npm test`199/199、`npm run build`(`dist/index.d.ts`他`.d.ts`ツリー生成を確認)、`npm run sample-app:build`(影響なし)、`npm audit` 0件
+**Context**: ビルド成果物の型定義欠落の修正、ユーザーのコミット許可待ち
+
+---

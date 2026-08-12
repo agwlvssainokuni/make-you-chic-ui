@@ -15,10 +15,17 @@
  */
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import dts from 'vite-plugin-dts'
 import path from 'node:path'
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    dts({
+      include: ['src'],
+      exclude: ['src/**/*.test.{ts,tsx}', 'src/types/vitest-axe-matchers.d.ts'],
+    }),
+  ],
   resolve: {
     alias: {
       '@': path.resolve(import.meta.dirname, 'src'),
