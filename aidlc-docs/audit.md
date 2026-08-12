@@ -992,3 +992,18 @@
 **Context**: パッケージ名の修正、ユーザーのコミット許可待ち
 
 ---
+
+## 「sample」を含む他の箇所の点検
+
+**Timestamp**: 2026-08-12T04:36:00Z
+**User Input**: "他にsampleと入っている箇所があるか点検して。"
+**AI Response**: リポジトリ全体を`grep -rli "sample"`で走査(node_modules/.git/dist/dist-sample-app/package-lock.json除外)し、該当ファイルを分類:
+
+- 修正候補: `index.html`の`<title>Web Design System Sample — サンプルアプリ</title>`(パッケージ名変更前の名残)
+- 問題なし(意図的な命名でパッケージ名と無関係): `sample-app/`ディレクトリ本体・`vite.sample-app.config.ts`・`package.json`の`sample-app:build`スクリプト(ディレクトリ名は変更対象外という指示通り)、`examples/data/sampleUsers.ts`・`SampleUser`型(サンプルユーザーデータのドメイン命名)、`aidlc-docs/`配下の各種ドキュメント(リポジトリ名への言及または過去の作業記録)、`.aidlc-rule-details/`配下(AI-DLCフレームワーク付属の一般的なルール文言、本プロジェクト固有ではない)
+
+**User Response**: "OK" → `index.html`のtitleを`Web Design System — サンプルアプリ`に修正
+**検証結果**: `npm run format:check`クリーン
+**Context**: 命名一貫性の点検・修正、ユーザーのコミット許可待ち
+
+---
