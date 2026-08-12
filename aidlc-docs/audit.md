@@ -972,3 +972,23 @@
 **Context**: ビルド成果物命名規約の改善、ユーザーのコミット許可待ち
 
 ---
+
+## 質問検証: sample-appがdist参照でも動作するか
+
+**Timestamp**: 2026-08-12T04:20:00Z
+**User Input**: "シンプルに質問です。sample-appはdistを参照する形でも同じように動きますか？"
+**AI Response**: リポジトリ内に一時的な検証用アプリ(Vite設定・エントリファイル)を作成し、`dist/index.js`/`dist/index.css`を直接importする形でVite経由のビルド・devサーバー起動(curl確認)を実施。動作すること自体は確認できたが、(1) CSSは自動importされないため利用側で明示的にimportが必要、(2) 事前に`npm run build`でdist生成が必要、という差分があることを回答。設計としては`sample-app`が同一リポジトリ内の開発用サンプルである以上、HMR・ビルド待ち不要という開発体験を優先し`../src`直接参照のままが妥当と回答。検証用の一時ファイル(`.tmp-dist-check/`・`vite.tmp-dist-check.config.ts`)はすべて削除、起動したdevサーバーも停止・ポート解放を確認。
+**User Response**: "OKです。"
+**Context**: 動作検証のみ、コード変更なし
+
+---
+
+## package.jsonのname変更(-sample削除)
+
+**Timestamp**: 2026-08-12T04:34:03Z
+**User Input**: "package.jsonでnameに「-sample」と入っていますがこれは削除してください。ディレクトリ名と揃えなくてOK。"
+**AI Response**: `package.json`の`name`を`web-design-system-sample`→`web-design-system`に変更。合わせて`src/theme/useTheme.ts`・`src/utils/useControllableState.ts`・`src/components/Icon/Icon.tsx`・`src/components/Toast/useToast.ts`内のdev向けconsole.warn/console.errorのプレフィックス(`[web-design-system-sample]`)も新名称に統一。`npm install`で`package-lock.json`の`name`フィールドを同期。リポジトリ/ディレクトリ名(`web-design-system-sample`)は変更対象外のため、`requirements.md`・`unit-of-work.md`等の「本リポジトリは`web-design-system-sample`」という記述はリポジトリ名を指しており正しいまま(変更不要)。監査ログ内の過去エントリ(ビルド成果物ファイル名の変遷を記録した箇所)も履歴記述のため変更なし。
+**検証結果**: `npx tsc --noEmit` 0エラー、`npm run lint`(oxlint+eslint)・`npm run lint:css`・`npm run format:check`すべてクリーン、`npm test`199/199、`npm run build`・`npm run sample-app:build`・`npm audit`(0件)すべて正常
+**Context**: パッケージ名の修正、ユーザーのコミット許可待ち
+
+---

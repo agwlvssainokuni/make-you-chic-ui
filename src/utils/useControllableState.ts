@@ -45,7 +45,7 @@ export function useControllableState<T>({
   useEffect(() => {
     if (import.meta.env?.DEV && wasControlled.current !== isControlled) {
       console.warn(
-        '[web-design-system-sample] A component switched between controlled and uncontrolled. Decide between using a controlled or uncontrolled value for the lifetime of the component.',
+        '[web-design-system] A component switched between controlled and uncontrolled. Decide between using a controlled or uncontrolled value for the lifetime of the component.',
       )
     }
     wasControlled.current = isControlled

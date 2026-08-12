@@ -19,7 +19,7 @@ import { ToastContext, type ToastContextValue } from './ToastProvider'
 const noop: ToastContextValue = {
   show: () => {
     if (import.meta.env?.DEV) {
-      console.warn('[web-design-system-sample] useToast() was called outside of <ToastProvider>.')
+      console.warn('[web-design-system] useToast() was called outside of <ToastProvider>.')
     }
     return ''
   },

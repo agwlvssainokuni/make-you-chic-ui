@@ -20,7 +20,7 @@ import { THEME_DEFAULTS } from './validation'
 const noop = (): void => {
   if (import.meta.env?.DEV) {
     console.warn(
-      '[web-design-system-sample] useTheme() setter called outside of <ThemeProvider>. This call was ignored.',
+      '[web-design-system] useTheme() setter called outside of <ThemeProvider>. This call was ignored.',
     )
   }
 }
@@ -44,7 +44,7 @@ export function useTheme(): ThemeContextValue {
   if (ctx === null) {
     if (import.meta.env?.DEV) {
       console.warn(
-        '[web-design-system-sample] useTheme() was called outside of <ThemeProvider>. Returning default (non-reactive) values.',
+        '[web-design-system] useTheme() was called outside of <ThemeProvider>. Returning default (non-reactive) values.',
       )
     }
     return fallbackValue

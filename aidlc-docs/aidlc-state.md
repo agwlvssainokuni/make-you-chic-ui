@@ -146,7 +146,9 @@
 - [x] 質問対応: react-routerがdevDependenciesである理由の確認 (2026-08-12T02:20:00Z) — `src/`は実際にはimportしておらず(JSDocでの例示のみ)、`sample-app/`(配布対象外)限定であることを確認、意図的と回答。コード変更なし
 - [x] 質問対応: テーマ4軸の権限区分の理解確認 (2026-08-12T02:45:00Z) — デザインシステム側は4軸を対称に扱う設計であり、利用側アプリの運用判断(初期化時一括設定 or 利用者向け設定UI)に委ねる、という理解を確認。コード変更不要と確認済み
 - [x] レビュー対応: ビルド成果物に型定義(`.d.ts`)が含まれていなかった不具合を修正 (2026-08-12T03:35:00Z, コミット`f96615f`) — `vite-plugin-dts`導入、`package.json`に`types`/`main`/`module`/`exports`追加。詳細は`audit.md`該当エントリ・`build-instructions.md`「Dependency Version Notes」参照
-- [x] レビュー対応: ビルド成果物ファイル名を`index.*`に統一、UMDビルド廃止 (2026-08-12T04:00:00Z) — `vite.config.ts`の`build.lib`を`formats: ['es', 'cjs']`に変更、`dist/index.{js,cjs,css,d.ts}`に統一。`package.json`の`main`/`module`/`exports`・`docs/integration-guide.md`のimport例を追従。詳細は`audit.md`該当エントリ参照。**ユーザーのコミット許可待ち**
+- [x] レビュー対応: ビルド成果物ファイル名を`index.*`に統一、UMDビルド廃止 (2026-08-12T04:00:00Z, コミット`31e3322`) — `vite.config.ts`の`build.lib`を`formats: ['es', 'cjs']`に変更、`dist/index.{js,cjs,css,d.ts}`に統一。`package.json`の`main`/`module`/`exports`・`docs/integration-guide.md`のimport例を追従。詳細は`audit.md`該当エントリ参照
+- [x] 質問対応: sample-appのdist参照可否の検証 (2026-08-12T04:20:00Z) — 一時検証アプリで動作確認(dist参照でも動くが、CSS別途import・事前ビルドが必要)。設計判断として`../src`直接参照を維持。コード変更なし
+- [x] package.jsonの`name`を`web-design-system-sample`→`web-design-system`に変更 (2026-08-12T04:34:03Z) — ディレクトリ/リポジトリ名は変更対象外(ユーザー明示指示)。dev向け警告メッセージのプレフィックスも追従。詳細は`audit.md`該当エントリ参照。**ユーザーのコミット許可待ち**
 
 ### 🟡 OPERATIONS PHASE
 
