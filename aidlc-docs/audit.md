@@ -1123,8 +1123,27 @@
 **Timestamp**: 2026-08-12T09:00:00Z
 **User Input**: "これから私が終了を宣言するまで相談に乗ってください。相談の過程はaudit.md, aidlc-state.mdに記録しないでください。指示があったら相談の結果だけ記録してください。"(相談開始の指示)、その後複数ターンにわたり(1)GitHubリポジトリ名・ディレクトリ名変更の手順、(2)新プロジェクト名の選定について相談。最終的に "chic 良いですね。make-you-chic-ui"→"ディレクトリ名およびGitHubリポジトリ名の変更は別途実施します。"→"このプロンプトをもって相談を終了を宣言します。プロジェクト名の変更を記録してください。"
 **AI Response**: ユーザーの指示に基づき、相談の過程(候補の検討経緯等)は記録せず、結果のみを記録する。
+
 - **決定事項**: 新しいプロジェクト名を`make-you-chic-ui`に決定(現状の`web-design-system`/`web-design-system-sample`から変更)
 - **実施範囲**: GitHubリポジトリ名・ディレクトリ名の実際の変更作業は、本セッションでは実施せず、ユーザーが別途実施する。本リポジトリ内のコード(`package.json`の`name`等)の追従作業も本セッションでは未着手
-**Context**: プロジェクト名変更の相談完了。実際の改名作業(ディレクトリ・GitHubリポジトリ・`package.json`等の追従)は別セッション/別タイミングで対応
+  **Context**: プロジェクト名変更の相談完了。実際の改名作業(ディレクトリ・GitHubリポジトリ・`package.json`等の追従)は別セッション/別タイミングで対応
+
+---
+
+## GitHubリポジトリ名変更(agwlvssainokuni/make-you-chic-ui)に伴うパッケージ名の追従
+
+**Timestamp**: 2026-08-12T09:15:00Z
+**User Input**: "GitHubリポジトリ名を変更しました。本プロジェクトの.gitにも反映済みです。ただし、ディレクトリ名は未変更です。"→(AIから`package.json`の`name`等の追従タイミングを確認)→"今進めてください。"
+**AI Response**: `git remote -v`で`origin`が`https://github.com/agwlvssainokuni/make-you-chic-ui.git`に更新済みであることを確認。リポジトリ内で`web-design-system`(パッケージ名)を参照している箇所を`grep`で洗い出し、以下を`make-you-chic-ui`に更新:
+- `package.json`の`name`
+- `package-lock.json`(`npm install --package-lock-only`で同期)
+- `README.md`: 見出し(`# web-design-system`→`# make-you-chic-ui`)、importの例
+- `index.html`の`<title>`
+- `docs/integration-guide.md`: git submodule手順のパス例、`file:`参照例、`npm pack`のtarballファイル名例
+- `src/theme/useTheme.ts`・`src/components/Toast/useToast.ts`・`src/components/Icon/Icon.tsx`・`src/utils/useControllableState.ts`のdev向け`console.warn`プレフィックス(`[web-design-system]`→`[make-you-chic-ui]`)
+
+**スコープ外とした事項**: `aidlc-docs/`配下の各フェーズ成果物(`requirements.md`・`aidlc-state.md`の`Workspace Root`・`unit-of-work.md`のディレクトリ構成図等)は、ディレクトリ名(`web-design-system-sample`)自体が本セッションでは未変更のため、実態と齟齬がなく変更不要と判断(ディレクトリ名変更後に別途追従が必要)。`audit.md`内の過去ログは履歴記録のため変更対象外。CSSクラス名接頭辞`wds-`(48ファイル・209箇所、"Web Design System"由来)についてはスコープ確認のため別途ユーザーに相談する
+**検証結果**: `npx tsc --noEmit` 0エラー、`npm run lint`(oxlint+eslint)・`npm run lint:css`すべてクリーン、`npm run format:check`で`aidlc-docs/audit.md`の整形崩れを検出し`prettier --write`で修正(内容変更なし、空行・インデントのみ)、`npm test`199/199、`npm run build`・`npm run sample-app:build`・`npm audit`(0件)すべて正常
+**Context**: パッケージ名のリポジトリ名追従、ユーザーのコミット許可待ち
 
 ---

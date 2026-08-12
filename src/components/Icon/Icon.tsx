@@ -46,7 +46,7 @@ export function Icon({
 
   if (!SvgComponent) {
     if (import.meta.env?.DEV) {
-      console.warn(`[web-design-system] Unknown icon name: "${name}"`)
+      console.warn(`[make-you-chic-ui] Unknown icon name: "${name}"`)
     }
     return null
   }

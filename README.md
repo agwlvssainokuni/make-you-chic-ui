@@ -1,4 +1,4 @@
-# web-design-system
+# make-you-chic-ui
 
 他プロジェクト(MasterMeister等)でWEB UIの部品として再利用できる、React + TypeScript製のデザインシステムです。
 
@@ -65,8 +65,8 @@ npm run format           # prettierフォーマット適用
 ## 使い方(他プロジェクトへの組み込み)
 
 ```tsx
-import { Button, ThemeProvider } from 'web-design-system'
-import 'web-design-system/style.css'
+import { Button, ThemeProvider } from 'make-you-chic-ui'
+import 'make-you-chic-ui/style.css'
 
 function App() {
   return (

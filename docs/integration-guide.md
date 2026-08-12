@@ -18,23 +18,23 @@ npm install <パッケージ名>
 
 ```bash
 # 1. 利用側プロジェクトのルートでsubmoduleとして取り込む
-git submodule add <このリポジトリのURL> vendor/web-design-system
-cd vendor/web-design-system
+git submodule add <このリポジトリのURL> vendor/make-you-chic-ui
+cd vendor/make-you-chic-ui
 npm install
 npm run build   # dist/ に ESM/CJS/CSS/.d.ts 一式を生成
 cd ../..
 
 # 2. 利用側プロジェクトの依存として追加(package.jsonのdependenciesに
-#    "web-design-system": "file:vendor/web-design-system" が追記される)
-npm install ./vendor/web-design-system
+#    "make-you-chic-ui": "file:vendor/make-you-chic-ui" が追記される)
+npm install ./vendor/make-you-chic-ui
 ```
 
-以降、`import { Button } from 'web-design-system'`のように、パッケージ名でそのままimportできます(`<パッケージ名>`はこの`web-design-system`を指します)。
+以降、`import { Button } from 'make-you-chic-ui'`のように、パッケージ名でそのままimportできます(`<パッケージ名>`はこの`make-you-chic-ui`を指します)。
 
 **更新時の手順**:
 
 ```bash
-cd vendor/web-design-system
+cd vendor/make-you-chic-ui
 git pull origin main
 npm install
 npm run build
@@ -51,10 +51,10 @@ git submoduleを使いたくない場合は、ビルド成果物をtarball化し
 ```bash
 # このリポジトリ側で
 npm run build
-npm pack   # web-design-system-0.0.0.tgz を生成
+npm pack   # make-you-chic-ui-0.0.0.tgz を生成
 
 # 利用側プロジェクトで
-npm install /path/to/web-design-system-0.0.0.tgz
+npm install /path/to/make-you-chic-ui-0.0.0.tgz
 ```
 
 こちらは更新のたびに`npm pack`をやり直し、利用側で`npm install`し直す必要があります。submoduleより追跡は手間ですが、利用側リポジトリにgit submoduleを持ち込みたくない場合の選択肢です。
