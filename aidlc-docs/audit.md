@@ -956,3 +956,19 @@
 **Context**: ビルド成果物の型定義欠落の修正、ユーザーのコミット許可待ち
 
 ---
+
+## 質問: ライブラリのビルド成果物ファイル名の適正な命名規約
+
+**Timestamp**: 2026-08-12T04:00:00Z
+**User Input**: "libのビルド成果物ファイル名は通常どうするのが適正？"
+**AI Response**: 一般的な命名規約として、(1)パッケージ名をファイル名に埋め込むスタイル(CDN配布・UMDグローバル変数名との対応を意図)と、(2)単一エントリポイントの場合に一般的な`index.js`/`index.cjs`/`index.d.ts`(`package.json`の`exports`フィールドで形式を解決させる、tsup/unbuild等の現代的ツールの既定)の2通りを説明。本リポジトリはnpm registry発行対象外・CDN配布も想定していないため後者がより適切であり、また`exports`の`require`条件がUMDビルドを指していた点(非標準)も指摘。ユーザーから"対応案を採用してください。"との承認を得て対応:
+
+- `vite.config.ts`の`build.lib`から`umd`フォーマットと(UMD/IIFE専用の)`name`オプションを削除、`formats: ['es', 'cjs']`に変更
+- `fileName`/`cssFileName`を指定し出力を`dist/index.js`(ESM)・`dist/index.cjs`(CJS)・`dist/index.css`に統一(`dist/index.d.ts`と命名が揃う)
+- `package.json`の`main`/`module`/`exports`を新ファイル名に追従(`require`が正しくCJSビルドを指すよう修正)
+- `docs/integration-guide.md`のCSS import例、`build-instructions.md`・`build-and-test-summary.md`のビルド成果物一覧を更新
+
+**検証結果**: `npx tsc --noEmit` 0エラー、`npm run lint`(oxlint+eslint)・`npm run lint:css`・`npm run format:check`すべてクリーン、`npm test`199/199、`npm run build`(`dist/index.{js,cjs,css,d.ts}`生成を確認)、`npm run sample-app:build`(影響なし)、`npm audit` 0件
+**Context**: ビルド成果物命名規約の改善、ユーザーのコミット許可待ち
+
+---

@@ -20,7 +20,7 @@ npm install <パッケージ名>
 
 ```tsx
 import { ThemeProvider, ToastProvider, ModalStackProvider } from '<パッケージ名>'
-import '<パッケージ名>/dist/web-design-system-sample.css' // ビルド成果物のCSS(トークン・セマンティックトークン)
+import '<パッケージ名>/dist/index.css' // ビルド成果物のCSS(トークン・セマンティックトークン)
 
 function App() {
   return (

@@ -4,7 +4,7 @@
 
 - **Build Tool**: TypeScript 6.0 (`tsc -b`) + Vite 8.2 (`vite build`)
 - **Build Status**: Success
-- **Build Artifacts**: `dist/web-design-system-sample.es.js` (ESM), `dist/web-design-system-sample.umd.js` (UMD), `dist/web-design-system-sample.css`, `dist/index.d.ts` + per-module `.d.ts` tree (added 2026-08-12, see "Type Declarations" below)
+- **Build Artifacts**: `dist/index.js` (ESM), `dist/index.cjs` (CJS), `dist/index.css`, `dist/index.d.ts` + per-module `.d.ts` tree. Filenames simplified from the earlier `web-design-system-sample.{es,umd}.js`/`.css` to `index.*`, and the UMD build was dropped, on 2026-08-12 (see "Post-Approval Review Fixes" below)
 - **Build Time**: ~250ms (Vite bundling step; `tsc -b` type-check time not separately measured)
 
 ## Dependency Refresh (2026-08-11)
@@ -25,6 +25,7 @@ This stage stayed open past the initial "Ready for Operations" checkpoint below 
 - **Web fonts (FR8)**: the originally-committed `src/fonts/*.woff2` files were found to contain zero Japanese glyphs (Latin-only, verified with `fontTools`), independent of the license-completeness issue that was also raised. Architecture was simplified twice, ending with the design system shipping no font bytes at all — `@fontsource/noto-sans-jp`/`@fontsource/noto-serif-jp` are a `dependencies` entry, and the consuming app imports the CSS directly (see `docs/integration-guide.md` and the same Unit 9 summary's "追補" section).
 - **Dark mode bugs**: plain body text staying black in dark mode (missing global `body` color rule) and low-contrast `Tooltip` in dark mode (missing dark-theme token override) — both fixed in `src/theme/semantic.css` (and mirrored in `html-demo/assets/semantic.css`).
 - **Missing type declarations** (2026-08-12): `dist/` shipped no `.d.ts` files at all (`tsconfig.json` has `noEmit: true`, and plain `vite build` doesn't emit declarations). Fixed by adding `vite-plugin-dts` to `vite.config.ts` and `types`/`main`/`module`/`exports` fields to `package.json`. Full detail in `build-instructions.md`'s "Dependency Version Notes" section.
+- **Build output filenames simplified to `index.*`** (2026-08-12): the package-name-prefixed filenames (`web-design-system-sample.es.js`/`.umd.js`/`.css`) were replaced with `index.js`/`.cjs`/`.css`, and the unused UMD build was dropped (this repo has no CDN/`<script>`-tag distribution use case), fixing a `require` export condition that had been non-standardly pointing at the UMD file instead of a real CJS build. Full detail in `build-instructions.md`.
 
 Current verification snapshot after all of the above: `npx tsc --noEmit` 0 errors, `npm test` 199/199 passing (28 test files), `npm run lint` 0 errors, `npm run lint:css` 0 errors, `npm run format:check` clean, `npm run build` and `npm run sample-app:build` both succeed, `npm audit` 0 vulnerabilities.
 

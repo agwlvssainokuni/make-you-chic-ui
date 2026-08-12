@@ -34,8 +34,9 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(import.meta.dirname, 'src/index.ts'),
-      name: 'WebDesignSystemSample',
-      fileName: (format) => `web-design-system-sample.${format}.js`,
+      formats: ['es', 'cjs'],
+      fileName: (format) => (format === 'es' ? 'index.js' : 'index.cjs'),
+      cssFileName: 'index',
     },
     rollupOptions: {
       external: ['react', 'react-dom'],
