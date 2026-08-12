@@ -1171,6 +1171,16 @@
 
 **変更しなかった箇所**(履歴記録のため): `audit.md`内の過去ログ全般、`aidlc-state.md`のチェックリスト内の過去エントリ(151行目、当時`web-design-system-sample`だった事実の記録)、`requirement-verification-questions.md`(要件確認時のQ&A記録)、`build-instructions.md`/`build-and-test-summary.md`内のビルド成果物ファイル名の変遷を記録した箇所(いずれも「当時どうだったか」の記録であり、書き換えると履歴が失われるため)
 **検証結果**: 変更対象がMarkdownドキュメントのみのため、`npx prettier --check`で該当3ファイルの整形を確認(クリーン)。コード・テストへの影響なし
-**Context**: ディレクトリ名変更に伴う`aidlc-docs/`の追従、ユーザーのコミット許可待ち
+**Context**: ディレクトリ名変更に伴う`aidlc-docs/`の追従、コミット`706b6b1`として反映済み
+
+---
+
+## .idea再作成に伴う設定ファイルの更新
+
+**Timestamp**: 2026-08-12T10:47:00Z
+**User Input**: ".idea を作り直しました。コミットしてください。"
+**AI Response**: `git status`で差分を確認。プロジェクト名変更(`make-you-chic-ui`)に伴い`.idea`をIDE側で再作成した結果、`.idea/web-design-system-sample.iml`が`.idea/make-you-chic-ui.iml`にリネームされ(内容は同一)、`modules.xml`がそれを参照するよう追従、`misc.xml`の`KubernetesApiProvider`要素の表記が微変化(`{}`→`<![CDATA[{}]]>`、IDE側の再生成による差異)、`codeStyles/`・`inspectionProfiles/`・`prettier.xml`が新規追加。コミット前に各差分の内容を確認し、`$PROJECT_DIR$`/`$MODULE_DIR$`等の相対プレースホルダのみで機密情報や環境固有の絶対パスが含まれないことを確認した上でコミット。
+**検証結果**: `.idea`配下の設定ファイルのみの変更のため、コード・テストへの影響なし
+**Context**: `.idea`再作成の反映、コミット`3cbddbc`として反映済み(ユーザーから直接コミット指示があったため確認は省略)
 
 ---
