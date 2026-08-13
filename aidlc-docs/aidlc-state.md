@@ -165,6 +165,7 @@
 - [x] `.idea`再作成に伴う設定ファイルの更新 (2026-08-12T10:47:00Z, コミット`3cbddbc`) — プロジェクト名変更に伴いIDE側で`.idea`を再作成。`web-design-system-sample.iml`→`make-you-chic-ui.iml`のリネーム追従、`codeStyles/`・`inspectionProfiles/`・`prettier.xml`の新規追加。詳細は`audit.md`該当エントリ参照
 - [x] レビュー対応: react/react-domを`dependencies`から`peerDependencies`へ移行 (2026-08-13T14:52:00Z, コミット`abc640c`) — 消費側アプリの必須依存ライブラリに関する質疑を発端に、React/ReactDOMが二重インストールされるリスク(Context/hooksの不整合)を解消。`package.json`の`peerDependencies`に`react`/`react-dom`(`^19.0.0`)を追加、`devDependencies`にも同バージョンを明記(本リポジトリ自身のsample-app/テスト/dev用)。`vite.config.ts`の`rollupOptions.external`は既存設定のまま変更不要。`docs/integration-guide.md`に必須依存ライブラリの説明を追記。詳細は`audit.md`該当エントリ参照
 - [x] npm workspacesへの移行(ライブラリ/サンプルアプリのモノレポ分割) (2026-08-13T15:34:00Z, コミット`103ab2b`) — `packages/make-you-chic-ui/`(ライブラリ本体)・`packages/sample-app/`(サンプルアプリ)に分割。sample-appのimportは相対パスからパッケージ名(`'make-you-chic-ui'`)に統一し、devは`resolve.alias`/`tsconfig.paths`でsrcへ直接エイリアス(事前ビルド不要の開発体験を維持)。`html-demo/`はユーザー指示によりルート直下に残置。`react-router`はsample-appの実dependenciesへ移動。検証: tsc(両パッケージ)・lint・lint:css・format:check・test(28ファイル/199テスト、移行前と同数)・build・sample-app:build・npm audit(0件)全てクリーン、devサーバーでworkspaceエイリアス解決を実機確認。詳細は`audit.md`該当エントリ参照
+- [x] レビュー対応: lint:cssがビルド成果物(`dist/`)を誤って対象にしていた不具合を修正 (2026-08-13T15:49:00Z) — workspaces移行でsample-appのビルド出力先が`dist-sample-app/`(glob対象外)から`packages/sample-app/dist/`(`packages/sample-app/**/*.css`のglob対象内)に変わったことが原因。eslint/oxlint/prettierには既にあった`dist`無視設定がstylelintにのみ無かったため、`.stylelintignore`(`dist/`・`node_modules/`)を新規作成。詳細は`audit.md`該当エントリ参照
 
 ### 🟡 OPERATIONS PHASE
 
@@ -175,4 +176,4 @@
 - **Lifecycle Phase**: CONSTRUCTION
 - **Current Stage**: Build and Test(レビュー継続中 — ユーザーの指摘対応が完了するまでフェーズは終了しない、との明示ルールに基づく)
 - **Next Stage**: Operations(プレースホルダー)
-- **Status**: npm workspacesへの移行が完了、コミット`103ab2b`として反映済み。Approve & Continueはユーザーからの明示的な合図があるまで提示しない
+- **Status**: `.stylelintignore`追加によるlint:css不具合修正が完了、検証クリーン。コミット待ち。Approve & Continueはユーザーからの明示的な合図があるまで提示しない

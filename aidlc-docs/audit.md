@@ -1220,3 +1220,13 @@
 **Context**: npm workspacesへの移行、コミット`103ab2b`として反映済み
 
 ---
+
+## レビュー対応: lint:cssがビルド成果物(dist/)を誤って対象にしていた不具合を修正
+
+**Timestamp**: 2026-08-13T15:49:00Z
+**User Input**: "npm run lint:css がエラーになる。dist を見てしまっている模様。"
+**AI Response**: `npm run lint:css`を実行し、`packages/sample-app/dist/assets/index-BrK3CDYF.css`(ビルド成果物、`npm run sample-app:build`で生成)がstylelintの対象になっていることを確認。原因はworkspaces移行(`103ab2b`)でサンプルアプリのビルド出力先が`dist-sample-app/`(ルート直下、`sample-app/**/*.css`のglob対象外)から`packages/sample-app/dist/`(`packages/sample-app/**/*.css`のglob対象内)に変わったため。`package.json`の`lint:css`スクリプトのglob自体は変更前から`**/*.css`という再帰パターンで、出力先ディレクトリ名の変更によって初めて誤爆するようになったもので、移行時のテスト(`npm run lint:css`実行)では偶然`packages/sample-app/dist/`が未生成だったため検出できなかった。eslint(`eslint.config.js`のignores)・oxlint(`.oxlintrc.json`のignorePatterns)・prettier(`.prettierignore`)は既に`dist`を無視パターンとして持っていたが、stylelintのみ対応する無視設定(`.stylelintignore`)が存在しなかったため、新規作成(`dist/`・`node_modules/`)して対応
+**検証結果**: `npm run lint:css`クリーン、`npm run format:check`・`npm run lint`(oxlint+eslint)も再確認しクリーン
+**Context**: `.stylelintignore`新規作成、ユーザーのコミット許可待ち
+
+---
