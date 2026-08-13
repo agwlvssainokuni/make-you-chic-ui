@@ -1230,3 +1230,18 @@
 **Context**: `.stylelintignore`新規作成、コミット`2850abe`として反映済み
 
 ---
+
+## レビュー対応: sample-appをsrc/配下に整理、@fontsourceの明示的な依存追加
+
+**Timestamp**: 2026-08-13T16:01:00Z
+**User Input**: "sample-app/src に置いて欲しい。あと@fontsourceの依存は無くて良いの？"
+**AI Response**: 2点対応。
+
+1. **`packages/sample-app/src/`への整理**: `git mv`で`App.tsx`・`main.tsx`・`pages/`・`screen-patterns/`を`src/`配下へ移動(ライブラリ側`packages/make-you-chic-ui/`の`src/`構成、および一般的なVite構成に合わせる)。`index.html`のscript src(`/main.tsx`→`/src/main.tsx`)、`tsconfig.json`の`include`(`["src", "vite.config.ts"]`)を追従。移動対象ファイル同士の相対import(`../data/sampleUsers`等)はサブツリーごと移動したため変更不要
+2. **`@fontsource/noto-sans-jp`・`@fontsource/noto-serif-jp`を`packages/sample-app/package.json`の`dependencies`に追加**: `src/main.tsx`が直接これらのCSSをimportしているにもかかわらず、自身の`package.json`には未宣言で、npm workspacesのホイスティングにより`packages/make-you-chic-ui`(ライブラリ側の`dependencies`)経由で偶然解決されていた「phantom dependency」状態だった。実際にimportするパッケージは自身の`package.json`で宣言するのが適切なため明示化(ライブラリ側の`dependencies`はFR8の設計通り外部消費者への自動取得のため維持、変更なし)
+
+移動作業中、`tsconfig.json`の`include`を`["src", "vite.config.ts"]`に変更した際に`vitest.setup.ts`・`vitest.config.ts`が対象から漏れ、`@testing-library/jest-dom/vitest`によるVitestの`Assertion`型拡張(`toBeInTheDocument`等)が効かなくなり`tsc -b`が失敗する不具合が発生(旧`include: ["."]`では暗黙的に含まれていたため、以前の検証では検出されなかった)。`include`に`vitest.config.ts`・`vitest.setup.ts`を追加して解消(ライブラリ側`packages/make-you-chic-ui/tsconfig.json`と同じ構成)
+**検証結果**: `npm install`で`packages/sample-app/node_modules/@fontsource/*`が直接解決されることを確認。両パッケージで`tsc -b`0エラー、`npm run lint`(oxlint+eslint)・`npm run lint:css`・`npm run format:check`クリーン、`npm test`で24+4=28ファイル・182+17=199テスト全成功(変更前と同数)、`npm run build`・`npm run sample-app:build`ともに成功(バンドルサイズ変化なし)、`npm audit`0件。`README.md`・`docs/integration-guide.md`・`aidlc-docs/inception/application-design/unit-of-work.md`のディレクトリ構成図・パス参照も`src/`追加後の構成に追従
+**Context**: sample-appのsrc/整理・@fontsource依存明示化、ユーザーのコミット許可待ち
+
+---

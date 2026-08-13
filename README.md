@@ -7,7 +7,7 @@
 ## 特徴
 
 - **コンポーネント一式**: Button / FormField・TextInput・Textarea・Select・Checkbox・Switch・RadioGroup / Table / Modal / Toast / Avatar / Tabs / Dropdown / Badge / Icon / Tooltip / Card / Alert / AppShell(Sidebar+Topbar+Contentのレイアウトシェル)
-- **画面パターンの参考実装**: List View・Detail View・編集Modal・削除確認(`packages/sample-app/screen-patterns/`、配布パッケージには含まれません)
+- **画面パターンの参考実装**: List View・Detail View・編集Modal・削除確認(`packages/sample-app/src/screen-patterns/`、配布パッケージには含まれません)
 - **テーマ機能4軸**: ライト/ダーク、ブランドカラー(blue/green/purple/orange)、フォント(ゴシック/明朝)、文字サイズ(sm/md/lg)を`data-*`属性とセマンティックトークン層のみで切り替え
 - **デザイントークン**: プリミティブ/セマンティックの2層構造のCSS変数
 - **Vanilla CSS**: コンポーネントごとに`.css`ファイルを分割(CSS Modules・CSS-in-JSは不使用)
@@ -29,8 +29,9 @@ packages/
       index.ts          単一バレルエクスポート
     dist/               `npm run build`のビルド成果物(ESM/CJS/CSS/型定義)
   sample-app/          動作確認用サンプルアプリ(配布パッケージには含まれない、"make-you-chic-ui"をworkspace参照)
-    pages/              コンポーネントカタログ・画面パターン操作フロー・テーマ設定の各ページ
-    screen-patterns/    List/Detail View等の画面パターン参考実装
+    src/
+      pages/            コンポーネントカタログ・画面パターン操作フロー・テーマ設定の各ページ
+      screen-patterns/  List/Detail View等の画面パターン参考実装
 html-demo/             Node.js不要のHTML+CSS静的デモ(配布パッケージには含まれない)
 docs/                  組み込みガイド等のドキュメント
 aidlc-docs/             AI-DLCワークフローの要件・設計・監査ログ

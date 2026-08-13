@@ -5,6 +5,5 @@
       "make-you-chic-ui": ["../make-you-chic-ui/src/index.ts"]
     }
   },
-  "include": [".", "vite.config.ts"],
-  "exclude": ["dist"]
+  "include": ["src", "vite.config.ts", "vitest.config.ts", "vitest.setup.ts"]
 }

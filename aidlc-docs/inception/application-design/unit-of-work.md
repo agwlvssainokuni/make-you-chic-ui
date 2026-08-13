@@ -91,12 +91,13 @@ make-you-chic-ui/                       (workspaceルート、非公開)
 │   │   ├── package.json              (peerDependencies: react/react-dom)
 │   │   └── tsconfig.json
 │   └── sample-app/                     (動作確認用アプリ。dependenciesの"make-you-chic-ui": "*"でworkspace参照)
-│       ├── screen-patterns/          (Unit 7: 画面パターンのReact参考実装。パッケージのexportには含めない)
-│       │   ├── ListView/
-│       │   ├── DetailView/
-│       │   ├── EditUserModal/
-│       │   └── DeleteConfirmModal/
-│       ├── pages/
+│       ├── src/
+│       │   ├── screen-patterns/      (Unit 7: 画面パターンのReact参考実装。パッケージのexportには含めない)
+│       │   │   ├── ListView/
+│       │   │   ├── DetailView/
+│       │   │   ├── EditUserModal/
+│       │   │   └── DeleteConfirmModal/
+│       │   └── pages/
 │       ├── vite.config.ts
 │       ├── package.json
 │       └── tsconfig.json

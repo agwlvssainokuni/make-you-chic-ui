@@ -105,7 +105,7 @@ import '@fontsource/noto-serif-jp/japanese-600.css'
 import '@fontsource/noto-serif-jp/japanese-700.css'
 ```
 
-`@fontsource`はGoogle FontsのフォントをOFL(SIL Open Font License 1.1)のもとnpmパッケージとして再配布したもので、CDNへのランタイム依存なしに自己ホスティングできます(ライセンス全文もパッケージに同梱されています)。上記のimportを省略した場合はシステムフォント(`--font-family-sans-raw`/`--font-family-serif-raw`のフォールバック)で表示されます。`packages/sample-app/main.tsx`が実装例です。
+`@fontsource`はGoogle FontsのフォントをOFL(SIL Open Font License 1.1)のもとnpmパッケージとして再配布したもので、CDNへのランタイム依存なしに自己ホスティングできます(ライセンス全文もパッケージに同梱されています)。上記のimportを省略した場合はシステムフォント(`--font-family-sans-raw`/`--font-family-serif-raw`のフォールバック)で表示されます。`packages/sample-app/src/main.tsx`が実装例です。
 
 ## 2. コンポーネントのimportと基本的な使い方
 
@@ -166,7 +166,7 @@ import { Button, FormField, TextInput, Table, AppShell } from '<パッケージ�
 
 > **注記**: `AppShell`に通知アイコン機能はありません(Unit 5 Functional Designで廃止)。通知が必要な場合は、`children`側で独自に実装するか、`Badge`/`Icon`を組み合わせて独自のTopbar拡張を検討してください。
 
-**ログイン画面等、AppShellと異なるレイアウトが必要な画面がある場合**は、react-routerの「レイアウトルート」パターン(`path`なしの`<Route>`が`<Outlet/>`を描画し、ネストした子ルートだけがそのレイアウトを継承する)で分離してください。`packages/sample-app/App.tsx`の`AppShellLayout`/`LoginPage`が実装例です。
+**ログイン画面等、AppShellと異なるレイアウトが必要な画面がある場合**は、react-routerの「レイアウトルート」パターン(`path`なしの`<Route>`が`<Outlet/>`を描画し、ネストした子ルートだけがそのレイアウトを継承する)で分離してください。`packages/sample-app/src/App.tsx`の`AppShellLayout`/`LoginPage`が実装例です。
 
 ```tsx
 <Routes>
@@ -180,7 +180,7 @@ import { Button, FormField, TextInput, Table, AppShell } from '<パッケージ�
 
 ### 画面パターンの参考実装
 
-List View・Detail View・編集Modal・削除確認の組み合わせ方は、本リポジトリの`packages/sample-app/screen-patterns/`配下(`ListView`, `DetailView`, `EditUserModal`, `DeleteConfirmModal`)を参考にしてください。これらは配布パッケージには含まれない参考実装です。
+List View・Detail View・編集Modal・削除確認の組み合わせ方は、本リポジトリの`packages/sample-app/src/screen-patterns/`配下(`ListView`, `DetailView`, `EditUserModal`, `DeleteConfirmModal`)を参考にしてください。これらは配布パッケージには含まれない参考実装です。
 
 ## 3. テーマ設定
 
@@ -226,4 +226,4 @@ function ThemeToggle() {
 
 - **本番運用には未対応**: 本リポジトリはプロトタイプ位置づけであり、npm発行やCI/CDパイプラインは今回のスコープ外です
 - **レスポンシブはデスクトップのみ**: タブレット・モバイル幅への最適化は行っていません(NFR9)。デスクトップブラウザのウィンドウ幅の伸縮のみに対応します
-- **画面パターン(`packages/sample-app/screen-patterns/`)は配布対象外**: List View等の組み合わせ方は参考実装として提供されますが、パッケージのAPIとしては公開されていません。利用側プロジェクトで同様のパターンを実装する際の出発点としてご利用ください
+- **画面パターン(`packages/sample-app/src/screen-patterns/`)は配布対象外**: List View等の組み合わせ方は参考実装として提供されますが、パッケージのAPIとしては公開されていません。利用側プロジェクトで同様のパターンを実装する際の出発点としてご利用ください
