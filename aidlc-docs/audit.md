@@ -1184,3 +1184,19 @@
 **Context**: `.idea`再作成の反映、コミット`3cbddbc`として反映済み(ユーザーから直接コミット指示があったため確認は省略)
 
 ---
+
+## react/react-domを`dependencies`から`peerDependencies`へ移行
+
+**Timestamp**: 2026-08-13T14:52:00Z
+**User Input**: "消費側アプリに要請する最小限の依存ライブラリは何？"→(AIが`package.json`の`dependencies`を確認し、react/react-domが`peerDependencies`ではなく`dependencies`になっている点を課題として提示)→"peerDependenciesへ移行することで、このプロジェクト自体への影響は？"→(AIが`vite.config.ts`の`rollupOptions.external`は既に設定済みでビルドへの影響がないこと、`devDependencies`への追記と`package-lock.json`再生成が必要なことを説明)→"進めてください。"
+**AI Response**: `package.json`を以下のように変更:
+
+- `dependencies`から`react`/`react-dom`を削除(`@fontsource/*`のみ残す)
+- `peerDependencies`に`react`: `^19.0.0`、`react-dom`: `^19.0.0`を新設(消費側の対応バージョン範囲を広めに設定、開発時の実インストール版`19.2.8`に限定しない)
+- `devDependencies`に`react`: `^19.2.8`、`react-dom`: `^19.2.8`を追加(本リポジトリ自身のsample-app/vitestテスト/`npm run dev`用。単一パッケージ構成のためnode_modules上のReactインスタンスは従来と変わらず1つのまま)
+
+`vite.config.ts`の`build.rollupOptions.external: ['react', 'react-dom']`は既存設定のままで変更不要であることを確認(この設定はpackage.jsonの依存分類とは独立してReact/ReactDOMをビルド成果物から除外する仕組みのため)。`npm install`で`package-lock.json`を再生成(react/react-domのバージョン自体は変わらず、`resolved`エントリに`"dev": true`が付与されたのみ)。`docs/integration-guide.md`に「必須の依存ライブラリ」の節を追加し、peerDependenciesとして要求するバージョン範囲・二重インストール時のリスク・npmによる充足検証について明記。
+**検証結果**: `npx tsc --noEmit` 0エラー、`npm run lint`(oxlint+eslint)・`npm run lint:css`すべてクリーン、`npm test` 199/199(28ファイル)、`npm run build`・`npm run sample-app:build`ともに正常(dist/index.{js,cjs,css,d.ts}のサイズに変化なし)、`npm run format:check`クリーン、`npm audit` 0件
+**Context**: react/react-domの`peerDependencies`化、ユーザーのコミット許可待ち
+
+---

@@ -61,6 +61,10 @@ npm install /path/to/make-you-chic-ui-0.0.0.tgz
 
 `npm run build`は`dist/`に型定義(`.d.ts`、`package.json`の`types`フィールドが指す`dist/index.d.ts`から各コンポーネントの型を再export)も出力します。利用側では追加設定なしでTypeScriptの型補完・型チェックが効きます。
 
+### 必須の依存ライブラリ
+
+本パッケージは`react`(`^19.0.0`) / `react-dom`(`^19.0.0`)を`peerDependencies`として要求します。利用側プロジェクトが既に保持しているReact/ReactDOMをそのまま利用する構成のため、利用側のpackage.jsonにこの2つを対応バージョンで用意してください(`ThemeProvider`等はContext/hooksベースで実装されているため、Reactが二重にインストールされるとフックエラーやContextの不整合が発生します)。手順A/Bいずれの方法でインストールした場合も、npmがpeerDependenciesの充足を検証します(バージョン不一致時は警告またはエラーになります)。
+
 ### 必須のセットアップ
 
 アプリケーションのルート(エントリポイント)で、以下の3つのProviderを組み合わせて配置してください。いずれも省略可能です(省略した場合の挙動は各コンポーネントのfail-soft設計により、開発時の警告のみでクラッシュはしません)。
