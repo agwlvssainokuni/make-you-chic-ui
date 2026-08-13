@@ -163,7 +163,7 @@
 - [x] CSSクラス名接頭辞`wds-`→`mycui-`への改名 (2026-08-12T09:30:00Z, コミット`44cf229`) — `src/`(48ファイル)・`html-demo/`(7ファイル)の全`wds-`プレフィックス(67種類・209箇所)を`mycui-`に一括置換。詳細は`audit.md`該当エントリ参照
 - [x] ディレクトリ名変更(`web-design-system-sample`→`make-you-chic-ui`)に伴う`aidlc-docs/`の追従 (2026-08-12T09:40:00Z, コミット`706b6b1`) — ディレクトリ名変更(ユーザー実施)を確認した上で、「現在の状態を表す記述」(`aidlc-state.md`の`Workspace Root`、`requirements.md`、`unit-of-work.md`)のみ更新。履歴記録(`audit.md`全般、過去のチェックリストエントリ、`requirement-verification-questions.md`、`build-instructions.md`等)は変更対象外。詳細は`audit.md`該当エントリ参照
 - [x] `.idea`再作成に伴う設定ファイルの更新 (2026-08-12T10:47:00Z, コミット`3cbddbc`) — プロジェクト名変更に伴いIDE側で`.idea`を再作成。`web-design-system-sample.iml`→`make-you-chic-ui.iml`のリネーム追従、`codeStyles/`・`inspectionProfiles/`・`prettier.xml`の新規追加。詳細は`audit.md`該当エントリ参照
-- [x] レビュー対応: react/react-domを`dependencies`から`peerDependencies`へ移行 (2026-08-13T14:52:00Z) — 消費側アプリの必須依存ライブラリに関する質疑を発端に、React/ReactDOMが二重インストールされるリスク(Context/hooksの不整合)を解消。`package.json`の`peerDependencies`に`react`/`react-dom`(`^19.0.0`)を追加、`devDependencies`にも同バージョンを明記(本リポジトリ自身のsample-app/テスト/dev用)。`vite.config.ts`の`rollupOptions.external`は既存設定のまま変更不要。`docs/integration-guide.md`に必須依存ライブラリの説明を追記。詳細は`audit.md`該当エントリ参照
+- [x] レビュー対応: react/react-domを`dependencies`から`peerDependencies`へ移行 (2026-08-13T14:52:00Z, コミット`abc640c`) — 消費側アプリの必須依存ライブラリに関する質疑を発端に、React/ReactDOMが二重インストールされるリスク(Context/hooksの不整合)を解消。`package.json`の`peerDependencies`に`react`/`react-dom`(`^19.0.0`)を追加、`devDependencies`にも同バージョンを明記(本リポジトリ自身のsample-app/テスト/dev用)。`vite.config.ts`の`rollupOptions.external`は既存設定のまま変更不要。`docs/integration-guide.md`に必須依存ライブラリの説明を追記。詳細は`audit.md`該当エントリ参照
 
 ### 🟡 OPERATIONS PHASE
 
@@ -174,4 +174,4 @@
 - **Lifecycle Phase**: CONSTRUCTION
 - **Current Stage**: Build and Test(レビュー継続中 — ユーザーの指摘対応が完了するまでフェーズは終了しない、との明示ルールに基づく)
 - **Next Stage**: Operations(プレースホルダー)
-- **Status**: react/react-domの`peerDependencies`化が完了、検証スイート(tsc/lint/lint:css/format:check/test/build/sample-app:build/npm audit)全てクリーン。コミット待ち。Approve & Continueはユーザーからの明示的な合図があるまで提示しない
+- **Status**: react/react-domの`peerDependencies`化が完了、コミット`abc640c`として反映済み。Approve & Continueはユーザーからの明示的な合図があるまで提示しない

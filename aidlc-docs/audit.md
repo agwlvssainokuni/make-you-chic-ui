@@ -1197,6 +1197,6 @@
 
 `vite.config.ts`の`build.rollupOptions.external: ['react', 'react-dom']`は既存設定のままで変更不要であることを確認(この設定はpackage.jsonの依存分類とは独立してReact/ReactDOMをビルド成果物から除外する仕組みのため)。`npm install`で`package-lock.json`を再生成(react/react-domのバージョン自体は変わらず、`resolved`エントリに`"dev": true`が付与されたのみ)。`docs/integration-guide.md`に「必須の依存ライブラリ」の節を追加し、peerDependenciesとして要求するバージョン範囲・二重インストール時のリスク・npmによる充足検証について明記。
 **検証結果**: `npx tsc --noEmit` 0エラー、`npm run lint`(oxlint+eslint)・`npm run lint:css`すべてクリーン、`npm test` 199/199(28ファイル)、`npm run build`・`npm run sample-app:build`ともに正常(dist/index.{js,cjs,css,d.ts}のサイズに変化なし)、`npm run format:check`クリーン、`npm audit` 0件
-**Context**: react/react-domの`peerDependencies`化、ユーザーのコミット許可待ち
+**Context**: react/react-domの`peerDependencies`化、コミット`abc640c`として反映済み
 
 ---
