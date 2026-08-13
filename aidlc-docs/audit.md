@@ -1242,6 +1242,16 @@
 
 移動作業中、`tsconfig.json`の`include`を`["src", "vite.config.ts"]`に変更した際に`vitest.setup.ts`・`vitest.config.ts`が対象から漏れ、`@testing-library/jest-dom/vitest`によるVitestの`Assertion`型拡張(`toBeInTheDocument`等)が効かなくなり`tsc -b`が失敗する不具合が発生(旧`include: ["."]`では暗黙的に含まれていたため、以前の検証では検出されなかった)。`include`に`vitest.config.ts`・`vitest.setup.ts`を追加して解消(ライブラリ側`packages/make-you-chic-ui/tsconfig.json`と同じ構成)
 **検証結果**: `npm install`で`packages/sample-app/node_modules/@fontsource/*`が直接解決されることを確認。両パッケージで`tsc -b`0エラー、`npm run lint`(oxlint+eslint)・`npm run lint:css`・`npm run format:check`クリーン、`npm test`で24+4=28ファイル・182+17=199テスト全成功(変更前と同数)、`npm run build`・`npm run sample-app:build`ともに成功(バンドルサイズ変化なし)、`npm audit`0件。`README.md`・`docs/integration-guide.md`・`aidlc-docs/inception/application-design/unit-of-work.md`のディレクトリ構成図・パス参照も`src/`追加後の構成に追従
-**Context**: sample-appのsrc/整理・@fontsource依存明示化、ユーザーのコミット許可待ち
+**Context**: sample-appのsrc/整理・@fontsource依存明示化、コミット`2343f19`として反映済み
+
+---
+
+## レビュー対応: ライブラリ側の@fontsource依存を削除(利用側での明示的な追加に統一)
+
+**Timestamp**: 2026-08-13T16:12:00Z
+**User Input**: "ライブラリ側の@fontsourceを残す理由を教えてください。"→(AIがFR8の設計意図(利用側が明示的に宣言しなくても`npm install`で自動取得される)を説明)→"「importする側が宣言する」のであれば、ライブラリの消費者アプリが宣言する、ことになる気がする。理解が誤っている？"→(AIが自身の説明の矛盾を認め、選択肢を提示: 1. 利用側に明示的な依存宣言を求める(sample-appで適用した基準と一貫)、2. 現状維持)→"選択肢1とします。"
+**AI Response**: 直前の`sample-app`修正(実際にimportする側が依存を宣言する)と一貫させるため、`packages/make-you-chic-ui/package.json`の`dependencies`から`@fontsource/noto-sans-jp`・`@fontsource/noto-serif-jp`を削除(`dependencies`ブロック自体が空になるため削除)。ライブラリ自身のソースコードはこれらを実際にimportしていない(コメント言及のみ)ため、削除してもビルド成果物への影響はない。`docs/integration-guide.md`のWebフォント節を、「本パッケージの`dependencies`のため自動取得される」という説明から「利用側の`package.json`に明示的に`npm install`で追加する」手順に変更。`aidlc-docs/inception/requirements/requirements.md`のFR8も、npm workspaces移行後のレビューで設計変更した経緯を追記して現状に追従
+**検証結果**: `npm install`後、`npm ls --workspaces --depth=0`で`@fontsource/*`が`sample-app`のみの依存になったことを確認(`make-you-chic-ui`からは消えた)。両パッケージで`tsc -b`0エラー、`npm run lint`(oxlint+eslint)・`npm run lint:css`・`npm run format:check`クリーン、`npm test`で24+4=28ファイル・182+17=199テスト全成功(変更前と同数)、`npm run build`・`npm run sample-app:build`ともに成功(バンドルサイズ変化なし)、`npm audit`0件
+**Context**: ライブラリ側`@fontsource`依存の削除、ユーザーのコミット許可待ち
 
 ---

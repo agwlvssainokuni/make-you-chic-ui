@@ -92,7 +92,13 @@ function App() {
 
 ### Webフォント(自己ホスティング)の追加セットアップ
 
-デザインシステム自体はNoto Sans JP / Noto Serif JPのフォント本体を同梱・importしません(1ウェイトあたり約1MBあり、コンポーネントCSSと同じバンドルに含めるとサイズが膨れ上がるため)。代わりに`@fontsource/noto-sans-jp` / `@fontsource/noto-serif-jp`(本パッケージの`dependencies`のため`npm install`時に自動的に取得されます)を、利用側プロジェクトのエントリポイントで直接importしてください(NFR7: UIは日本語のみが対象のため`japanese`サブセットのみで十分です)。
+デザインシステム自体はNoto Sans JP / Noto Serif JPのフォント本体を同梱・importしません(1ウェイトあたり約1MBあり、コンポーネントCSSと同じバンドルに含めるとサイズが膨れ上がるため)。本パッケージの`dependencies`にも含まれていないため、利用側プロジェクトの`package.json`に`@fontsource/noto-sans-jp` / `@fontsource/noto-serif-jp`を明示的に追加してください(実際にimportするパッケージは利用側が自身の依存として宣言する、という方針です)。
+
+```bash
+npm install @fontsource/noto-sans-jp @fontsource/noto-serif-jp
+```
+
+追加後、利用側プロジェクトのエントリポイントで直接importしてください(NFR7: UIは日本語のみが対象のため`japanese`サブセットのみで十分です)。
 
 ```tsx
 import '@fontsource/noto-sans-jp/japanese-400.css'

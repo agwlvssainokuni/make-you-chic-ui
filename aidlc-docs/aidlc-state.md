@@ -166,7 +166,9 @@
 - [x] レビュー対応: react/react-domを`dependencies`から`peerDependencies`へ移行 (2026-08-13T14:52:00Z, コミット`abc640c`) — 消費側アプリの必須依存ライブラリに関する質疑を発端に、React/ReactDOMが二重インストールされるリスク(Context/hooksの不整合)を解消。`package.json`の`peerDependencies`に`react`/`react-dom`(`^19.0.0`)を追加、`devDependencies`にも同バージョンを明記(本リポジトリ自身のsample-app/テスト/dev用)。`vite.config.ts`の`rollupOptions.external`は既存設定のまま変更不要。`docs/integration-guide.md`に必須依存ライブラリの説明を追記。詳細は`audit.md`該当エントリ参照
 - [x] npm workspacesへの移行(ライブラリ/サンプルアプリのモノレポ分割) (2026-08-13T15:34:00Z, コミット`103ab2b`) — `packages/make-you-chic-ui/`(ライブラリ本体)・`packages/sample-app/`(サンプルアプリ)に分割。sample-appのimportは相対パスからパッケージ名(`'make-you-chic-ui'`)に統一し、devは`resolve.alias`/`tsconfig.paths`でsrcへ直接エイリアス(事前ビルド不要の開発体験を維持)。`html-demo/`はユーザー指示によりルート直下に残置。`react-router`はsample-appの実dependenciesへ移動。検証: tsc(両パッケージ)・lint・lint:css・format:check・test(28ファイル/199テスト、移行前と同数)・build・sample-app:build・npm audit(0件)全てクリーン、devサーバーでworkspaceエイリアス解決を実機確認。詳細は`audit.md`該当エントリ参照
 - [x] レビュー対応: lint:cssがビルド成果物(`dist/`)を誤って対象にしていた不具合を修正 (2026-08-13T15:49:00Z, コミット`2850abe`) — workspaces移行でsample-appのビルド出力先が`dist-sample-app/`(glob対象外)から`packages/sample-app/dist/`(`packages/sample-app/**/*.css`のglob対象内)に変わったことが原因。eslint/oxlint/prettierには既にあった`dist`無視設定がstylelintにのみ無かったため、`.stylelintignore`(`dist/`・`node_modules/`)を新規作成。詳細は`audit.md`該当エントリ参照
-- [x] レビュー対応: sample-appをsrc/配下に整理、@fontsourceの明示的な依存追加 (2026-08-13T16:01:00Z) — `packages/sample-app/`直下の`App.tsx`・`main.tsx`・`pages/`・`screen-patterns/`を`src/`配下へ移動(ライブラリ側と同じ構成)。`@fontsource/noto-sans-jp`・`@fontsource/noto-serif-jp`を自身の`package.json`の`dependencies`に明示追加(直接importしているにもかかわらずworkspacesのホイスティングに依存したphantom dependency状態だったため)。副次的に`tsconfig.json`の`include`漏れ(`vitest.setup.ts`/`vitest.config.ts`)によるjest-dom型拡張エラーを検出・修正。検証: tsc(両パッケージ)・lint・lint:css・format:check・test(28ファイル/199テスト、変更前と同数)・build・sample-app:build・npm audit(0件)全てクリーン。詳細は`audit.md`該当エントリ参照
+- [x] レビュー対応: sample-appをsrc/配下に整理、@fontsourceの明示的な依存追加 (2026-08-13T16:01:00Z, コミット`2343f19`) — `packages/sample-app/`直下の`App.tsx`・`main.tsx`・`pages/`・`screen-patterns/`を`src/`配下へ移動(ライブラリ側と同じ構成)。`@fontsource/noto-sans-jp`・`@fontsource/noto-serif-jp`を自身の`package.json`の`dependencies`に明示追加(直接importしているにもかかわらずworkspacesのホイスティングに依存したphantom dependency状態だったため)。副次的に`tsconfig.json`の`include`漏れ(`vitest.setup.ts`/`vitest.config.ts`)によるjest-dom型拡張エラーを検出・修正。検証: tsc(両パッケージ)・lint・lint:css・format:check・test(28ファイル/199テスト、変更前と同数)・build・sample-app:build・npm audit(0件)全てクリーン。詳細は`audit.md`該当エントリ参照
+
+- [x] レビュー対応: ライブラリ側の@fontsource依存を削除(利用側での明示的な追加に統一) (2026-08-13T16:12:00Z) — 「importする側が宣言する」原則を`sample-app`修正と一貫させるため、`packages/make-you-chic-ui/package.json`の`dependencies`から`@fontsource/*`を削除(ライブラリ自身は実際にはimportしていない)。`docs/integration-guide.md`を利用側での明示的な`npm install`手順に変更、`requirements.md`のFR8にも経緯を追記。検証: tsc(両パッケージ)・lint・lint:css・format:check・test(28ファイル/199テスト、変更前と同数)・build・sample-app:build・npm audit(0件)全てクリーン。詳細は`audit.md`該当エントリ参照
 
 ### 🟡 OPERATIONS PHASE
 
@@ -177,4 +179,4 @@
 - **Lifecycle Phase**: CONSTRUCTION
 - **Current Stage**: Build and Test(レビュー継続中 — ユーザーの指摘対応が完了するまでフェーズは終了しない、との明示ルールに基づく)
 - **Next Stage**: Operations(プレースホルダー)
-- **Status**: sample-appのsrc/整理・@fontsource依存明示化が完了、検証スイート全てクリーン。コミット待ち。Approve & Continueはユーザーからの明示的な合図があるまで提示しない
+- **Status**: ライブラリ側`@fontsource`依存の削除が完了、検証スイート全てクリーン。コミット待ち。Approve & Continueはユーザーからの明示的な合図があるまで提示しない
