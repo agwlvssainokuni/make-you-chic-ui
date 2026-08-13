@@ -1252,6 +1252,6 @@
 **User Input**: "ライブラリ側の@fontsourceを残す理由を教えてください。"→(AIがFR8の設計意図(利用側が明示的に宣言しなくても`npm install`で自動取得される)を説明)→"「importする側が宣言する」のであれば、ライブラリの消費者アプリが宣言する、ことになる気がする。理解が誤っている？"→(AIが自身の説明の矛盾を認め、選択肢を提示: 1. 利用側に明示的な依存宣言を求める(sample-appで適用した基準と一貫)、2. 現状維持)→"選択肢1とします。"
 **AI Response**: 直前の`sample-app`修正(実際にimportする側が依存を宣言する)と一貫させるため、`packages/make-you-chic-ui/package.json`の`dependencies`から`@fontsource/noto-sans-jp`・`@fontsource/noto-serif-jp`を削除(`dependencies`ブロック自体が空になるため削除)。ライブラリ自身のソースコードはこれらを実際にimportしていない(コメント言及のみ)ため、削除してもビルド成果物への影響はない。`docs/integration-guide.md`のWebフォント節を、「本パッケージの`dependencies`のため自動取得される」という説明から「利用側の`package.json`に明示的に`npm install`で追加する」手順に変更。`aidlc-docs/inception/requirements/requirements.md`のFR8も、npm workspaces移行後のレビューで設計変更した経緯を追記して現状に追従
 **検証結果**: `npm install`後、`npm ls --workspaces --depth=0`で`@fontsource/*`が`sample-app`のみの依存になったことを確認(`make-you-chic-ui`からは消えた)。両パッケージで`tsc -b`0エラー、`npm run lint`(oxlint+eslint)・`npm run lint:css`・`npm run format:check`クリーン、`npm test`で24+4=28ファイル・182+17=199テスト全成功(変更前と同数)、`npm run build`・`npm run sample-app:build`ともに成功(バンドルサイズ変化なし)、`npm audit`0件
-**Context**: ライブラリ側`@fontsource`依存の削除、ユーザーのコミット許可待ち
+**Context**: ライブラリ側`@fontsource`依存の削除、コミット`7b973e9`として反映済み
 
 ---

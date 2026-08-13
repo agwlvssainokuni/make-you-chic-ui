@@ -168,7 +168,7 @@
 - [x] レビュー対応: lint:cssがビルド成果物(`dist/`)を誤って対象にしていた不具合を修正 (2026-08-13T15:49:00Z, コミット`2850abe`) — workspaces移行でsample-appのビルド出力先が`dist-sample-app/`(glob対象外)から`packages/sample-app/dist/`(`packages/sample-app/**/*.css`のglob対象内)に変わったことが原因。eslint/oxlint/prettierには既にあった`dist`無視設定がstylelintにのみ無かったため、`.stylelintignore`(`dist/`・`node_modules/`)を新規作成。詳細は`audit.md`該当エントリ参照
 - [x] レビュー対応: sample-appをsrc/配下に整理、@fontsourceの明示的な依存追加 (2026-08-13T16:01:00Z, コミット`2343f19`) — `packages/sample-app/`直下の`App.tsx`・`main.tsx`・`pages/`・`screen-patterns/`を`src/`配下へ移動(ライブラリ側と同じ構成)。`@fontsource/noto-sans-jp`・`@fontsource/noto-serif-jp`を自身の`package.json`の`dependencies`に明示追加(直接importしているにもかかわらずworkspacesのホイスティングに依存したphantom dependency状態だったため)。副次的に`tsconfig.json`の`include`漏れ(`vitest.setup.ts`/`vitest.config.ts`)によるjest-dom型拡張エラーを検出・修正。検証: tsc(両パッケージ)・lint・lint:css・format:check・test(28ファイル/199テスト、変更前と同数)・build・sample-app:build・npm audit(0件)全てクリーン。詳細は`audit.md`該当エントリ参照
 
-- [x] レビュー対応: ライブラリ側の@fontsource依存を削除(利用側での明示的な追加に統一) (2026-08-13T16:12:00Z) — 「importする側が宣言する」原則を`sample-app`修正と一貫させるため、`packages/make-you-chic-ui/package.json`の`dependencies`から`@fontsource/*`を削除(ライブラリ自身は実際にはimportしていない)。`docs/integration-guide.md`を利用側での明示的な`npm install`手順に変更、`requirements.md`のFR8にも経緯を追記。検証: tsc(両パッケージ)・lint・lint:css・format:check・test(28ファイル/199テスト、変更前と同数)・build・sample-app:build・npm audit(0件)全てクリーン。詳細は`audit.md`該当エントリ参照
+- [x] レビュー対応: ライブラリ側の@fontsource依存を削除(利用側での明示的な追加に統一) (2026-08-13T16:12:00Z, コミット`7b973e9`) — 「importする側が宣言する」原則を`sample-app`修正と一貫させるため、`packages/make-you-chic-ui/package.json`の`dependencies`から`@fontsource/*`を削除(ライブラリ自身は実際にはimportしていない)。`docs/integration-guide.md`を利用側での明示的な`npm install`手順に変更、`requirements.md`のFR8にも経緯を追記。検証: tsc(両パッケージ)・lint・lint:css・format:check・test(28ファイル/199テスト、変更前と同数)・build・sample-app:build・npm audit(0件)全てクリーン。詳細は`audit.md`該当エントリ参照
 
 ### 🟡 OPERATIONS PHASE
 
@@ -179,4 +179,4 @@
 - **Lifecycle Phase**: CONSTRUCTION
 - **Current Stage**: Build and Test(レビュー継続中 — ユーザーの指摘対応が完了するまでフェーズは終了しない、との明示ルールに基づく)
 - **Next Stage**: Operations(プレースホルダー)
-- **Status**: ライブラリ側`@fontsource`依存の削除が完了、検証スイート全てクリーン。コミット待ち。Approve & Continueはユーザーからの明示的な合図があるまで提示しない
+- **Status**: ライブラリ側`@fontsource`依存の削除が完了、コミット`7b973e9`として反映済み。Approve & Continueはユーザーからの明示的な合図があるまで提示しない
