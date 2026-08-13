@@ -1217,6 +1217,6 @@
 
 移行中に発覚した実装上の問題2件を修正: (1) npmは`workspace:`プロトコル(pnpm/yarn形式)を認識しないため`"make-you-chic-ui": "*"`に修正、(2) `packages/sample-app/index.html`のscript srcがルート配置前提の`/sample-app/main.tsx`のままだったため`/main.tsx`に修正。またルート`package.json`に`"type": "module"`が無く`eslint.config.js`実行時にNode警告が出ていたため追加。移行前に残っていた`dist-sample-app/`・`dist/`(いずれもgit未追跡のビルド成果物)は削除
 **検証結果**: `npm install`でworkspaceシンボリックリンク(`node_modules/make-you-chic-ui` → `packages/make-you-chic-ui`)を確認。両パッケージで`tsc -b`0エラー、`npm run lint`(oxlint+eslint、警告解消)・`npm run lint:css`クリーン、`npm test`(`--workspaces`経由)で24+4=28ファイル・182+17=199テスト全成功(移行前と同数)、`npm run build`(dist/index.{js,cjs,css,d.ts}のサイズ変化なし)・`npm run sample-app:build`(バンドルサイズ変化なし)ともに成功、`npm run format:check`クリーン、`npm audit`0件。実機検証として`npm run dev`でdevサーバーを起動し、`main.tsx`配信内容に`make-you-chic-ui`エイリアスが`packages/make-you-chic-ui/src/index.ts`に正しく解決されていること(事前ビルド不要の開発体験)を`curl`で確認、devサーバー停止・ポート解放済み
-**Context**: npm workspacesへの移行、ユーザーのコミット許可待ち
+**Context**: npm workspacesへの移行、コミット`103ab2b`として反映済み
 
 ---
