@@ -170,6 +170,8 @@
 
 - [x] レビュー対応: ライブラリ側の@fontsource依存を削除(利用側での明示的な追加に統一) (2026-08-13T16:12:00Z, コミット`7b973e9`) — 「importする側が宣言する」原則を`sample-app`修正と一貫させるため、`packages/make-you-chic-ui/package.json`の`dependencies`から`@fontsource/*`を削除(ライブラリ自身は実際にはimportしていない)。`docs/integration-guide.md`を利用側での明示的な`npm install`手順に変更、`requirements.md`のFR8にも経緯を追記。検証: tsc(両パッケージ)・lint・lint:css・format:check・test(28ファイル/199テスト、変更前と同数)・build・sample-app:build・npm audit(0件)全てクリーン。詳細は`audit.md`該当エントリ参照
 
+- [x] `reference/`ディレクトリの削除 (2026-08-14T01:19:00Z) — 元々`.gitignore`済みで未追跡の入力資料(`CLAUDE.md`・`integrated-app-demo.html`・`table-advanced-demo.html`)を削除。設計方針・実装ロジックは`aidlc-docs/`と実装コードに反映済みのため情報損失なし。`.gitignore`の`reference/`エントリは将来の入力資料置き場の取り決めとして維持。この操作自体はgit未追跡のためコミット対象外
+
 ### 🟡 OPERATIONS PHASE
 
 - [ ] Operations - PLACEHOLDER
@@ -179,4 +181,4 @@
 - **Lifecycle Phase**: CONSTRUCTION
 - **Current Stage**: Build and Test(レビュー継続中 — ユーザーの指摘対応が完了するまでフェーズは終了しない、との明示ルールに基づく)
 - **Next Stage**: Operations(プレースホルダー)
-- **Status**: ライブラリ側`@fontsource`依存の削除が完了、コミット`7b973e9`として反映済み。Approve & Continueはユーザーからの明示的な合図があるまで提示しない
+- **Status**: `reference/`ディレクトリ削除(未追跡ファイルのためコミット対象外)。Approve & Continueはユーザーからの明示的な合図があるまで提示しない

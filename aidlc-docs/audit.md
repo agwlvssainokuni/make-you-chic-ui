@@ -1255,3 +1255,13 @@
 **Context**: ライブラリ側`@fontsource`依存の削除、コミット`7b973e9`として反映済み
 
 ---
+
+## reference/ディレクトリの削除
+
+**Timestamp**: 2026-08-14T01:19:00Z
+**User Input**: "もうreference配下は削除しても良いだろうか？"→(AIがビルド設定・コードから未参照であること、`.gitignore`により元々未追跡であることを確認した上で削除可能と回答)→"削除してください。.gitignoreはどうしましょう？"→(AIが`.gitignore`のエントリは将来同様の入力資料を置く場合の取り決めとして維持を推奨)→"削除してください"(削除指示)
+**AI Response**: `reference/`(`CLAUDE.md`・`integrated-app-demo.html`・`table-advanced-demo.html`、当初の要件定義・設計のインプット資料)を削除。`.gitignore`の`reference/`エントリは、将来再び入力資料を置く場合の置き場所の取り決めとして維持(変更なし)。この資料が伝える設計方針・実装ロジックは全て`aidlc-docs/`(要件定義・Application Design・各Unit成果物)と実装コードに反映済みであり、削除による情報損失はない
+**検証結果**: 削除前に`grep`でビルド設定・コード・ルート直下ドキュメントからの参照が無いことを確認(`aidlc-docs/`内の言及は全て「出典」としての過去形の引用のみ)。`reference/`は元々`.gitignore`(1行目)により未追跡だったため、`git status`に変化なし(コミット対象外)
+**Context**: `reference/`ディレクトリの削除(gitでは未追跡だったため、この操作自体はコミット対象外)
+
+---
