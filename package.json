@@ -1,68 +1,38 @@
 {
-  "name": "make-you-chic-ui",
+  "name": "make-you-chic-ui-workspace",
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "license": "Apache-2.0",
-  "description": "Web UI design system component library (prototype)",
-  "files": [
-    "dist"
+  "workspaces": [
+    "packages/*"
   ],
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
-    },
-    "./style.css": "./dist/index.css"
-  },
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "sample-app:build": "tsc -b && vite build --config vite.sample-app.config.ts",
-    "preview": "vite preview",
-    "test": "NODE_OPTIONS=--no-experimental-webstorage vitest run",
-    "test:watch": "NODE_OPTIONS=--no-experimental-webstorage vitest",
+    "dev": "npm run dev -w sample-app",
+    "build": "npm run build -w make-you-chic-ui",
+    "sample-app:build": "npm run build -w sample-app",
+    "preview": "npm run preview -w sample-app",
+    "test": "npm run test --workspaces --if-present",
     "lint": "oxlint . && eslint .",
-    "lint:css": "stylelint \"src/**/*.css\" \"html-demo/**/*.css\" \"sample-app/**/*.css\"",
+    "lint:css": "stylelint \"packages/make-you-chic-ui/src/**/*.css\" \"html-demo/**/*.css\" \"packages/sample-app/**/*.css\"",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
-  },
-  "dependencies": {
-    "@fontsource/noto-sans-jp": "^5.3.0",
-    "@fontsource/noto-serif-jp": "^5.3.0"
-  },
-  "peerDependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.3",
     "@types/node": "^26.2.0",
-    "@types/react": "^19.2.18",
-    "@types/react-dom": "^19.2.4",
     "@typescript-eslint/parser": "^8.67.0",
     "@vitejs/plugin-react": "^6.0.5",
     "eslint": "^10.8.1",
     "eslint-plugin-react-hooks": "^7.1.1",
-    "fast-check": "^4.9.0",
     "jsdom": "^30.0.1",
     "oxlint": "^1.78.0",
     "prettier": "^3.9.6",
-    "react": "^19.2.8",
-    "react-dom": "^19.2.8",
-    "react-router": "^8.3.0",
     "stylelint": "^17.14.1",
     "stylelint-config-standard": "^40.0.0",
     "typescript": "^6.0.3",
     "vite": "^8.2.1",
-    "vite-plugin-dts": "^5.0.3",
-    "vitest": "^4.1.10",
-    "vitest-axe": "^0.1.0"
+    "vitest": "^4.1.10"
   }
 }

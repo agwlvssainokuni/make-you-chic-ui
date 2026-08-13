@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "paths": {
+      "make-you-chic-ui": ["../make-you-chic-ui/src/index.ts"]
+    }
+  },
+  "include": [".", "vite.config.ts"],
+  "exclude": ["dist"]
+}

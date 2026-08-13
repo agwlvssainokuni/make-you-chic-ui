@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import { useState } from 'react'
-import { Modal, TextInput, Button } from '../../../src'
+import { Modal, TextInput, Button } from 'make-you-chic-ui'
 
 export interface DeleteConfirmModalProps {
   /** 'simple' for List View row/bulk delete, 'typed-confirmation' for Detail View danger-zone delete. */

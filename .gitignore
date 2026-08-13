@@ -5,7 +5,6 @@ node_modules/
 
 # build output
 dist/
-dist-sample-app/
 
 # test / coverage
 coverage/
@@ -15,3 +14,4 @@ coverage/
 
 # build info
 tsconfig.tsbuildinfo
+*.tsbuildinfo

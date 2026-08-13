@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { FormField, RadioGroup, useTheme } from '../../src'
+import { FormField, RadioGroup, useTheme } from 'make-you-chic-ui'
 
 /** Live theme-axis switcher panel, demonstrating useTheme() (Unit 9). */
 export function ThemeSettingsPage(): React.JSX.Element {

@@ -16,7 +16,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router'
-import { ModalStackProvider, ThemeProvider, ToastProvider } from '../src'
+import { ModalStackProvider, ThemeProvider, ToastProvider } from 'make-you-chic-ui'
 // Web fonts are not bundled by the design system itself (see
 // docs/integration-guide.md's font setup section); the consuming app
 // imports the @fontsource packages directly. Only the `japanese` subset is

@@ -36,7 +36,7 @@ import {
   Tooltip,
   useToast,
   type TableColumn,
-} from '../../src'
+} from 'make-you-chic-ui'
 
 interface CatalogRow {
   id: string

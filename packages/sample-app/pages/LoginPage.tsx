@@ -15,7 +15,7 @@
  */
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
-import { Card, FormField, TextInput, Button } from '../../src'
+import { Card, FormField, TextInput, Button } from 'make-you-chic-ui'
 import './LoginPage.css'
 
 /**

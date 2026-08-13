@@ -16,17 +16,19 @@ npm install <パッケージ名>
 
 ### 手順A: git submodule + ローカルpackage参照(推奨)
 
+本リポジトリはnpm workspacesのモノレポ構成です(ワークスペースルートは非公開、実際に配布するパッケージは`packages/make-you-chic-ui/`)。`npm install`はワークスペースルートで実行しますが、利用側プロジェクトが依存として参照するのは`packages/make-you-chic-ui`サブディレクトリである点に注意してください。
+
 ```bash
 # 1. 利用側プロジェクトのルートでsubmoduleとして取り込む
 git submodule add <このリポジトリのURL> vendor/make-you-chic-ui
 cd vendor/make-you-chic-ui
-npm install
-npm run build   # dist/ に ESM/CJS/CSS/.d.ts 一式を生成
+npm install      # workspaces全体の依存解決(ルートで実行)
+npm run build    # packages/make-you-chic-ui/dist/ に ESM/CJS/CSS/.d.ts 一式を生成
 cd ../..
 
 # 2. 利用側プロジェクトの依存として追加(package.jsonのdependenciesに
-#    "make-you-chic-ui": "file:vendor/make-you-chic-ui" が追記される)
-npm install ./vendor/make-you-chic-ui
+#    "make-you-chic-ui": "file:vendor/make-you-chic-ui/packages/make-you-chic-ui" が追記される)
+npm install ./vendor/make-you-chic-ui/packages/make-you-chic-ui
 ```
 
 以降、`import { Button } from 'make-you-chic-ui'`のように、パッケージ名でそのままimportできます(`<パッケージ名>`はこの`make-you-chic-ui`を指します)。
@@ -49,9 +51,9 @@ npm install   # file: 参照を再解決させ、更新後のdist/を反映さ�
 git submoduleを使いたくない場合は、ビルド成果物をtarball化して参照する方法もあります。
 
 ```bash
-# このリポジトリ側で
+# このリポジトリのワークスペースルートで
 npm run build
-npm pack   # make-you-chic-ui-0.0.0.tgz を生成
+npm pack -w make-you-chic-ui   # make-you-chic-ui-0.0.0.tgz を生成
 
 # 利用側プロジェクトで
 npm install /path/to/make-you-chic-ui-0.0.0.tgz
@@ -103,7 +105,7 @@ import '@fontsource/noto-serif-jp/japanese-600.css'
 import '@fontsource/noto-serif-jp/japanese-700.css'
 ```
 
-`@fontsource`はGoogle FontsのフォントをOFL(SIL Open Font License 1.1)のもとnpmパッケージとして再配布したもので、CDNへのランタイム依存なしに自己ホスティングできます(ライセンス全文もパッケージに同梱されています)。上記のimportを省略した場合はシステムフォント(`--font-family-sans-raw`/`--font-family-serif-raw`のフォールバック)で表示されます。`sample-app/main.tsx`が実装例です。
+`@fontsource`はGoogle FontsのフォントをOFL(SIL Open Font License 1.1)のもとnpmパッケージとして再配布したもので、CDNへのランタイム依存なしに自己ホスティングできます(ライセンス全文もパッケージに同梱されています)。上記のimportを省略した場合はシステムフォント(`--font-family-sans-raw`/`--font-family-serif-raw`のフォールバック)で表示されます。`packages/sample-app/main.tsx`が実装例です。
 
 ## 2. コンポーネントのimportと基本的な使い方
 
@@ -164,7 +166,7 @@ import { Button, FormField, TextInput, Table, AppShell } from '<パッケージ�
 
 > **注記**: `AppShell`に通知アイコン機能はありません(Unit 5 Functional Designで廃止)。通知が必要な場合は、`children`側で独自に実装するか、`Badge`/`Icon`を組み合わせて独自のTopbar拡張を検討してください。
 
-**ログイン画面等、AppShellと異なるレイアウトが必要な画面がある場合**は、react-routerの「レイアウトルート」パターン(`path`なしの`<Route>`が`<Outlet/>`を描画し、ネストした子ルートだけがそのレイアウトを継承する)で分離してください。`sample-app/App.tsx`の`AppShellLayout`/`LoginPage`が実装例です。
+**ログイン画面等、AppShellと異なるレイアウトが必要な画面がある場合**は、react-routerの「レイアウトルート」パターン(`path`なしの`<Route>`が`<Outlet/>`を描画し、ネストした子ルートだけがそのレイアウトを継承する)で分離してください。`packages/sample-app/App.tsx`の`AppShellLayout`/`LoginPage`が実装例です。
 
 ```tsx
 <Routes>
@@ -178,7 +180,7 @@ import { Button, FormField, TextInput, Table, AppShell } from '<パッケージ�
 
 ### 画面パターンの参考実装
 
-List View・Detail View・編集Modal・削除確認の組み合わせ方は、本リポジトリの`sample-app/screen-patterns/`配下(`ListView`, `DetailView`, `EditUserModal`, `DeleteConfirmModal`)を参考にしてください。これらは配布パッケージには含まれない参考実装です。
+List View・Detail View・編集Modal・削除確認の組み合わせ方は、本リポジトリの`packages/sample-app/screen-patterns/`配下(`ListView`, `DetailView`, `EditUserModal`, `DeleteConfirmModal`)を参考にしてください。これらは配布パッケージには含まれない参考実装です。
 
 ## 3. テーマ設定
 
@@ -218,10 +220,10 @@ function ThemeToggle() {
 
 `html-demo/`配下には、Node.js環境がなくてもブラウザで直接開けるデザイン確認用のデモページがあります(`html-demo/index.html`がトップページ)。React環境を用意する前のデザインレビューや、非エンジニアとの見た目共有に活用してください。ただし、これらは配布パッケージには含まれず、参考実装のみです。
 
-実際にReactで動くアプリケーションとしての確認は`sample-app/`(`npm run dev`で起動)を参照してください。コンポーネントカタログページ、List/Detail View + 編集/削除の操作フローページ、テーマ設定パネルの3画面を`AppShell`のSidebarから行き来できます(FR9)。こちらも配布パッケージには含まれません。
+実際にReactで動くアプリケーションとしての確認は`packages/sample-app/`(`npm run dev`で起動)を参照してください。コンポーネントカタログページ、List/Detail View + 編集/削除の操作フローページ、テーマ設定パネルの3画面を`AppShell`のSidebarから行き来できます(FR9)。こちらも配布パッケージには含まれません。
 
 ## 6. 既知の制約・今後の課題
 
 - **本番運用には未対応**: 本リポジトリはプロトタイプ位置づけであり、npm発行やCI/CDパイプラインは今回のスコープ外です
 - **レスポンシブはデスクトップのみ**: タブレット・モバイル幅への最適化は行っていません(NFR9)。デスクトップブラウザのウィンドウ幅の伸縮のみに対応します
-- **画面パターン(`sample-app/screen-patterns/`)は配布対象外**: List View等の組み合わせ方は参考実装として提供されますが、パッケージのAPIとしては公開されていません。利用側プロジェクトで同様のパターンを実装する際の出発点としてご利用ください
+- **画面パターン(`packages/sample-app/screen-patterns/`)は配布対象外**: List View等の組み合わせ方は参考実装として提供されますが、パッケージのAPIとしては公開されていません。利用側プロジェクトで同様のパターンを実装する際の出発点としてご利用ください

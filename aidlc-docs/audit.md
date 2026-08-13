@@ -1200,3 +1200,23 @@
 **Context**: react/react-domの`peerDependencies`化、コミット`abc640c`として反映済み
 
 ---
+
+## npm workspacesへの移行(ライブラリ/サンプルアプリのモノレポ分割)
+
+**Timestamp**: 2026-08-13T15:34:00Z
+**User Input**: peerDependencies化の質疑応答の流れで"本プロジェクトのように、ライブラリと(それを使う)サンプルアプリを同一ディレクトリ配下に持つ場合、現状のようなビルド構成は一般的でしょうか？"→(AIがnpm/pnpm/yarn workspacesによるモノレポ構成がより一般的であること、本リポジトリの位置づけ(プロトタイプ)を踏まえれば現状維持でも妥当だが本番移植時に検討価値ありと回答)→"現状で一通りの機能の実装はできていると思うので、workspaces構成への移行をしたい。"→(AIが構成案(`packages/make-you-chic-ui/`+`packages/sample-app/`、html-demo配置)を提示)→"html-demo はルート直下に置いてください。"→(AIがsample-appからライブラリを参照する方法についてAskUserQuestionで確認)→"パッケージ名 + devはsrcへalias(推奨)"を選択
+**AI Response**: NFR1(Vite + npm)を踏襲しnpm workspacesを採用。以下の構造に移行:
+
+- `packages/make-you-chic-ui/`: デザインシステム本体。`git mv`で`src/`・`vite.config.ts`・`vitest.config.ts`・`vitest.setup.ts`を移動。専用`package.json`(peerDependencies: react/react-dom、devDependencies: react/react-dom/@types/react(-dom)/fast-check/vite-plugin-dts/vitest-axe)、専用`tsconfig.json`(ルート新設の`tsconfig.base.json`をextends)を新規作成
+- `packages/sample-app/`: `git mv`で`sample-app/`配下一式・ルート`index.html`(script srcを`/sample-app/main.tsx`→`/main.tsx`に修正)・`vite.sample-app.config.ts`(→`vite.config.ts`にリネーム)を移動。専用`package.json`(dependencies: `"make-you-chic-ui": "*"` によるworkspace参照、react/react-dom/react-router)、`vitest.config.ts`・`vitest.setup.ts`を新規作成
+- **ライブラリ参照方式**: ユーザー選定により、sample-app側のimportを相対パス(`../src`等)からパッケージ名(`import { Button } from 'make-you-chic-ui'`)に統一(9ファイル、sedで一括置換)。ビルド不要の高速な開発体験を保つため、`packages/sample-app/vite.config.ts`・`vitest.config.ts`の`resolve.alias`と`tsconfig.json`の`compilerOptions.paths`で`'make-you-chic-ui'`を`../make-you-chic-ui/src/index.ts`に直接エイリアス(node_modules配下のsymlink経由でpackage.jsonの`exports`(dist参照)を辿ると事前ビルドが必須になるため)
+- **ルート`package.json`**: `private: true`・`workspaces: ["packages/*"]`のワークスペースルートに変更。共通devDependencies(typescript/vite/vitest/testing-library/jsdom/eslint関連/oxlint/prettier/stylelint関連/@types/node)を集約。`react-router`はsample-app実行時に実際に使われる依存のため`packages/sample-app/package.json`の`dependencies`に移動(従来「devDependenciesである理由」として説明していた「配布パッケージを汚染しないため」という制約は、パッケージ分離により解消)
+- **html-demo/**: ユーザー指示によりルート直下に残置(ライブラリ・サンプルアプリいずれの配下にも移動しない)
+- **その他設定ファイル**: `.stylelintrc.json`のfiles glob、ルート`package.json`の`lint:css`スクリプトglob、`.gitignore`(`dist-sample-app/`エントリを削除、`dist/`は無アンカーパターンのためpackages配下にも適用済み)を新構成に追従。`tsconfig.json`は`tsconfig.base.json`(共通compilerOptions)+各パッケージ`tsconfig.json`(extends)に分割
+- **ドキュメント**: `README.md`(ディレクトリ構成図・コマンド説明)、`docs/integration-guide.md`(git submodule/`npm pack`の参照先を`packages/make-you-chic-ui`サブパスに更新)、`aidlc-docs/inception/application-design/unit-of-work.md`(コード構成方針をQ4=A単一パッケージからworkspaces構成への移行として更新、ディレクトリ構成図を刷新)、`aidlc-docs/aidlc-state.md`のWorkspace Root欄を更新
+
+移行中に発覚した実装上の問題2件を修正: (1) npmは`workspace:`プロトコル(pnpm/yarn形式)を認識しないため`"make-you-chic-ui": "*"`に修正、(2) `packages/sample-app/index.html`のscript srcがルート配置前提の`/sample-app/main.tsx`のままだったため`/main.tsx`に修正。またルート`package.json`に`"type": "module"`が無く`eslint.config.js`実行時にNode警告が出ていたため追加。移行前に残っていた`dist-sample-app/`・`dist/`(いずれもgit未追跡のビルド成果物)は削除
+**検証結果**: `npm install`でworkspaceシンボリックリンク(`node_modules/make-you-chic-ui` → `packages/make-you-chic-ui`)を確認。両パッケージで`tsc -b`0エラー、`npm run lint`(oxlint+eslint、警告解消)・`npm run lint:css`クリーン、`npm test`(`--workspaces`経由)で24+4=28ファイル・182+17=199テスト全成功(移行前と同数)、`npm run build`(dist/index.{js,cjs,css,d.ts}のサイズ変化なし)・`npm run sample-app:build`(バンドルサイズ変化なし)ともに成功、`npm run format:check`クリーン、`npm audit`0件。実機検証として`npm run dev`でdevサーバーを起動し、`main.tsx`配信内容に`make-you-chic-ui`エイリアスが`packages/make-you-chic-ui/src/index.ts`に正しく解決されていること(事前ビルド不要の開発体験)を`curl`で確認、devサーバー停止・ポート解放済み
+**Context**: npm workspacesへの移行、ユーザーのコミット許可待ち
+
+---

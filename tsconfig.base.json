@@ -19,13 +19,5 @@
     "noFallthroughCasesInSwitch": true,
 
     "types": ["vite/client", "vitest/globals"]
-  },
-  "include": [
-    "src",
-    "sample-app",
-    "vite.config.ts",
-    "vite.sample-app.config.ts",
-    "vitest.config.ts",
-    "vitest.setup.ts"
-  ]
+  }
 }

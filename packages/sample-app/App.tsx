@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import { Navigate, Outlet, Route, Routes, useNavigate } from 'react-router'
-import { AppShell, type AppShellNavItem } from '../src'
+import { AppShell, type AppShellNavItem } from 'make-you-chic-ui'
 import { LoginPage } from './pages/LoginPage'
 import { CatalogPage } from './pages/CatalogPage'
 import { UserListPage } from './pages/UserListPage'

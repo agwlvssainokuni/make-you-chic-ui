@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import { useState } from 'react'
-import { TextInput, Select, Table, Badge, Button, type TableColumn } from '../../../src'
+import { TextInput, Select, Table, Badge, Button, type TableColumn } from 'make-you-chic-ui'
 import { EditUserModal, type EditUserFormValues } from '../EditUserModal/EditUserModal'
 import { DeleteConfirmModal } from '../DeleteConfirmModal/DeleteConfirmModal'
 import { initialSampleUsers, type SampleUser } from '../data/sampleUsers'

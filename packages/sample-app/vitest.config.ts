@@ -12,15 +12,8 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * Standalone build config for sample-app/ (Unit 9, FR9) — deliberately
- * separate from vite.config.ts, which builds the publishable library in
- * `build.lib` mode. `npm run dev` uses vite.config.ts and works as-is once
- * index.html exists at the project root (build.lib only affects `vite
- * build`, not the dev server); this config is only for producing a static,
- * deployable build of the sample app itself via `npm run sample-app:build`.
  */
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vitest/config'
 import react from '@vitejs/plugin-react'
 import path from 'node:path'
 
@@ -28,10 +21,13 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@': path.resolve(import.meta.dirname, 'src'),
+      'make-you-chic-ui': path.resolve(import.meta.dirname, '../make-you-chic-ui/src/index.ts'),
     },
   },
-  build: {
-    outDir: 'dist-sample-app',
+  test: {
+    environment: 'jsdom',
+    globals: true,
+    setupFiles: ['./vitest.setup.ts'],
+    css: false,
   },
 })

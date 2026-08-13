@@ -6,7 +6,7 @@
   },
   "overrides": [
     {
-      "files": ["src/components/**/*.css"],
+      "files": ["packages/make-you-chic-ui/src/components/**/*.css"],
       "comment": "NFR2: component CSS must reference semantic color tokens, never primitive color tokens directly. Spacing/radius primitives are exempt: they don't vary across the data-theme/data-brand axes the way colors do, so no semantic indirection layer was built for them.",
       "rules": {
         "declaration-property-value-disallowed-list": {

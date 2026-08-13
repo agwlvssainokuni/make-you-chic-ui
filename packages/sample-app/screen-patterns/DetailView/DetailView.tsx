@@ -15,7 +15,7 @@
  */
 import './DetailView.css'
 import { useState } from 'react'
-import { Avatar, Tabs, Card, Table, Badge, Button, type TableColumn } from '../../../src'
+import { Avatar, Tabs, Card, Table, Badge, Button, type TableColumn } from 'make-you-chic-ui'
 import { DeleteConfirmModal } from '../DeleteConfirmModal/DeleteConfirmModal'
 import type { SampleUser, TablePermission } from '../data/sampleUsers'
 

@@ -61,48 +61,54 @@
 - **責務**: デザインシステムを実際に組み込んで動作確認できるReactアプリケーションの実装(コンポーネントカタログページ、画面パターン操作フローページ、テーマ設定ページの3画面、`AppShell`+react-routerによるSidebarナビゲーション)
 - **対応FR/NFR**: FR9(サンプルアプリケーションの実装。要件定義漏れとしてBuild and Testステージ完了後に追加)
 - **対応Application Design**: `AppShellNavItem`に`onClick`を追加(SPAルーター統合のため。既存の`href`のみの構成では`<a>`のネイティブ遷移となりフルページリロードが発生するため)、`ListView`に`onViewUser`オプショナルpropを追加(List→Detail遷移のため)
-- **位置づけ**: `sample-app/`配下に配置。パッケージのバレルエクスポートには含めず、npm発行対象(`npm run build`)にも含めない。`npm run dev`で起動、専用のビルドスクリプト(`npm run sample-app:build`)で別途ビルド可能
+- **位置づけ**: `packages/sample-app/`配下に配置。パッケージのバレルエクスポートには含めず、npm発行対象(`npm run build`)にも含めない。`npm run dev`で起動、専用のビルドスクリプト(`npm run sample-app:build`)で別途ビルド可能
 
-## コード構成方針(Q4=A: 単一パッケージ構成)
+## コード構成方針(Q4=A: 単一パッケージ構成 → 2026-08-13、npm workspaces構成へ移行)
+
+当初はQ4=A(単一パッケージ構成)で決定したが、ライブラリ本体とサンプルアプリの依存関係(peerDependencies/dependenciesの境界)を明確に分離するため、npm workspacesによるモノレポ構成に移行した。ディレクトリ構造以外の設計判断(単一バレルエクスポート、画面パターンの非公開扱い等)は変更していない。
 
 ```
-make-you-chic-ui/
-├── src/
-│   ├── components/
-│   │   ├── Button/
-│   │   │   ├── Button.tsx
-│   │   │   ├── Button.css
-│   │   │   ├── Button.test.tsx
-│   │   │   └── index.ts
-│   │   ├── FormField/ ...
-│   │   ├── TextInput/ ...
-│   │   ├── ...(コンポーネントごとに同様のフォルダ構成)
-│   │   └── AppShell/ ...
-│   ├── theme/
-│   │   ├── tokens.css        (プリミティブトークン)
-│   │   ├── semantic.css      (セマンティックトークン)
-│   │   ├── ThemeProvider.tsx
-│   │   └── useTheme.ts
-│   ├── icons/
-│   │   └── (同梱SVGアイコンセット。Iconコンポーネント自体はsrc/components/Icon/)
-│   ├── fonts/                (Noto Sans/Serif JP woff2、セルフホスティング用)
-│   └── index.ts              (単一バレルエクスポート、Application Design Question 9=A)
-├── examples/
-│   ├── ListView/             (Unit 7: 画面パターンのReact参考実装。パッケージのexportには含めない)
-│   ├── DetailView/
-│   ├── EditModal/
-│   └── DeleteConfirm/
+make-you-chic-ui/                       (workspaceルート、非公開)
+├── packages/
+│   ├── make-you-chic-ui/               (デザインシステム本体。npm distの元)
+│   │   ├── src/
+│   │   │   ├── components/
+│   │   │   │   ├── Button/
+│   │   │   │   │   ├── Button.tsx
+│   │   │   │   │   ├── Button.css
+│   │   │   │   │   ├── Button.test.tsx
+│   │   │   │   │   └── index.ts
+│   │   │   │   ├── ...(コンポーネントごとに同様のフォルダ構成)
+│   │   │   │   └── AppShell/ ...
+│   │   │   ├── theme/
+│   │   │   │   ├── tokens.css        (プリミティブトークン)
+│   │   │   │   ├── semantic.css      (セマンティックトークン)
+│   │   │   │   ├── ThemeProvider.tsx
+│   │   │   │   └── useTheme.ts
+│   │   │   └── index.ts              (単一バレルエクスポート、Application Design Question 9=A)
+│   │   ├── vite.config.ts
+│   │   ├── vitest.config.ts
+│   │   ├── package.json              (peerDependencies: react/react-dom)
+│   │   └── tsconfig.json
+│   └── sample-app/                     (動作確認用アプリ。dependenciesの"make-you-chic-ui": "*"でworkspace参照)
+│       ├── screen-patterns/          (Unit 7: 画面パターンのReact参考実装。パッケージのexportには含めない)
+│       │   ├── ListView/
+│       │   ├── DetailView/
+│       │   ├── EditUserModal/
+│       │   └── DeleteConfirmModal/
+│       ├── pages/
+│       ├── vite.config.ts
+│       ├── package.json
+│       └── tsconfig.json
 ├── html-demo/
 │   ├── index.html            (デモ一覧トップ)
 │   ├── components/           (コンポーネント単位のデモページ、Storybook代替)
-│   ├── patterns/             (List View / Detail View 等の画面パターンデモ。examples/のHTML版対応物)
+│   ├── patterns/             (List View / Detail View 等の画面パターンデモ)
 │   └── assets/               (フォント・共通CSS)
 ├── docs/
 │   └── integration-guide.md  (Unit 8の成果物)
-├── vite.config.ts
-├── package.json
-├── tsconfig.json
-└── vitest.config.ts
+├── package.json               (workspaceルート、共通devDependencies集約)
+└── tsconfig.base.json         (共通compilerOptions)
 ```
 
 各コンポーネントフォルダには、テスト(`*.test.tsx`)を併置する。a11y自動テスト(axe)・PBT(fast-check, Partial適用)の配置方針はNFR Requirementsステージ(ユニット単位)で確定する。

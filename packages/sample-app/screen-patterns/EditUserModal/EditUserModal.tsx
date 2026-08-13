@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import { useState } from 'react'
-import { Modal, FormField, TextInput, Select, Button } from '../../../src'
+import { Modal, FormField, TextInput, Select, Button } from 'make-you-chic-ui'
 import type { SampleUser } from '../data/sampleUsers'
 
 export interface EditUserFormValues {
