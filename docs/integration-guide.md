@@ -84,7 +84,7 @@ npm install /path/to/make-you-chic-ui-0.0.0.tgz
 
 ```tsx
 import { ThemeProvider, ToastProvider, ModalStackProvider } from '<パッケージ名>'
-import '<パッケージ名>/dist/index.css' // ビルド成果物のCSS(トークン・セマンティックトークン)
+import '<パッケージ名>/style.css' // ビルド成果物のCSS(トークン・セマンティックトークン)。package.jsonのexportsで公開されたサブパス
 
 function App() {
   return (

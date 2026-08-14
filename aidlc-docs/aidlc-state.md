@@ -178,6 +178,8 @@
 
 - [x] レビュー対応: 実際の組み込み(手順A)で判明したViteのReact二重ロード問題をドキュメントに追記 (2026-08-14T21:54:00Z, コミット`0f1321d`) — 利用側プロジェクト(MasterMeister)でのdogfoodingにより、`file:`参照(symlink)経由だとViteが実体パス起点でモジュール解決し、利用側のreact/react-domではなく本パッケージ自身の`devDependencies`のreact/react-domを誤って解決してフックエラーになる事象が判明。`docs/integration-guide.md`の「必須の依存ライブラリ」節に、`resolve.dedupe: ['react', 'react-dom']`で回避する手順Aユーザー向けの注記を追加(コード変更なし、利用側のvite.config.tsでの対応)。詳細は`audit.md`該当エントリ参照
 
+- [x] レビュー対応: CSS importパスのドキュメント誤りを修正 (2026-08-14T22:00:00Z) — `package.json`の`exports`フィールドは`"./style.css": "./dist/index.css"`のみを公開サブパスとして定義しており、`dist/index.css`への直接ディープインポートは`exports`制約でブロックされる(利用側で実際にエラーが発生)。`docs/integration-guide.md`のCSS import例を`import '<パッケージ名>/dist/index.css'`→`import '<パッケージ名>/style.css'`に修正。詳細は`audit.md`該当エントリ参照
+
 ### 🟡 OPERATIONS PHASE
 
 - [ ] Operations - PLACEHOLDER
@@ -187,4 +189,4 @@
 - **Lifecycle Phase**: CONSTRUCTION
 - **Current Stage**: Build and Test(レビュー継続中 — ユーザーの指摘対応が完了するまでフェーズは終了しない、との明示ルールに基づく)
 - **Next Stage**: Operations(プレースホルダー)
-- **Status**: `docs/integration-guide.md`にVite dedupe注記を追加、コミット`0f1321d`として反映済み。Approve & Continueはユーザーからの明示的な合図があるまで提示しない
+- **Status**: `docs/integration-guide.md`のCSS importパス誤りを修正、コミット待ち。Approve & Continueはユーザーからの明示的な合図があるまで提示しない

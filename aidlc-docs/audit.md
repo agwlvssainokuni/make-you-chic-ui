@@ -1295,3 +1295,13 @@
 **Context**: `docs/integration-guide.md`更新、コミット`0f1321d`として反映済み
 
 ---
+
+## レビュー対応: CSS importパスのドキュメント誤りを修正
+
+**Timestamp**: 2026-08-14T22:00:00Z
+**User Input**: "消費側アプリで以下の設定が必要でした。import 'make-you-chic-ui/style.css'"
+**AI Response**: `package.json`の`exports`フィールドを確認し、`"./style.css": "./dist/index.css"`のみが公開サブパスとして定義されていることを確認(`.`(バレルエクスポート)と`./style.css`の2つのみ)。`exports`フィールド定義時、Node.js/Vite等のモジュール解決はここに列挙されたサブパスのみを許可し、`dist/index.css`への直接ディープインポートは`ERR_PACKAGE_PATH_NOT_EXPORTED`相当のエラーでブロックされる。`docs/integration-guide.md`の「必須のセットアップ」節のCSS import例を、実際には解決できない`import '<パッケージ名>/dist/index.css'`から、`exports`で公開済みの`import '<パッケージ名>/style.css'`に修正
+**検証結果**: `npx prettier --check docs/integration-guide.md`でクリーン。コード変更を伴わないためtsc/lint/test/build等は対象外。他にも`dist/index.css`への直接importを案内している箇所がないか`grep`で確認済み(該当なし)
+**Context**: `docs/integration-guide.md`のCSS import例修正、コミット待ち
+
+---
