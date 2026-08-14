@@ -1312,6 +1312,16 @@
 **User Input**: "エラーが発生。解析結果は以下の通り。- 本番ビルド(vite build)では発生しない: 消費側アプリのvite buildが全体を再度バンドルし直す過程で問題が吸収されている - 開発サーバでは発生する: symlink経由のmake-you-chic-uiは生のdist/index.jsがそのまま配信されるため直撃する - 消費側のoptimizeDeps.includeで強制プリバンドルを試しましたが、Vite自身のプリバンドラも同じRolldownのため同じ壊れ方を再現し、回避できませんでした 正しい修正はvendor/make-you-chic-ui側のvite.config.tsでexternal: ['react', 'react-dom', 'react/jsx-runtime', 'react/jsx-dev-runtime']とすることです。この修正をmake-you-chic-ui側で行い、npm run buildでdist再ビルド・push、こちら側でsubmoduleを取り込む、という流れになります。私の方で進めてよろしいですか(submoduleは別リポジトリのため、変更前に確認します)。"
 **AI Response**: `packages/make-you-chic-ui/vite.config.ts`を確認し、`rollupOptions.external`が`['react', 'react-dom']`のみであることを確認(ユーザーの診断と一致)。`@vitejs/plugin-react`が生成する自動JSXランタイムのimport(`react/jsx-runtime`/`react/jsx-dev-runtime`)がexternal化されておらず、本パッケージ自身の`devDependencies`のReactにバインドされた状態でdist/index.jsにインライン化されていた。ユーザー提示の修正をそのまま適用し、`external`配列に`'react/jsx-runtime'`・`'react/jsx-dev-runtime'`を追加、`npm run build`でdist再ビルド
 **検証結果**: ビルド後の`dist/index.js`をgrepし、`import { Fragment as f, jsx as p, jsxs as m } from "react/jsx-runtime"`のようにimport文として出力される(インライン化されていない)ことを確認。バンドルサイズが縮小(dist/index.js: 45.19kB→36.33kB、dist/index.cjs: 32.72kB→26.96kB)。`npm run test --workspaces --if-present`で183+17=200テスト全成功、`npm run lint`(oxlint+eslint)クリーン、`packages/sample-app`の`tsc -b`0エラー、`npm run sample-app:build`成功
-**Context**: `vite.config.ts`のexternal追加+dist再ビルド、コミット待ち
+**Context**: `vite.config.ts`のexternal追加+dist再ビルド、コミット`b9f5295`として反映済み
+
+---
+
+## 質問対応: 消費側のresolve.dedupeに react/jsx-runtime を追加指定する必要性
+
+**Timestamp**: 2026-08-14T22:24:00Z
+**User Input**: "dedupeは必要？動作確認してからの方が良い？"→(AIがdedupeとexternal修正は別レイヤーの問題への対処であり両方必要と回答、この環境では消費側アプリが無く実際の不具合を再現しての確認はできない旨を回答)→"言葉が足りなかった。react/jsx-runtime もdedupeに指定する必要があるか？の意図。"
+**AI Response**: Viteの`resolve.dedupe`はimport specifierから抽出した**パッケージ名**でマッチする実装であるため(スコープなしパッケージは最初の`/`より前を抽出)、`react/jsx-runtime`・`react/jsx-dev-runtime`はいずれもパッケージ名`react`に解決され、既存の`dedupe: ['react', 'react-dom']`の`react`エントリで既にカバーされる、と回答。サブパス文字列自体を追加登録しても照合ロジック上意味を持たないため不要と説明。ただしこの実装知識に基づく判断であり、この環境では実機検証ができないため、もし直らない場合は連絡してほしい旨を付記
+**検証結果**: コード変更を伴わない質疑のため対象外(消費側プロジェクトの設定に関する回答)
+**Context**: 質疑のみ、コード変更なし
 
 ---
