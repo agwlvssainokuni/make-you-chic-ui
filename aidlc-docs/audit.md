@@ -1275,3 +1275,13 @@
 **Context**: `.claude/skills/layout-css/`新規作成、コミット`d343e89`として反映済み
 
 ---
+
+## 機能改善: Topbarにユーザーメニュー以外の項目を追加できる拡張ポイントを新設
+
+**Timestamp**: 2026-08-14T20:06:00Z
+**User Input**: "topbarにユーザメニュー以外の項目を組み込む方法ってある？"→(AIが現状Topbarに拡張ポイントが無いこと、過去の「通知アイコン廃止」判断を説明し、その決定を覆す形になる旨を確認)→"通知アイコンという具体的な機能を見送ったつもりで、拡張ポイントを廃止する意図はありませんでした。あと、今の議論はtopbarの右寄せ部分のことですが、左側も拡張ポイントはないですよね？"(AIの一般化を訂正、左側の欠如も指摘)→(AIが誤りを認め、`topbarStart`/`topbarEnd`という2つのslot propの新設案を提示)→"その方向で進めてください。"
+**AI Response**: `Topbar.tsx`の`TopbarProps`/`AppShell.tsx`の`AppShellProps`に`topbarStart?: ReactNode`(折り畳みボタンの右、spacerの左)・`topbarEnd?: ReactNode`(spacerの右、ユーザーメニューの手前)を追加し、`AppShell`から`Topbar`へそのまま伝播。`AppShell.css`の`.mycui-topbar`に`gap: var(--space-2)`を追加(既存の折り畳みボタン/spacer間にも一貫したスペーシングを適用)。`AppShell.test.tsx`に、`topbarStart`/`topbarEnd`/ユーザーメニューがDOM上でこの順に並ぶことを検証するテストケースを追加。ドキュメント更新: `requirements.md`(FR1)・`aidlc-docs/inception/application-design/components.md`・`component-methods.md`に、過去の「通知アイコン廃止」は機能自体の見送りであり拡張ポイントの禁止ではなかった旨と新設の経緯を追記。`docs/integration-guide.md`のAppShellの例に`topbarEnd`を使った通知ボタンの例を追加し、既存の「通知アイコン機能はありません」という注記を拡張ポイントの案内に更新
+**検証結果**: `npm run test -w make-you-chic-ui -- AppShell`で新規テストを含む10件成功。`npm run test --workspaces --if-present`で183+17=200テスト全成功(変更前比+1件、既存テストの退行なし)。`npm run lint`(oxlint+eslint)・`npm run lint:css`クリーン。`npm run format:check`で`docs/integration-guide.md`の整形崩れを検出、`prettier --write`で修正後クリーン。`npm run build`(バンドルサイズ: index.js 45.19kB/index.cjs 32.72kB、既存と同水準)・`packages/sample-app`の`tsc -b`0エラーを確認
+**Context**: `topbarStart`/`topbarEnd`拡張ポイント追加、コミット待ち
+
+---

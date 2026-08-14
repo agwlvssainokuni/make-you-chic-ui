@@ -32,6 +32,10 @@ export interface AppShellProps {
   user?: AppShellUser
   /** Menu shown when the user avatar is clicked. Omit for a display-only avatar. */
   userMenuItems?: MenuItem[]
+  /** Rendered in the topbar, left-aligned, after the sidebar collapse button. */
+  topbarStart?: ReactNode
+  /** Rendered in the topbar, right-aligned, before the user menu. */
+  topbarEnd?: ReactNode
   /** Main content, rendered in the content area. */
   children: ReactNode
 }
@@ -51,6 +55,8 @@ export function AppShell({
   navItems,
   user,
   userMenuItems,
+  topbarStart,
+  topbarEnd,
   children,
 }: AppShellProps): React.JSX.Element {
   const [collapsed, setCollapsedState] = useState<boolean>(readInitialCollapsed)
@@ -80,7 +86,12 @@ export function AppShell({
         data-testid="app-shell"
       >
         <Sidebar navItems={navItems} />
-        <Topbar user={user} userMenuItems={userMenuItems} />
+        <Topbar
+          user={user}
+          userMenuItems={userMenuItems}
+          topbarStart={topbarStart}
+          topbarEnd={topbarEnd}
+        />
         <main className="mycui-app-shell-content" data-testid="app-shell-content">
           {children}
         </main>

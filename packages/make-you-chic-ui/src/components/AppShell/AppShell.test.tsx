@@ -129,6 +129,31 @@ describe('AppShell', () => {
     expect(screen.queryByTestId('icon-bell')).not.toBeInTheDocument()
   })
 
+  it('renders topbarStart left-aligned and topbarEnd right-aligned, before the user menu', () => {
+    render(
+      <AppShell
+        navItems={navItems}
+        user={{ name: '山田 太郎' }}
+        topbarStart={<span data-testid="topbar-start">検索</span>}
+        topbarEnd={<span data-testid="topbar-end">お知らせ</span>}
+      >
+        <p>本文</p>
+      </AppShell>,
+    )
+    const topbar = screen.getByTestId('sidebar-toggle').closest('header')
+    const children = Array.from(topbar?.children ?? [])
+    const indexOf = (el: Element | null) => (el ? children.indexOf(el) : -1)
+    expect(indexOf(screen.getByTestId('sidebar-toggle'))).toBeLessThan(
+      indexOf(screen.getByTestId('topbar-start')),
+    )
+    expect(indexOf(screen.getByTestId('topbar-start'))).toBeLessThan(
+      indexOf(screen.getByTestId('topbar-end')),
+    )
+    expect(indexOf(screen.getByTestId('topbar-end'))).toBeLessThan(
+      indexOf(screen.getByRole('img', { name: '山田 太郎' })),
+    )
+  })
+
   it('has no detectable accessibility violations', async () => {
     const { container } = render(
       <AppShell navItems={navItems} user={{ name: '山田 太郎' }}>

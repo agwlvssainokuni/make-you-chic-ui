@@ -165,12 +165,17 @@ import { Button, FormField, TextInput, Table, AppShell } from '<パッケージ�
   navItems={[{ label: 'ダッシュボード', icon: 'menu', href: '/dashboard' }]}
   user={{ name: currentUser.name, avatarSrc: currentUser.avatarUrl }}
   userMenuItems={[{ label: 'ログアウト', onClick: handleLogout }]}
+  topbarEnd={
+    <Button variant="ghost" onClick={openNotifications}>
+      <Icon name="bell" />
+    </Button>
+  }
 >
   {/* List View / Detail View 等の画面 */}
 </AppShell>
 ```
 
-> **注記**: `AppShell`に通知アイコン機能はありません(Unit 5 Functional Designで廃止)。通知が必要な場合は、`children`側で独自に実装するか、`Badge`/`Icon`を組み合わせて独自のTopbar拡張を検討してください。
+> **注記**: `AppShell`は通知アイコン等の既製品は持ちません(Unit 5 Functional Designで廃止)。ただし`topbarStart`(Topbar左寄せ領域、折り畳みボタンの右)/`topbarEnd`(Topbar右寄せ領域、ユーザーメニューの手前)の2つの拡張ポイントに任意の`ReactNode`を渡せます。通知アイコン等が必要な場合は、`Badge`/`Icon`/`Button`を組み合わせて`topbarEnd`に渡してください。
 
 **ログイン画面等、AppShellと異なるレイアウトが必要な画面がある場合**は、react-routerの「レイアウトルート」パターン(`path`なしの`<Route>`が`<Outlet/>`を描画し、ネストした子ルートだけがそのレイアウトを継承する)で分離してください。`packages/sample-app/src/App.tsx`の`AppShellLayout`/`LoginPage`が実装例です。
 

@@ -174,6 +174,8 @@
 
 - [x] 機能改善の相談: 画面レイアウトCSSの書き方をSkillとして整備 (2026-08-14T16:46:00Z, コミット`d343e89`) — 汎用レイアウトコンポーネント案・Tailwind的ユーティリティクラス案を検討の上却下し、「画面固有の少数の意味づけされたCSSクラスをその場で定義する」方針に収束。`.claude/skills/layout-css/SKILL.md`を新規作成(却下済み案の再提案防止、配置/命名/トークン参照の具体的書き方、共通化の判断基準を明記)。`docs/integration-guide.md`に「画面レイアウトの実装方針」節を追加(Skillへのリンク、利用側プロジェクトへの配布方法)。詳細は`audit.md`該当エントリ参照
 
+- [x] 機能改善: Topbarにユーザーメニュー以外の項目を追加できる拡張ポイントを新設 (2026-08-14T20:06:00Z) — 「通知アイコンを廃止」した過去の判断はその機能自体の見送りであり、Topbarへの任意項目追加という拡張ポイントの禁止ではなかったことをユーザーが指摘、認識を訂正。`AppShellProps`/`TopbarProps`に`topbarStart`(左寄せ領域、折り畳みボタンの右)/`topbarEnd`(右寄せ領域、ユーザーメニューの手前)の2つの`ReactNode` propを追加。`AppShell.css`の`.mycui-topbar`に`gap: var(--space-2)`を追加(既存要素間のスペーシング統一)。`AppShell.test.tsx`に配置順序を検証するテストを追加。`requirements.md`(FR1)・`components.md`・`component-methods.md`の該当箇所、`docs/integration-guide.md`のAppShell例・通知アイコン注記を更新。検証: test(200件、変更前比+1件)・lint・lint:css・format:check・build・tsc全てクリーン。詳細は`audit.md`該当エントリ参照
+
 ### 🟡 OPERATIONS PHASE
 
 - [ ] Operations - PLACEHOLDER
@@ -183,4 +185,4 @@
 - **Lifecycle Phase**: CONSTRUCTION
 - **Current Stage**: Build and Test(レビュー継続中 — ユーザーの指摘対応が完了するまでフェーズは終了しない、との明示ルールに基づく)
 - **Next Stage**: Operations(プレースホルダー)
-- **Status**: `.claude/skills/layout-css/`新規作成が完了、コミット`d343e89`として反映済み。Approve & Continueはユーザーからの明示的な合図があるまで提示しない
+- **Status**: Topbar拡張ポイント(`topbarStart`/`topbarEnd`)追加が完了、コミット待ち。Approve & Continueはユーザーからの明示的な合図があるまで提示しない

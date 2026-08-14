@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import type { ReactNode } from 'react'
 import { Icon } from '../Icon'
 import { Avatar } from '../Avatar'
 import { Dropdown, type MenuItem } from '../Dropdown'
@@ -26,13 +27,22 @@ export interface AppShellUser {
 export interface TopbarProps {
   user?: AppShellUser
   userMenuItems?: MenuItem[]
+  /** Rendered left-aligned, after the sidebar collapse button. */
+  topbarStart?: ReactNode
+  /** Rendered right-aligned, before the user menu. */
+  topbarEnd?: ReactNode
 }
 
 /**
  * Internal to AppShell — not part of the public API (requirements.md FR1:
  * Sidebar/Topbar are not standalone components). No breadcrumbs, per FR1.
  */
-export function Topbar({ user, userMenuItems }: TopbarProps): React.JSX.Element {
+export function Topbar({
+  user,
+  userMenuItems,
+  topbarStart,
+  topbarEnd,
+}: TopbarProps): React.JSX.Element {
   const { toggleCollapsed, collapsed } = useAppShell()
 
   return (
@@ -46,7 +56,9 @@ export function Topbar({ user, userMenuItems }: TopbarProps): React.JSX.Element 
       >
         <Icon name="menu" size={20} />
       </button>
+      {topbarStart}
       <div className="mycui-topbar-spacer" />
+      {topbarEnd}
       {user &&
         (userMenuItems && userMenuItems.length > 0 ? (
           <Dropdown

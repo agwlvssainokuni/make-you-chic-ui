@@ -69,6 +69,7 @@
   grid-area: topbar;
   display: flex;
   align-items: center;
+  gap: var(--space-2);
   padding: 0 var(--space-4);
   background: var(--color-surface);
   border-bottom: 1px solid var(--color-border);

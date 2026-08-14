@@ -34,7 +34,7 @@
   - Tooltip(アイコンのみのボタン等の補助説明用)
   - Card(Detail View等のコンテンツグルーピング用コンテナ)
   - Alert/Banner(フォーム全体のエラーサマリー等、常時表示・非モーダルの通知。variant: info/success/warning/danger、閉じるボタン・アクションリンクは任意)
-  - **AppShell(レイアウトシェル)**: Sidebar(折り畳み可能、状態は`localStorage`等に永続化)+ Topbar(ユーザーメニュー、パンくずなし)+ Contentスロットを束ねる、全画面が描画される最上位のレイアウトコンポーネント。折り畳み状態の管理を内包する(通知アイコンはUnit 5 Functional Designで廃止)
+  - **AppShell(レイアウトシェル)**: Sidebar(折り畳み可能、状態は`localStorage`等に永続化)+ Topbar(ユーザーメニュー、パンくずなし)+ Contentスロットを束ねる、全画面が描画される最上位のレイアウトコンポーネント。折り畳み状態の管理を内包する(通知アイコンという具体的な機能はUnit 5 Functional Designで廃止。ただしTopbarへの任意項目追加そのものを禁止する意図ではなかったため、`topbarStart`/`topbarEnd`propによる拡張ポイントを事後追加— 2026-08-14)
 
   補足: 汎用的な複数カラムGridレイアウト、およびDetail Viewのラベル+値表示(Description List)については、JSの状態管理やa11y上の複雑なロジックを要さず、具体的な利用箇所も限定的であるため、独立したFR1コンポーネントとしては切り出さない(Description Listの扱いはFR2を参照)。
 

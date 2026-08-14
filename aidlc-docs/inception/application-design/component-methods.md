@@ -233,10 +233,13 @@ interface AppShellProps {
   navItems: AppShellNavItem[]
   user?: { name: string; avatarSrc?: string }
   userMenuItems?: AppShellUserMenuItem[] // Unit 5 Functional Designで追加
+  topbarStart?: React.ReactNode // Topbar左寄せ領域。事後追加(2026-08-14)
+  topbarEnd?: React.ReactNode // Topbar右寄せ領域(ユーザーメニュー手前)。事後追加(2026-08-14)
   children: React.ReactNode // Contentスロット
 }
 const AppShell: React.FC<AppShellProps>
 // notificationCountはUnit 5 Functional Design(Question 5)で廃止(通知アイコン機能を持たない)
+// topbarStart/topbarEndは上記の廃止とは独立の判断: Topbarへの任意項目追加という汎用拡張ポイント自体は禁止していなかったため、必要になった時点で追加(2026-08-14)
 ```
 
 ## すべてのコンポーネント共通のprops(Question 7=A, Question 8=B)
