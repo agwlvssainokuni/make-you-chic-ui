@@ -1292,6 +1292,6 @@
 **User Input**: "組み込みで以下の設定が必要でした。"に続き、利用側プロジェクトの`vite.config.ts`への差分(`resolve.dedupe: ["react", "react-dom"]`追加、コメント付き: 「make-you-chic-uiはgit submodule(vendor/)をfile:参照するsymlinkのため、Viteが素朴に解決するとvendor/make-you-chic-ui/node_modules/react(デザインシステム自身のdevDependency)を拾ってしまい、frontend側のreactと二重にロードされてフックエラーになる。dedupeで常にこのプロジェクト直下のreact/react-domへ強制的に一本化する。」)を提示
 **AI Response**: `docs/integration-guide.md`の「必須の依存ライブラリ」節に、手順A(git submodule + `file:`参照)+ Viteの組み合わせに特有の注記を追加。`file:`参照はsymlinkとして配置されるため、Viteが実体パス(`vendor/make-you-chic-ui/packages/make-you-chic-ui/`)起点でモジュール解決し、peerDependenciesとして利用側に用意したreact/react-domではなく本パッケージ自身のビルド/テスト用`devDependencies`のreact/react-domを誤って解決してしまう事象と、`resolve.dedupe`による回避方法をコード例付きで記載。このリポジトリ自身のコード変更は不要(利用側のvite.config.tsでの対応のため)
 **検証結果**: `npx prettier --check docs/integration-guide.md`でクリーン。コード変更を伴わないためtsc/lint/test/build等は対象外
-**Context**: `docs/integration-guide.md`更新、コミット待ち
+**Context**: `docs/integration-guide.md`更新、コミット`0f1321d`として反映済み
 
 ---

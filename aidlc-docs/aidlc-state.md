@@ -176,7 +176,7 @@
 
 - [x] 機能改善: Topbarにユーザーメニュー以外の項目を追加できる拡張ポイントを新設 (2026-08-14T20:06:00Z, コミット`f1980a8`) — 「通知アイコンを廃止」した過去の判断はその機能自体の見送りであり、Topbarへの任意項目追加という拡張ポイントの禁止ではなかったことをユーザーが指摘、認識を訂正。`AppShellProps`/`TopbarProps`に`topbarStart`(左寄せ領域、折り畳みボタンの右)/`topbarEnd`(右寄せ領域、ユーザーメニューの手前)の2つの`ReactNode` propを追加。`AppShell.css`の`.mycui-topbar`に`gap: var(--space-2)`を追加(既存要素間のスペーシング統一)。`AppShell.test.tsx`に配置順序を検証するテストを追加。`requirements.md`(FR1)・`components.md`・`component-methods.md`の該当箇所、`docs/integration-guide.md`のAppShell例・通知アイコン注記を更新。検証: test(200件、変更前比+1件)・lint・lint:css・format:check・build・tsc全てクリーン。詳細は`audit.md`該当エントリ参照
 
-- [x] レビュー対応: 実際の組み込み(手順A)で判明したViteのReact二重ロード問題をドキュメントに追記 (2026-08-14T21:54:00Z) — 利用側プロジェクト(MasterMeister)でのdogfoodingにより、`file:`参照(symlink)経由だとViteが実体パス起点でモジュール解決し、利用側のreact/react-domではなく本パッケージ自身の`devDependencies`のreact/react-domを誤って解決してフックエラーになる事象が判明。`docs/integration-guide.md`の「必須の依存ライブラリ」節に、`resolve.dedupe: ['react', 'react-dom']`で回避する手順Aユーザー向けの注記を追加(コード変更なし、利用側のvite.config.tsでの対応)。詳細は`audit.md`該当エントリ参照
+- [x] レビュー対応: 実際の組み込み(手順A)で判明したViteのReact二重ロード問題をドキュメントに追記 (2026-08-14T21:54:00Z, コミット`0f1321d`) — 利用側プロジェクト(MasterMeister)でのdogfoodingにより、`file:`参照(symlink)経由だとViteが実体パス起点でモジュール解決し、利用側のreact/react-domではなく本パッケージ自身の`devDependencies`のreact/react-domを誤って解決してフックエラーになる事象が判明。`docs/integration-guide.md`の「必須の依存ライブラリ」節に、`resolve.dedupe: ['react', 'react-dom']`で回避する手順Aユーザー向けの注記を追加(コード変更なし、利用側のvite.config.tsでの対応)。詳細は`audit.md`該当エントリ参照
 
 ### 🟡 OPERATIONS PHASE
 
@@ -187,4 +187,4 @@
 - **Lifecycle Phase**: CONSTRUCTION
 - **Current Stage**: Build and Test(レビュー継続中 — ユーザーの指摘対応が完了するまでフェーズは終了しない、との明示ルールに基づく)
 - **Next Stage**: Operations(プレースホルダー)
-- **Status**: `docs/integration-guide.md`にVite dedupe注記を追加、コミット待ち。Approve & Continueはユーザーからの明示的な合図があるまで提示しない
+- **Status**: `docs/integration-guide.md`にVite dedupe注記を追加、コミット`0f1321d`として反映済み。Approve & Continueはユーザーからの明示的な合図があるまで提示しない
