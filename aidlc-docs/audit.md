@@ -1305,3 +1305,13 @@
 **Context**: `docs/integration-guide.md`のCSS import例修正、コミット`74e6963`として反映済み
 
 ---
+
+## レビュー対応: dist/index.jsにreact/jsx-runtimeがインライン化される不具合を修正
+
+**Timestamp**: 2026-08-14T22:18:00Z
+**User Input**: "エラーが発生。解析結果は以下の通り。- 本番ビルド(vite build)では発生しない: 消費側アプリのvite buildが全体を再度バンドルし直す過程で問題が吸収されている - 開発サーバでは発生する: symlink経由のmake-you-chic-uiは生のdist/index.jsがそのまま配信されるため直撃する - 消費側のoptimizeDeps.includeで強制プリバンドルを試しましたが、Vite自身のプリバンドラも同じRolldownのため同じ壊れ方を再現し、回避できませんでした 正しい修正はvendor/make-you-chic-ui側のvite.config.tsでexternal: ['react', 'react-dom', 'react/jsx-runtime', 'react/jsx-dev-runtime']とすることです。この修正をmake-you-chic-ui側で行い、npm run buildでdist再ビルド・push、こちら側でsubmoduleを取り込む、という流れになります。私の方で進めてよろしいですか(submoduleは別リポジトリのため、変更前に確認します)。"
+**AI Response**: `packages/make-you-chic-ui/vite.config.ts`を確認し、`rollupOptions.external`が`['react', 'react-dom']`のみであることを確認(ユーザーの診断と一致)。`@vitejs/plugin-react`が生成する自動JSXランタイムのimport(`react/jsx-runtime`/`react/jsx-dev-runtime`)がexternal化されておらず、本パッケージ自身の`devDependencies`のReactにバインドされた状態でdist/index.jsにインライン化されていた。ユーザー提示の修正をそのまま適用し、`external`配列に`'react/jsx-runtime'`・`'react/jsx-dev-runtime'`を追加、`npm run build`でdist再ビルド
+**検証結果**: ビルド後の`dist/index.js`をgrepし、`import { Fragment as f, jsx as p, jsxs as m } from "react/jsx-runtime"`のようにimport文として出力される(インライン化されていない)ことを確認。バンドルサイズが縮小(dist/index.js: 45.19kB→36.33kB、dist/index.cjs: 32.72kB→26.96kB)。`npm run test --workspaces --if-present`で183+17=200テスト全成功、`npm run lint`(oxlint+eslint)クリーン、`packages/sample-app`の`tsc -b`0エラー、`npm run sample-app:build`成功
+**Context**: `vite.config.ts`のexternal追加+dist再ビルド、コミット待ち
+
+---
