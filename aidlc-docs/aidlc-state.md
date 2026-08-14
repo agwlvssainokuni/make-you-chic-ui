@@ -172,7 +172,7 @@
 
 - [x] `reference/`ディレクトリの削除 (2026-08-14T01:19:00Z) — 元々`.gitignore`済みで未追跡の入力資料(`CLAUDE.md`・`integrated-app-demo.html`・`table-advanced-demo.html`)を削除。設計方針・実装ロジックは`aidlc-docs/`と実装コードに反映済みのため情報損失なし。`.gitignore`の`reference/`エントリは将来の入力資料置き場の取り決めとして維持。この操作自体はgit未追跡のためコミット対象外
 
-- [x] 機能改善の相談: 画面レイアウトCSSの書き方をSkillとして整備 (2026-08-14T16:46:00Z) — 汎用レイアウトコンポーネント案・Tailwind的ユーティリティクラス案を検討の上却下し、「画面固有の少数の意味づけされたCSSクラスをその場で定義する」方針に収束。`.claude/skills/layout-css/SKILL.md`を新規作成(却下済み案の再提案防止、配置/命名/トークン参照の具体的書き方、共通化の判断基準を明記)。`docs/integration-guide.md`に「画面レイアウトの実装方針」節を追加(Skillへのリンク、利用側プロジェクトへの配布方法)。詳細は`audit.md`該当エントリ参照
+- [x] 機能改善の相談: 画面レイアウトCSSの書き方をSkillとして整備 (2026-08-14T16:46:00Z, コミット`d343e89`) — 汎用レイアウトコンポーネント案・Tailwind的ユーティリティクラス案を検討の上却下し、「画面固有の少数の意味づけされたCSSクラスをその場で定義する」方針に収束。`.claude/skills/layout-css/SKILL.md`を新規作成(却下済み案の再提案防止、配置/命名/トークン参照の具体的書き方、共通化の判断基準を明記)。`docs/integration-guide.md`に「画面レイアウトの実装方針」節を追加(Skillへのリンク、利用側プロジェクトへの配布方法)。詳細は`audit.md`該当エントリ参照
 
 ### 🟡 OPERATIONS PHASE
 
@@ -183,4 +183,4 @@
 - **Lifecycle Phase**: CONSTRUCTION
 - **Current Stage**: Build and Test(レビュー継続中 — ユーザーの指摘対応が完了するまでフェーズは終了しない、との明示ルールに基づく)
 - **Next Stage**: Operations(プレースホルダー)
-- **Status**: `.claude/skills/layout-css/`新規作成が完了、検証クリーン。コミット待ち。Approve & Continueはユーザーからの明示的な合図があるまで提示しない
+- **Status**: `.claude/skills/layout-css/`新規作成が完了、コミット`d343e89`として反映済み。Approve & Continueはユーザーからの明示的な合図があるまで提示しない
