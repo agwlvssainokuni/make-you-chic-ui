@@ -67,6 +67,17 @@ npm install /path/to/make-you-chic-ui-0.0.0.tgz
 
 本パッケージは`react`(`^19.0.0`) / `react-dom`(`^19.0.0`)を`peerDependencies`として要求します。利用側プロジェクトが既に保持しているReact/ReactDOMをそのまま利用する構成のため、利用側のpackage.jsonにこの2つを対応バージョンで用意してください(`ThemeProvider`等はContext/hooksベースで実装されているため、Reactが二重にインストールされるとフックエラーやContextの不整合が発生します)。手順A/Bいずれの方法でインストールした場合も、npmがpeerDependenciesの充足を検証します(バージョン不一致時は警告またはエラーになります)。
 
+> **注記(手順A + Viteの場合)**: 手順Aの`file:`参照はnode_modules配下にsymlinkとして配置されるため、Viteはimport元の実体パス(`vendor/make-you-chic-ui/packages/make-you-chic-ui/`)を起点にモジュール解決を行うことがあります。この場合、peerDependenciesを満たすために利用側へ用意したreact/react-domではなく、本パッケージ自身のビルド/テスト用`devDependencies`のreact/react-dom(`vendor/make-you-chic-ui/node_modules/react`)を誤って解決し、Reactが二重にロードされてフックエラーになることがあります。Viteの`resolve.dedupe`で利用側のreact/react-dom解決に強制的に一本化してください。
+>
+> ```ts
+> // vite.config.ts
+> export default defineConfig({
+>   resolve: {
+>     dedupe: ['react', 'react-dom'],
+>   },
+> })
+> ```
+
 ### 必須のセットアップ
 
 アプリケーションのルート(エントリポイント)で、以下の3つのProviderを組み合わせて配置してください。いずれも省略可能です(省略した場合の挙動は各コンポーネントのfail-soft設計により、開発時の警告のみでクラッシュはしません)。
