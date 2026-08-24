@@ -44,6 +44,12 @@ export function DefaultCellEditor({
       value={draft}
       onChange={setDraft}
       onKeyDown={(e) => {
+        // IME composition confirmation also fires a keydown with key
+        // 'Enter'; ignore it so it only confirms the composed text
+        // instead of also committing/exiting the cell editor.
+        if (e.nativeEvent.isComposing) {
+          return
+        }
         if (e.key === 'Enter') {
           e.preventDefault()
           onCommit(draft)

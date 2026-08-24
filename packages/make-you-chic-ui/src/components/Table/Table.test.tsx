@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import { describe, it, expect, vi } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'vitest-axe'
 import { Table, type TableColumn } from './Table'
@@ -138,6 +138,22 @@ describe('Table', () => {
     await userEvent.clear(editor)
     await userEvent.type(editor, '山田 次郎{Enter}')
     expect(onCellEdit).toHaveBeenCalledWith('1', 'name', '山田 次郎')
+  })
+
+  it('ignores the Enter keydown that confirms an IME composition, without committing or exiting', async () => {
+    const onCellEdit = vi.fn()
+    const editableColumns: TableColumn<Row>[] = [{ key: 'name', header: '名前', editable: true }]
+    render(<Table {...baseProps()} columns={editableColumns} onCellEdit={onCellEdit} />)
+
+    await userEvent.click(screen.getByTestId('table-cell-1-name'))
+    const editor = screen.getByTestId('table-cell-editor')
+
+    fireEvent.keyDown(editor, { key: 'Enter', isComposing: true })
+    expect(onCellEdit).not.toHaveBeenCalled()
+    expect(screen.getByTestId('table-cell-editor')).toBeInTheDocument()
+
+    fireEvent.keyDown(editor, { key: 'Enter' })
+    expect(onCellEdit).toHaveBeenCalledWith('1', 'name', '山田 太郎')
   })
 
   it('cancels the edit without committing on Escape', async () => {
