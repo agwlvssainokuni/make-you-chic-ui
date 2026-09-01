@@ -1335,3 +1335,13 @@
 **Context**: `packages/make-you-chic-ui/src/components/Table/{Table.tsx,Table.css,Table.test.tsx}`・`packages/sample-app/src/pages/CatalogPage.tsx`更新。`html-demo/components/table-demo.html`は列幅ドラッグ機能自体を持たないため今回のスコープ外とし、その旨をユーザーに案内済み
 
 ---
+
+## レビュー対応: Tableのソートが効かない不具合+ソートアイコンによる列幅ずれ・方向アイコンの区別を修正
+
+**Timestamp**: 2026-09-01T00:30:00Z
+**User Input**: (1)"テーブルのソートが効いていない。"→CatalogPageの`<Table>`呼び出しに`sortState`/`onSortChange`が渡されておらず、クリックしても`onSortChange?.(...)`の通知先が無いだけの状態だったことを調査で特定。同じ欠陥がListView(画面パターンの参考実装)の「名前」列にも存在。(2)"ソートすると列幅が変わるのは何とかしたい。"→ソート中の列のみヘッダーに矢印アイコンを条件付き表示していたため、そのヘッダーの実サイズがアイコン分だけ変化し、`table-layout: auto`により他列の幅も再計算されていたことを特定。(3)"ソートアイコンが昇順と降順でかわらない。"→アイコンは`chevron-down`固定で方向を表現していなかったことを確認、CSSの`rotate(180deg)`で暫定対応した後、ユーザーから"chevron-up を作っても良いのでは？"との提案を受け、`registry.ts`の「新しいアイコンが必要になったらここに追加する」という設計方針に沿う形へ変更
+**AI Response**: (1) `CatalogPage.tsx`/`ListView.tsx`双方に`sortState`のstateを追加し`sortState`/`onSortChange`をTableに配線、ソート対象の配列(CatalogPageは`tableRows`、ListViewはページ分割前の`filteredUsers`)を`localeCompare`でソートしてから渡すよう修正。(2) `Table.tsx`のソートアイコンを「アクティブな列だけ表示」から「常にDOM上に配置し、非アクティブ時は`visibility: hidden`(`display:none`ではない)で見た目だけ隠す」方式に変更、ヘッダーの占有サイズを常に一定に保つことで列幅のジャンプを解消。(3) 新規`chevron-up`アイコン(`icons/chevron-up.tsx`、`chevron-down`のpathをy軸反転した対称形状)を追加して`iconRegistry`に登録し、昇順時は`name="chevron-up"`、降順時は`name="chevron-down"`を選択する方式に変更(一旦実装したCSS回転方式は撤去)
+**検証結果**: `npm test`(24+4ファイル、189件全成功、新規回帰テスト「非アクティブ時もアイコンのDOM要素自体は残ること」「昇順/降順で異なるアイコン名が使われること」を含む)、`npm run lint`・`npm run lint:css`・`npm run format:check`・`tsc -b`(両パッケージ)・`npm run build`全てクリーン。ブラウザ実機で、ソートが実際に並び替わること、ソート前後で列幅(3列とも px単位で完全一致)が変化しないこと、昇順(chevron-up)/降順(chevron-down)で異なるアイコンが表示されることを確認済み
+**Context**: `packages/make-you-chic-ui/src/components/Icon/{registry.ts,icons/chevron-up.tsx(新規)}`・`packages/make-you-chic-ui/src/components/Table/{Table.tsx,Table.css,Table.test.tsx}`・`packages/sample-app/src/pages/CatalogPage.tsx`・`packages/sample-app/src/screen-patterns/ListView/ListView.tsx`更新
+
+---

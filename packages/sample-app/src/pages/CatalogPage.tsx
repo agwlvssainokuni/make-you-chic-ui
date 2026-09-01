@@ -36,6 +36,7 @@ import {
   Tooltip,
   useToast,
   type CellEditComponentProps,
+  type SortState,
   type TableColumn,
 } from 'make-you-chic-ui'
 
@@ -118,6 +119,15 @@ export function CatalogPage(): React.JSX.Element {
   const [modalOpen, setModalOpen] = useState(false)
   const [tabIndex, setTabIndex] = useState(0)
   const [tableRows, setTableRows] = useState(initialTableRows)
+  const [tableSort, setTableSort] = useState<SortState | null>(null)
+
+  const sortedTableRows = tableSort
+    ? [...tableRows].sort((a, b) => {
+        const key = tableSort.key as keyof CatalogRow
+        const diff = a[key].localeCompare(b[key])
+        return tableSort.direction === 'desc' ? -diff : diff
+      })
+    : tableRows
 
   function handleCellEdit(rowId: string, columnKey: string, value: unknown): void {
     setTableRows((prev) =>
@@ -270,9 +280,11 @@ export function CatalogPage(): React.JSX.Element {
         </p>
         <Table
           columns={tableColumns}
-          data={tableRows}
+          data={sortedTableRows}
           totalCount={tableRows.length}
           getRowId={(row) => row.id}
+          sortState={tableSort}
+          onSortChange={setTableSort}
           page={1}
           pageSize={tableRows.length}
           onPageChange={() => {}}

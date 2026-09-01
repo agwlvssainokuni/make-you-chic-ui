@@ -65,6 +65,14 @@
   box-shadow: var(--focus-ring);
 }
 
+/* Always reserves the sort-direction icon's space (visibility, not
+   display) so a header's rendered width - and therefore the column's
+   auto-layout width - stays constant whether it is the active sort
+   column or not; otherwise sorting shifted every column's width. */
+.mycui-table-sort-icon-inactive {
+  visibility: hidden;
+}
+
 .mycui-table-resize-handle {
   position: absolute;
   right: 0;

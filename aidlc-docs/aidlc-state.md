@@ -183,6 +183,7 @@
 - [x] レビュー対応: dist/index.jsにreact/jsx-runtimeがインライン化される不具合を修正 (2026-08-14T22:18:00Z, コミット`b9f5295`) — 利用側(MasterMeister)のVite開発サーバでのみ発生する不具合をユーザーが実機解析: 本番ビルド(vite build)では消費側の再バンドルで問題が吸収されるが、開発サーバでは`vendor/`のsymlink経由でdist/index.jsが生のまま配信され直撃する。原因は`vite.config.ts`の`rollupOptions.external`が`react`/`react-dom`のみで、`@vitejs/plugin-react`が生成する`react/jsx-runtime`(prod)/`react/jsx-dev-runtime`(dev)がexternal化されておらず、本パッケージ自身の`devDependencies`のReactにバインドされた状態でdist/index.jsにインライン化されていたため。両方をexternalに追加し`npm run build`で再ビルド(dist/index.js: 45.19kB→36.33kB、dist/index.cjs: 32.72kB→26.96kBに縮小、`react/jsx-runtime`がimport文として出力されることを確認)。検証: test(200件)・lint・lint:css・format:check・tsc(両パッケージ)・build・sample-app:build全てクリーン。詳細は`audit.md`該当エントリ参照
 - [x] Table: IME変換確定のEnterで編集モードが終了する不具合を修正 (2026-08-24T21:35:22Z, コミット`e830679`) — `DefaultCellEditor`のonKeyDownが`isComposing`を判定していなかった。詳細はコミットログ参照(この時点のaudit.md/aidlc-state.mdへの記録は未実施のまま2026-09-01に至る)
 - [x] 機能改善: Tableの編集モードサンプル拡充+編集モード切替時のレイアウトずれ・列幅ドラッグのポインタずれ修正 (2026-09-01T00:00:00Z) — `.mycui-table-cell-editing`/`.mycui-table-cell-editor`によるCSSスコープ追加でレイアウトずれを解消、`box-sizing: border-box`追加でリサイズドラッグのポインタずれを解消。CatalogPageのTable例を5行に拡充し、`Select`ベースのカスタム`editComponent`(優先度列)を追加。検証: test(202件)・lint・lint:css・format:check・tsc・build全てクリーン、ブラウザ実機確認済み。詳細は`audit.md`該当エントリ参照
+- [x] レビュー対応: Tableのソートが効かない不具合+ソートアイコンによる列幅ずれ・方向アイコンの区別を修正 (2026-09-01T00:30:00Z) — CatalogPage/ListView双方で`sortState`/`onSortChange`が未配線だったため実際には並び替わらなかった不具合を修正。ソートアイコンを「アクティブ列のみ表示」から「常時DOM上に配置し非アクティブ時は`visibility: hidden`」に変更し列幅ジャンプを解消。新規`chevron-up`アイコンを追加し、昇順/降順で異なるアイコンを表示するよう変更(CSS回転方式は不採用)。検証: test(189件)・lint・lint:css・format:check・tsc・build全てクリーン、ブラウザ実機確認済み。詳細は`audit.md`該当エントリ参照
 
 ### 🟡 OPERATIONS PHASE
 
@@ -193,4 +194,4 @@
 - **Lifecycle Phase**: CONSTRUCTION
 - **Current Stage**: Build and Test(レビュー継続中 — ユーザーの指摘対応が完了するまでフェーズは終了しない、との明示ルールに基づく)
 - **Next Stage**: Operations(プレースホルダー)
-- **Status**: Tableの編集モードサンプル拡充+レイアウトずれ・リサイズドラッグのポインタずれ修正が完了、コミット反映待ち。Approve & Continueはユーザーからの明示的な合図があるまで提示しない
+- **Status**: Tableのソート未配線・ソートアイコンの列幅ずれ・方向アイコンの区別修正が完了、コミット反映待ち。Approve & Continueはユーザーからの明示的な合図があるまで提示しない

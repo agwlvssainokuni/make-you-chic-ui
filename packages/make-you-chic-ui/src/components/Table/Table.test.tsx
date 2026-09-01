@@ -81,6 +81,32 @@ describe('Table', () => {
     expect(screen.getByTestId('table-header-name')).toHaveAttribute('aria-sort', 'ascending')
   })
 
+  it('always reserves the sort icon slot (hidden via CSS, not unmounted) so the header width does not change when sorting toggles', () => {
+    const { rerender } = render(<Table {...baseProps()} />)
+    const inactiveIcon = screen.getByTestId('table-sort-name').querySelector('svg')
+    expect(inactiveIcon).toBeInTheDocument()
+    expect(inactiveIcon).toHaveClass('mycui-table-sort-icon-inactive')
+
+    rerender(<Table {...baseProps()} sortState={{ key: 'name', direction: 'asc' }} />)
+    expect(screen.getByTestId('table-sort-name').querySelector('svg')).not.toHaveClass(
+      'mycui-table-sort-icon-inactive',
+    )
+  })
+
+  it('uses a distinct icon for ascending vs. descending', () => {
+    const { rerender } = render(
+      <Table {...baseProps()} sortState={{ key: 'name', direction: 'asc' }} />,
+    )
+    expect(
+      screen.getByTestId('table-sort-name').querySelector('[data-testid="icon-chevron-up"]'),
+    ).toBeInTheDocument()
+
+    rerender(<Table {...baseProps()} sortState={{ key: 'name', direction: 'desc' }} />)
+    expect(
+      screen.getByTestId('table-sort-name').querySelector('[data-testid="icon-chevron-down"]'),
+    ).toBeInTheDocument()
+  })
+
   it('renders row and select-all checkboxes only when selection props are provided', () => {
     const { rerender } = render(<Table {...baseProps()} />)
     expect(screen.queryByTestId('table-select-all')).not.toBeInTheDocument()

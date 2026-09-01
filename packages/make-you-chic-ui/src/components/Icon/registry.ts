@@ -16,6 +16,7 @@
 import type { SVGProps } from 'react'
 import { MenuIconSvg } from './icons/menu'
 import { ChevronDownIconSvg } from './icons/chevron-down'
+import { ChevronUpIconSvg } from './icons/chevron-up'
 import { CloseIconSvg } from './icons/close'
 import { CheckIconSvg } from './icons/check'
 import { BellIconSvg } from './icons/bell'
@@ -29,6 +30,7 @@ import { UserIconSvg } from './icons/user'
 export const iconRegistry = {
   menu: MenuIconSvg,
   'chevron-down': ChevronDownIconSvg,
+  'chevron-up': ChevronUpIconSvg,
   close: CloseIconSvg,
   check: CheckIconSvg,
   bell: BellIconSvg,

@@ -220,9 +220,19 @@ export function Table<T>({
                       data-testid={`table-sort-${column.key}`}
                     >
                       {column.header}
-                      {sortState?.key === column.key && sortState.direction && (
-                        <Icon name="chevron-down" size={14} />
-                      )}
+                      <Icon
+                        name={
+                          sortState?.key === column.key && sortState.direction === 'asc'
+                            ? 'chevron-up'
+                            : 'chevron-down'
+                        }
+                        size={14}
+                        className={
+                          sortState?.key === column.key && sortState.direction
+                            ? undefined
+                            : 'mycui-table-sort-icon-inactive'
+                        }
+                      />
                     </button>
                   ) : (
                     column.header

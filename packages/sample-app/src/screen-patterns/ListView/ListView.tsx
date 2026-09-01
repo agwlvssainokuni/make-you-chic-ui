@@ -14,7 +14,15 @@
  * limitations under the License.
  */
 import { useState } from 'react'
-import { TextInput, Select, Table, Badge, Button, type TableColumn } from 'make-you-chic-ui'
+import {
+  TextInput,
+  Select,
+  Table,
+  Badge,
+  Button,
+  type SortState,
+  type TableColumn,
+} from 'make-you-chic-ui'
 import { EditUserModal, type EditUserFormValues } from '../EditUserModal/EditUserModal'
 import { DeleteConfirmModal } from '../DeleteConfirmModal/DeleteConfirmModal'
 import { initialSampleUsers, type SampleUser } from '../data/sampleUsers'
@@ -43,6 +51,7 @@ export function ListView({ onViewUser }: ListViewProps = {}): React.JSX.Element 
   const [searchText, setSearchText] = useState('')
   const [roleFilter, setRoleFilter] = useState('')
   const [page, setPage] = useState(1)
+  const [sortState, setSortState] = useState<SortState | null>(null)
   const [selectedRowIds, setSelectedRowIds] = useState<Set<string>>(new Set())
   const [editingUser, setEditingUser] = useState<{
     mode: 'create' | 'edit'
@@ -57,8 +66,15 @@ export function ListView({ onViewUser }: ListViewProps = {}): React.JSX.Element 
     return matchesText && matchesRole
   })
 
+  const sortedUsers = sortState
+    ? [...filteredUsers].sort((a, b) => {
+        const diff = a.name.localeCompare(b.name)
+        return sortState.direction === 'desc' ? -diff : diff
+      })
+    : filteredUsers
+
   const pageStart = (page - 1) * PAGE_SIZE
-  const pageUsers = filteredUsers.slice(pageStart, pageStart + PAGE_SIZE)
+  const pageUsers = sortedUsers.slice(pageStart, pageStart + PAGE_SIZE)
 
   const columns: TableColumn<SampleUser>[] = [
     { key: 'name', header: '名前', sortable: true },
@@ -180,6 +196,8 @@ export function ListView({ onViewUser }: ListViewProps = {}): React.JSX.Element 
         data={pageUsers}
         totalCount={filteredUsers.length}
         getRowId={(row) => row.id}
+        sortState={sortState}
+        onSortChange={setSortState}
         selectedRowIds={selectedRowIds}
         onSelectionChange={setSelectedRowIds}
         page={page}
