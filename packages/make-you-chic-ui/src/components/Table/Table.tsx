@@ -85,7 +85,13 @@ export function Table<T>({
   const [columnWidths, setColumnWidths] = useState<Record<string, number>>({})
   const [editingCell, setEditingCell] = useState<{ rowId: string; columnKey: string } | null>(null)
   const thRefs = useRef<Record<string, HTMLTableCellElement | null>>({})
-  const dragState = useRef<{ key: string; startX: number; startWidth: number } | null>(null)
+  const tableRef = useRef<HTMLTableElement | null>(null)
+  const dragState = useRef<{
+    key: string
+    startX: number
+    startWidth: number
+    startTableWidth: number
+  } | null>(null)
 
   const totalPages = computeTotalPages(totalCount, pageSize)
   const rowIds = data.map(getRowId)
@@ -95,6 +101,18 @@ export function Table<T>({
     rowIds.every((id) => selectedRowIds.has(id))
   const someOnPageSelected =
     selectedRowIds !== undefined && rowIds.some((id) => selectedRowIds.has(id))
+
+  // Once a resize has pinned every column's width (see handleResizeStart),
+  // the table gets a definite total width equal to their sum instead of
+  // "auto". A table with width: auto is sized shrink-to-fit, which is
+  // always clamped to the wrapper's width - so growing one column would
+  // just compress the others back down to fit, never actually growing
+  // past the wrapper to trigger its horizontal scroll.
+  const hasPinnedColumnWidths = Object.keys(columnWidths).length > 0
+  const pinnedTableWidth = hasPinnedColumnWidths
+    ? (selectedRowIds && onSelectionChange ? 40 : 0) +
+      columns.reduce((sum, column) => sum + (columnWidths[column.key] ?? column.width ?? 0), 0)
+    : undefined
 
   function handleSortClick(columnKey: string): void {
     onSortChange?.(nextSortState(sortState, columnKey))
@@ -113,10 +131,43 @@ export function Table<T>({
   function handleResizeStart(key: string, event: React.MouseEvent): void {
     const th = thRefs.current[key]
     if (!th) return
+    // Pin every column's current width before this one starts growing -
+    // applied straight to the DOM here, not only via React state. A
+    // mousemove firing before React's next render flushes would otherwise
+    // hit a table that's still table-layout: auto with only the dragged
+    // column pinned; the browser then "helpfully" redistributes the
+    // still-unpinned siblings (including ones to the left of the dragged
+    // column), and that shifted width gets locked in as their pinned
+    // value once state finally lands. Mutating synchronously here, before
+    // this handler returns, closes that window entirely.
+    const pinned: Record<string, number> = { ...columnWidths }
+    for (const column of columns) {
+      if (pinned[column.key] === undefined) {
+        const el = thRefs.current[column.key]
+        if (el) pinned[column.key] = el.getBoundingClientRect().width
+      }
+    }
+    for (const column of columns) {
+      const el = thRefs.current[column.key]
+      const columnWidth = pinned[column.key]
+      if (el && columnWidth !== undefined) {
+        el.style.width = `${columnWidth}px`
+      }
+    }
+    if (tableRef.current) {
+      tableRef.current.classList.add('mycui-table--pinned')
+      tableRef.current.style.tableLayout = 'fixed'
+      const totalWidth =
+        (selectedRowIds && onSelectionChange ? 40 : 0) +
+        columns.reduce((sum, column) => sum + (pinned[column.key] ?? column.width ?? 0), 0)
+      tableRef.current.style.width = `${totalWidth}px`
+    }
+    setColumnWidths(pinned)
     dragState.current = {
       key,
       startX: event.clientX,
       startWidth: th.getBoundingClientRect().width,
+      startTableWidth: tableRef.current?.getBoundingClientRect().width ?? 0,
     }
   }
 
@@ -131,6 +182,13 @@ export function Table<T>({
         drag.startWidth + (event.clientX - drag.startX),
       )
       th.style.width = `${nextWidth}px`
+      // Grows the table itself by the same delta, in lockstep with the
+      // dragged column, so the live drag doesn't visibly overshoot then
+      // snap back once mouseup commits columnWidths and pinnedTableWidth
+      // catches up.
+      if (tableRef.current) {
+        tableRef.current.style.width = `${drag.startTableWidth + (nextWidth - drag.startWidth)}px`
+      }
     }
 
     function handleMouseUp(): void {
@@ -176,7 +234,21 @@ export function Table<T>({
 
   return (
     <div className="mycui-table-wrapper" data-testid="table">
-      <table className="mycui-table" aria-label={ariaLabel}>
+      <table
+        ref={tableRef}
+        className={hasPinnedColumnWidths ? 'mycui-table mycui-table--pinned' : 'mycui-table'}
+        aria-label={ariaLabel}
+        // Auto layout sizes the initial, never-resized table by content
+        // (so columns start proportioned sensibly). Once handleResizeStart
+        // has pinned every column to its current pixel width, switching to
+        // fixed layout + a definite width (the pinned sum) makes those
+        // widths authoritative - resizing one no longer leaves others as
+        // "flexible" for the browser to shrink, and the table can grow
+        // past the wrapper (which scrolls) instead of compressing them.
+        style={
+          hasPinnedColumnWidths ? { tableLayout: 'fixed', width: pinnedTableWidth } : undefined
+        }
+      >
         <thead>
           <tr>
             {selectedRowIds && onSelectionChange && (
@@ -208,7 +280,7 @@ export function Table<T>({
                   ref={(el) => {
                     thRefs.current[column.key] = el
                   }}
-                  style={width ? { width } : undefined}
+                  style={width !== undefined ? { width } : undefined}
                   aria-sort={column.sortable ? (ariaSort ?? 'none') : undefined}
                   data-testid={`table-header-${column.key}`}
                 >

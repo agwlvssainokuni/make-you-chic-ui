@@ -1345,3 +1345,13 @@
 **Context**: `packages/make-you-chic-ui/src/components/Icon/{registry.ts,icons/chevron-up.tsx(新規)}`・`packages/make-you-chic-ui/src/components/Table/{Table.tsx,Table.css,Table.test.tsx}`・`packages/sample-app/src/pages/CatalogPage.tsx`・`packages/sample-app/src/screen-patterns/ListView/ListView.tsx`更新
 
 ---
+
+## レビュー対応: 列幅リサイズで他列(特に左隣)が連動して動いてしまう不具合を修正(レースコンディション)
+
+**Timestamp**: 2026-09-01T01:00:00Z
+**User Input**: "最初に「優先度」の右枠をドラッグすると、左枠も一緒にうごいてしまう。"→調査の結果、`.mycui-table { width: 100% }`のまま`table-layout: auto`が未指定列を伸縮対象として扱っていたことが判明し、(1)ドラッグ開始時に全列幅をピン留め、(2)`table-layout: fixed`+テーブル本体への明示幅設定、で修正・ブラウザ実機で解消を確認し一旦commitを提案。ユーザーから"私が目視確認したところ、他の列幅が変わる事象は解決していません。AIもChromeで確認してください。"との指摘を受け、AIが実マウスドラッグ・JSイベント直接発火・クリックのみ等複数手法で再検証したが再現せず。ユーザーへ具体的な再現手順を確認したところ"優先度の列の右枠をクリックして左方向(狭くなる方向)へドラッグすると、コンポーネント列の幅が広がります。"との回答を得て、この具体的操作(縮める方向)で再現に成功
+**AI Response**: 根本原因は二重: (1) `min-width: 100%`が残っていたため、優先度列を縮めて合計幅がラッパー幅を下回ると、テーブルがその不足分を埋めるために他の固定幅列(実測ではコンポーネント列)へ余剰スペースを配分していた→ピン留め後の状態を表す`.mycui-table--pinned`クラスを新設し`min-width: 0`で上書き。(2) より本質的な原因として、全列幅のピン留め処理が`setColumnWidths`という非同期のReact state更新に依存しており、mousedown直後に間隔なく発火する実際のmousemoveがReactの再描画(state反映)を追い越すと、まだ`table-layout: auto`のまま片方だけ幅が変わった不安定な瞬間にブラウザが未ピン留めの兄弟列を再配分し、その歪んだ値がピン留め値として確定してしまうレースコンディションを特定。`handleResizeStart`内でReact stateに頼らず、全列の`<th>`のwidth・`<table>`のtable-layout/width/className(`mycui-table--pinned`付与)を同期的にDOM操作として直接適用するよう変更し、mousemoveが発火する前に確実に完了させるよう修正。副次的に`width ? {width} : undefined`が幅0を偽値として除外してしまう潜在バグ(`width !== undefined`に修正)も発見・修正
+**検証結果**: `npm test`(188件、回帰テスト1件追加: 「mousedown時に全列がピン留めされfixed layoutに切り替わること」)、`npm run lint`・`npm run lint:css`・`npm run format:check`・`tsc -b`・`npm run build`全てクリーン。ブラウザ実機で、ユーザー指摘の操作(優先度列右枠を左へドラッグ)を「遅延なしの連続イベント発火」「実際のOSレベルマウスドラッグ」の両方で複数回実施し、コンポーネント列・備考列の幅が完全に不変であることを確認済み
+**Context**: `packages/make-you-chic-ui/src/components/Table/{Table.tsx,Table.css,Table.test.tsx}`更新
+
+---

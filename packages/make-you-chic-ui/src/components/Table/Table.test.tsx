@@ -107,6 +107,22 @@ describe('Table', () => {
     ).toBeInTheDocument()
   })
 
+  it('pins every column width and switches to a fixed table layout once a resize starts, so growing one column cannot reflow the others', () => {
+    render(<Table {...baseProps()} />)
+
+    expect(screen.getByRole('table')).not.toHaveStyle({ tableLayout: 'fixed' })
+    expect(screen.getByTestId('table-header-role')).not.toHaveAttribute('style')
+
+    fireEvent.mouseDown(screen.getByTestId('table-resize-name'))
+
+    // Every header - not just the one being dragged - gets pinned to an
+    // explicit width so table-layout: fixed treats them as authoritative
+    // instead of leaving them "flexible" for the browser to shrink.
+    expect(screen.getByTestId('table-header-name')).toHaveAttribute('style')
+    expect(screen.getByTestId('table-header-role')).toHaveAttribute('style')
+    expect(screen.getByRole('table')).toHaveStyle({ tableLayout: 'fixed' })
+  })
+
   it('renders row and select-all checkboxes only when selection props are provided', () => {
     const { rerender } = render(<Table {...baseProps()} />)
     expect(screen.queryByTestId('table-select-all')).not.toBeInTheDocument()

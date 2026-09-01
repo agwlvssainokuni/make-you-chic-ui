@@ -184,6 +184,7 @@
 - [x] Table: IME変換確定のEnterで編集モードが終了する不具合を修正 (2026-08-24T21:35:22Z, コミット`e830679`) — `DefaultCellEditor`のonKeyDownが`isComposing`を判定していなかった。詳細はコミットログ参照(この時点のaudit.md/aidlc-state.mdへの記録は未実施のまま2026-09-01に至る)
 - [x] 機能改善: Tableの編集モードサンプル拡充+編集モード切替時のレイアウトずれ・列幅ドラッグのポインタずれ修正 (2026-09-01T00:00:00Z) — `.mycui-table-cell-editing`/`.mycui-table-cell-editor`によるCSSスコープ追加でレイアウトずれを解消、`box-sizing: border-box`追加でリサイズドラッグのポインタずれを解消。CatalogPageのTable例を5行に拡充し、`Select`ベースのカスタム`editComponent`(優先度列)を追加。検証: test(202件)・lint・lint:css・format:check・tsc・build全てクリーン、ブラウザ実機確認済み。詳細は`audit.md`該当エントリ参照
 - [x] レビュー対応: Tableのソートが効かない不具合+ソートアイコンによる列幅ずれ・方向アイコンの区別を修正 (2026-09-01T00:30:00Z) — CatalogPage/ListView双方で`sortState`/`onSortChange`が未配線だったため実際には並び替わらなかった不具合を修正。ソートアイコンを「アクティブ列のみ表示」から「常時DOM上に配置し非アクティブ時は`visibility: hidden`」に変更し列幅ジャンプを解消。新規`chevron-up`アイコンを追加し、昇順/降順で異なるアイコンを表示するよう変更(CSS回転方式は不採用)。検証: test(189件)・lint・lint:css・format:check・tsc・build全てクリーン、ブラウザ実機確認済み。詳細は`audit.md`該当エントリ参照
+- [x] レビュー対応: 列幅リサイズで他列(特に左隣)が連動して動いてしまう不具合を修正(レースコンディション) (2026-09-01T01:00:00Z) — 全列幅のピン留めがReactの非同期state更新に依存しており、mousedown直後に間隔なく発火する実際のmousemoveがReactの再描画を追い越すと、片方だけ幅が変わった不安定な瞬間にブラウザが未ピン留めの兄弟列を再配分し、その歪んだ値が確定してしまうレースコンディションを特定。`handleResizeStart`内でReact stateに頼らずDOM操作を同期的に適用するよう修正。副次的に`width ? {width} : undefined`が幅0を偽値として除外する潜在バグも修正。検証: test(188件)・lint・lint:css・format:check・tsc・build全てクリーン、実際のOSレベルマウスドラッグ・遅延なし連続イベント発火の両方でブラウザ実機確認済み。詳細は`audit.md`該当エントリ参照
 
 ### 🟡 OPERATIONS PHASE
 
@@ -194,4 +195,4 @@
 - **Lifecycle Phase**: CONSTRUCTION
 - **Current Stage**: Build and Test(レビュー継続中 — ユーザーの指摘対応が完了するまでフェーズは終了しない、との明示ルールに基づく)
 - **Next Stage**: Operations(プレースホルダー)
-- **Status**: Tableのソート未配線・ソートアイコンの列幅ずれ・方向アイコンの区別修正が完了、コミット反映待ち。Approve & Continueはユーザーからの明示的な合図があるまで提示しない
+- **Status**: 列幅リサイズのレースコンディション修正が完了、コミット反映待ち。Approve & Continueはユーザーからの明示的な合図があるまで提示しない
