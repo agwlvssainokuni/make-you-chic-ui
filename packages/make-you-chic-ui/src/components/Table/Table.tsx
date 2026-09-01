@@ -261,10 +261,17 @@ export function Table<T>({
                     : (row as Record<string, unknown>)[column.key]
                   const EditComponent = column.editComponent ?? DefaultCellEditor
 
+                  const cellClassName = [
+                    column.editable ? 'mycui-table-cell-editable' : null,
+                    isEditing ? 'mycui-table-cell-editing' : null,
+                  ]
+                    .filter(Boolean)
+                    .join(' ')
+
                   return (
                     <td
                       key={column.key}
-                      className={column.editable ? 'mycui-table-cell-editable' : undefined}
+                      className={cellClassName || undefined}
                       onClick={
                         column.editable && !isEditing
                           ? () => startEdit(rowId, column.key)
@@ -273,11 +280,13 @@ export function Table<T>({
                       data-testid={`table-cell-${rowId}-${column.key}`}
                     >
                       {isEditing ? (
-                        <EditComponent
-                          value={rawValue}
-                          onCommit={(value) => commitEdit(rowId, column.key, value)}
-                          onCancel={cancelEdit}
-                        />
+                        <div className="mycui-table-cell-editor">
+                          <EditComponent
+                            value={rawValue}
+                            onCommit={(value) => commitEdit(rowId, column.key, value)}
+                            onCancel={cancelEdit}
+                          />
+                        </div>
                       ) : column.render ? (
                         column.render(row)
                       ) : (

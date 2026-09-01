@@ -167,6 +167,20 @@ describe('Table', () => {
     expect(screen.queryByTestId('table-cell-editor')).not.toBeInTheDocument()
   })
 
+  it('marks the editing cell so its own padding can be handed to the editor control, avoiding a layout jump', async () => {
+    const editableColumns: TableColumn<Row>[] = [{ key: 'name', header: '名前', editable: true }]
+    render(<Table {...baseProps()} columns={editableColumns} />)
+
+    const cell = screen.getByTestId('table-cell-1-name')
+    expect(cell).not.toHaveClass('mycui-table-cell-editing')
+
+    await userEvent.click(cell)
+    expect(cell).toHaveClass('mycui-table-cell-editing')
+    expect(
+      screen.getByTestId('table-cell-editor').closest('.mycui-table-cell-editor'),
+    ).not.toBeNull()
+  })
+
   it('uses a custom editComponent when provided', async () => {
     const onCellEdit = vi.fn()
     function CustomEditor({

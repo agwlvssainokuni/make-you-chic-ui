@@ -28,6 +28,11 @@
 
 .mycui-table th,
 .mycui-table td {
+  /* Border-box sizing keeps the resize drag's getBoundingClientRect()
+     (always border-box) and the style.width it writes back in the same
+     unit; with the default content-box, style.width silently added the
+     padding back in, offsetting the column edge from the mouse pointer. */
+  box-sizing: border-box;
   padding: var(--space-2) var(--space-3);
   text-align: left;
   border-bottom: 1px solid var(--color-border);
@@ -75,6 +80,42 @@
 
 .mycui-table-cell-editable {
   cursor: text;
+}
+
+/* The editing cell drops its own padding and hands the equivalent
+   padding to the editor control below, so switching between display and
+   edit mode does not change the cell's box size (no row-height/column-
+   width jump). */
+.mycui-table-cell-editing {
+  padding: 0;
+}
+
+/* display: contents removes this wrapper's own box, so it only exists as
+   a CSS scoping hook for normalizing whatever form control the
+   editComponent renders (built-in or consumer-supplied). */
+.mycui-table-cell-editor {
+  display: contents;
+}
+
+.mycui-table-cell-editor .mycui-select-wrapper {
+  display: block;
+  height: 100%;
+}
+
+.mycui-table-cell-editor .mycui-text-input,
+.mycui-table-cell-editor .mycui-select {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 0;
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--font-size-sm);
+  background: transparent;
+}
+
+.mycui-table-cell-editor .mycui-select {
+  padding-right: var(--space-6);
 }
 
 .mycui-table-pagination {

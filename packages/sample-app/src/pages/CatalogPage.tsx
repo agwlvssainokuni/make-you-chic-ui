@@ -35,23 +35,70 @@ import {
   Textarea,
   Tooltip,
   useToast,
+  type CellEditComponentProps,
   type TableColumn,
 } from 'make-you-chic-ui'
 
 interface CatalogRow {
   id: string
   component: string
+  priority: string
   note: string
 }
 
-const initialTableRows: CatalogRow[] = [
-  { id: '1', component: 'Button', note: '4 variants x 3 sizes' },
-  { id: '2', component: 'Table', note: 'このテーブル自身のサンプル' },
-  { id: '3', component: 'Modal', note: 'フォーカストラップ・inert対応' },
+const PRIORITY_OPTIONS = [
+  { label: '低', value: 'low' },
+  { label: '中', value: 'medium' },
+  { label: '高', value: 'high' },
 ]
+
+const initialTableRows: CatalogRow[] = [
+  { id: '1', component: 'Button', priority: 'low', note: '4 variants x 3 sizes' },
+  { id: '2', component: 'Table', priority: 'high', note: 'このテーブル自身のサンプル' },
+  { id: '3', component: 'Modal', priority: 'medium', note: 'フォーカストラップ・inert対応' },
+  { id: '4', component: 'Select', priority: 'low', note: 'ネイティブselect+カスタムchevron' },
+  { id: '5', component: 'Toast', priority: 'medium', note: '自動消去・スタック表示' },
+]
+
+/**
+ * Custom editComponent example (extension point documented on
+ * TableColumn.editComponent): reuses the library's own Select instead of
+ * the DefaultCellEditor's free-text input, and commits immediately on
+ * change (no separate Enter step, matching native <select> UX).
+ */
+function PriorityCellEditor({
+  value,
+  onCommit,
+  onCancel,
+}: CellEditComponentProps<unknown>): React.JSX.Element {
+  return (
+    <Select
+      // oxlint-disable-next-line jsx_a11y/no-autofocus
+      autoFocus
+      value={typeof value === 'string' ? value : ''}
+      options={PRIORITY_OPTIONS}
+      onChange={onCommit}
+      onKeyDown={(e) => {
+        if (e.key === 'Escape') {
+          e.preventDefault()
+          onCancel()
+        }
+      }}
+      onBlur={onCancel}
+      data-testid="table-cell-editor-priority"
+    />
+  )
+}
 
 const tableColumns: TableColumn<CatalogRow>[] = [
   { key: 'component', header: 'コンポーネント', sortable: true },
+  {
+    key: 'priority',
+    header: '優先度(プルダウンでその場編集)',
+    editable: true,
+    editComponent: PriorityCellEditor,
+    render: (row) => PRIORITY_OPTIONS.find((o) => o.value === row.priority)?.label ?? row.priority,
+  },
   { key: 'note', header: '備考(クリックしてその場編集)', editable: true },
 ]
 
@@ -218,6 +265,9 @@ export function CatalogPage(): React.JSX.Element {
 
       <section className="catalog-section">
         <h2 className="catalog-section-title">Table</h2>
+        <p>
+          「コンポーネント」列でソート、「優先度」列(カスタムeditComponent)と「備考」列(既定のテキスト編集)でそれぞれ独立にその場編集ができます。
+        </p>
         <Table
           columns={tableColumns}
           data={tableRows}

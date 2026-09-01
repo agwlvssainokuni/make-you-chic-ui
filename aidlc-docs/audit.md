@@ -1325,3 +1325,13 @@
 **Context**: 質疑のみ、コード変更なし
 
 ---
+
+## 機能改善: Tableの編集モードサンプル拡充+編集モード切替時のレイアウトずれ・列幅ドラッグのポインタずれ修正
+
+**Timestamp**: 2026-09-01T00:00:00Z
+**User Input**: "テーブルのサンプルを充実させたい。とくに編集モード。"→AskUserQuestionで拡充方向を確認、「カスタムeditComponentの例を追加」「複数列・複数行の編集例を追加」を選択の上、自由記述で"編集モードと表示モードが切り替わった時にレイアウトがずれないように(特にセルの幅、高さ)。列幅をドラッグで変更するときにマウスポインタの位置と枠がずれないように。"という実際の不具合を追加指摘
+**AI Response**: (1) レイアウトずれ: 編集中の`td`は自身のpaddingを0にし(`.mycui-table-cell-editing`)、代わりに編集コンポーネントをラップする`.mycui-table-cell-editor`スコープ配下で`.mycui-text-input`/`.mycui-select`に`box-sizing: border-box`・同量のpadding・表と同じ`font-size`(font-size-md→font-size-smに統一)を与えることで、表示⇔編集切替時の行の高さ・列の幅の変化を解消。ボーダーの代わりにフォーカス時のみ`box-shadow`(レイアウトに影響しない)で編集中であることを示す。(2) 列幅ドラッグのポインタずれ: `.mycui-table th, .mycui-table td`が`box-sizing`未指定(既定のcontent-box)のまま、ドラッグ後の幅を`getBoundingClientRect()`(常にborder-box基準)から算出して`style.width`(content-box基準)に書き込んでいたため、ドラッグ開始直後に境界がpadding分ジャンプする不具合があった。`box-sizing: border-box`を追加し両者の基準を一致させて解消(`Table.css`)。(3) サンプル拡充: `packages/sample-app/src/pages/CatalogPage.tsx`のTable例を3行→5行に増量し、`Select`を使ったカスタム`editComponent`の例(「優先度」列、選択と同時にコミット)を追加、既存の「備考」列(既定のテキスト編集)と合わせて複数列が独立に編集できることを示す構成に変更
+**検証結果**: `npm test`(24+4ファイル、202件全成功、新規回帰テスト「編集中セルに`mycui-table-cell-editing`クラスが付与されること」を含む)、`npm run lint`(oxlint+eslint)・`npm run lint:css`・`npm run format:check`・`tsc -b`(両パッケージ)・`npm run build`全てクリーン。開発サーバー実機(Chrome)で、優先度セルの編集モード切替時に行の高さが変化しないこと、キーボード操作でのコミット、列幅ドラッグでマウス移動量(150px)と列幅の増分(150px)が一致することを確認済み
+**Context**: `packages/make-you-chic-ui/src/components/Table/{Table.tsx,Table.css,Table.test.tsx}`・`packages/sample-app/src/pages/CatalogPage.tsx`更新。`html-demo/components/table-demo.html`は列幅ドラッグ機能自体を持たないため今回のスコープ外とし、その旨をユーザーに案内済み
+
+---
