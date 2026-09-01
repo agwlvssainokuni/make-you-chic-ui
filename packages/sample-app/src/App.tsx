@@ -39,9 +39,9 @@ function AppShellLayout(): React.JSX.Element {
   }
 
   const navItems: AppShellNavItem[] = [
-    { label: 'カタログ', icon: 'menu', href: '/catalog', onClick: go('/catalog') },
+    { label: 'カタログ', icon: 'list', href: '/catalog', onClick: go('/catalog') },
     { label: 'ユーザー管理', icon: 'user', href: '/users', onClick: go('/users') },
-    { label: 'テーマ設定', icon: 'check', href: '/theme', onClick: go('/theme') },
+    { label: 'テーマ設定', icon: 'settings', href: '/theme', onClick: go('/theme') },
   ]
 
   return (

@@ -1365,3 +1365,13 @@
 **Context**: `packages/make-you-chic-ui/src/components/Icon/icons/{search,edit,trash,download,settings,home,list,info,success,warning,danger}.tsx`(新規11件)・`registry.ts`・`Alert.tsx`・`ToastProvider.tsx`・`packages/sample-app/src/pages/CatalogPage.tsx`更新
 
 ---
+
+## 機能改善: サンプルアプリのサイドバーナビゲーションアイコンを変更
+
+**Timestamp**: 2026-09-01T01:40:00Z
+**User Input**: "サンプルのサイドバーのアイコンを変更したい。カタログはlist, テーマ設定はsetting"
+**AI Response**: `packages/sample-app/src/App.tsx`の`navItems`定義を確認し、「カタログ」が`menu`(ハンバーガー)、「テーマ設定」が`check`(チェックマーク、意味的に無関係なplaceholder)になっていたことを確認。直前に追加した`list`/`settings`アイコンへそれぞれ差し替え
+**検証結果**: `npm test`(sample-app 17件)・`npm run lint`・`npm run format:check`・`tsc -b`全てクリーン。ブラウザ実機でサイドバーの「カタログ」がリストアイコン、「テーマ設定」が歯車アイコンに変わったことを確認済み
+**Context**: `packages/sample-app/src/App.tsx`更新
+
+---
