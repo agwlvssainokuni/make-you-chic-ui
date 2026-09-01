@@ -45,10 +45,10 @@ export const ToastContext = createContext<ToastContextValue | null>(null)
 const DEFAULT_DURATION = 4000
 
 const VARIANT_ICON: Record<ToastVariant, IconName> = {
-  info: 'bell',
-  success: 'check',
-  warning: 'bell',
-  danger: 'close',
+  info: 'info',
+  success: 'success',
+  warning: 'warning',
+  danger: 'danger',
 }
 
 let idCounter = 0

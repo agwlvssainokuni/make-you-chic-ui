@@ -21,6 +21,17 @@ import { CloseIconSvg } from './icons/close'
 import { CheckIconSvg } from './icons/check'
 import { BellIconSvg } from './icons/bell'
 import { UserIconSvg } from './icons/user'
+import { SearchIconSvg } from './icons/search'
+import { EditIconSvg } from './icons/edit'
+import { TrashIconSvg } from './icons/trash'
+import { DownloadIconSvg } from './icons/download'
+import { SettingsIconSvg } from './icons/settings'
+import { HomeIconSvg } from './icons/home'
+import { ListIconSvg } from './icons/list'
+import { InfoIconSvg } from './icons/info'
+import { SuccessIconSvg } from './icons/success'
+import { WarningIconSvg } from './icons/warning'
+import { DangerIconSvg } from './icons/danger'
 
 /**
  * Name → SVG component registry (Application Design Question 2 = B).
@@ -35,6 +46,17 @@ export const iconRegistry = {
   check: CheckIconSvg,
   bell: BellIconSvg,
   user: UserIconSvg,
+  search: SearchIconSvg,
+  edit: EditIconSvg,
+  trash: TrashIconSvg,
+  download: DownloadIconSvg,
+  settings: SettingsIconSvg,
+  home: HomeIconSvg,
+  list: ListIconSvg,
+  info: InfoIconSvg,
+  success: SuccessIconSvg,
+  warning: WarningIconSvg,
+  danger: DangerIconSvg,
 } satisfies Record<string, (props: SVGProps<SVGSVGElement>) => React.JSX.Element>
 
 export type IconName = keyof typeof iconRegistry

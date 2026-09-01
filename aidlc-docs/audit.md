@@ -1355,3 +1355,13 @@
 **Context**: `packages/make-you-chic-ui/src/components/Table/{Table.tsx,Table.css,Table.test.tsx}`更新
 
 ---
+
+## 機能改善: アイコンを11種追加(汎用7種+Alert/Toast意味的アイコン4種)
+
+**Timestamp**: 2026-09-01T01:30:00Z
+**User Input**: "アイコンを増やせる？"→登録済みアイコン一覧を提示し追加方針(「必要になった時点で追加する」という`registry.ts`のコメント方針)を確認した上でAskUserQuestionで確認、"search, edit, trash, download, setting, home, list"の7種を回答。追加後、さらに"さらに info, success, warning, danger も。"と4種を追加依頼
+**AI Response**: 汎用7種(`search`・`edit`・`trash`・`download`・`settings`・`home`・`list`、既存アイコンと同じ24x24 viewBox・ストロークベースのスタイルで新規SVG作成、`setting`は既存の英語慣用表現に合わせ`settings`で登録)に加え、`Alert.tsx`/`ToastProvider.tsx`の`VARIANT_ICON`マッピングを調査した結果、専用アイコンが無く`info`→bell、`warning`→bell(infoと同一!)、`success`→check、`danger`→close(閉じるボタンと同じXを転用)という意味的に不適切な使い回しが判明したため、`info`(丸に「i」)・`success`(チェック付き円)・`warning`(三角に「!」)・`danger`(丸に「!」)の4種を新規作成し、両コンポーネントのマッピングを差し替え。CatalogPageの「静的表示」セクションに新規11アイコン全てを追加してサンプルとしても確認できるようにした
+**検証結果**: `npm test`(188件)・`npm run lint`・`npm run lint:css`・`npm run format:check`・`tsc -b`・`npm run build`全てクリーン。ブラウザ実機で新規11アイコン全ての描画を確認、Alert(info/success/warning/danger)とToast(success)で意味的に正しいアイコンが表示され、旧来info/warningが同一アイコン(bell)で区別できなかった問題が解消されたことを確認済み
+**Context**: `packages/make-you-chic-ui/src/components/Icon/icons/{search,edit,trash,download,settings,home,list,info,success,warning,danger}.tsx`(新規11件)・`registry.ts`・`Alert.tsx`・`ToastProvider.tsx`・`packages/sample-app/src/pages/CatalogPage.tsx`更新
+
+---

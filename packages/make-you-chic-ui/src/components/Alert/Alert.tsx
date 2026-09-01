@@ -20,10 +20,10 @@ import { Icon, type IconName } from '../Icon'
 export type AlertVariant = 'info' | 'success' | 'warning' | 'danger'
 
 const VARIANT_ICON: Record<AlertVariant, IconName> = {
-  info: 'bell',
-  success: 'check',
-  warning: 'bell',
-  danger: 'close',
+  info: 'info',
+  success: 'success',
+  warning: 'warning',
+  danger: 'danger',
 }
 
 export interface AlertAction {
