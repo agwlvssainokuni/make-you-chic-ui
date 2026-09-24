@@ -63,6 +63,31 @@ describe('Modal', () => {
     expect(dialog).toHaveAccessibleName('確認')
   })
 
+  it('connects the body content to the dialog via aria-describedby', () => {
+    render(
+      <ModalStackProvider>
+        <Modal open onClose={() => {}} title="確認">
+          <p>本文です</p>
+        </Modal>
+      </ModalStackProvider>,
+    )
+    const dialog = screen.getByRole('dialog')
+    const describedBy = dialog.getAttribute('aria-describedby')
+    expect(describedBy).toBeTruthy()
+    expect(document.getElementById(describedBy!)).toHaveTextContent('本文です')
+  })
+
+  it('uses closeLabel for the close button accessible name when provided', () => {
+    render(
+      <ModalStackProvider>
+        <Modal open onClose={() => {}} title="確認" closeLabel="Close">
+          content
+        </Modal>
+      </ModalStackProvider>,
+    )
+    expect(screen.getByTestId('modal-close-button')).toHaveAccessibleName('Close')
+  })
+
   it('calls onClose when the close button is clicked', async () => {
     const onClose = vi.fn()
     render(

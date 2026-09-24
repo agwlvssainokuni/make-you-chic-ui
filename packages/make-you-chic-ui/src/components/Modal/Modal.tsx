@@ -29,6 +29,8 @@ export interface ModalProps {
   size?: 'sm' | 'md' | 'lg'
   /** Element to focus when the Modal opens; defaults to the first focusable element. */
   initialFocusRef?: RefObject<HTMLElement | null>
+  /** Accessible label for the close button, e.g. for localization. @default '閉じる' */
+  closeLabel?: string
 }
 
 /**
@@ -43,9 +45,11 @@ export function Modal({
   children,
   size = 'md',
   initialFocusRef,
+  closeLabel = '閉じる',
 }: ModalProps): React.JSX.Element | null {
   const id = useId()
   const titleId = `${id}-title`
+  const bodyId = `${id}-body`
   const overlayRef = useRef<HTMLDivElement>(null)
   const { register, unregister, isTopmost } = useModalStack()
 
@@ -86,6 +90,7 @@ export function Modal({
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
+        aria-describedby={bodyId}
         data-testid="modal-dialog"
       >
         <div className="mycui-modal-header">
@@ -94,13 +99,15 @@ export function Modal({
             type="button"
             className="mycui-modal-close-button"
             onClick={onClose}
-            aria-label="閉じる"
+            aria-label={closeLabel}
             data-testid="modal-close-button"
           >
             <Icon name="close" size={18} />
           </button>
         </div>
-        <div className="mycui-modal-body">{children}</div>
+        <div id={bodyId} className="mycui-modal-body">
+          {children}
+        </div>
       </div>
     </div>,
     document.body,

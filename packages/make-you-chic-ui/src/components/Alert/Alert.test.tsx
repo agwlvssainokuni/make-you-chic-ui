@@ -64,6 +64,15 @@ describe('Alert', () => {
     expect(onDismiss).toHaveBeenCalledTimes(1)
   })
 
+  it('uses dismissLabel for the dismiss button accessible name when provided', () => {
+    render(
+      <Alert variant="info" onDismiss={() => {}} dismissLabel="Dismiss">
+        内容
+      </Alert>,
+    )
+    expect(screen.getByTestId('alert-dismiss-button')).toHaveAccessibleName('Dismiss')
+  })
+
   it('renders an action link and calls its onClick', async () => {
     const onClick = vi.fn()
     render(

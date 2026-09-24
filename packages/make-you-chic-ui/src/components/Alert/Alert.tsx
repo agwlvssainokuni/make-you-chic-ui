@@ -39,11 +39,13 @@ export interface AlertProps {
   action?: AlertAction
   className?: string
   style?: React.CSSProperties
+  /** Accessible label for the dismiss button, e.g. for localization. @default '閉じる' */
+  dismissLabel?: string
 }
 
 /** Persistent, non-modal notification (unlike Toast, does not auto-dismiss). */
 export const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
-  { variant, title, children, onDismiss, action, className, style },
+  { variant, title, children, onDismiss, action, className, style, dismissLabel = '閉じる' },
   ref,
 ) {
   const classes = ['mycui-alert', `variant-${variant}`, className].filter(Boolean).join(' ')
@@ -66,7 +68,7 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
           type="button"
           className="mycui-alert-dismiss-button"
           onClick={onDismiss}
-          aria-label="閉じる"
+          aria-label={dismissLabel}
           data-testid="alert-dismiss-button"
         >
           <Icon name="close" size={16} />
