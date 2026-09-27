@@ -15,6 +15,7 @@
  */
 import './CatalogPage.css'
 import { useState } from 'react'
+import { useNavigate } from 'react-router'
 import {
   Alert,
   Avatar,
@@ -38,6 +39,7 @@ import {
   type CellEditComponentProps,
   type SortState,
   type TableColumn,
+  type TableLabels,
 } from 'make-you-chic-ui'
 
 interface CatalogRow {
@@ -60,6 +62,17 @@ const initialTableRows: CatalogRow[] = [
   { id: '4', component: 'Select', priority: 'low', note: 'ネイティブselect+カスタムchevron' },
   { id: '5', component: 'Toast', priority: 'medium', note: '自動消去・スタック表示' },
 ]
+
+/** labels prop example (英語表示切り替え時に使用): 文言を丸ごと差し替えられる。 */
+const ENGLISH_TABLE_LABELS: Partial<TableLabels> = {
+  previousPage: 'Previous',
+  nextPage: 'Next',
+  selectAllRows: 'Select all rows',
+  selectRow: 'Select row',
+  emptyStatus: 'No results',
+  pageStatus: (page, totalPages, totalCount) => `Page ${page} of ${totalPages} (${totalCount} total)`,
+  toggleRowDetail: 'Details',
+}
 
 /**
  * Custom editComponent example (extension point documented on
@@ -109,17 +122,21 @@ const tableColumns: TableColumn<CatalogRow>[] = [
  * (Unit 9 — complements the HTML demo pages, which NFR3 already covers).
  */
 export function CatalogPage(): React.JSX.Element {
+  const navigate = useNavigate()
   const { show } = useToast()
   const [checked, setChecked] = useState(false)
   const [switchOn, setSwitchOn] = useState(false)
   const [radioValue, setRadioValue] = useState('a')
+  const [displayLanguage, setDisplayLanguage] = useState('ja')
   const [selectValue, setSelectValue] = useState('')
   const [textValue, setTextValue] = useState('')
   const [textareaValue, setTextareaValue] = useState('')
   const [modalOpen, setModalOpen] = useState(false)
+  const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false)
   const [tabIndex, setTabIndex] = useState(0)
   const [tableRows, setTableRows] = useState(initialTableRows)
   const [tableSort, setTableSort] = useState<SortState | null>(null)
+  const [expandedRowIds, setExpandedRowIds] = useState<Set<string>>(new Set())
 
   const sortedTableRows = tableSort
     ? [...tableRows].sort((a, b) => {
@@ -200,6 +217,18 @@ export function CatalogPage(): React.JSX.Element {
             ]}
           />
         </div>
+        <div className="catalog-row">
+          <RadioGroup
+            name="catalog-radio-lang"
+            legend="表示言語"
+            value={displayLanguage}
+            onChange={setDisplayLanguage}
+            options={[
+              { label: '日本語', value: 'ja' },
+              { label: 'English', value: 'en', lang: 'en' },
+            ]}
+          />
+        </div>
       </section>
 
       <section className="catalog-section">
@@ -255,6 +284,23 @@ export function CatalogPage(): React.JSX.Element {
           <Modal open={modalOpen} onClose={() => setModalOpen(false)} title="サンプルModal">
             <p>Modalの内容です。フォーカストラップと背景inertが有効になっています。</p>
           </Modal>
+          <Button variant="danger" onClick={() => setDeleteConfirmOpen(true)}>
+            削除確認Modalを開く(role=&quot;alertdialog&quot;の例)
+          </Button>
+          <Modal
+            open={deleteConfirmOpen}
+            onClose={() => setDeleteConfirmOpen(false)}
+            title="削除の確認"
+            role="alertdialog"
+            closeOnBackdropClick={false}
+          >
+            <p>
+              この操作は取り消せません。背景をクリックしても閉じません(closeOnBackdropClick=false)。
+            </p>
+            <Button variant="danger" onClick={() => setDeleteConfirmOpen(false)}>
+              削除する
+            </Button>
+          </Modal>
         </div>
       </section>
 
@@ -274,6 +320,14 @@ export function CatalogPage(): React.JSX.Element {
             trigger={<Button variant="secondary">メニューを開く</Button>}
             items={[
               { label: 'プロフィール', onClick: () => {} },
+              {
+                label: 'テーマ設定へ移動(hrefの例)',
+                href: '/theme',
+                onClick: (e) => {
+                  e.preventDefault()
+                  navigate('/theme')
+                },
+              },
               { label: 'ログアウト', onClick: () => {} },
             ]}
           />
@@ -283,7 +337,8 @@ export function CatalogPage(): React.JSX.Element {
       <section className="catalog-section">
         <h2 className="catalog-section-title">Table</h2>
         <p>
-          「コンポーネント」列でソート、「優先度」列(カスタムeditComponent)と「備考」列(既定のテキスト編集)でそれぞれ独立にその場編集ができます。
+          「コンポーネント」列でソート、「優先度」列(カスタムeditComponent)と「備考」列(既定のテキスト編集)でそれぞれ独立にその場編集ができます。先頭の開閉ボタンで行の詳細(renderDetail)を表示できます。上の「表示言語」をEnglishにするとlabels
+          propで文言が丸ごと差し替わります。
         </p>
         <Table
           columns={tableColumns}
@@ -297,6 +352,14 @@ export function CatalogPage(): React.JSX.Element {
           onPageChange={() => {}}
           onCellEdit={handleCellEdit}
           aria-label="カタログ表"
+          labels={displayLanguage === 'en' ? ENGLISH_TABLE_LABELS : undefined}
+          renderDetail={(row) => (
+            <p style={{ margin: 0 }}>
+              {row.component}の詳細: {row.note}
+            </p>
+          )}
+          expandedRowIds={expandedRowIds}
+          onExpandedChange={setExpandedRowIds}
         />
       </section>
     </div>
