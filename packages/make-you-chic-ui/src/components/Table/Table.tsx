@@ -31,6 +31,24 @@ export type { SortState, SortDirection } from './tableLogic'
 
 const MIN_COLUMN_WIDTH_PX = 60
 
+export interface TableLabels {
+  previousPage: string
+  nextPage: string
+  selectAllRows: string
+  selectRow: string
+  emptyStatus: string
+  pageStatus: (page: number, totalPages: number, totalCount: number) => string
+}
+
+const DEFAULT_LABELS: TableLabels = {
+  previousPage: '前へ',
+  nextPage: '次へ',
+  selectAllRows: '全ての行を選択',
+  selectRow: 'この行を選択',
+  emptyStatus: '0件',
+  pageStatus: (page, totalPages, totalCount) => `${page} / ${totalPages}ページ(全${totalCount}件)`,
+}
+
 export interface TableColumn<T> {
   key: string
   header: string
@@ -60,6 +78,8 @@ export interface TableProps<T> {
   onPageChange: (page: number) => void
   onCellEdit?: (rowId: string, columnKey: string, value: unknown) => void
   'aria-label'?: string
+  /** Overrides for user-facing strings, e.g. for localization. */
+  labels?: Partial<TableLabels>
 }
 
 /**
@@ -81,7 +101,9 @@ export function Table<T>({
   onPageChange,
   onCellEdit,
   'aria-label': ariaLabel,
+  labels,
 }: TableProps<T>): React.JSX.Element {
+  const resolvedLabels: TableLabels = { ...DEFAULT_LABELS, ...labels }
   const [columnWidths, setColumnWidths] = useState<Record<string, number>>({})
   const [editingCell, setEditingCell] = useState<{ rowId: string; columnKey: string } | null>(null)
   const thRefs = useRef<Record<string, HTMLTableCellElement | null>>({})
@@ -256,7 +278,7 @@ export function Table<T>({
                 <Checkbox
                   checked={allOnPageSelected}
                   onChange={handleToggleAll}
-                  aria-label="全ての行を選択"
+                  aria-label={resolvedLabels.selectAllRows}
                   data-testid="table-select-all"
                   ref={(el) => {
                     if (el) el.indeterminate = !allOnPageSelected && someOnPageSelected
@@ -330,7 +352,7 @@ export function Table<T>({
                     <Checkbox
                       checked={selectedRowIds.has(rowId)}
                       onChange={() => handleToggleRow(rowId)}
-                      aria-label="この行を選択"
+                      aria-label={resolvedLabels.selectRow}
                       data-testid={`table-select-${rowId}`}
                     />
                   </td>
@@ -384,7 +406,9 @@ export function Table<T>({
       </table>
       <div className="mycui-table-pagination">
         <span className="mycui-table-pagination-status">
-          {totalCount === 0 ? '0件' : `${page} / ${totalPages}ページ(全${totalCount}件)`}
+          {totalCount === 0
+            ? resolvedLabels.emptyStatus
+            : resolvedLabels.pageStatus(page, totalPages, totalCount)}
         </span>
         <Button
           variant="secondary"
@@ -393,7 +417,7 @@ export function Table<T>({
           disabled={page <= 1}
           data-testid="table-prev-page"
         >
-          前へ
+          {resolvedLabels.previousPage}
         </Button>
         <Button
           variant="secondary"
@@ -402,7 +426,7 @@ export function Table<T>({
           disabled={page >= totalPages}
           data-testid="table-next-page"
         >
-          次へ
+          {resolvedLabels.nextPage}
         </Button>
       </div>
     </div>

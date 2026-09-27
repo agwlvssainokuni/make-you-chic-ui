@@ -157,6 +157,44 @@ describe('Table', () => {
     expect(screen.getByTestId('table-next-page')).toBeDisabled()
   })
 
+  it('uses overridden labels for pagination text, empty status, and row selection', () => {
+    const { rerender } = render(
+      <Table
+        {...baseProps()}
+        page={1}
+        pageSize={10}
+        totalCount={2}
+        selectedRowIds={new Set()}
+        onSelectionChange={vi.fn()}
+        labels={{
+          previousPage: 'Previous',
+          nextPage: 'Next',
+          selectAllRows: 'Select all rows',
+          selectRow: 'Select row',
+          emptyStatus: 'No results',
+          pageStatus: (page, totalPages, totalCount) => `Page ${page} of ${totalPages} (${totalCount})`,
+        }}
+      />,
+    )
+    expect(screen.getByText('Page 1 of 1 (2)')).toBeInTheDocument()
+    expect(screen.getByTestId('table-prev-page')).toHaveTextContent('Previous')
+    expect(screen.getByTestId('table-next-page')).toHaveTextContent('Next')
+    expect(screen.getByTestId('table-select-all')).toHaveAccessibleName('Select all rows')
+    expect(screen.getByTestId('table-select-1')).toHaveAccessibleName('Select row')
+
+    rerender(
+      <Table
+        {...baseProps()}
+        page={1}
+        pageSize={10}
+        totalCount={0}
+        data={[]}
+        labels={{ emptyStatus: 'No results' }}
+      />,
+    )
+    expect(screen.getByText('No results')).toBeInTheDocument()
+  })
+
   it('calls onPageChange with page + 1 / page - 1', async () => {
     const onPageChange = vi.fn()
     render(
