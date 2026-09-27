@@ -13,13 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { forwardRef } from 'react'
+import { forwardRef, type ReactNode } from 'react'
 
 export interface RadioProps extends Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
   'type' | 'onChange'
 > {
-  label: string
+  label: ReactNode
+  /** BCP 47 language tag for the label, e.g. when it differs from the surrounding page language. */
+  lang?: string
   onChange?: (checked: boolean) => void
 }
 
@@ -29,7 +31,7 @@ export interface RadioProps extends Omit<
  * (Application Design: components.md).
  */
 export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(
-  { label, checked, onChange, disabled, className, ...rest },
+  { label, lang, checked, onChange, disabled, className, ...rest },
   ref,
 ) {
   return (
@@ -46,7 +48,7 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(
           {...rest}
         />
       </span>
-      {label}
+      <span lang={lang}>{label}</span>
     </label>
   )
 })

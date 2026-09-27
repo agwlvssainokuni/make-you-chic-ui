@@ -55,4 +55,34 @@ describe('RadioGroup', () => {
     const { container } = render(<RadioGroup name="perm" options={options} defaultValue="read" />)
     expect(await axe(container)).toHaveNoViolations()
   })
+
+  it('renders as a fieldset/legend and exposes the legend as the accessible name when legend is provided', () => {
+    render(
+      <RadioGroup name="perm" options={options} defaultValue="read" legend="アクセス権限" />,
+    )
+    const group = screen.getByRole('group', { name: 'アクセス権限' })
+    expect(group.tagName).toBe('FIELDSET')
+  })
+
+  it('applies lang to an individual option label', () => {
+    render(
+      <RadioGroup
+        name="lang-demo"
+        options={[
+          { label: '日本語', value: 'ja' },
+          { label: 'English', value: 'en', lang: 'en' },
+        ]}
+        defaultValue="ja"
+      />,
+    )
+    expect(screen.getByText('English')).toHaveAttribute('lang', 'en')
+    expect(screen.getByText('日本語')).not.toHaveAttribute('lang')
+  })
+
+  it('has no detectable accessibility violations with a legend', async () => {
+    const { container } = render(
+      <RadioGroup name="perm" options={options} defaultValue="read" legend="アクセス権限" />,
+    )
+    expect(await axe(container)).toHaveNoViolations()
+  })
 })

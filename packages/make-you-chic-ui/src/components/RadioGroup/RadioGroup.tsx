@@ -14,13 +14,16 @@
  * limitations under the License.
  */
 import './RadioGroup.css'
+import type { ReactNode } from 'react'
 import { useFieldProps } from '../FormField/useFieldProps'
 import { useControllableState } from '../../utils/useControllableState'
 import { Radio } from './Radio'
 
 export interface RadioGroupOption {
-  label: string
+  label: ReactNode
   value: string
+  /** BCP 47 language tag for this option's label, e.g. when it differs from the surrounding page language. */
+  lang?: string
 }
 
 export interface RadioGroupProps {
@@ -32,6 +35,8 @@ export interface RadioGroupProps {
   disabled?: boolean
   className?: string
   style?: React.CSSProperties
+  /** Group name, rendered as a <legend>. When omitted, renders a plain role="radiogroup" div (e.g. for use inside <FormField>). */
+  legend?: ReactNode
 }
 
 /**
@@ -49,9 +54,46 @@ export function RadioGroup({
   disabled,
   className,
   style,
+  legend,
 }: RadioGroupProps): React.JSX.Element {
   const fieldProps = useFieldProps()
   const [currentValue, setValue] = useControllableState({ value, defaultValue, onChange })
+
+  const radios = options.map((option) => (
+    <Radio
+      key={option.value}
+      name={name}
+      value={option.value}
+      label={option.label}
+      lang={option.lang}
+      checked={currentValue === option.value}
+      onChange={(checked) => {
+        if (checked) setValue(option.value)
+      }}
+      disabled={disabled}
+    />
+  ))
+
+  // With a legend, the group owns its own accessible name via native
+  // fieldset/legend semantics and does not need role="radiogroup" (the
+  // radios are real <input type="radio"> elements, already correctly
+  // grouped by `name` without any ARIA). Without one (e.g. nested inside
+  // <FormField>), keep the previous role="radiogroup" div as-is.
+  if (legend !== undefined) {
+    return (
+      <fieldset
+        id={fieldProps.id}
+        className={className ? `mycui-radio-group ${className}` : 'mycui-radio-group'}
+        style={style}
+        aria-describedby={fieldProps['aria-describedby']}
+        aria-invalid={fieldProps['aria-invalid']}
+        data-testid="radio-group"
+      >
+        <legend className="mycui-radio-group-legend">{legend}</legend>
+        {radios}
+      </fieldset>
+    )
+  }
 
   return (
     <div
@@ -63,19 +105,7 @@ export function RadioGroup({
       aria-invalid={fieldProps['aria-invalid']}
       data-testid="radio-group"
     >
-      {options.map((option) => (
-        <Radio
-          key={option.value}
-          name={name}
-          value={option.value}
-          label={option.label}
-          checked={currentValue === option.value}
-          onChange={(checked) => {
-            if (checked) setValue(option.value)
-          }}
-          disabled={disabled}
-        />
-      ))}
+      {radios}
     </div>
   )
 }
