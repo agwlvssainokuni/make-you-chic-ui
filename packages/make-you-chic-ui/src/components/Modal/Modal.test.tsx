@@ -129,6 +129,30 @@ describe('Modal', () => {
     expect(onClose).toHaveBeenCalledTimes(1)
   })
 
+  it('does not call onClose on overlay click when closeOnBackdropClick is false', async () => {
+    const onClose = vi.fn()
+    render(
+      <ModalStackProvider>
+        <Modal open onClose={onClose} title="確認" closeOnBackdropClick={false}>
+          content
+        </Modal>
+      </ModalStackProvider>,
+    )
+    await userEvent.click(screen.getByTestId('modal-overlay'))
+    expect(onClose).not.toHaveBeenCalled()
+  })
+
+  it('uses role="alertdialog" when role prop is set', () => {
+    render(
+      <ModalStackProvider>
+        <Modal open onClose={() => {}} title="確認" role="alertdialog">
+          content
+        </Modal>
+      </ModalStackProvider>,
+    )
+    expect(screen.getByRole('alertdialog')).toBeInTheDocument()
+  })
+
   it('moves initial focus to the first focusable element inside the dialog (the header close button)', () => {
     render(
       <ModalStackProvider>

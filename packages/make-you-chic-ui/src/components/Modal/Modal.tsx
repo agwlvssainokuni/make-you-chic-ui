@@ -31,6 +31,10 @@ export interface ModalProps {
   initialFocusRef?: RefObject<HTMLElement | null>
   /** Accessible label for the close button, e.g. for localization. @default '閉じる' */
   closeLabel?: string
+  /** Whether clicking the overlay background closes the Modal. @default true */
+  closeOnBackdropClick?: boolean
+  /** Use 'alertdialog' for confirmations of destructive/irreversible actions. @default 'dialog' */
+  role?: 'dialog' | 'alertdialog'
 }
 
 /**
@@ -46,6 +50,8 @@ export function Modal({
   size = 'md',
   initialFocusRef,
   closeLabel = '閉じる',
+  closeOnBackdropClick = true,
+  role = 'dialog',
 }: ModalProps): React.JSX.Element | null {
   const id = useId()
   const titleId = `${id}-title`
@@ -81,13 +87,13 @@ export function Modal({
       className="mycui-modal-overlay"
       role="presentation"
       onMouseDown={(e) => {
-        if (e.target === e.currentTarget) onClose()
+        if (closeOnBackdropClick && e.target === e.currentTarget) onClose()
       }}
       data-testid="modal-overlay"
     >
       <div
         className={`mycui-modal-dialog size-${size}`}
-        role="dialog"
+        role={role}
         aria-modal="true"
         aria-labelledby={titleId}
         aria-describedby={bodyId}
