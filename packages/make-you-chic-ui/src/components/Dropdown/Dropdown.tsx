@@ -29,7 +29,10 @@ import { computeFloatingPosition } from '../../utils/computeFloatingPosition'
 
 export interface MenuItem {
   label: string
-  onClick: () => void
+  /** Renders as <a href> instead of <button> when set, e.g. for real navigation. */
+  href?: string
+  /** Called on selection. With `href`, call event.preventDefault() to take over navigation (e.g. a router). */
+  onClick?: (event: React.MouseEvent | React.KeyboardEvent) => void
 }
 
 export interface DropdownProps {
@@ -56,7 +59,7 @@ export function Dropdown({
   const [activeIndex, setActiveIndex] = useState(0)
   const triggerRef = useRef<HTMLElement | null>(null)
   const menuRef = useRef<HTMLDivElement>(null)
-  const itemRefs = useRef<Array<HTMLButtonElement | null>>([])
+  const itemRefs = useRef<Array<HTMLElement | null>>([])
 
   function close(returnFocus: boolean): void {
     setOpen(false)
@@ -144,25 +147,55 @@ export function Dropdown({
             onKeyDown={handleMenuKeyDown}
             data-testid="dropdown-menu"
           >
-            {items.map((item, index) => (
-              <button
-                key={item.label}
-                ref={(el) => {
-                  itemRefs.current[index] = el
-                }}
-                type="button"
-                role="menuitem"
-                tabIndex={-1}
-                className="mycui-dropdown-item"
-                onClick={() => {
-                  item.onClick()
-                  close(true)
-                }}
-                data-testid={`dropdown-item-${index}`}
-              >
-                {item.label}
-              </button>
-            ))}
+            {items.map((item, index) => {
+              const itemRef = (el: HTMLElement | null) => {
+                itemRefs.current[index] = el
+              }
+              const handleActivate = (event: React.MouseEvent | React.KeyboardEvent): void => {
+                item.onClick?.(event)
+                close(true)
+              }
+
+              if (item.href !== undefined) {
+                return (
+                  <a
+                    key={item.label}
+                    ref={itemRef}
+                    href={item.href}
+                    role="menuitem"
+                    tabIndex={-1}
+                    className="mycui-dropdown-item"
+                    onClick={handleActivate}
+                    onKeyDown={(e) => {
+                      // Native <a> elements activate on Enter but not
+                      // Space; the ARIA menuitem pattern requires both.
+                      if (e.key === ' ') {
+                        e.preventDefault()
+                        e.currentTarget.click()
+                      }
+                    }}
+                    data-testid={`dropdown-item-${index}`}
+                  >
+                    {item.label}
+                  </a>
+                )
+              }
+
+              return (
+                <button
+                  key={item.label}
+                  ref={itemRef}
+                  type="button"
+                  role="menuitem"
+                  tabIndex={-1}
+                  className="mycui-dropdown-item"
+                  onClick={handleActivate}
+                  data-testid={`dropdown-item-${index}`}
+                >
+                  {item.label}
+                </button>
+              )
+            })}
           </div>,
           document.body,
         )}

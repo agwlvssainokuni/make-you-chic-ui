@@ -95,6 +95,37 @@ describe('Dropdown', () => {
     expect(trigger).toHaveAttribute('aria-expanded', 'true')
   })
 
+  it('renders an item with href as a real anchor, and still calls onClick and closes on selection', async () => {
+    const onClick = vi.fn()
+    render(
+      <Dropdown
+        trigger={<button>メニュー</button>}
+        items={[{ label: 'プロフィール', href: '/profile', onClick }]}
+      />,
+    )
+    await userEvent.click(screen.getByTestId('dropdown-trigger'))
+    const item = screen.getByTestId('dropdown-item-0')
+    expect(item.tagName).toBe('A')
+    expect(item).toHaveAttribute('href', '/profile')
+
+    await userEvent.click(item)
+    expect(onClick).toHaveBeenCalledTimes(1)
+    expect(screen.queryByRole('menu')).not.toBeInTheDocument()
+  })
+
+  it('activates an href item with the Space key', async () => {
+    const onClick = vi.fn()
+    render(
+      <Dropdown
+        trigger={<button>メニュー</button>}
+        items={[{ label: 'プロフィール', href: '/profile', onClick }]}
+      />,
+    )
+    await userEvent.click(screen.getByTestId('dropdown-trigger'))
+    await userEvent.keyboard(' ')
+    expect(onClick).toHaveBeenCalledTimes(1)
+  })
+
   it('has no detectable accessibility violations while open', async () => {
     render(<Dropdown trigger={<button>メニュー</button>} items={items} />)
     await userEvent.click(screen.getByTestId('dropdown-trigger'))
