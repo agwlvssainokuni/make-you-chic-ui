@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { useState } from 'react'
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
@@ -286,10 +287,82 @@ describe('Table', () => {
     expect(onCellEdit).toHaveBeenCalledWith('1', 'role', 'カスタム値')
   })
 
+  it('does not render an expand toggle column when renderDetail is not provided', () => {
+    render(<Table {...baseProps()} />)
+    expect(screen.queryByTestId('table-expand-1')).not.toBeInTheDocument()
+  })
+
+  it('toggles a row detail open/closed via aria-expanded, rendering renderDetail below the row', async () => {
+    function ControlledTable() {
+      const [expandedRowIds, setExpandedRowIds] = useState<Set<string>>(new Set())
+      return (
+        <Table
+          {...baseProps()}
+          renderDetail={(row) => <p>詳細: {row.name}</p>}
+          expandedRowIds={expandedRowIds}
+          onExpandedChange={setExpandedRowIds}
+        />
+      )
+    }
+    render(<ControlledTable />)
+
+    const toggle = screen.getByTestId('table-expand-1')
+    expect(toggle).toHaveAttribute('aria-expanded', 'false')
+    expect(screen.queryByTestId('table-detail-row-1')).not.toBeInTheDocument()
+
+    await userEvent.click(toggle)
+    expect(toggle).toHaveAttribute('aria-expanded', 'true')
+    const detailRow = screen.getByTestId('table-detail-row-1')
+    expect(detailRow).toHaveTextContent('詳細: 山田 太郎')
+    expect(detailRow.querySelector('td')).toHaveAttribute('colSpan', '3')
+
+    await userEvent.click(toggle)
+    expect(toggle).toHaveAttribute('aria-expanded', 'false')
+    expect(screen.queryByTestId('table-detail-row-1')).not.toBeInTheDocument()
+  })
+
+  it('accounts for the selection column in the detail row colSpan when both are enabled', async () => {
+    function ControlledTable() {
+      const [expandedRowIds, setExpandedRowIds] = useState<Set<string>>(new Set())
+      return (
+        <Table
+          {...baseProps()}
+          selectedRowIds={new Set()}
+          onSelectionChange={vi.fn()}
+          renderDetail={(row) => <p>詳細: {row.name}</p>}
+          expandedRowIds={expandedRowIds}
+          onExpandedChange={setExpandedRowIds}
+        />
+      )
+    }
+    render(<ControlledTable />)
+    await userEvent.click(screen.getByTestId('table-expand-1'))
+    expect(screen.getByTestId('table-detail-row-1').querySelector('td')).toHaveAttribute(
+      'colSpan',
+      '4',
+    )
+  })
+
   it('has no detectable accessibility violations', async () => {
     const { container } = render(
       <Table {...baseProps()} selectedRowIds={new Set()} onSelectionChange={vi.fn()} />,
     )
+    expect(await axe(container)).toHaveNoViolations()
+  })
+
+  it('has no detectable accessibility violations with an expanded row', async () => {
+    function ControlledTable() {
+      const [expandedRowIds, setExpandedRowIds] = useState<Set<string>>(new Set(['1']))
+      return (
+        <Table
+          {...baseProps()}
+          renderDetail={(row) => <p>詳細: {row.name}</p>}
+          expandedRowIds={expandedRowIds}
+          onExpandedChange={setExpandedRowIds}
+        />
+      )
+    }
+    const { container } = render(<ControlledTable />)
     expect(await axe(container)).toHaveNoViolations()
   })
 })

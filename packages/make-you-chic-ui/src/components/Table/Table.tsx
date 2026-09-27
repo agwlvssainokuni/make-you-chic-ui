@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import './Table.css'
-import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { Fragment, useEffect, useRef, useState, type ReactNode } from 'react'
 import { Checkbox } from '../Checkbox'
 import { Icon } from '../Icon'
 import { Button } from '../Button'
@@ -38,6 +38,7 @@ export interface TableLabels {
   selectRow: string
   emptyStatus: string
   pageStatus: (page: number, totalPages: number, totalCount: number) => string
+  toggleRowDetail: string
 }
 
 const DEFAULT_LABELS: TableLabels = {
@@ -47,6 +48,7 @@ const DEFAULT_LABELS: TableLabels = {
   selectRow: 'この行を選択',
   emptyStatus: '0件',
   pageStatus: (page, totalPages, totalCount) => `${page} / ${totalPages}ページ(全${totalCount}件)`,
+  toggleRowDetail: '詳細',
 }
 
 export interface TableColumn<T> {
@@ -80,6 +82,10 @@ export interface TableProps<T> {
   'aria-label'?: string
   /** Overrides for user-facing strings, e.g. for localization. */
   labels?: Partial<TableLabels>
+  /** Renders the expanded content for a row, below it. Requires expandedRowIds/onExpandedChange. */
+  renderDetail?: (row: T) => ReactNode
+  expandedRowIds?: Set<string>
+  onExpandedChange?: (ids: Set<string>) => void
 }
 
 /**
@@ -102,8 +108,14 @@ export function Table<T>({
   onCellEdit,
   'aria-label': ariaLabel,
   labels,
+  renderDetail,
+  expandedRowIds,
+  onExpandedChange,
 }: TableProps<T>): React.JSX.Element {
   const resolvedLabels: TableLabels = { ...DEFAULT_LABELS, ...labels }
+  const hasSelection = Boolean(selectedRowIds && onSelectionChange)
+  const hasExpand = Boolean(renderDetail && expandedRowIds && onExpandedChange)
+  const leadingColumnCount = (hasSelection ? 1 : 0) + (hasExpand ? 1 : 0)
   const [columnWidths, setColumnWidths] = useState<Record<string, number>>({})
   const [editingCell, setEditingCell] = useState<{ rowId: string; columnKey: string } | null>(null)
   const thRefs = useRef<Record<string, HTMLTableCellElement | null>>({})
@@ -132,7 +144,7 @@ export function Table<T>({
   // past the wrapper to trigger its horizontal scroll.
   const hasPinnedColumnWidths = Object.keys(columnWidths).length > 0
   const pinnedTableWidth = hasPinnedColumnWidths
-    ? (selectedRowIds && onSelectionChange ? 40 : 0) +
+    ? leadingColumnCount * 40 +
       columns.reduce((sum, column) => sum + (columnWidths[column.key] ?? column.width ?? 0), 0)
     : undefined
 
@@ -148,6 +160,13 @@ export function Table<T>({
   function handleToggleRow(rowId: string): void {
     if (!selectedRowIds || !onSelectionChange) return
     onSelectionChange(toggleRowSelection(selectedRowIds, rowId))
+  }
+
+  // Reuses the same generic set-toggle helper as row selection - expansion
+  // is exactly the same "is this row id in the set" operation.
+  function handleToggleExpand(rowId: string): void {
+    if (!expandedRowIds || !onExpandedChange) return
+    onExpandedChange(toggleRowSelection(expandedRowIds, rowId))
   }
 
   function handleResizeStart(key: string, event: React.MouseEvent): void {
@@ -180,7 +199,7 @@ export function Table<T>({
       tableRef.current.classList.add('mycui-table--pinned')
       tableRef.current.style.tableLayout = 'fixed'
       const totalWidth =
-        (selectedRowIds && onSelectionChange ? 40 : 0) +
+        leadingColumnCount * 40 +
         columns.reduce((sum, column) => sum + (pinned[column.key] ?? column.width ?? 0), 0)
       tableRef.current.style.width = `${totalWidth}px`
     }
@@ -273,7 +292,7 @@ export function Table<T>({
       >
         <thead>
           <tr>
-            {selectedRowIds && onSelectionChange && (
+            {hasSelection && (
               <th style={{ width: 40 }}>
                 <Checkbox
                   checked={allOnPageSelected}
@@ -284,6 +303,13 @@ export function Table<T>({
                     if (el) el.indeterminate = !allOnPageSelected && someOnPageSelected
                   }}
                 />
+              </th>
+            )}
+            {hasExpand && (
+              <th style={{ width: 40 }}>
+                <span className="mycui-table-visually-hidden">
+                  {resolvedLabels.toggleRowDetail}
+                </span>
               </th>
             )}
             {columns.map((column) => {
@@ -345,61 +371,86 @@ export function Table<T>({
         <tbody>
           {data.map((row) => {
             const rowId = getRowId(row)
+            const isExpanded = hasExpand && expandedRowIds!.has(rowId)
             return (
-              <tr key={rowId} className="mycui-table-row" data-testid={`table-row-${rowId}`}>
-                {selectedRowIds && onSelectionChange && (
-                  <td>
-                    <Checkbox
-                      checked={selectedRowIds.has(rowId)}
-                      onChange={() => handleToggleRow(rowId)}
-                      aria-label={resolvedLabels.selectRow}
-                      data-testid={`table-select-${rowId}`}
-                    />
-                  </td>
-                )}
-                {columns.map((column) => {
-                  const isEditing =
-                    editingCell?.rowId === rowId && editingCell.columnKey === column.key
-                  const rawValue = column.getValue
-                    ? column.getValue(row)
-                    : (row as Record<string, unknown>)[column.key]
-                  const EditComponent = column.editComponent ?? DefaultCellEditor
-
-                  const cellClassName = [
-                    column.editable ? 'mycui-table-cell-editable' : null,
-                    isEditing ? 'mycui-table-cell-editing' : null,
-                  ]
-                    .filter(Boolean)
-                    .join(' ')
-
-                  return (
-                    <td
-                      key={column.key}
-                      className={cellClassName || undefined}
-                      onClick={
-                        column.editable && !isEditing
-                          ? () => startEdit(rowId, column.key)
-                          : undefined
-                      }
-                      data-testid={`table-cell-${rowId}-${column.key}`}
-                    >
-                      {isEditing ? (
-                        <div className="mycui-table-cell-editor">
-                          <EditComponent
-                            value={rawValue}
-                            onCommit={(value) => commitEdit(rowId, column.key, value)}
-                            onCancel={cancelEdit}
-                          />
-                        </div>
-                      ) : column.render ? (
-                        column.render(row)
-                      ) : (
-                        String(rawValue ?? '')
-                      )}
+              <Fragment key={rowId}>
+                <tr className="mycui-table-row" data-testid={`table-row-${rowId}`}>
+                  {hasSelection && (
+                    <td>
+                      <Checkbox
+                        checked={selectedRowIds!.has(rowId)}
+                        onChange={() => handleToggleRow(rowId)}
+                        aria-label={resolvedLabels.selectRow}
+                        data-testid={`table-select-${rowId}`}
+                      />
                     </td>
-                  )
-                })}
-              </tr>
+                  )}
+                  {hasExpand && (
+                    <td>
+                      <button
+                        type="button"
+                        className="mycui-table-expand-toggle"
+                        aria-expanded={isExpanded}
+                        aria-controls={`table-detail-${rowId}`}
+                        aria-label={resolvedLabels.toggleRowDetail}
+                        onClick={() => handleToggleExpand(rowId)}
+                        data-testid={`table-expand-${rowId}`}
+                      >
+                        <Icon name={isExpanded ? 'chevron-up' : 'chevron-down'} size={14} />
+                      </button>
+                    </td>
+                  )}
+                  {columns.map((column) => {
+                    const isEditing =
+                      editingCell?.rowId === rowId && editingCell.columnKey === column.key
+                    const rawValue = column.getValue
+                      ? column.getValue(row)
+                      : (row as Record<string, unknown>)[column.key]
+                    const EditComponent = column.editComponent ?? DefaultCellEditor
+
+                    const cellClassName = [
+                      column.editable ? 'mycui-table-cell-editable' : null,
+                      isEditing ? 'mycui-table-cell-editing' : null,
+                    ]
+                      .filter(Boolean)
+                      .join(' ')
+
+                    return (
+                      <td
+                        key={column.key}
+                        className={cellClassName || undefined}
+                        onClick={
+                          column.editable && !isEditing
+                            ? () => startEdit(rowId, column.key)
+                            : undefined
+                        }
+                        data-testid={`table-cell-${rowId}-${column.key}`}
+                      >
+                        {isEditing ? (
+                          <div className="mycui-table-cell-editor">
+                            <EditComponent
+                              value={rawValue}
+                              onCommit={(value) => commitEdit(rowId, column.key, value)}
+                              onCancel={cancelEdit}
+                            />
+                          </div>
+                        ) : column.render ? (
+                          column.render(row)
+                        ) : (
+                          String(rawValue ?? '')
+                        )}
+                      </td>
+                    )
+                  })}
+                </tr>
+                {isExpanded && (
+                  <tr className="mycui-table-detail-row" data-testid={`table-detail-row-${rowId}`}>
+                    <td id={`table-detail-${rowId}`} colSpan={leadingColumnCount + columns.length}>
+                      {renderDetail!(row)}
+                    </td>
+                  </tr>
+                )}
+              </Fragment>
             )
           })}
         </tbody>
