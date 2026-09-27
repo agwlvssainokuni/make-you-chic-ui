@@ -25,22 +25,37 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   loading?: boolean
 }
 
-/** Standard clickable button with variant/size/loading states. */
+/**
+ * Standard clickable button with variant/size/loading states. While
+ * `loading`, the button stays natively focusable (aria-disabled instead of
+ * disabled) so focus doesn't jump away in browsers that blur a focused
+ * element when it becomes disabled - it just ignores activation.
+ */
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
-  { variant = 'primary', size = 'md', loading = false, disabled, className, children, ...rest },
+  { variant = 'primary', size = 'md', loading = false, disabled, className, children, onClick, ...rest },
   ref,
 ) {
   const classes = ['mycui-button', `variant-${variant}`, `size-${size}`, className]
     .filter(Boolean)
     .join(' ')
 
+  function handleClick(event: React.MouseEvent<HTMLButtonElement>): void {
+    if (loading) {
+      event.preventDefault()
+      return
+    }
+    onClick?.(event)
+  }
+
   return (
     <button
       ref={ref}
       type="button"
       className={classes}
-      disabled={disabled || loading}
+      disabled={disabled}
+      aria-disabled={loading || disabled || undefined}
       aria-busy={loading || undefined}
+      onClick={handleClick}
       data-testid="button"
       {...rest}
     >

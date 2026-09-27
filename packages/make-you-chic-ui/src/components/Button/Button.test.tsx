@@ -55,7 +55,7 @@ describe('Button', () => {
     expect(onClick).not.toHaveBeenCalled()
   })
 
-  it('shows a spinner, sets aria-busy, and disables the button when loading', async () => {
+  it('shows a spinner, sets aria-busy/aria-disabled, and blocks activation when loading, without becoming natively disabled', async () => {
     const onClick = vi.fn()
     render(
       <Button loading onClick={onClick}>
@@ -63,11 +63,22 @@ describe('Button', () => {
       </Button>,
     )
     const btn = screen.getByRole('button')
-    expect(btn).toBeDisabled()
+    expect(btn).not.toBeDisabled()
+    expect(btn).toHaveAttribute('aria-disabled', 'true')
     expect(btn).toHaveAttribute('aria-busy', 'true')
     expect(screen.getByTestId('button-spinner')).toBeInTheDocument()
     await userEvent.click(btn)
     expect(onClick).not.toHaveBeenCalled()
+  })
+
+  it('keeps focus on the button when it becomes loading, unlike native disabled', () => {
+    const { rerender } = render(<Button>送信</Button>)
+    const btn = screen.getByRole('button')
+    btn.focus()
+    expect(btn).toHaveFocus()
+
+    rerender(<Button loading>送信</Button>)
+    expect(btn).toHaveFocus()
   })
 
   it('forwards the ref to the underlying <button> element', () => {
