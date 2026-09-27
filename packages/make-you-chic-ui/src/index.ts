@@ -87,6 +87,7 @@ export { Table, DefaultCellEditor } from './components/Table'
 export type {
   TableProps,
   TableColumn,
+  TableLabels,
   SortState,
   SortDirection,
   CellEditComponentProps,

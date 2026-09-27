@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 export { Table } from './Table'
-export type { TableProps, TableColumn, SortState, SortDirection } from './Table'
+export type { TableProps, TableColumn, TableLabels, SortState, SortDirection } from './Table'
 export { DefaultCellEditor } from './CellEditor'
 export type { CellEditComponentProps } from './CellEditor'
 export {
