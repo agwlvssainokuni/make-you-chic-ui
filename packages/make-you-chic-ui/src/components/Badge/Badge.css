@@ -44,7 +44,7 @@
 
 .mycui-badge.variant-success {
   background: var(--color-success);
-  color: #fff;
+  color: var(--color-success-text);
 }
 
 .mycui-badge.mycui-badge-empty {

@@ -31,6 +31,7 @@ const DANGER_SUBTLE_LIGHT = '#fef2f2'
 const RED_500 = '#dc2626'
 const RED_600 = '#b91c1c'
 const RED_400 = '#f87171'
+const GREEN_600 = '#16a34a'
 
 const BRANDS = {
   blue: { 500: '#2563eb', 700: '#1e40af', 400: '#60a5fa' },
@@ -82,5 +83,11 @@ describe('candidate 3: --color-danger-text on --color-bg (FormField error text /
 
   it('dark meets AA', () => {
     expect(contrastRatio(COLOR_BG_DARK, RED_400)).toBeGreaterThanOrEqual(AA_TEXT)
+  })
+})
+
+describe('additional finding: --color-success-text on --color-success (Badge success)', () => {
+  it('meets AA (not brand/theme dependent)', () => {
+    expect(contrastRatio(GREEN_600, GRAY_900)).toBeGreaterThanOrEqual(AA_TEXT)
   })
 })
