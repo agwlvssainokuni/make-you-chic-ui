@@ -27,7 +27,7 @@
 }
 
 .mycui-form-field-required-mark {
-  color: var(--color-danger);
+  color: var(--color-danger-text);
   margin-left: 2px;
 }
 
@@ -38,5 +38,5 @@
 
 .mycui-form-field-error-text {
   font-size: var(--font-size-sm);
-  color: var(--color-danger);
+  color: var(--color-danger-text);
 }

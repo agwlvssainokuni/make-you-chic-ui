@@ -230,6 +230,10 @@ function ThemeToggle() {
 
 状態は`localStorage`に自動永続化され、別タブでの変更も同期されます(`ThemeProvider`のマルチタブ同期機能)。
 
+### アクセシビリティ(WCAG 2.1 AA コントラスト)
+
+Button/Badgeのprimaryバリアント、Avatarの頭文字、Alertのdangerバリアント、FormFieldのエラー文言・必須マークについて、4ブランド(blue/green/orange/purple)×ライト/ダークの全組み合わせでテキストコントラスト比4.5:1以上(AA)を満たすよう、内部でテキスト色を自動的に出し分けています(例: green/orangeブランドのprimaryボタンは白文字ではなく濃色文字になります)。利用側で個別にオーバーライドする必要はありません。検証には`packages/make-you-chic-ui/src/theme/contrast.test.ts`のトークン単体テストを使用しています。
+
 ## 4. スタイルカスタマイズの指針
 
 全コンポーネントは`className`/`style`propsを受け付けます(Application Design Question 7 = A)。ただし、以下を推奨します。

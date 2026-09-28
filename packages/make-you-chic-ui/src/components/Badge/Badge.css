@@ -29,7 +29,7 @@
 
 .mycui-badge.variant-primary {
   background: var(--color-primary);
-  color: #fff;
+  color: var(--color-primary-text);
 }
 
 .mycui-badge.variant-secondary {

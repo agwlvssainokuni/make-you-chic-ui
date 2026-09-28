@@ -26,6 +26,12 @@
   --brand-500: var(--blue-500);
   --brand-600: var(--blue-600);
   --brand-700: var(--blue-700);
+
+  /* Text color for solid --color-primary fills (e.g. Button/Badge). blue-500
+     and purple-500 are dark enough for white text at AA (>=4.5:1); green-500
+     and orange-500 are not, so those brands use dark text instead (see
+     WCAG AA contrast audit, candidate 1). */
+  --color-primary-text: #fff;
 }
 
 :root[data-brand='green'] {
@@ -33,6 +39,7 @@
   --brand-500: var(--green-brand-500);
   --brand-600: var(--green-brand-600);
   --brand-700: var(--green-brand-700);
+  --color-primary-text: var(--gray-900);
 }
 
 :root[data-brand='purple'] {
@@ -40,6 +47,7 @@
   --brand-500: var(--purple-500);
   --brand-600: var(--purple-600);
   --brand-700: var(--purple-700);
+  --color-primary-text: #fff;
 }
 
 :root[data-brand='orange'] {
@@ -47,6 +55,7 @@
   --brand-500: var(--orange-500);
   --brand-600: var(--orange-600);
   --brand-700: var(--orange-700);
+  --color-primary-text: var(--gray-900);
 }
 
 /* ---- Theme axis (data-theme): default = light ---- */
@@ -76,6 +85,23 @@
   --color-warning-subtle-bg: #fef3c7;
   --color-warning-subtle-text: #92400e;
   --focus-ring: 0 0 0 3px color-mix(in srgb, var(--brand-500) 40%, transparent);
+
+  /* Text color for content on --color-primary-subtle / --color-danger-subtle
+     backgrounds (e.g. Avatar initials, Alert's danger variant). The plain
+     --color-primary/--color-danger tone is too close in luminance to these
+     tinted backgrounds to reach AA; a darker (light theme) or lighter (dark
+     theme) shade is needed instead (WCAG AA contrast audit, candidates 2). */
+  --color-primary-subtle-text: var(--brand-700);
+
+  /* Plain --color-danger (#dc2626) falls just short of AA (4.41:1) against
+     --color-danger-subtle's pale pink background; red-600 clears it. */
+  --color-danger-subtle-text: var(--red-600);
+
+  /* Text color for --color-danger used as plain text (e.g. FormField error
+     text and required-mark), kept separate from --color-danger itself so its
+     background-fill uses (Button/Badge danger, borders) are unaffected
+     (WCAG AA contrast audit, candidate 3). */
+  --color-danger-text: var(--color-danger);
 }
 
 :root[data-theme='dark'] {
@@ -94,6 +120,9 @@
   --color-warning-subtle-text: var(--gray-100);
   --color-tooltip-bg: var(--gray-100);
   --color-tooltip-text: var(--gray-900);
+  --color-primary-subtle-text: var(--brand-400);
+  --color-danger-subtle-text: var(--red-400);
+  --color-danger-text: var(--red-400);
 }
 
 /* ---- Font family axis (data-font-family): default = sans ---- */
