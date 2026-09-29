@@ -91,3 +91,13 @@ describe('additional finding: --color-success-text on --color-success (Badge suc
     expect(contrastRatio(GREEN_600, GRAY_900)).toBeGreaterThanOrEqual(AA_TEXT)
   })
 })
+
+describe('additional finding: --color-primary-emphasis-text on --color-bg (Tabs active tab)', () => {
+  it.each(Object.entries(BRANDS))('%s / light meets AA', (_brand, shades) => {
+    expect(contrastRatio(COLOR_BG_LIGHT, shades[700])).toBeGreaterThanOrEqual(AA_TEXT)
+  })
+
+  it.each(Object.entries(BRANDS))('%s / dark meets AA', (_brand, shades) => {
+    expect(contrastRatio(COLOR_BG_DARK, shades[400])).toBeGreaterThanOrEqual(AA_TEXT)
+  })
+})

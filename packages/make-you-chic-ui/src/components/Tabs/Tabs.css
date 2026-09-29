@@ -36,7 +36,7 @@
 }
 
 .mycui-tab.active {
-  color: var(--color-primary);
+  color: var(--color-primary-emphasis-text);
   border-bottom-color: var(--color-primary);
 }
 

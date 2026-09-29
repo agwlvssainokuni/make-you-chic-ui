@@ -32,6 +32,14 @@
      and orange-500 are not, so those brands use dark text instead (see
      WCAG AA contrast audit, candidate 1). */
   --color-primary-text: #fff;
+
+  /* Text color for --color-primary used as plain text on --color-bg (e.g.
+     Tabs' active tab). brand-500 itself falls short of AA against
+     --color-bg for some brand/theme combinations; brand-700 (light) /
+     brand-400 (dark, see theme axis below) clears it (WCAG AA contrast
+     audit, Tabs/Button follow-up). Same values as --color-primary-subtle-text
+     but kept as a separate token since the background differs. */
+  --color-primary-emphasis-text: var(--brand-700);
 }
 
 :root[data-brand='green'] {
@@ -127,6 +135,7 @@
   --color-tooltip-bg: var(--gray-100);
   --color-tooltip-text: var(--gray-900);
   --color-primary-subtle-text: var(--brand-400);
+  --color-primary-emphasis-text: var(--brand-400);
   --color-danger-subtle-text: var(--red-400);
   --color-danger-text: var(--red-400);
 }
