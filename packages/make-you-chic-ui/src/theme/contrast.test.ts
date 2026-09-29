@@ -34,10 +34,10 @@ const RED_400 = '#f87171'
 const GREEN_600 = '#16a34a'
 
 const BRANDS = {
-  blue: { 500: '#2563eb', 700: '#1e40af', 400: '#60a5fa' },
-  purple: { 500: '#9333ea', 700: '#6b21a8', 400: '#c084fc' },
-  green: { 500: '#16a34a', 700: '#166534', 400: '#4ade80' },
-  orange: { 500: '#ea580c', 700: '#9a3412', 400: '#fb923c' },
+  blue: { 500: '#2563eb', 600: '#1d4ed8', 700: '#1e40af', 400: '#60a5fa' },
+  purple: { 500: '#9333ea', 600: '#7e22ce', 700: '#6b21a8', 400: '#c084fc' },
+  green: { 500: '#16a34a', 600: '#15803d', 700: '#166534', 400: '#4ade80' },
+  orange: { 500: '#ea580c', 600: '#c2410c', 700: '#9a3412', 400: '#fb923c' },
 } as const
 
 const AA_TEXT = 4.5
@@ -99,5 +99,15 @@ describe('additional finding: --color-primary-emphasis-text on --color-bg (Tabs 
 
   it.each(Object.entries(BRANDS))('%s / dark meets AA', (_brand, shades) => {
     expect(contrastRatio(COLOR_BG_DARK, shades[400])).toBeGreaterThanOrEqual(AA_TEXT)
+  })
+})
+
+describe('additional finding: --color-primary-hover-text on --color-primary-hover/-active (Button primary hover/active)', () => {
+  it.each(Object.entries(BRANDS))('%s hover meets AA', (_brand, shades) => {
+    expect(contrastRatio(shades[600], WHITE)).toBeGreaterThanOrEqual(AA_TEXT)
+  })
+
+  it.each(Object.entries(BRANDS))('%s active meets AA', (_brand, shades) => {
+    expect(contrastRatio(shades[700], WHITE)).toBeGreaterThanOrEqual(AA_TEXT)
   })
 })

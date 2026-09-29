@@ -116,6 +116,14 @@
      background-fill uses (Button/Badge danger, borders) are unaffected
      (WCAG AA contrast audit, candidate 3). */
   --color-danger-text: var(--color-danger);
+
+  /* Text color for --color-primary-text used specifically when the
+     background is darkened on hover/active (--color-primary-hover /
+     --color-primary-active). White clears AA against brand-600/-700 for
+     all 4 brands in both themes (brand colors don't vary by theme), so a
+     single non-brand-dependent value covers both states (WCAG AA contrast
+     audit, Tabs/Button follow-up). */
+  --color-primary-hover-text: #fff;
 }
 
 :root[data-theme='dark'] {

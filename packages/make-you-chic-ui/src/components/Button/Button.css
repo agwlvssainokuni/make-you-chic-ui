@@ -61,10 +61,12 @@
 
 .mycui-button.variant-primary:hover:not(:disabled, [aria-disabled='true']) {
   background: var(--color-primary-hover);
+  color: var(--color-primary-hover-text);
 }
 
 .mycui-button.variant-primary:active:not(:disabled, [aria-disabled='true']) {
   background: var(--color-primary-active);
+  color: var(--color-primary-hover-text);
 }
 
 .mycui-button.variant-secondary {
