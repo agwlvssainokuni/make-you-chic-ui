@@ -25,7 +25,8 @@
 }
 
 .mycui-dropdown-item {
-  display: block;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   text-align: left;
   background: none;
@@ -42,4 +43,14 @@
 .mycui-dropdown-item:focus-visible {
   background: var(--color-surface-hover);
   outline: none;
+}
+
+.mycui-dropdown-item[aria-disabled='true'] {
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+}
+
+.mycui-dropdown-item-description {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
 }

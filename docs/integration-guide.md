@@ -200,6 +200,20 @@ import { Button, FormField, TextInput, Table, AppShell } from '<パッケージ�
 </Routes>
 ```
 
+### Dropdownの例
+
+`MenuItem`の`disabled`で項目を押せない形にでき、`description`で理由等の説明文を項目の下に添えられます(説明文は`aria-describedby`で項目に結ばれます)。`disabled`な項目も矢印キーでのフォーカス移動の対象になります(WAI-ARIA メニューパターン準拠)。
+
+```tsx
+<Dropdown
+  trigger={<Button variant="secondary" size="sm">操作</Button>}
+  items={[
+    { label: '管理者の印を外す', disabled: true, description: '自分自身の印は外せません' },
+    { label: 'ロックを解除', onClick: openResetDialog },
+  ]}
+/>
+```
+
 ### 画面パターンの参考実装
 
 List View・Detail View・編集Modal・削除確認の組み合わせ方は、本リポジトリの`packages/sample-app/src/screen-patterns/`配下(`ListView`, `DetailView`, `EditUserModal`, `DeleteConfirmModal`)を参考にしてください。これらは配布パッケージには含まれない参考実装です。

@@ -33,6 +33,10 @@ export interface MenuItem {
   href?: string
   /** Called on selection. With `href`, call event.preventDefault() to take over navigation (e.g. a router). */
   onClick?: (event: React.MouseEvent | React.KeyboardEvent) => void
+  /** Blocks selection (click/Enter/Space) without removing the item from arrow-key navigation, per the WAI-ARIA menu pattern. */
+  disabled?: boolean
+  /** Shown below the label (e.g. the reason an item is disabled) and linked via aria-describedby. */
+  description?: string
 }
 
 export interface DropdownProps {
@@ -152,18 +156,32 @@ export function Dropdown({
                 itemRefs.current[index] = el
               }
               const handleActivate = (event: React.MouseEvent | React.KeyboardEvent): void => {
+                if (item.disabled) return
                 item.onClick?.(event)
                 close(true)
               }
+              const descriptionId = item.description !== undefined ? `${id}-item-${index}-desc` : undefined
+              const content = (
+                <>
+                  <span className="mycui-dropdown-item-label">{item.label}</span>
+                  {item.description !== undefined && (
+                    <span className="mycui-dropdown-item-description" id={descriptionId}>
+                      {item.description}
+                    </span>
+                  )}
+                </>
+              )
 
               if (item.href !== undefined) {
                 return (
                   <a
                     key={item.label}
                     ref={itemRef}
-                    href={item.href}
+                    href={item.disabled ? undefined : item.href}
                     role="menuitem"
                     tabIndex={-1}
+                    aria-disabled={item.disabled || undefined}
+                    aria-describedby={descriptionId}
                     className="mycui-dropdown-item"
                     onClick={handleActivate}
                     onKeyDown={(e) => {
@@ -176,7 +194,7 @@ export function Dropdown({
                     }}
                     data-testid={`dropdown-item-${index}`}
                   >
-                    {item.label}
+                    {content}
                   </a>
                 )
               }
@@ -188,11 +206,13 @@ export function Dropdown({
                   type="button"
                   role="menuitem"
                   tabIndex={-1}
+                  aria-disabled={item.disabled || undefined}
+                  aria-describedby={descriptionId}
                   className="mycui-dropdown-item"
                   onClick={handleActivate}
                   data-testid={`dropdown-item-${index}`}
                 >
-                  {item.label}
+                  {content}
                 </button>
               )
             })}

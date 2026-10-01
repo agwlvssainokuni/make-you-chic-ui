@@ -134,4 +134,90 @@ describe('Dropdown', () => {
     // meaningful when testing an isolated component fragment.
     expect(await axe(document.body, { rules: { region: { enabled: false } } })).toHaveNoViolations()
   })
+
+  it('does not call onClick or close when a disabled item is clicked', async () => {
+    const onClick = vi.fn()
+    render(
+      <Dropdown
+        trigger={<button>メニュー</button>}
+        items={[{ label: '削除', disabled: true, onClick }]}
+      />,
+    )
+    await userEvent.click(screen.getByTestId('dropdown-trigger'))
+    const item = screen.getByTestId('dropdown-item-0')
+    expect(item).toHaveAttribute('aria-disabled', 'true')
+    await userEvent.click(item)
+    expect(onClick).not.toHaveBeenCalled()
+    expect(screen.getByRole('menu')).toBeInTheDocument()
+  })
+
+  it('does not call onClick when a disabled item is activated with Enter or Space', async () => {
+    const onClick = vi.fn()
+    render(
+      <Dropdown
+        trigger={<button>メニュー</button>}
+        items={[{ label: '削除', disabled: true, onClick }]}
+      />,
+    )
+    await userEvent.click(screen.getByTestId('dropdown-trigger'))
+    await userEvent.keyboard('{Enter}')
+    await userEvent.keyboard(' ')
+    expect(onClick).not.toHaveBeenCalled()
+    expect(screen.getByRole('menu')).toBeInTheDocument()
+  })
+
+  it('omits href and does not navigate for a disabled href item', async () => {
+    const onClick = vi.fn()
+    render(
+      <Dropdown
+        trigger={<button>メニュー</button>}
+        items={[{ label: 'プロフィール', href: '/profile', disabled: true, onClick }]}
+      />,
+    )
+    await userEvent.click(screen.getByTestId('dropdown-trigger'))
+    const item = screen.getByTestId('dropdown-item-0')
+    expect(item).not.toHaveAttribute('href')
+    await userEvent.click(item)
+    expect(onClick).not.toHaveBeenCalled()
+  })
+
+  it('moves focus to a disabled item with ArrowDown', async () => {
+    render(
+      <Dropdown
+        trigger={<button>メニュー</button>}
+        items={[{ label: 'プロフィール', onClick: vi.fn() }, { label: '削除', disabled: true, onClick: vi.fn() }]}
+      />,
+    )
+    await userEvent.click(screen.getByTestId('dropdown-trigger'))
+    await userEvent.keyboard('{ArrowDown}')
+    expect(screen.getByTestId('dropdown-item-1')).toHaveFocus()
+  })
+
+  it('links an item to its description via aria-describedby', async () => {
+    render(
+      <Dropdown
+        trigger={<button>メニュー</button>}
+        items={[{ label: '削除', disabled: true, description: '自分自身は削除できません' }]}
+      />,
+    )
+    await userEvent.click(screen.getByTestId('dropdown-trigger'))
+    const item = screen.getByTestId('dropdown-item-0')
+    const describedBy = item.getAttribute('aria-describedby')
+    expect(describedBy).toBeTruthy()
+    expect(document.getElementById(describedBy ?? '')).toHaveTextContent('自分自身は削除できません')
+  })
+
+  it('has no detectable accessibility violations with disabled items and descriptions', async () => {
+    render(
+      <Dropdown
+        trigger={<button>メニュー</button>}
+        items={[
+          { label: '削除', disabled: true, description: '自分自身は削除できません' },
+          { label: '編集', onClick: vi.fn(), description: '内容を編集します' },
+        ]}
+      />,
+    )
+    await userEvent.click(screen.getByTestId('dropdown-trigger'))
+    expect(await axe(document.body, { rules: { region: { enabled: false } } })).toHaveNoViolations()
+  })
 })
