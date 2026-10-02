@@ -207,6 +207,17 @@ describe('Dropdown', () => {
     expect(document.getElementById(describedBy ?? '')).toHaveTextContent('自分自身は削除できません')
   })
 
+  it('exposes the label alone as the accessible name, not the label plus description', async () => {
+    render(
+      <Dropdown
+        trigger={<button>メニュー</button>}
+        items={[{ label: '削除', disabled: true, description: '自分自身は削除できません' }]}
+      />,
+    )
+    await userEvent.click(screen.getByTestId('dropdown-trigger'))
+    expect(screen.getByRole('menuitem', { name: '削除' })).toBe(screen.getByTestId('dropdown-item-0'))
+  })
+
   it('has no detectable accessibility violations with disabled items and descriptions', async () => {
     render(
       <Dropdown

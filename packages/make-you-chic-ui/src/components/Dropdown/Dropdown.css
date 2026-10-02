@@ -39,8 +39,8 @@
   cursor: pointer;
 }
 
-.mycui-dropdown-item:hover,
-.mycui-dropdown-item:focus-visible {
+.mycui-dropdown-item:hover:not([aria-disabled='true']),
+.mycui-dropdown-item:focus-visible:not([aria-disabled='true']) {
   background: var(--color-surface-hover);
   outline: none;
 }
@@ -48,6 +48,11 @@
 .mycui-dropdown-item[aria-disabled='true'] {
   color: var(--color-text-muted);
   cursor: not-allowed;
+}
+
+.mycui-dropdown-item[aria-disabled='true']:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
 }
 
 .mycui-dropdown-item-description {

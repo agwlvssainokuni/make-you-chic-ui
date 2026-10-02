@@ -160,10 +160,13 @@ export function Dropdown({
                 item.onClick?.(event)
                 close(true)
               }
+              const labelId = `${id}-item-${index}-label`
               const descriptionId = item.description !== undefined ? `${id}-item-${index}-desc` : undefined
               const content = (
                 <>
-                  <span className="mycui-dropdown-item-label">{item.label}</span>
+                  <span className="mycui-dropdown-item-label" id={labelId}>
+                    {item.label}
+                  </span>
                   {item.description !== undefined && (
                     <span className="mycui-dropdown-item-description" id={descriptionId}>
                       {item.description}
@@ -181,6 +184,7 @@ export function Dropdown({
                     role="menuitem"
                     tabIndex={-1}
                     aria-disabled={item.disabled || undefined}
+                    aria-labelledby={labelId}
                     aria-describedby={descriptionId}
                     className="mycui-dropdown-item"
                     onClick={handleActivate}
@@ -207,6 +211,7 @@ export function Dropdown({
                   role="menuitem"
                   tabIndex={-1}
                   aria-disabled={item.disabled || undefined}
+                  aria-labelledby={labelId}
                   aria-describedby={descriptionId}
                   className="mycui-dropdown-item"
                   onClick={handleActivate}
