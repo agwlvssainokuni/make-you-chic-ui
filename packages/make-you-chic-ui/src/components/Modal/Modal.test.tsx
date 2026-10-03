@@ -194,6 +194,54 @@ describe('Modal', () => {
     expect(trigger).toHaveFocus()
   })
 
+  it('restores focus to finalFocusRef when provided, instead of the previously focused element', async () => {
+    function ModalWithFinalFocusRef() {
+      const [open, setOpen] = useState(false)
+      const finalRef = useRef<HTMLButtonElement>(null)
+      return (
+        <ModalStackProvider>
+          <button data-testid="trigger" onClick={() => setOpen(true)}>
+            開く
+          </button>
+          <button ref={finalRef} data-testid="final-target">
+            戻り先
+          </button>
+          <Modal open={open} onClose={() => setOpen(false)} title="確認" finalFocusRef={finalRef}>
+            content
+          </Modal>
+        </ModalStackProvider>
+      )
+    }
+    render(<ModalWithFinalFocusRef />)
+    await userEvent.click(screen.getByTestId('trigger'))
+    await userEvent.click(screen.getByTestId('modal-close-button'))
+    expect(screen.getByTestId('final-target')).toHaveFocus()
+  })
+
+  it('returns focus to an element inside the lower Modal when the topmost Modal in a stack closes', async () => {
+    function StackedModals() {
+      const [topOpen, setTopOpen] = useState(false)
+      return (
+        <ModalStackProvider>
+          <Modal open onClose={() => {}} title="1つ目">
+            <button data-testid="open-nested" onClick={() => setTopOpen(true)}>
+              開く
+            </button>
+          </Modal>
+          <Modal open={topOpen} onClose={() => setTopOpen(false)} title="2つ目">
+            content
+          </Modal>
+        </ModalStackProvider>
+      )
+    }
+    render(<StackedModals />)
+    const openNested = screen.getByTestId('open-nested')
+    await userEvent.click(openNested)
+    expect(screen.getAllByTestId('modal-overlay')).toHaveLength(2)
+    await userEvent.click(screen.getAllByTestId('modal-close-button')[1])
+    expect(openNested).toHaveFocus()
+  })
+
   it('applies inert to the render container while open, and removes it after closing', async () => {
     // React Testing Library mounts the component tree into a wrapper <div>
     // appended directly to document.body, which is exactly the sibling

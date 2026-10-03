@@ -29,6 +29,14 @@ export interface ModalProps {
   size?: 'sm' | 'md' | 'lg'
   /** Element to focus when the Modal opens; defaults to the first focusable element. */
   initialFocusRef?: RefObject<HTMLElement | null>
+  /**
+   * Element to focus after the Modal closes, taking priority over the
+   * element that was focused before it opened. Useful when the opener
+   * itself won't exist anymore by the time the Modal closes (e.g. a
+   * Dropdown menu item), so the app can point back to something durable
+   * such as the Dropdown's own trigger button.
+   */
+  finalFocusRef?: RefObject<HTMLElement | null>
   /** Accessible label for the close button, e.g. for localization. @default '閉じる' */
   closeLabel?: string
   /** Whether clicking the overlay background closes the Modal. @default true */
@@ -49,6 +57,7 @@ export function Modal({
   children,
   size = 'md',
   initialFocusRef,
+  finalFocusRef,
   closeLabel = '閉じる',
   closeOnBackdropClick = true,
   role = 'dialog',
@@ -57,7 +66,7 @@ export function Modal({
   const titleId = `${id}-title`
   const bodyId = `${id}-body`
   const overlayRef = useRef<HTMLDivElement>(null)
-  const { register, unregister, isTopmost } = useModalStack()
+  const { register, unregister, isTopmost, setFocusToRestore } = useModalStack()
 
   useEffect(() => {
     if (!open || !overlayRef.current) return
@@ -68,7 +77,14 @@ export function Modal({
 
   const topmost = isTopmost(id)
 
-  useFocusTrap({ containerRef: overlayRef, active: open && topmost, initialFocusRef })
+  useFocusTrap({
+    containerRef: overlayRef,
+    active: open && topmost,
+    initialFocusRef,
+    onDeactivate: (previouslyFocused) => {
+      setFocusToRestore(finalFocusRef?.current ?? previouslyFocused)
+    },
+  })
 
   useEffect(() => {
     if (!open || !topmost) return

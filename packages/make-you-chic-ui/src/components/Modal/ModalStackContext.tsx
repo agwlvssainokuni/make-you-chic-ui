@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 
 export const MODAL_BASE_Z_INDEX = 1000
 
@@ -27,6 +27,12 @@ interface ModalStackContextValue {
   unregister: (id: string) => void
   isTopmost: (id: string) => boolean
   zIndexOf: (id: string) => number
+  /**
+   * Queues an element to be focused once `inert` has been lifted from it
+   * (applied from the same effect that toggles `inert`, after this Modal's
+   * entry is gone from the stack). Overwrites any previously queued target.
+   */
+  setFocusToRestore: (el: HTMLElement | null) => void
 }
 
 const ModalStackContext = createContext<ModalStackContextValue | null>(null)
@@ -39,6 +45,7 @@ const ModalStackContext = createContext<ModalStackContextValue | null>(null)
  */
 export function ModalStackProvider({ children }: { children: React.ReactNode }): React.JSX.Element {
   const [entries, setEntries] = useState<ModalStackEntry[]>([])
+  const focusToRestoreRef = useRef<HTMLElement | null>(null)
 
   const register = useCallback((id: string, portalEl: HTMLElement) => {
     setEntries((prev) => (prev.some((e) => e.id === id) ? prev : [...prev, { id, portalEl }]))
@@ -46,6 +53,10 @@ export function ModalStackProvider({ children }: { children: React.ReactNode }):
 
   const unregister = useCallback((id: string) => {
     setEntries((prev) => prev.filter((e) => e.id !== id))
+  }, [])
+
+  const setFocusToRestore = useCallback((el: HTMLElement | null) => {
+    focusToRestoreRef.current = el
   }, [])
 
   const isTopmost = useCallback(
@@ -65,7 +76,9 @@ export function ModalStackProvider({ children }: { children: React.ReactNode }):
   )
 
   // Apply/remove inert on every <body> child that is not the topmost
-  // Modal's own portal element.
+  // Modal's own portal element, then restore focus to any queued target —
+  // in that order, so focus lands on an element that is no longer inert
+  // (see useFocusTrap's onDeactivate / Modal's finalFocusRef).
   useEffect(() => {
     const topmostEl = entries[entries.length - 1]?.portalEl
     const bodyChildren = Array.from(document.body.children) as HTMLElement[]
@@ -77,11 +90,17 @@ export function ModalStackProvider({ children }: { children: React.ReactNode }):
         child.setAttribute('inert', '')
       }
     }
+
+    const focusTarget = focusToRestoreRef.current
+    if (focusTarget) {
+      focusToRestoreRef.current = null
+      focusTarget.focus()
+    }
   }, [entries])
 
   const value = useMemo(
-    () => ({ register, unregister, isTopmost, zIndexOf }),
-    [register, unregister, isTopmost, zIndexOf],
+    () => ({ register, unregister, isTopmost, zIndexOf, setFocusToRestore }),
+    [register, unregister, isTopmost, zIndexOf, setFocusToRestore],
   )
 
   return <ModalStackContext.Provider value={value}>{children}</ModalStackContext.Provider>
@@ -92,6 +111,9 @@ const fallbackStack: ModalStackContextValue = {
   unregister: () => {},
   isTopmost: () => true,
   zIndexOf: () => MODAL_BASE_Z_INDEX,
+  // No inert coordination without a Provider, so nothing can block focus()
+  // — restore it immediately instead of queuing.
+  setFocusToRestore: (el) => el?.focus(),
 }
 
 /**

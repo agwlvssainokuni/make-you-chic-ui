@@ -214,6 +214,29 @@ import { Button, FormField, TextInput, Table, AppShell } from '<パッケージ�
 />
 ```
 
+### Modalの例(Dropdownから開く場合のフォーカス戻し)
+
+`Modal`を閉じると、既定では開く前にフォーカスのあった要素へ自動で戻ります。ただし`Dropdown`の項目から開いた場合、その項目は選択と同時にメニューごと閉じて文書から外れるため、戻す先がありません。このようなケースでは`finalFocusRef`でアプリ側が戻す先を明示してください(`Modal`を開いた元のボタンなど)。
+
+```tsx
+const menuTriggerRef = useRef<HTMLButtonElement>(null)
+
+<Dropdown
+  trigger={<Button ref={menuTriggerRef} variant="secondary" size="sm">操作</Button>}
+  items={[{ label: '削除の確認', onClick: () => setConfirmOpen(true) }]}
+/>
+<Modal
+  open={confirmOpen}
+  onClose={() => setConfirmOpen(false)}
+  title="削除の確認"
+  finalFocusRef={menuTriggerRef}
+>
+  この操作は取り消せません。
+</Modal>
+```
+
+`finalFocusRef`を指定しない場合は、開く前にフォーカスのあった要素(文書内に存在する場合のみ)に戻り、どちらも無ければ何もしません。`Modal`を複数重ねた場合は、上の`Modal`を閉じると直下の`Modal`の中にフォーカスが戻ります。
+
 ### 画面パターンの参考実装
 
 List View・Detail View・編集Modal・削除確認の組み合わせ方は、本リポジトリの`packages/sample-app/src/screen-patterns/`配下(`ListView`, `DetailView`, `EditUserModal`, `DeleteConfirmModal`)を参考にしてください。これらは配布パッケージには含まれない参考実装です。

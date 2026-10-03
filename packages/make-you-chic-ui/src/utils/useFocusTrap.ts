@@ -23,6 +23,13 @@ export interface UseFocusTrapOptions {
   active: boolean
   /** Preferred element to focus when the trap activates. Falls back to the first focusable element. */
   initialFocusRef?: RefObject<HTMLElement | null>
+  /**
+   * Called on deactivation with the element that was focused just before
+   * activation (or null). Does not focus it directly: the caller may need
+   * to defer that (e.g. until ModalStackContext has lifted `inert` from the
+   * background), so restoring focus is the caller's responsibility.
+   */
+  onDeactivate?: (previouslyFocused: HTMLElement | null) => void
 }
 
 /**
@@ -31,7 +38,7 @@ export interface UseFocusTrapOptions {
  * B). Does not itself manage a modal stack — see ModalStackContext for
  * multi-modal coordination.
  */
-export function useFocusTrap({ containerRef, active, initialFocusRef }: UseFocusTrapOptions): void {
+export function useFocusTrap({ containerRef, active, initialFocusRef, onDeactivate }: UseFocusTrapOptions): void {
   useEffect(() => {
     if (!active) return
     const container = containerRef.current
@@ -64,7 +71,7 @@ export function useFocusTrap({ containerRef, active, initialFocusRef }: UseFocus
     document.addEventListener('keydown', handleKeyDown)
     return () => {
       document.removeEventListener('keydown', handleKeyDown)
-      previouslyFocused?.focus()
+      onDeactivate?.(previouslyFocused)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active])
