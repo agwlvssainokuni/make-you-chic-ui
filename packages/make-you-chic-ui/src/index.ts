@@ -80,7 +80,14 @@ export type { TabsProps, TabItem } from './components/Tabs'
 export { Dropdown } from './components/Dropdown'
 export type { DropdownProps, MenuItem } from './components/Dropdown'
 export { AppShell, useAppShell } from './components/AppShell'
-export type { AppShellProps, AppShellNavItem, AppShellUser } from './components/AppShell'
+export type {
+  AppShellProps,
+  AppShellNavItem,
+  AppShellUser,
+  SidebarNavItem,
+  SidebarNavSection,
+  SidebarLabels,
+} from './components/AppShell'
 
 // Table (Unit 6)
 export { Table, DefaultCellEditor } from './components/Table'

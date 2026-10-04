@@ -32,7 +32,7 @@
   grid-area: sidebar;
   background: var(--color-sidebar-bg);
   padding: var(--space-4) var(--space-2);
-  overflow-y: auto;
+  overflow: hidden auto;
 }
 
 .mycui-sidebar-nav-list {
@@ -44,16 +44,66 @@
   gap: var(--space-1);
 }
 
-.mycui-sidebar-nav-link {
+.mycui-sidebar-nav-list-nested {
+  margin-top: var(--space-1);
+}
+
+.mycui-sidebar-section + .mycui-sidebar-section {
+  margin-top: var(--space-4);
+}
+
+.mycui-sidebar-section-heading {
+  margin: 0 0 var(--space-1);
+  padding: var(--space-2) var(--space-3);
+  font-family: var(--font-family-active);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-sidebar-text-muted);
+}
+
+.mycui-sidebar-nav-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-width: 0;
+  padding-left: calc(var(--space-2) + var(--sidebar-item-depth, 0) * var(--space-4));
+  border-radius: var(--radius-md);
+}
+
+.mycui-sidebar-nav-link,
+.mycui-sidebar-nav-label-static {
   display: flex;
   align-items: center;
   gap: var(--space-2);
+  min-width: 0;
+  flex: 1;
+  width: 100%;
   padding: var(--space-2) var(--space-3);
   border-radius: var(--radius-md);
-  color: var(--color-sidebar-text);
   text-decoration: none;
   font-family: var(--font-family-active);
   font-size: var(--font-size-sm);
+}
+
+.mycui-sidebar-nav-link {
+  background: none;
+  border: none;
+  color: var(--color-sidebar-text);
+  cursor: pointer;
+  text-align: left;
+}
+
+.mycui-sidebar-nav-label-static {
+  color: var(--color-sidebar-text-muted);
+  cursor: default;
+}
+
+.mycui-sidebar-nav-label {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .mycui-sidebar-nav-link:hover {
@@ -61,6 +111,33 @@
 }
 
 .mycui-sidebar-nav-link:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.mycui-sidebar-nav-link.current {
+  background: var(--color-sidebar-active-bg);
+  border-left: 3px solid var(--color-sidebar-active-border);
+  padding-left: calc(var(--space-3) - 3px);
+  font-weight: 600;
+}
+
+.mycui-sidebar-nav-toggle {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-1);
+  border-radius: var(--radius-sm);
+  color: var(--color-sidebar-text);
+  display: inline-flex;
+}
+
+.mycui-sidebar-nav-toggle:hover {
+  background: rgb(255 255 255 / 10%);
+}
+
+.mycui-sidebar-nav-toggle:focus-visible {
   outline: none;
   box-shadow: var(--focus-ring);
 }

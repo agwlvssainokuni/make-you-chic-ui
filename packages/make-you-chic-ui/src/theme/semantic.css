@@ -40,6 +40,13 @@
      audit, Tabs/Button follow-up). Same values as --color-primary-subtle-text
      but kept as a separate token since the background differs. */
   --color-primary-emphasis-text: var(--brand-700);
+
+  /* Sidebar current-item indicator (left border). --color-sidebar-bg is
+     always a dark gray (gray-900/-950) regardless of theme, so brand-400
+     (the lightest brand shade) clears the 3:1 non-text contrast minimum for
+     all 4 brands in both themes (WCAG AA contrast audit, Sidebar N-level
+     menu follow-up). */
+  --color-sidebar-active-border: var(--brand-400);
 }
 
 :root[data-brand='green'] {
@@ -48,6 +55,7 @@
   --brand-600: var(--green-brand-600);
   --brand-700: var(--green-brand-700);
   --color-primary-text: var(--gray-900);
+  --color-sidebar-active-border: var(--brand-400);
 }
 
 :root[data-brand='purple'] {
@@ -56,6 +64,7 @@
   --brand-600: var(--purple-600);
   --brand-700: var(--purple-700);
   --color-primary-text: #fff;
+  --color-sidebar-active-border: var(--brand-400);
 }
 
 :root[data-brand='orange'] {
@@ -64,6 +73,7 @@
   --brand-600: var(--orange-600);
   --brand-700: var(--orange-700);
   --color-primary-text: var(--gray-900);
+  --color-sidebar-active-border: var(--brand-400);
 }
 
 /* ---- Theme axis (data-theme): default = light ---- */
@@ -91,6 +101,20 @@
   --color-bg: #fafafa;
   --color-sidebar-bg: var(--gray-900);
   --color-sidebar-text: var(--gray-100);
+
+  /* Sidebar current-item row background. A white tint over the (always
+     dark) sidebar background, same simulated-blend approach as
+     --color-primary-subtle. --color-sidebar-text keeps ~10.6:1 (light) /
+     ~11.9:1 (dark) contrast against it, far above AA, so no separate
+     current-item text token is needed (WCAG AA contrast audit, Sidebar
+     N-level menu follow-up). */
+  --color-sidebar-active-bg: color-mix(in srgb, #fff 14%, var(--color-sidebar-bg));
+
+  /* De-emphasized sidebar text (section headings, href-less group labels).
+     60% of --color-sidebar-text blended into --color-sidebar-bg keeps
+     ~6.5:1 (light) / ~6.7:1 (dark) contrast, comfortably above AA (WCAG AA
+     contrast audit, Sidebar N-level menu follow-up). */
+  --color-sidebar-text-muted: color-mix(in srgb, var(--color-sidebar-text) 60%, var(--color-sidebar-bg));
   --color-overlay: rgb(0 0 0 / 40%);
   --color-tooltip-bg: var(--gray-900);
   --color-tooltip-text: #fff;

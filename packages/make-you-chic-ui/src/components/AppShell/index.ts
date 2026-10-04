@@ -14,5 +14,12 @@
  * limitations under the License.
  */
 export { AppShell } from './AppShell'
-export type { AppShellProps, AppShellNavItem, AppShellUser } from './AppShell'
+export type {
+  AppShellProps,
+  AppShellNavItem,
+  AppShellUser,
+  SidebarNavItem,
+  SidebarNavSection,
+  SidebarLabels,
+} from './AppShell'
 export { useAppShell } from './AppShellContext'

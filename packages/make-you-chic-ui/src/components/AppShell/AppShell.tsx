@@ -21,14 +21,23 @@ import {
   APPSHELL_COLLAPSED_STORAGE_KEY,
   type AppShellContextValue,
 } from './AppShellContext'
-import { Sidebar, type AppShellNavItem } from './Sidebar'
+import { Sidebar, type AppShellNavItem, type SidebarNavSection, type SidebarLabels } from './Sidebar'
 import { Topbar, type AppShellUser } from './Topbar'
 import type { MenuItem } from '../Dropdown'
 
-export type { AppShellNavItem, AppShellUser }
+export type { AppShellNavItem, SidebarNavItem, SidebarNavSection, SidebarLabels } from './Sidebar'
+export type { AppShellUser } from './Topbar'
 
 export interface AppShellProps {
-  navItems: AppShellNavItem[]
+  /** Flat nav list (legacy shape, kept working as-is). Ignored when navSections is provided. */
+  navItems?: AppShellNavItem[]
+  /** Nested nav list grouped into headed sections (Sidebar N-level menu). Takes priority over navItems when provided. */
+  navSections?: SidebarNavSection[]
+  /** Controlled set of expanded group ids (navSections only). Omit for internally-managed (uncontrolled) expand state. */
+  navExpandedIds?: Set<string>
+  onNavExpandedChange?: (ids: Set<string>) => void
+  /** Overrides for the Sidebar's user-facing strings, e.g. for localization. */
+  navLabels?: Partial<SidebarLabels>
   user?: AppShellUser
   /** Menu shown when the user avatar is clicked. Omit for a display-only avatar. */
   userMenuItems?: MenuItem[]
@@ -53,6 +62,10 @@ function readInitialCollapsed(): boolean {
  */
 export function AppShell({
   navItems,
+  navSections,
+  navExpandedIds,
+  onNavExpandedChange,
+  navLabels,
   user,
   userMenuItems,
   topbarStart,
@@ -85,7 +98,13 @@ export function AppShell({
         className={collapsed ? 'mycui-app-shell collapsed' : 'mycui-app-shell'}
         data-testid="app-shell"
       >
-        <Sidebar navItems={navItems} />
+        <Sidebar
+          navItems={navItems}
+          navSections={navSections}
+          expandedIds={navExpandedIds}
+          onExpandedChange={onNavExpandedChange}
+          labels={navLabels}
+        />
         <Topbar
           user={user}
           userMenuItems={userMenuItems}

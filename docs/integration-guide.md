@@ -188,6 +188,50 @@ import { Button, FormField, TextInput, Table, AppShell } from '<パッケージ�
 
 > **注記**: `AppShell`は通知アイコン等の既製品は持ちません(Unit 5 Functional Designで廃止)。ただし`topbarStart`(Topbar左寄せ領域、折り畳みボタンの右)/`topbarEnd`(Topbar右寄せ領域、ユーザーメニューの手前)の2つの拡張ポイントに任意の`ReactNode`を渡せます。通知アイコン等が必要な場合は、`Badge`/`Icon`/`Button`を組み合わせて`topbarEnd`に渡してください。
 
+#### サイドバーのN階層メニュー(`navSections`)
+
+平らな一覧(`navItems`)の代わりに、見出しで束ねた入れ子のメニュー(`navSections`)を渡せます。両方指定した場合は`navSections`が優先されます(`navItems`のみを渡す従来の使い方はそのまま動作します)。
+
+```tsx
+<AppShell
+  navSections={[
+    {
+      id: 'business',
+      heading: '業務',
+      items: [
+        {
+          id: 'users',
+          label: '利用者の管理',
+          icon: 'user',
+          current: location.pathname.startsWith('/users'),
+          children: [
+            { id: 'users-list', label: '一覧', href: '/users' },
+            { id: 'users-roles', label: 'ロール', href: '/users/roles' },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'admin',
+      heading: '管理',
+      items: [{ id: 'admin-dsl', label: 'DSL', icon: 'edit', href: '/admin/dsl' }],
+    },
+  ]}
+  navExpandedIds={expandedIds}
+  onNavExpandedChange={setExpandedIds}
+  navLabels={{ navigationLabel: 'Main navigation' }} // 言語切り替え時など、未指定の項目は既定の日本語文言のまま
+  user={{ name: currentUser.name }}
+>
+  {/* ... */}
+</AppShell>
+```
+
+- 各項目の`id`は`expandedIds`・Reactキーに使う安定識別子です(`href`は無くてもよいため必須)。深さの上限は設けていません。
+- `current`は呼び出し側(ルーティング)が都度渡します。`aria-current="page"`に加え、色以外の表現(太字・左線)でも示されます。
+- `href`の無い項目(「移れないまとまり」)は押せない文字として表示され、開閉ボタンだけが操作できます。
+- `navExpandedIds`/`onNavExpandedChange`を省略すると、展開状態は内部で管理されます(画面遷移をまたいで保持したい場合や、現在地の祖先を自動展開したい場合は制御してください)。
+- 畳んだ状態(アイコンのみ)では第1階層のアイコンだけが表示され、まとまりを選ぶとサイドバーが開いてそのまとまりが展開されます。
+
 **ログイン画面等、AppShellと異なるレイアウトが必要な画面がある場合**は、react-routerの「レイアウトルート」パターン(`path`なしの`<Route>`が`<Outlet/>`を描画し、ネストした子ルートだけがそのレイアウトを継承する)で分離してください。`packages/sample-app/src/App.tsx`の`AppShellLayout`/`LoginPage`が実装例です。
 
 ```tsx

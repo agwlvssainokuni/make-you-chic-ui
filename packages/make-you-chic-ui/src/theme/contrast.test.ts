@@ -40,7 +40,12 @@ const BRANDS = {
   orange: { 500: '#ea580c', 600: '#c2410c', 700: '#9a3412', 400: '#fb923c' },
 } as const
 
+const SIDEBAR_BG_LIGHT = GRAY_900
+const SIDEBAR_BG_DARK = COLOR_BG_DARK // --gray-950, reused as --color-sidebar-bg in dark theme
+const GRAY_100 = '#f3f4f6'
+
 const AA_TEXT = 4.5
+const AA_NON_TEXT = 3
 
 describe('candidate 1: --color-primary-text on --color-primary (Button/Badge primary)', () => {
   it.each([
@@ -109,5 +114,39 @@ describe('additional finding: --color-primary-hover-text on --color-primary-hove
 
   it.each(Object.entries(BRANDS))('%s active meets AA', (_brand, shades) => {
     expect(contrastRatio(shades[700], WHITE)).toBeGreaterThanOrEqual(AA_TEXT)
+  })
+})
+
+describe('Sidebar N-level menu: --color-sidebar-active-border (brand-400) on --color-sidebar-bg (current-item indicator, non-text 3:1)', () => {
+  it.each(Object.entries(BRANDS))('%s / light meets 3:1', (_brand, shades) => {
+    expect(contrastRatio(SIDEBAR_BG_LIGHT, shades[400])).toBeGreaterThanOrEqual(AA_NON_TEXT)
+  })
+
+  it.each(Object.entries(BRANDS))('%s / dark meets 3:1', (_brand, shades) => {
+    expect(contrastRatio(SIDEBAR_BG_DARK, shades[400])).toBeGreaterThanOrEqual(AA_NON_TEXT)
+  })
+})
+
+describe('Sidebar N-level menu: --color-sidebar-text on --color-sidebar-active-bg (current-item row)', () => {
+  it('light meets AA', () => {
+    const background = mixSrgb(WHITE, 14, SIDEBAR_BG_LIGHT)
+    expect(contrastRatio(background, GRAY_100)).toBeGreaterThanOrEqual(AA_TEXT)
+  })
+
+  it('dark meets AA', () => {
+    const background = mixSrgb(WHITE, 14, SIDEBAR_BG_DARK)
+    expect(contrastRatio(background, GRAY_100)).toBeGreaterThanOrEqual(AA_TEXT)
+  })
+})
+
+describe('Sidebar N-level menu: --color-sidebar-text-muted on --color-sidebar-bg (section heading / href-less group label)', () => {
+  it('light meets AA', () => {
+    const textColor = mixSrgb(GRAY_100, 60, SIDEBAR_BG_LIGHT)
+    expect(contrastRatio(SIDEBAR_BG_LIGHT, textColor)).toBeGreaterThanOrEqual(AA_TEXT)
+  })
+
+  it('dark meets AA', () => {
+    const textColor = mixSrgb(GRAY_100, 60, SIDEBAR_BG_DARK)
+    expect(contrastRatio(SIDEBAR_BG_DARK, textColor)).toBeGreaterThanOrEqual(AA_TEXT)
   })
 })
