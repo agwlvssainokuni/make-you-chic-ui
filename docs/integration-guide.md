@@ -230,7 +230,22 @@ import { Button, FormField, TextInput, Table, AppShell } from '<パッケージ�
 - `current`は呼び出し側(ルーティング)が都度渡します。`aria-current="page"`に加え、色以外の表現(太字・左線)でも示されます。
 - `href`の無い項目(「移れないまとまり」)は押せない文字として表示され、開閉ボタンだけが操作できます。
 - `navExpandedIds`/`onNavExpandedChange`を省略すると、展開状態は内部で管理されます(画面遷移をまたいで保持したい場合や、現在地の祖先を自動展開したい場合は制御してください)。
-- 畳んだ状態(アイコンのみ)では第1階層のアイコンだけが表示され、まとまりを選ぶとサイドバーが開いてそのまとまりが展開されます。
+- 畳んだ状態(アイコンのみ)では第1階層のアイコンだけが表示され、まとまりを選ぶとサイドバーが開いてそのまとまりが展開されます。畳んだ状態で、現在の項目が子孫にある1段目のまとまりには、開いた状態の`current`と同じ左線の印が付き、アクセシブルネームにも`SidebarLabels.containsCurrent`(既定: `` `${label}(現在のページを含む)` ``)が反映されます。
+- トップバーの畳むボタン・ユーザーメニュートリガーの文言は`topbarLabels`(`AppShellProps`、`expandSidebar`/`collapseSidebar`/`userMenu(name)`)で渡せます。未指定の項目は`navLabels`と同じく既定の日本語文言のままです。
+
+```tsx
+<AppShell
+  navSections={sections}
+  topbarLabels={{
+    expandSidebar: 'Expand sidebar',
+    collapseSidebar: 'Collapse sidebar',
+    userMenu: (name) => `${name}'s menu`,
+  }}
+  user={{ name: currentUser.name }}
+>
+  {/* ... */}
+</AppShell>
+```
 
 **ログイン画面等、AppShellと異なるレイアウトが必要な画面がある場合**は、react-routerの「レイアウトルート」パターン(`path`なしの`<Route>`が`<Outlet/>`を描画し、ネストした子ルートだけがそのレイアウトを継承する)で分離してください。`packages/sample-app/src/App.tsx`の`AppShellLayout`/`LoginPage`が実装例です。
 
@@ -255,6 +270,16 @@ import { Button, FormField, TextInput, Table, AppShell } from '<パッケージ�
     { label: '管理者の印を外す', disabled: true, description: '自分自身の印は外せません' },
     { label: 'ロックを解除', onClick: openResetDialog },
   ]}
+/>
+```
+
+一覧(`.mycui-dropdown-menu`)は既定で画面の幅から左右`var(--space-4)`ずつを引いた値を`max-width`とし、項目名が長い場合は折り返します。位置の計算(`computeFloatingPosition`、`Tooltip`と共通)も、反対側へのフリップ後になお画面からはみ出す場合は画面内へ詰め直すため、375px幅の狭い画面でも横スクロールは発生しません。既定の余白・上限を変えたい場合は`menuClassName`/`menuStyle`で一覧の要素に直接スタイルを足せます(アプリ側で内部のクラス名に頼った上書きをする必要はありません)。
+
+```tsx
+<Dropdown
+  trigger={<Button variant="secondary" size="sm">作業ロール</Button>}
+  items={roleItems}
+  menuStyle={{ maxWidth: 320 }}
 />
 ```
 

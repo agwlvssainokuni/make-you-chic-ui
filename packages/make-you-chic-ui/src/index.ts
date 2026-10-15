@@ -87,6 +87,7 @@ export type {
   SidebarNavItem,
   SidebarNavSection,
   SidebarLabels,
+  TopbarLabels,
 } from './components/AppShell'
 
 // Table (Unit 6)

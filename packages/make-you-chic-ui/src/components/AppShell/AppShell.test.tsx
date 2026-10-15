@@ -343,5 +343,40 @@ describe('AppShell', () => {
       expect(screen.getByTestId('app-shell')).not.toHaveClass('collapsed')
       expect(screen.getByTestId('sidebar-nav-users-list')).toBeInTheDocument()
     })
+
+    it('marks a collapsed top-level group as containing the current page, via class and accessible name', async () => {
+      render(
+        <AppShell navSections={sections}>
+          <p>本文</p>
+        </AppShell>,
+      )
+      await userEvent.click(screen.getByTestId('sidebar-toggle'))
+      const usersButton = screen.getByTestId('sidebar-nav-users')
+      expect(usersButton).toHaveClass('contains-current')
+      expect(usersButton).toHaveAccessibleName('利用者(現在のページを含む)')
+
+      // admin-dsl has no children and isn't current, so it gets neither.
+      const adminButton = screen.getByTestId('sidebar-nav-admin-dsl')
+      expect(adminButton).not.toHaveClass('contains-current')
+    })
+  })
+
+  it('supports English labels via topbarLabels, for the sidebar toggle and user menu trigger', () => {
+    render(
+      <AppShell
+        navItems={navItems}
+        user={{ name: '山田 太郎' }}
+        userMenuItems={[{ label: 'Log out', onClick: () => {} }]}
+        topbarLabels={{
+          collapseSidebar: 'Collapse sidebar',
+          expandSidebar: 'Expand sidebar',
+          userMenu: (name) => `${name}'s menu`,
+        }}
+      >
+        <p>本文</p>
+      </AppShell>,
+    )
+    expect(screen.getByTestId('sidebar-toggle')).toHaveAccessibleName('Collapse sidebar')
+    expect(screen.getByTestId('dropdown-trigger')).toHaveAccessibleName('山田 太郎\'s menu')
   })
 })

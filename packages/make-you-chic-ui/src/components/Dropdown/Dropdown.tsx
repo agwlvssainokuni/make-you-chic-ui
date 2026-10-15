@@ -45,6 +45,10 @@ export interface DropdownProps {
   items: MenuItem[]
   /** @default 'bottom-start' */
   placement?: 'bottom-start' | 'bottom-end'
+  /** Merged onto the menu element's className, e.g. to override its default max-width/margin. */
+  menuClassName?: string
+  /** Merged onto the menu element's inline style (after the computed position). */
+  menuStyle?: React.CSSProperties
 }
 
 /**
@@ -56,6 +60,8 @@ export function Dropdown({
   trigger,
   items,
   placement = 'bottom-start',
+  menuClassName,
+  menuStyle,
 }: DropdownProps): React.JSX.Element {
   const id = useId()
   const [open, setOpen] = useState(false)
@@ -146,8 +152,10 @@ export function Dropdown({
             role="menu"
             id={id}
             tabIndex={-1}
-            className="mycui-dropdown-menu"
-            style={{ top: position.top, left: position.left }}
+            className={
+              menuClassName ? `mycui-dropdown-menu ${menuClassName}` : 'mycui-dropdown-menu'
+            }
+            style={{ top: position.top, left: position.left, ...menuStyle }}
             onKeyDown={handleMenuKeyDown}
             data-testid="dropdown-menu"
           >

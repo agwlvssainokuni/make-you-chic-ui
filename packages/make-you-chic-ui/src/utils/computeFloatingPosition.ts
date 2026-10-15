@@ -84,10 +84,21 @@ function overflowsViewport(top: number, left: number, rect: DOMRect): boolean {
   )
 }
 
+const VIEWPORT_MARGIN_PX = 8
+
+/** Clamps `value` so that `value` and `value + size` both stay within `[margin, viewport - margin]`. */
+function clampAxis(value: number, size: number, viewport: number): number {
+  const max = Math.max(VIEWPORT_MARGIN_PX, viewport - size - VIEWPORT_MARGIN_PX)
+  return Math.min(Math.max(value, VIEWPORT_MARGIN_PX), max)
+}
+
 /**
  * Computes viewport-fixed { top, left } for a floating element anchored to
  * `triggerRect`, flipping once to the opposite side if the initial
- * placement would overflow the viewport.
+ * placement would overflow the viewport, then clamping the result into the
+ * viewport (minus a small margin) in case the flip alone isn't enough —
+ * e.g. a wide menu near a screen edge (WCAG follow-up: Dropdown menu
+ * overflow).
  */
 export function computeFloatingPosition(
   triggerRect: DOMRect,
@@ -95,8 +106,11 @@ export function computeFloatingPosition(
   placement: FloatingPlacement,
 ): { top: number; left: number } {
   const initial = computeForPlacement(triggerRect, floatingRect, placement)
-  if (!overflowsViewport(initial.top, initial.left, floatingRect)) {
-    return initial
+  const resolved = overflowsViewport(initial.top, initial.left, floatingRect)
+    ? computeForPlacement(triggerRect, floatingRect, OPPOSITE[placement])
+    : initial
+  return {
+    top: clampAxis(resolved.top, floatingRect.height, window.innerHeight),
+    left: clampAxis(resolved.left, floatingRect.width, window.innerWidth),
   }
-  return computeForPlacement(triggerRect, floatingRect, OPPOSITE[placement])
 }

@@ -24,6 +24,18 @@ export interface AppShellUser {
   avatarSrc?: string
 }
 
+export interface TopbarLabels {
+  expandSidebar: string
+  collapseSidebar: string
+  userMenu: (name: string) => string
+}
+
+const DEFAULT_TOPBAR_LABELS: TopbarLabels = {
+  expandSidebar: 'サイドバーを開く',
+  collapseSidebar: 'サイドバーを折り畳む',
+  userMenu: (name) => `${name}のメニュー`,
+}
+
 export interface TopbarProps {
   user?: AppShellUser
   userMenuItems?: MenuItem[]
@@ -31,6 +43,8 @@ export interface TopbarProps {
   topbarStart?: ReactNode
   /** Rendered right-aligned, before the user menu. */
   topbarEnd?: ReactNode
+  /** Overrides for user-facing strings, e.g. for localization. */
+  labels?: Partial<TopbarLabels>
 }
 
 /**
@@ -42,8 +56,10 @@ export function Topbar({
   userMenuItems,
   topbarStart,
   topbarEnd,
+  labels,
 }: TopbarProps): React.JSX.Element {
   const { toggleCollapsed, collapsed } = useAppShell()
+  const resolvedLabels: TopbarLabels = { ...DEFAULT_TOPBAR_LABELS, ...labels }
 
   return (
     <header className="mycui-topbar">
@@ -51,7 +67,7 @@ export function Topbar({
         type="button"
         className="mycui-topbar-collapse-button"
         onClick={toggleCollapsed}
-        aria-label={collapsed ? 'サイドバーを開く' : 'サイドバーを折り畳む'}
+        aria-label={collapsed ? resolvedLabels.expandSidebar : resolvedLabels.collapseSidebar}
         data-testid="sidebar-toggle"
       >
         <Icon name="menu" size={20} />
@@ -66,7 +82,7 @@ export function Topbar({
               <button
                 type="button"
                 className="mycui-topbar-user-trigger"
-                aria-label={`${user.name}のメニュー`}
+                aria-label={resolvedLabels.userMenu(user.name)}
               >
                 <Avatar name={user.name} src={user.avatarSrc} size="md" />
               </button>

@@ -55,12 +55,15 @@ export interface SidebarLabels {
   navigationLabel: string
   expandGroup: (label: string) => string
   collapseGroup: (label: string) => string
+  /** Accessible-name suffix for a collapsed top-level group whose current page is one of its (collapsed, hidden) descendants. */
+  containsCurrent: (label: string) => string
 }
 
 const DEFAULT_SIDEBAR_LABELS: SidebarLabels = {
   navigationLabel: 'メインナビゲーション',
   expandGroup: (label) => `${label}を開く`,
   collapseGroup: (label) => `${label}を閉じる`,
+  containsCurrent: (label) => `${label}(現在のページを含む)`,
 }
 
 export interface SidebarProps {
@@ -77,6 +80,11 @@ export interface SidebarProps {
 
 function hasChildren(item: SidebarNavItem): boolean {
   return Boolean(item.children && item.children.length > 0)
+}
+
+function containsCurrent(item: SidebarNavItem): boolean {
+  if (item.current) return true
+  return (item.children ?? []).some(containsCurrent)
 }
 
 /**
@@ -195,13 +203,22 @@ export function Sidebar({
 
     // A collapsed top-level group (with or without its own href): selecting
     // it opens the sidebar and expands the group, rather than navigating
-    // away, so its children become reachable (requirements.md 3.8).
+    // away, so its children become reachable (requirements.md 3.8). When
+    // the current page is among its (collapsed, hidden) descendants, show
+    // the same non-color indicator as an actual current item, since there
+    // is otherwise no way to tell from the collapsed rail alone.
+    const showsContainsCurrent = itemHasChildren && containsCurrent(item)
+
     return (
       <li key={item.id}>
         <button
           type="button"
-          className="mycui-sidebar-nav-link"
-          aria-label={item.label}
+          className={
+            showsContainsCurrent
+              ? 'mycui-sidebar-nav-link contains-current'
+              : 'mycui-sidebar-nav-link'
+          }
+          aria-label={showsContainsCurrent ? resolvedLabels.containsCurrent(item.label) : item.label}
           title={item.label}
           onClick={() => {
             setCollapsed(false)

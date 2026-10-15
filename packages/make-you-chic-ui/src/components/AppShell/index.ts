@@ -21,5 +21,6 @@ export type {
   SidebarNavItem,
   SidebarNavSection,
   SidebarLabels,
+  TopbarLabels,
 } from './AppShell'
 export { useAppShell } from './AppShellContext'

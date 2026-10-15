@@ -22,11 +22,11 @@ import {
   type AppShellContextValue,
 } from './AppShellContext'
 import { Sidebar, type AppShellNavItem, type SidebarNavSection, type SidebarLabels } from './Sidebar'
-import { Topbar, type AppShellUser } from './Topbar'
+import { Topbar, type AppShellUser, type TopbarLabels } from './Topbar'
 import type { MenuItem } from '../Dropdown'
 
 export type { AppShellNavItem, SidebarNavItem, SidebarNavSection, SidebarLabels } from './Sidebar'
-export type { AppShellUser } from './Topbar'
+export type { AppShellUser, TopbarLabels } from './Topbar'
 
 export interface AppShellProps {
   /** Flat nav list (legacy shape, kept working as-is). Ignored when navSections is provided. */
@@ -45,6 +45,8 @@ export interface AppShellProps {
   topbarStart?: ReactNode
   /** Rendered in the topbar, right-aligned, before the user menu. */
   topbarEnd?: ReactNode
+  /** Overrides for the Topbar's user-facing strings, e.g. for localization. */
+  topbarLabels?: Partial<TopbarLabels>
   /** Main content, rendered in the content area. */
   children: ReactNode
 }
@@ -70,6 +72,7 @@ export function AppShell({
   userMenuItems,
   topbarStart,
   topbarEnd,
+  topbarLabels,
   children,
 }: AppShellProps): React.JSX.Element {
   const [collapsed, setCollapsedState] = useState<boolean>(readInitialCollapsed)
@@ -110,6 +113,7 @@ export function AppShell({
           userMenuItems={userMenuItems}
           topbarStart={topbarStart}
           topbarEnd={topbarEnd}
+          labels={topbarLabels}
         />
         <main className="mycui-app-shell-content" data-testid="app-shell-content">
           {children}

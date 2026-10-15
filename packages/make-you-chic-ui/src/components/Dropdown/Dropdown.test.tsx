@@ -126,6 +126,22 @@ describe('Dropdown', () => {
     expect(onClick).toHaveBeenCalledTimes(1)
   })
 
+  it('merges menuClassName and menuStyle onto the menu element', async () => {
+    render(
+      <Dropdown
+        trigger={<button>メニュー</button>}
+        items={items}
+        menuClassName="custom-menu"
+        menuStyle={{ maxWidth: 240 }}
+      />,
+    )
+    await userEvent.click(screen.getByTestId('dropdown-trigger'))
+    const menu = screen.getByTestId('dropdown-menu')
+    expect(menu).toHaveClass('mycui-dropdown-menu')
+    expect(menu).toHaveClass('custom-menu')
+    expect(menu).toHaveStyle({ maxWidth: '240px' })
+  })
+
   it('has no detectable accessibility violations while open', async () => {
     render(<Dropdown trigger={<button>メニュー</button>} items={items} />)
     await userEvent.click(screen.getByTestId('dropdown-trigger'))

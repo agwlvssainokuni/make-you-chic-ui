@@ -115,7 +115,8 @@
   box-shadow: var(--focus-ring);
 }
 
-.mycui-sidebar-nav-link.current {
+.mycui-sidebar-nav-link.current,
+.mycui-sidebar-nav-link.contains-current {
   background: var(--color-sidebar-active-bg);
   border-left: 3px solid var(--color-sidebar-active-border);
   padding-left: calc(var(--space-3) - 3px);
