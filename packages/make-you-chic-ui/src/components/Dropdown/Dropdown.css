@@ -29,29 +29,48 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  text-align: left;
-  background: none;
-  border: none;
   padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
   font-family: var(--font-family-active);
   font-size: var(--font-size-sm);
-  color: var(--color-text);
-  border-radius: var(--radius-sm);
   cursor: pointer;
 }
 
-.mycui-dropdown-item:hover:not([aria-disabled='true']),
-.mycui-dropdown-item:focus-visible:not([aria-disabled='true']) {
+.mycui-dropdown-item:hover:not([data-disabled='true']),
+.mycui-dropdown-item:focus-within:not([data-disabled='true']) {
   background: var(--color-surface-hover);
-  outline: none;
 }
 
-.mycui-dropdown-item[aria-disabled='true'] {
-  color: var(--color-text-muted);
+.mycui-dropdown-item[data-disabled='true'] {
   cursor: not-allowed;
 }
 
-.mycui-dropdown-item[aria-disabled='true']:focus-visible {
+/* The actual interactive menuitem (see Dropdown.tsx: the description is a
+   sibling, not a descendant, of this control). Visually unstyled beyond
+   what's needed to read as plain text within the row above. */
+.mycui-dropdown-item-control {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+  font: inherit;
+  color: var(--color-text);
+  text-decoration: none;
+  cursor: inherit;
+}
+
+.mycui-dropdown-item-control:focus-visible {
+  outline: none;
+}
+
+.mycui-dropdown-item-control[aria-disabled='true'] {
+  color: var(--color-text-muted);
+}
+
+.mycui-dropdown-item-control[aria-disabled='true']:focus-visible {
   outline: none;
   box-shadow: var(--focus-ring);
 }

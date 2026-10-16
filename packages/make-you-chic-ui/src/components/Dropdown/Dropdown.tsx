@@ -170,23 +170,31 @@ export function Dropdown({
               }
               const labelId = `${id}-item-${index}-label`
               const descriptionId = item.description !== undefined ? `${id}-item-${index}-desc` : undefined
-              const content = (
-                <>
-                  <span className="mycui-dropdown-item-label" id={labelId}>
-                    {item.label}
-                  </span>
-                  {item.description !== undefined && (
-                    <span className="mycui-dropdown-item-description" id={descriptionId}>
-                      {item.description}
-                    </span>
-                  )}
-                </>
+              const label = (
+                <span className="mycui-dropdown-item-label" id={labelId}>
+                  {item.label}
+                </span>
               )
 
-              if (item.href !== undefined) {
-                return (
+              // The description is rendered as a SIBLING of the menuitem
+              // control, not a descendant: axe-core's
+              // label-content-name-mismatch check (WCAG 2.5.3, default-on
+              // from axe-core 4.14) compares an element's visible text
+              // content against its accessible name, and aria-hidden has no
+              // effect on that comparison (it only looks at CSS-based
+              // visibility). Keeping the description inside the control
+              // while aria-labelledby scopes the name to the label alone
+              // (added to fix a double-announcement bug) would make the
+              // visible text ("label + description") mismatch the name
+              // ("label" only). aria-describedby still links it as the
+              // description regardless of DOM position, since it resolves
+              // by id, not containment. The wrapping element below only
+              // supplies the shared visual styling (background/padding) so
+              // the row still looks like one item; activation stays on the
+              // control itself, as before.
+              const control =
+                item.href !== undefined ? (
                   <a
-                    key={item.label}
                     ref={itemRef}
                     href={item.disabled ? undefined : item.href}
                     role="menuitem"
@@ -194,7 +202,7 @@ export function Dropdown({
                     aria-disabled={item.disabled || undefined}
                     aria-labelledby={labelId}
                     aria-describedby={descriptionId}
-                    className="mycui-dropdown-item"
+                    className="mycui-dropdown-item-control"
                     onClick={handleActivate}
                     onKeyDown={(e) => {
                       // Native <a> elements activate on Enter but not
@@ -206,27 +214,34 @@ export function Dropdown({
                     }}
                     data-testid={`dropdown-item-${index}`}
                   >
-                    {content}
+                    {label}
                   </a>
+                ) : (
+                  <button
+                    ref={itemRef}
+                    type="button"
+                    role="menuitem"
+                    tabIndex={-1}
+                    aria-disabled={item.disabled || undefined}
+                    aria-labelledby={labelId}
+                    aria-describedby={descriptionId}
+                    className="mycui-dropdown-item-control"
+                    onClick={handleActivate}
+                    data-testid={`dropdown-item-${index}`}
+                  >
+                    {label}
+                  </button>
                 )
-              }
 
               return (
-                <button
-                  key={item.label}
-                  ref={itemRef}
-                  type="button"
-                  role="menuitem"
-                  tabIndex={-1}
-                  aria-disabled={item.disabled || undefined}
-                  aria-labelledby={labelId}
-                  aria-describedby={descriptionId}
-                  className="mycui-dropdown-item"
-                  onClick={handleActivate}
-                  data-testid={`dropdown-item-${index}`}
-                >
-                  {content}
-                </button>
+                <div key={item.label} className="mycui-dropdown-item" data-disabled={item.disabled || undefined}>
+                  {control}
+                  {item.description !== undefined && (
+                    <span className="mycui-dropdown-item-description" id={descriptionId}>
+                      {item.description}
+                    </span>
+                  )}
+                </div>
               )
             })}
           </div>,

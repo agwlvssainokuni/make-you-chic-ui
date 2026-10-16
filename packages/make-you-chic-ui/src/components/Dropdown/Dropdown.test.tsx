@@ -247,4 +247,47 @@ describe('Dropdown', () => {
     await userEvent.click(screen.getByTestId('dropdown-trigger'))
     expect(await axe(document.body, { rules: { region: { enabled: false } } })).toHaveNoViolations()
   })
+
+  it('renders the description outside the menuitem control (sibling, not descendant)', async () => {
+    render(
+      <Dropdown
+        trigger={<button>メニュー</button>}
+        items={[{ label: '削除', disabled: true, description: '自分自身は削除できません' }]}
+      />,
+    )
+    await userEvent.click(screen.getByTestId('dropdown-trigger'))
+    const item = screen.getByTestId('dropdown-item-0')
+    expect(item).not.toHaveTextContent('自分自身は削除できません')
+    const describedBy = item.getAttribute('aria-describedby')
+    const description = document.getElementById(describedBy ?? '')
+    expect(description).not.toBeNull()
+    expect(item.contains(description)).toBe(false)
+  })
+
+  it('still activates on selection when an item with a description is clicked', async () => {
+    const onClick = vi.fn()
+    render(
+      <Dropdown
+        trigger={<button>メニュー</button>}
+        items={[{ label: '編集', onClick, description: '内容を編集します' }]}
+      />,
+    )
+    await userEvent.click(screen.getByTestId('dropdown-trigger'))
+    await userEvent.click(screen.getByTestId('dropdown-item-0'))
+    expect(onClick).toHaveBeenCalledTimes(1)
+    expect(screen.queryByRole('menu')).not.toBeInTheDocument()
+  })
+
+  // axe-core's label-content-name-mismatch check (WCAG 2.5.3) is
+  // experimental in the installed axe-core version and becomes default-on
+  // from axe-core 4.14. It can't be meaningfully unit-tested here: its
+  // evaluate function calls HTMLCanvasElement.getContext() (to detect icon
+  // ligatures), which jsdom doesn't implement, so it always reports
+  // "incomplete" rather than a real pass/fail in this environment (verified
+  // directly: forcing the rule to run via runOnly reports status
+  // "incomplete" with a canvas TypeError, for both the old and new
+  // structure — never a real pass/fail either way). The structural test
+  // above (description is a sibling, not a descendant, of the menuitem) is
+  // what actually guards this regression; the rule itself was verified
+  // against a real browser instead.
 })
