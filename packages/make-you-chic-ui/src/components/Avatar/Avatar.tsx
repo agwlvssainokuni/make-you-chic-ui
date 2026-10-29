@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import './Avatar.css'
-import { forwardRef, useEffect, useState } from 'react'
+import { forwardRef, useState } from 'react'
 
 export interface AvatarProps {
   /** Image URL. When omitted or failing to load, initials derived from `name` are shown. */
@@ -42,11 +42,16 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(function Avatar(
   ref,
 ) {
   const [imageError, setImageError] = useState(false)
+  const [prevSrc, setPrevSrc] = useState(src)
 
-  // Reset the error flag whenever the caller provides a new src.
-  useEffect(() => {
+  // Reset the error flag whenever the caller provides a new src. Adjusting
+  // state during render (rather than in a useEffect keyed on [src]) avoids
+  // an extra render showing the stale error state for one frame before the
+  // effect runs (react.dev: "Resetting state when a prop changes").
+  if (src !== prevSrc) {
+    setPrevSrc(src)
     setImageError(false)
-  }, [src])
+  }
 
   const classes = ['mycui-avatar', `size-${size}`, className].filter(Boolean).join(' ')
   const showImage = Boolean(src) && !imageError
