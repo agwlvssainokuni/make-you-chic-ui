@@ -100,6 +100,38 @@ describe('Tooltip', () => {
     expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
   })
 
+  it('cancels the pending show timer when unmounted right after mouseenter', () => {
+    const { unmount } = render(
+      <Tooltip content="削除します">
+        <button>削除</button>
+      </Tooltip>,
+    )
+    fireEvent.mouseEnter(screen.getByRole('button'))
+    unmount()
+    expect(vi.getTimerCount()).toBe(0)
+    expect(() => {
+      act(() => {
+        vi.advanceTimersByTime(300)
+      })
+    }).not.toThrow()
+  })
+
+  it('cancels the pending show timer when unmounted right after focus', () => {
+    const { unmount } = render(
+      <Tooltip content="削除します">
+        <button>削除</button>
+      </Tooltip>,
+    )
+    fireEvent.focus(screen.getByRole('button'))
+    unmount()
+    expect(vi.getTimerCount()).toBe(0)
+    expect(() => {
+      act(() => {
+        vi.advanceTimersByTime(300)
+      })
+    }).not.toThrow()
+  })
+
   it('sets aria-describedby on the trigger pointing at the tooltip id', () => {
     render(
       <Tooltip content="削除します">

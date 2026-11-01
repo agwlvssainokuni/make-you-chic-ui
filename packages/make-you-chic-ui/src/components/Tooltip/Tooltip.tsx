@@ -17,6 +17,7 @@ import './Tooltip.css'
 import {
   cloneElement,
   isValidElement,
+  useEffect,
   useId,
   useLayoutEffect,
   useRef,
@@ -61,6 +62,8 @@ export function Tooltip({ content, children, placement = 'top' }: TooltipProps):
     const tooltipRect = tooltipRef.current.getBoundingClientRect()
     setPosition(computeFloatingPosition(triggerRect, tooltipRect, placement))
   }, [visible, placement])
+
+  useEffect(() => () => window.clearTimeout(showTimeoutRef.current), [])
 
   function scheduleShow(): void {
     window.clearTimeout(showTimeoutRef.current)
