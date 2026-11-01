@@ -6,6 +6,9 @@
   "workspaces": [
     "packages/*"
   ],
+  "overrides": {
+    "minimatch": "^11.0.3"
+  },
   "scripts": {
     "dev": "npm run dev -w sample-app",
     "build": "npm run build -w make-you-chic-ui",
@@ -24,7 +27,7 @@
     "@types/node": "^26.6.6",
     "@typescript-eslint/parser": "^8.72.1",
     "@vitejs/plugin-react": "^6.1.2",
-    "eslint": "^10.13.0",
+    "eslint": "^10.14.0",
     "eslint-plugin-react-hooks": "^7.1.1",
     "jsdom": "^30.1.3",
     "oxlint": "^1.90.0",
