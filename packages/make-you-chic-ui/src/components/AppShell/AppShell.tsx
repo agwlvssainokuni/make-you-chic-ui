@@ -41,6 +41,8 @@ export interface AppShellProps {
   user?: AppShellUser
   /** Menu shown when the user avatar is clicked. Omit for a display-only avatar. */
   userMenuItems?: MenuItem[]
+  /** Rendered at the topbar's left edge, before the sidebar collapse button. Omitted when not provided. */
+  logo?: ReactNode
   /** Rendered in the topbar, left-aligned, after the sidebar collapse button. */
   topbarStart?: ReactNode
   /** Rendered in the topbar, right-aligned, before the user menu. */
@@ -70,6 +72,7 @@ export function AppShell({
   navLabels,
   user,
   userMenuItems,
+  logo,
   topbarStart,
   topbarEnd,
   topbarLabels,
@@ -109,6 +112,7 @@ export function AppShell({
           labels={navLabels}
         />
         <Topbar
+          logo={logo}
           user={user}
           userMenuItems={userMenuItems}
           topbarStart={topbarStart}

@@ -186,7 +186,7 @@ import { Button, FormField, TextInput, Table, AppShell } from '<パッケージ�
 </AppShell>
 ```
 
-> **注記**: `AppShell`は通知アイコン等の既製品は持ちません(Unit 5 Functional Designで廃止)。ただし`topbarStart`(Topbar左寄せ領域、折り畳みボタンの右)/`topbarEnd`(Topbar右寄せ領域、ユーザーメニューの手前)の2つの拡張ポイントに任意の`ReactNode`を渡せます。通知アイコン等が必要な場合は、`Badge`/`Icon`/`Button`を組み合わせて`topbarEnd`に渡してください。
+> **注記**: `AppShell`は通知アイコン等の既製品は持ちません(Unit 5 Functional Designで廃止)。ただし`logo`(Topbar左端、折り畳みボタンの左。未指定なら何も描画されず従来の見た目のまま)/`topbarStart`(Topbar左寄せ領域、折り畳みボタンの右)/`topbarEnd`(Topbar右寄せ領域、ユーザーメニューの手前)の3つの拡張ポイントに任意の`ReactNode`を渡せます。通知アイコン等が必要な場合は、`Badge`/`Icon`/`Button`を組み合わせて`topbarEnd`に渡してください。
 
 #### サイドバーのN階層メニュー(`navSections`)
 

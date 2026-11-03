@@ -249,6 +249,12 @@ export function CatalogPage(): React.JSX.Element {
           <Icon name="settings" />
           <Icon name="home" />
           <Icon name="list" />
+          <Icon name="mail" />
+          <Icon name="users" />
+          <Icon name="shield" />
+          <Icon name="table" />
+          <Icon name="view" />
+          <Icon name="folder" />
         </div>
         <Card>
           <p style={{ margin: 0 }}>Cardはコンテンツをグルーピングするコンテナです。</p>

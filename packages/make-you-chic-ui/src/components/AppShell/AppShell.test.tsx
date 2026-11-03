@@ -154,6 +154,33 @@ describe('AppShell', () => {
     )
   })
 
+  it('renders logo at the topbar left edge, before the collapse button', () => {
+    render(
+      <AppShell navItems={navItems} logo={<span data-testid="topbar-logo">MasterSmith</span>}>
+        <p>本文</p>
+      </AppShell>,
+    )
+    const topbar = screen.getByTestId('sidebar-toggle').closest('header')
+    const children = Array.from(topbar?.children ?? [])
+    const logo = screen.getByTestId('topbar-logo')
+    expect(children.indexOf(logo.parentElement as Element)).toBe(0)
+    expect(children.indexOf(logo.parentElement as Element)).toBeLessThan(
+      children.indexOf(screen.getByTestId('sidebar-toggle')),
+    )
+  })
+
+  it('renders no logo wrapper when logo is omitted', () => {
+    const { container } = render(
+      <AppShell navItems={navItems}>
+        <p>本文</p>
+      </AppShell>,
+    )
+    expect(container.querySelector('.mycui-topbar-logo')).toBeNull()
+    expect(screen.getByTestId('sidebar-toggle').closest('header')?.firstElementChild).toBe(
+      screen.getByTestId('sidebar-toggle'),
+    )
+  })
+
   it('has no detectable accessibility violations', async () => {
     const { container } = render(
       <AppShell navItems={navItems} user={{ name: '山田 太郎' }}>

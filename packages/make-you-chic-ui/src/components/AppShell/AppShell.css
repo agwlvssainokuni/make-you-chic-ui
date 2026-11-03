@@ -175,6 +175,12 @@
   box-shadow: var(--focus-ring);
 }
 
+.mycui-topbar-logo {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
 .mycui-topbar-spacer {
   flex: 1;
 }

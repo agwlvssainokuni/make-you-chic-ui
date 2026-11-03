@@ -37,6 +37,8 @@ const DEFAULT_TOPBAR_LABELS: TopbarLabels = {
 }
 
 export interface TopbarProps {
+  /** Rendered at the left edge, before the sidebar collapse button. Omitted when not provided. */
+  logo?: ReactNode
   user?: AppShellUser
   userMenuItems?: MenuItem[]
   /** Rendered left-aligned, after the sidebar collapse button. */
@@ -52,6 +54,7 @@ export interface TopbarProps {
  * Sidebar/Topbar are not standalone components). No breadcrumbs, per FR1.
  */
 export function Topbar({
+  logo,
   user,
   userMenuItems,
   topbarStart,
@@ -63,6 +66,7 @@ export function Topbar({
 
   return (
     <header className="mycui-topbar">
+      {logo && <div className="mycui-topbar-logo">{logo}</div>}
       <button
         type="button"
         className="mycui-topbar-collapse-button"

@@ -31,6 +31,14 @@ describe('Icon', () => {
     expect(svg).toHaveAttribute('height', '20')
   })
 
+  it.each(['mail', 'users', 'shield', 'table', 'view', 'folder'] as const)(
+    'renders the %s icon',
+    (name) => {
+      render(<Icon name={name} />)
+      expect(screen.getByTestId(`icon-${name}`)).toBeInTheDocument()
+    },
+  )
+
   it('applies a custom size', () => {
     render(<Icon name="bell" size={32} />)
     expect(screen.getByTestId('icon-bell')).toHaveAttribute('width', '32')
